@@ -1,0 +1,127 @@
+body {
+    background-color: #E6E6FA;
+}
+
+.header {
+	width: 100%;
+	background-color: #555555;
+	font-family: serif, Georgia, "Times New Roman", Times;
+	font-size: 350%;
+	text-align: center;
+	color: white;
+}
+
+
+ul {	
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #132020;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111111;
+}
+
+#lang {
+	width: 20%;
+	float: left;
+}
+
+#lang li {
+	float: right;
+}
+
+
+#menu {
+	width: 80%; 
+	float: left;
+}
+
+
+.actions{
+	padding-top: 50px;
+	height: 100%;
+  	width: 100%;
+	display: flex;
+}
+
+
+
+div div {
+	background-color: #bfbfbf;
+	width: 30%;
+	height: 400px;
+	line-height: 400px;
+	margin: 20px;
+	text-align: center;
+	vertical-align: middle;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 150%;
+}
+
+div a {
+    color: #1a1a1a;
+    text-shadow: 1px 1px #e6e6e6;
+    text-decoration: none;
+}
+
+
+select, input[type=text], input[type=password], [type=date] {
+    width: 100%;
+    padding: 10px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.container {
+    padding: 16px;
+    width: 30%;
+    margin: 2% 33%;
+    font-size: 90%;
+}
+
+.clearfix{
+	width: 20%;
+    margin: 1% 40%;	
+}
+
+button {
+    background-color: #4CAF50;
+    padding: 2px 20px;
+    margin: 2px 0;
+    border: none;
+    cursor: pointer;
+}
+
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #132020;
+    color: white;
+}
+
+.signupbtn {
+    padding: 14px 20px;
+    background-color: lightgray;
+    color: black;
+}
+
+.cancelbtn,.signupbtn {
+    float: left;
+    width: 50%;
+}
