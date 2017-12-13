@@ -8,8 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
 <body>
 <!-- <div class="header">Регистрация</div>  -->	
-	<form action="Controller" method="post">
-		<input type="hidden" name="command" value="registration" />
+	<form action="../Controller" method="post">
+		<input type="hidden" name="command" value="REGISTRATE" />
 		
 		<div class="container">
 		    <label><b>Фамилия</b></label>

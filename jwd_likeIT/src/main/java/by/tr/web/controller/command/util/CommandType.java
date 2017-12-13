@@ -2,6 +2,6 @@ package by.tr.web.controller.command.util;
 
 public enum CommandType {
 
-	SIGN_IN, REGISTRATE;
+	SIGN_IN, REGISTRATE, FIND_BY_LOGIN;
 	
 }

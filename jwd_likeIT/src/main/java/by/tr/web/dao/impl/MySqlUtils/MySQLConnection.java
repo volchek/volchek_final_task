@@ -9,21 +9,19 @@ public class MySQLConnection {
 	
 	// Later default values may be saved in xml file
 	private static final String HOST = "localhost";
-	private static final String DATABASE = "java_users";
+	private static final String DATABASE = "LikeIT";
 	private static final String USER_NAME = "root";
 	private static final String PASSWORD = "12345";
 	private static final String PORT = ":3306/";
 	private static final String PREFIX = "jdbc:mysql://";
 	private static final String DRIVER_CLASSNAME = "com.mysql.jdbc.Driver";
-
+	private static final String CONNECTION_URL = PREFIX + HOST + PORT + DATABASE;
 	
 	public static Connection getMySQLConnection() throws ClassNotFoundException, SQLException {
 	
 	Class.forName(DRIVER_CLASSNAME);
 		
-		String connectionURL = PREFIX + HOST + PORT + DATABASE;
-	
-		Connection connection = DriverManager.getConnection(connectionURL, USER_NAME, PASSWORD);
+		Connection connection = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PASSWORD);
 	
 		return connection;
 	}

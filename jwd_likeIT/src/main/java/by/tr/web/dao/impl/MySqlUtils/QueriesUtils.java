@@ -2,13 +2,15 @@ package by.tr.web.dao.impl.MySqlUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 import by.tr.web.entity.User;
 
 public interface QueriesUtils {
 
-	List<User> findUser(Connection conn, Map<String, String> userInfo) throws SQLException;	
+	void registrateUser(Connection conn, User user) throws SQLException;
 
+	User logIn(Connection conn, String login, String password) throws SQLException;
+	
+	User findUserByLogin(Connection conn, String login) throws SQLException;
+	
 }

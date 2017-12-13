@@ -9,23 +9,9 @@ public class User implements Serializable {
 
 	private String surname;
 	private String name;
-	private String phone;
-	private String email;
-
-	public static enum Fields {
-		// Later default values may be saved in xml file
-		SURNAME("surname"), NAME("name"), PHONE("phone"), EMAIL("email");
-		
-		String value;
-		
-		private Fields(String value){
-			this.value = value;
-		}
-		
-		public String getValue(){
-			return this.value;
-		}
-	}
+	private String status;
+	private String login;
+	private String password;
 	
 	
 	public User() {}
@@ -47,20 +33,28 @@ public class User implements Serializable {
 		return surname;
 	}
 	
-	public void setPhone(String phone){
-		this.phone = phone;
+	public void setLogin(String login){
+		this.login = login;
 	}
 	
-	public String getPhone(){
-		return phone;
+	public String getLogin(){
+		return login;
 	}
 	
-	public void setEmail(String email){
-		this.email = email;
+	public void setPassword(String password){
+		this.password = password;
 	}
 	
-	public String getEmail(){
-		return email;
+	public String getPassword(){
+		return password;
+	}
+	
+	public void setStatus(String status){
+		this.status = status;
+	}
+	
+	public String getStatus(){
+		return status;
 	}
 
 	
@@ -68,10 +62,11 @@ public class User implements Serializable {
 	public int hashCode() {
 
 		int result = 1;
-		result = PRIME * result + ((email == null) ? 0 : email.hashCode());
-		result = PRIME * result + ((name == null) ? 0 : name.hashCode());
-		result = PRIME * result + ((phone == null) ? 0 : phone.hashCode());
 		result = PRIME * result + ((surname == null) ? 0 : surname.hashCode());
+		result = PRIME * result + ((name == null) ? 0 : name.hashCode());
+		result = PRIME * result + ((login == null) ? 0 : login.hashCode());
+		result = PRIME * result + ((password == null) ? 0 : password.hashCode());
+		result = PRIME * result + ((status == null) ? 0 : status.hashCode());
 	
 		return result;
 	}
@@ -90,11 +85,11 @@ public class User implements Serializable {
 		}
 		
 		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null){
+		if (surname == null) {
+			if (other.surname != null){
 				return false;
 			}
-		} else if (!email.equals(other.email)){
+		} else if (!surname.equals(other.surname)){
 			return false;
 		}
 		if (name == null) {
@@ -104,21 +99,27 @@ public class User implements Serializable {
 		} else if (!name.equals(other.name)){
 			return false;
 		}
-		if (phone == null) {
-			if (other.phone != null){
+		if (login == null) {
+			if (other.login != null){
 				return false;
 			}
-		} else if (!phone.equals(other.phone)){
+		} else if (!login.equals(other.login)){
 			return false;
 		}
-		if (surname == null) {
-			if (other.surname != null){
+		if (password == null) {
+			if (other.password != null){
 				return false;
 			}
-		} else if (!surname.equals(other.surname)){
+		} else if (!password.equals(other.password)){
 			return false;
 		}
-		
+		if (status == null) {
+			if (other.status != null){
+				return false;
+			}
+		} else if (!status.equals(other.status)){
+			return false;
+		}
 		return true;
 	}
 	
@@ -127,8 +128,9 @@ public class User implements Serializable {
 	public String toString(){
 		return "User: " + "name=" + name +
 				"; surname=" + surname +
-				"; phone=" + phone +
-				"; email=" + email;
+				"; login=" + login +
+				"; password=" + password +
+				"; status=" + status;
 	}
 	
 }

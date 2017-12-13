@@ -1,11 +1,15 @@
 package by.tr.web.dao;
 
-import java.util.List;
-import java.util.Map;
 import by.tr.web.dao.exception.DaoException;
+import by.tr.web.entity.User;
+
 
 public interface UserDao {
 
-//	List<User> getUserInfo(Map<String, String> userInfo) throws DaoException;
+	void registrateUser(User user) throws DaoException;
+
+	User logIn(String login, String password) throws DaoException;
+	
+	User findUserByLogin(String login) throws DaoException;
 
 }

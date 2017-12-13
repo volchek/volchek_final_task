@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-	<h2>Sorry, there is no content.</h2>
+	<div class="error">Такой пользователь не зарегистрирован.</div>
 	<br><br>	
-    <a href="index.jsp">Choose another parser</a>
+    <a href="jsp/findUser.jsp" class="link">Найти другого пользователя</a>
 </body>
 </html>

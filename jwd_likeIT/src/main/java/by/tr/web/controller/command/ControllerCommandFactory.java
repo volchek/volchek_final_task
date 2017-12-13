@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import by.tr.web.controller.command.impl.SignIn;
+import by.tr.web.controller.command.impl.FindByLogin;
 import by.tr.web.controller.command.impl.Registrate;
 import by.tr.web.controller.command.util.CommandType;
 
@@ -17,6 +18,7 @@ public class ControllerCommandFactory {
 	{
 		commands.put(CommandType.SIGN_IN.name(), new SignIn());
 		commands.put(CommandType.REGISTRATE.name(), new Registrate());
+		commands.put(CommandType.FIND_BY_LOGIN.name(), new FindByLogin());
 	}
     
     

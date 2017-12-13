@@ -1,12 +1,12 @@
 package by.tr.web.service;
 
-import java.util.List;
 
 import by.tr.web.service.exception.ServiceException;
+import by.tr.web.entity.User;
 
 
 public interface UserService {
 
-//	List<CD> getCD(String parserName) throws ServiceException;	
+	User findUserByLogin(String login) throws ServiceException;	
 
 }

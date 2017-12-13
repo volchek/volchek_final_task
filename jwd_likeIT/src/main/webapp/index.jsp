@@ -24,8 +24,7 @@
 	<div class="actions">
 		<div class="question"><a href="#">Задать вопрос</a></div>
 		<div class="answers"><a href="#">Просмотреть ответы</a></div>
-		<div class="find"><a href="#">Найти участника сети</a></div>
+		<div class="find"><a href="jsp/findUser.jsp">Найти участника сети</a></div>
 	</div>
-	<input type="hidden" name="command" value="log" />
 </body>
 </html>
