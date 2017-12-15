@@ -15,6 +15,21 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override
+	public boolean registrate(User user) throws ServiceException{
+		
+		if (validateUser(user) == false){
+			throw new ServiceException("Incorrect input data");
+		}
+		
+		try {
+			return userDao.registrateUser(user);
+		} catch(DaoException ex){
+			throw new ServiceException("Can't registrate such user", ex);
+		}
+	}
+	
+	
+	@Override
 	public User findUserByLogin(String login) throws ServiceException {
 		
 		if (!validate(login)){
@@ -37,6 +52,24 @@ public class UserServiceImpl implements UserService {
 		if(login.isEmpty()){
 			return false;
 		}
+		return true;
+	}
+	
+	private static boolean validateUser(User user){
+
+		if (validate(user.getSurname()) == false){
+			return false;
+		}
+		else if(validate(user.getName()) == false){
+			return false;
+		}
+		else if(validate(user.getLogin()) == false){
+			return false;
+		}
+		else if(validate(user.getPassword()) == false){
+			return false;
+		}
+
 		return true;
 	}
 	

@@ -6,7 +6,7 @@ import by.tr.web.entity.User;
 
 public interface UserDao {
 
-	void registrateUser(User user) throws DaoException;
+	boolean registrateUser(User user) throws DaoException;
 
 	User logIn(String login, String password) throws DaoException;
 	

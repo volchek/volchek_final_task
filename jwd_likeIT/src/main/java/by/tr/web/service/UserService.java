@@ -8,5 +8,7 @@ import by.tr.web.entity.User;
 public interface UserService {
 
 	User findUserByLogin(String login) throws ServiceException;	
+	
+	boolean registrate(User user) throws ServiceException;
 
 }

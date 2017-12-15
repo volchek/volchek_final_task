@@ -12,10 +12,10 @@
 		<input type="hidden" name="command" value="REGISTRATE" />
 		
 		<div class="container">
-		    <label><b>Фамилия</b></label>
+		    <label><b>Фамилия*</b></label>
 		    <input type="text" name="surname" required>
 		
-		    <label><b>Имя</b></label>
+		    <label><b>Имя*</b></label>
 		    <input type="text" name="name" required>
 		
 		    <label><b>Дата рождения</b></label>
@@ -29,20 +29,20 @@
     			<option value="guru">гуру</option>
 			  </select>
 		    		    		
-		    <label><b>Email</b></label>
+<!-- 		<label><b>Email</b></label>
 		    <input type="text" name="email" required>
-		    
-		    <label><b>Логин</b></label>
+ -->		    
+		    <label><b>Логин*</b></label>
 		    <input type="text" name="login" required>
 		
-		    <label><b>Пароль</b></label>
+		    <label><b>Пароль*</b></label>
     		<input type="password" name="password" required>
 		
-		    <label><b>Повторите пароль</b></label>
+		    <label><b>Повторите пароль*</b></label>
     		<input type="password" name="psw-repeat" required>
     	</div>
     	<div class="clearfix">
-     		<button type="button"  class="cancelbtn">Отмена</button>
+     		<button type="button"  class="cancelbtn" onclick="location.href='../index.jsp'">Отмена</button>
       		<button type="submit" class="signupbtn">Завершить</button>
     	</div>
 	</form>

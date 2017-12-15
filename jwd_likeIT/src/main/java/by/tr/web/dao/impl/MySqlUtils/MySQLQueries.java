@@ -15,7 +15,18 @@ public class MySQLQueries implements QueriesUtils {
 
 	@Override
 	public void registrateUser(Connection conn, User user) throws SQLException {
-
+		
+		StringBuilder query = new StringBuilder("INSERT INTO Users (surname, name, login, password, status) VALUES (");
+		query.append(createValue(user.getSurname())).append(", ");
+		query.append(createValue(user.getName())).append(", ");
+		query.append(createValue(user.getLogin())).append(", ");
+		query.append(createValue(user.getPassword())).append(", ");
+		query.append(createValue(user.getStatus())).append(");");
+				
+		System.out.println(query);
+		
+		Statement stm = conn.createStatement();
+		stm.executeUpdate(query.toString());
 		
 	}
 
@@ -64,6 +75,10 @@ public class MySQLQueries implements QueriesUtils {
 		}
 		
 		return result;
+	}
+	
+	private String createValue(String value){
+		return "'" + value + "'";
 	}
 
 }

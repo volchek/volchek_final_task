@@ -12,12 +12,29 @@ import by.tr.web.dao.impl.MySqlUtils.MySQLQueries;
 import by.tr.web.dao.impl.MySqlUtils.QueriesUtils;
 
 
-public class MySQLUserDaoImpl implements UserDao {
+public class MySQLUserDaoImpl implements UserDao {	
 
 	@Override
-	public void registrateUser(User user) throws DaoException {
+	public boolean registrateUser(User user) throws DaoException {
 
+		Connection conn = null;
+		try {	
+			conn = ConnectionUtils.getConnection();
+			QueriesUtils query = new MySQLQueries();
+			query.registrateUser(conn, user);
+			return true;
+			
+		}  catch(ClassNotFoundException ex){
+			throw new DaoException("Class not found", ex);
+		}
+		catch(SQLException ex){
+			throw new DaoException("Sql error: can't registrate such user", ex);
+		}
+		finally {
+			ConnectionUtils.close(conn);
+		}
 	}
+	
 
 	@Override
 	public User logIn(String login, String password) throws DaoException {
@@ -31,7 +48,6 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {	
 			conn = ConnectionUtils.getConnection();
-
 			QueriesUtils query = new MySQLQueries();
 			User user = query.findUserByLogin(conn, login);
 
