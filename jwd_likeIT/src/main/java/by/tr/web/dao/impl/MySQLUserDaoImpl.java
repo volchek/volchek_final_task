@@ -26,11 +26,9 @@ public class MySQLUserDaoImpl implements UserDao {
 			
 		}  catch(ClassNotFoundException ex){
 			throw new DaoException("Class not found", ex);
-		}
-		catch(SQLException ex){
+		} catch(SQLException ex){
 			throw new DaoException("Sql error: can't registrate such user", ex);
-		}
-		finally {
+		} finally {
 			ConnectionUtils.close(conn);
 		}
 	}
@@ -49,13 +47,11 @@ public class MySQLUserDaoImpl implements UserDao {
 			}
 			return user;
 			
-		}  catch(ClassNotFoundException ex){
+		} catch(ClassNotFoundException ex){
 			throw new DaoException("Class not found", ex);
-		}
-		catch(SQLException ex){
+		} catch(SQLException ex){
 			throw new DaoException("Sql error: can't find such user", ex);
-		}
-		finally {
+		} finally {
 			ConnectionUtils.close(conn);
 		}
 	}
@@ -74,13 +70,11 @@ public class MySQLUserDaoImpl implements UserDao {
 				throw new DaoException("NOT FOUND");
 			}
 			return user;
-		}  catch(ClassNotFoundException ex){
+		} catch(ClassNotFoundException ex){
 			throw new DaoException("Class not found", ex);
-		}
-		catch(SQLException ex){
+		} catch(SQLException ex){
 			throw new DaoException("SQL error", ex);
-		}
-		finally {
+		} finally {
 			ConnectionUtils.close(conn);
 		}
 	}
