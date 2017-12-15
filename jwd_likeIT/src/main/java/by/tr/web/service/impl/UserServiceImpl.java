@@ -28,6 +28,21 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
+	@Override
+	public User signIn(String login, String password) throws ServiceException {
+		if (!validate(login) || !validate(password)){
+			throw new ServiceException("One field is empty");
+		}
+		
+		User user = null;
+		try {
+			user = userDao.signIn(login, password);
+		} catch(DaoException ex){
+			throw new ServiceException("User not found", ex);
+		}
+		return user;		
+	}
+
 	
 	@Override
 	public User findUserByLogin(String login) throws ServiceException {
@@ -72,5 +87,7 @@ public class UserServiceImpl implements UserService {
 
 		return true;
 	}
+	
+
 	
 }

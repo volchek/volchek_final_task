@@ -8,7 +8,7 @@ public interface UserDao {
 
 	boolean registrateUser(User user) throws DaoException;
 
-	User logIn(String login, String password) throws DaoException;
+	User signIn(String login, String password) throws DaoException;
 	
 	User findUserByLogin(String login) throws DaoException;
 

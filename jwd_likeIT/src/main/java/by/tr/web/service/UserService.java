@@ -10,5 +10,7 @@ public interface UserService {
 	User findUserByLogin(String login) throws ServiceException;	
 	
 	boolean registrate(User user) throws ServiceException;
+	
+	User signIn(String login, String password) throws ServiceException;
 
 }

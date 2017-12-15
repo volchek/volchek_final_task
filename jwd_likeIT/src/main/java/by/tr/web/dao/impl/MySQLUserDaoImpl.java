@@ -37,11 +37,30 @@ public class MySQLUserDaoImpl implements UserDao {
 	
 
 	@Override
-	public User logIn(String login, String password) throws DaoException {
+	public User signIn(String login, String password) throws DaoException {
 
-		return null;
+		Connection conn = null;
+		try {	
+			conn = ConnectionUtils.getConnection();
+			QueriesUtils query = new MySQLQueries();
+			User user = query.signIn(conn, login, password);
+			if (user == null){
+				throw new DaoException("User wasn't found");
+			}
+			return user;
+			
+		}  catch(ClassNotFoundException ex){
+			throw new DaoException("Class not found", ex);
+		}
+		catch(SQLException ex){
+			throw new DaoException("Sql error: can't find such user", ex);
+		}
+		finally {
+			ConnectionUtils.close(conn);
+		}
 	}
 
+	
 	@Override
 	public User findUserByLogin(String login) throws DaoException {
 		

@@ -1,16 +1,16 @@
 package by.tr.web.controller.command.impl;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.CommandConsts;
-import by.tr.web.controller.exception.ControllerException;
+import by.tr.web.entity.User;
 import by.tr.web.service.UserService;
 import by.tr.web.service.factory.ServiceFactory;
 import by.tr.web.service.exception.ServiceException;
@@ -18,15 +18,27 @@ import by.tr.web.service.exception.ServiceException;
 
 public class SignIn implements ControllerCommand {
 	
+	private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
+	private static UserService userService = serviceFactory.getUserService();
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
-		ServiceFactory serviceObject = ServiceFactory.getInstance();        
-		UserService userObject = serviceObject.getUserService();
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
 		
-//		String parser = request.getParameter(PARSER_TYPE);
-
 		RequestDispatcher d = null;
+
+		try {
+			User user = userService.signIn(login, password);
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user", user);
+			response.sendRedirect(CommandConsts.AFTER_PAGE);
+
+		} catch (ServiceException ex){
+			d = request.getRequestDispatcher(CommandConsts.CONTENT_ERROR_PAGE);
+			d.forward(request, response);
+		}
 	}
 
 }

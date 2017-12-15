@@ -32,9 +32,13 @@ public class MySQLQueries implements QueriesUtils {
 
 
 	@Override
-	public User logIn(Connection conn, String login, String password) throws SQLException {
+	public User signIn(Connection conn, String login, String password) throws SQLException {
 
-		return null;
+		StringBuilder query = new StringBuilder("SELECT * FROM Users WHERE login=");
+		query.append(createValue(login)).append(" and password=");
+		query.append(createValue(password)).append(";");
+		
+		return executeSelectQuery(conn, query.toString());
 	}
 
 
@@ -44,14 +48,7 @@ public class MySQLQueries implements QueriesUtils {
 		StringBuilder query = new StringBuilder("SELECT * FROM Users WHERE login='");
 		query.append(login).append("';");
 		
-		Statement stm = conn.createStatement();
-		ResultSet rs = stm.executeQuery(query.toString());
-		
-		List<User> result = createUsers(rs);
-		if (result != null && !result.isEmpty()){
-			return result.get(0);
-		}
-		return null;
+		return executeSelectQuery(conn, query.toString());
 	}
 	
 	 
@@ -79,6 +76,19 @@ public class MySQLQueries implements QueriesUtils {
 	
 	private String createValue(String value){
 		return "'" + value + "'";
+	}
+	
+	
+	private User executeSelectQuery(Connection conn, String query) throws SQLException {
+		
+		Statement stm = conn.createStatement();
+		ResultSet rs = stm.executeQuery(query);
+		
+		List<User> result = createUsers(rs);
+		if (result != null && !result.isEmpty()){
+			return result.get(0);
+		}
+		return null;
 	}
 
 }
