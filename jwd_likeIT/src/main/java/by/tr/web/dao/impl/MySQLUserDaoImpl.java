@@ -7,76 +7,76 @@ import java.sql.SQLException;
 
 import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.impl.MySqlUtils.ConnectionUtils;
-import by.tr.web.dao.impl.MySqlUtils.MySQLQueries;
-import by.tr.web.dao.impl.MySqlUtils.QueriesUtils;
+import by.tr.web.dao.exception.DaoExceptionMessage;
+import by.tr.web.dao.exception.FatalDaoException;
+import by.tr.web.dao.impl.mySqlUtil.ConnectionUtils;
+import by.tr.web.dao.impl.mySqlUtil.MySQLQueries;
+import by.tr.web.dao.impl.mySqlUtil.QueriesUtils;
+import by.tr.web.dao.impl.mySqlUtil.mySqlException.MySqlException;
+import by.tr.web.dao.impl.mySqlUtil.mySqlException.MySqlFatalException;
 
+public class MySQLUserDaoImpl implements UserDao {
 
-public class MySQLUserDaoImpl implements UserDao {	
-
+	
 	@Override
-	public boolean registrateUser(User user) throws DaoException {
+	public boolean registerUser(User user) throws DaoException, FatalDaoException {
 
 		Connection conn = null;
-		try {	
+		try {
 			conn = ConnectionUtils.getConnection();
 			QueriesUtils query = new MySQLQueries();
-			query.registrateUser(conn, user);
+			query.registerUser(conn, user);
 			return true;
-			
-		} catch(ClassNotFoundException ex){
-			throw new DaoException("Class not found", ex);
-		} catch(SQLException ex){
-			throw new DaoException("Sql error: can't registrate such user", ex);
+		} catch (MySqlFatalException ex) {
+			throw new FatalDaoException(DaoExceptionMessage.DATABASE_FATAL_ERROR, ex);
+		} catch (MySqlException | SQLException ex) {
+			throw new DaoException(DaoExceptionMessage.REGISTRATION_ERROR, ex);
 		} finally {
 			ConnectionUtils.close(conn);
 		}
 	}
-	
 
 	@Override
-	public User signIn(String login, String password) throws DaoException {
+	public User signIn(String login, String password) throws DaoException, FatalDaoException {
 
 		Connection conn = null;
-		try {	
+		try {
 			conn = ConnectionUtils.getConnection();
 			QueriesUtils query = new MySQLQueries();
 			User user = query.signIn(conn, login, password);
-			if (user == null){
-				throw new DaoException("User wasn't found");
+			if (user == null) {
+				throw new DaoException(DaoExceptionMessage.SERCHING_ERROR);
 			}
 			return user;
-			
-		} catch(ClassNotFoundException ex){
-			throw new DaoException("Class not found", ex);
-		} catch(SQLException ex){
-			throw new DaoException("Sql error: can't find such user", ex);
+		} catch (MySqlFatalException ex) {
+			throw new FatalDaoException(DaoExceptionMessage.DATABASE_FATAL_ERROR, ex);
+		} catch (MySqlException | SQLException ex) {
+			throw new DaoException(DaoExceptionMessage.QUERY_ERROR, ex);			
 		} finally {
 			ConnectionUtils.close(conn);
 		}
 	}
 
-	
 	@Override
-	public User findUserByLogin(String login) throws DaoException {
-		
+	public User findUserByLogin(String login) throws DaoException, FatalDaoException {
+
 		Connection conn = null;
-		try {	
+		try {
 			conn = ConnectionUtils.getConnection();
 			QueriesUtils query = new MySQLQueries();
 			User user = query.findUserByLogin(conn, login);
 
-			if (user == null){
-				throw new DaoException("NOT FOUND");
+			if (user == null) {
+				throw new DaoException(DaoExceptionMessage.SERCHING_ERROR);
 			}
 			return user;
-		} catch(ClassNotFoundException ex){
-			throw new DaoException("Class not found", ex);
-		} catch(SQLException ex){
-			throw new DaoException("SQL error", ex);
+		} catch (MySqlFatalException ex) {
+			throw new FatalDaoException(DaoExceptionMessage.DATABASE_FATAL_ERROR, ex);
+		} catch (MySqlException | SQLException ex) {
+			throw new DaoException(DaoExceptionMessage.QUERY_ERROR, ex);
 		} finally {
 			ConnectionUtils.close(conn);
 		}
 	}
-	
+
 }
