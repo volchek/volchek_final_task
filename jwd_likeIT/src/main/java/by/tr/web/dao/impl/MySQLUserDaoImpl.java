@@ -24,7 +24,7 @@ public class MySQLUserDaoImpl implements UserDao {
 			query.registrateUser(conn, user);
 			return true;
 			
-		}  catch(ClassNotFoundException ex){
+		} catch(ClassNotFoundException ex){
 			throw new DaoException("Class not found", ex);
 		} catch(SQLException ex){
 			throw new DaoException("Sql error: can't registrate such user", ex);

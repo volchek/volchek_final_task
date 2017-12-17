@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.CommandConsts;
 import by.tr.web.entity.User;
+import by.tr.web.entity.UserAttributes;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
@@ -23,14 +24,14 @@ public class FindByLogin implements ControllerCommand {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String login = request.getParameter("login").toString();
+		String login = request.getParameter(UserAttributes.LOGIN).toString();
 
 		User user = null;
 		RequestDispatcher d = null;
 		
 		try {
 			user = userService.findUserByLogin(login);
-			request.setAttribute("user", user);
+			request.setAttribute(UserAttributes.USER_ENTITY, user);
 			d = request.getRequestDispatcher(CommandConsts.RESULT_PAGE);
 
 		} catch (ServiceException ex){
