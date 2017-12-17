@@ -1,4 +1,4 @@
-package by.tr.web.dao.impl.mySqlUtil.mySqlException;
+package by.tr.web.dao.impl.mysql_util.mysql_exception;
 
 public class MySqlException extends Exception {
 

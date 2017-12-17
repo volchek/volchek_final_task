@@ -9,11 +9,11 @@ import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.DaoExceptionMessage;
 import by.tr.web.dao.exception.FatalDaoException;
-import by.tr.web.dao.impl.mySqlUtil.ConnectionUtils;
-import by.tr.web.dao.impl.mySqlUtil.MySQLQueries;
-import by.tr.web.dao.impl.mySqlUtil.QueriesUtils;
-import by.tr.web.dao.impl.mySqlUtil.mySqlException.MySqlException;
-import by.tr.web.dao.impl.mySqlUtil.mySqlException.MySqlFatalException;
+import by.tr.web.dao.impl.mysql_util.ConnectionUtils;
+import by.tr.web.dao.impl.mysql_util.MySQLQueries;
+import by.tr.web.dao.impl.mysql_util.QueriesUtils;
+import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
+import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlFatalException;
 
 public class MySQLUserDaoImpl implements UserDao {
 

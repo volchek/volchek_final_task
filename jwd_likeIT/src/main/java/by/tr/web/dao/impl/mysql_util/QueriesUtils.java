@@ -1,9 +1,9 @@
-package by.tr.web.dao.impl.mySqlUtil;
+package by.tr.web.dao.impl.mysql_util;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import by.tr.web.dao.impl.mySqlUtil.mySqlException.MySqlException;
+import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
 import by.tr.web.entity.User;
 
 public interface QueriesUtils {

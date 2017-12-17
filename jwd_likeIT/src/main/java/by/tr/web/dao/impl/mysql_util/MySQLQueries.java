@@ -1,4 +1,4 @@
-package by.tr.web.dao.impl.mySqlUtil;
+package by.tr.web.dao.impl.mysql_util;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -10,8 +10,8 @@ import org.apache.logging.log4j.LogManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.tr.web.dao.impl.mySqlUtil.mySqlException.MySqlException;
-import by.tr.web.dao.impl.mySqlUtil.mySqlException.MySqlMessage;
+import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
+import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlMessage;
 import by.tr.web.entity.User;
 import by.tr.web.entity.UserAttributes;
 

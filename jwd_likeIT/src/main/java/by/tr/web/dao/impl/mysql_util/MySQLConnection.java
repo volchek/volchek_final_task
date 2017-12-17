@@ -1,4 +1,4 @@
-package by.tr.web.dao.impl.mySqlUtil;
+package by.tr.web.dao.impl.mysql_util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.tr.web.dao.impl.mySqlUtil.mySqlException.MySqlFatalException;
-import by.tr.web.dao.impl.mySqlUtil.mySqlException.MySqlMessage;
+import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlFatalException;
+import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlMessage;
 
 public class MySQLConnection {
 
