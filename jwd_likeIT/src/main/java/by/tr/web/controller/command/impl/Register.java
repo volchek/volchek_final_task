@@ -15,35 +15,32 @@ import by.tr.web.service.UserService;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
 
+public class Register implements ControllerCommand {
 
-public class Registrate implements ControllerCommand {
-   
 	private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
 	private static UserService userService = serviceFactory.getUserService();
 
-	
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		User user = new User();
 		getParameters(request, user);
-		
+
 		try {
 			boolean result = userService.registrate(user);
-			if (result == true){
+			if (result == true) {
 				response.sendRedirect(CommandConsts.ENTRY_PAGE);
 			}
 
-		} catch (ServiceException ex){
+		} catch (ServiceException ex) {
 			RequestDispatcher d = null;
 			d = request.getRequestDispatcher(CommandConsts.CONTENT_ERROR_PAGE);
 			d.forward(request, response);
 		}
 	}
-	
-	
-	private void getParameters(HttpServletRequest request, User user){
-		
+
+	private void getParameters(HttpServletRequest request, User user) {
+
 		String surname = request.getParameter(UserAttributes.SURNAME).toString();
 		String name = request.getParameter(UserAttributes.NAME).toString();
 		String status = request.getParameter(UserAttributes.STATUS).toString();
@@ -55,7 +52,7 @@ public class Registrate implements ControllerCommand {
 		user.setStatus(status);
 		user.setLogin(login);
 		user.setPassword(password);
-		
+
 	}
-	
+
 }

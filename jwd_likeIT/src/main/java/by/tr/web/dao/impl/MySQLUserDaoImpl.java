@@ -17,7 +17,6 @@ import by.tr.web.dao.impl.mySqlUtil.mySqlException.MySqlFatalException;
 
 public class MySQLUserDaoImpl implements UserDao {
 
-	
 	@Override
 	public boolean registerUser(User user) throws DaoException, FatalDaoException {
 
@@ -51,7 +50,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		} catch (MySqlFatalException ex) {
 			throw new FatalDaoException(DaoExceptionMessage.DATABASE_FATAL_ERROR, ex);
 		} catch (MySqlException | SQLException ex) {
-			throw new DaoException(DaoExceptionMessage.QUERY_ERROR, ex);			
+			throw new DaoException(DaoExceptionMessage.QUERY_ERROR, ex);
 		} finally {
 			ConnectionUtils.close(conn);
 		}

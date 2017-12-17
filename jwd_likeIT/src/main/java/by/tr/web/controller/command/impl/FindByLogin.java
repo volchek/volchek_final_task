@@ -19,22 +19,21 @@ public class FindByLogin implements ControllerCommand {
 
 	private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
 	private static UserService userService = serviceFactory.getUserService();
-	
-	
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String login = request.getParameter(UserAttributes.LOGIN).toString();
 
 		User user = null;
 		RequestDispatcher d = null;
-		
+
 		try {
 			user = userService.findUserByLogin(login);
 			request.setAttribute(UserAttributes.USER_ENTITY, user);
 			d = request.getRequestDispatcher(CommandConsts.RESULT_PAGE);
 
-		} catch (ServiceException ex){
+		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(CommandConsts.CONTENT_ERROR_PAGE);
 		}
 		d.forward(request, response);

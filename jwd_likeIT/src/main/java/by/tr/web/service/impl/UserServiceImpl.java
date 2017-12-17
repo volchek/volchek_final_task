@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 		if (validateUser(user) == false) {
 			throw new ServiceException("Incorrect input data");
 		}
-
+		
 		try {
 			return userDao.registerUser(user);
 		} catch (DaoException | FatalDaoException ex) {

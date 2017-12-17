@@ -11,28 +11,25 @@ import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.ControllerCommandFactory;
 import by.tr.web.controller.command.util.CommandConsts;
 
-
 public class Controller extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-		
-	
+
 	public Controller() {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		ControllerCommandFactory contrCommandObject = ControllerCommandFactory.getInstance();
 		String commandName = request.getParameter(CommandConsts.COMMAND_NAME);
-
 		ControllerCommand command = contrCommandObject.getCommand(commandName);
 		command.execute(request, response);
 	}
-	
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 }
-

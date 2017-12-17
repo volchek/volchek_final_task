@@ -6,7 +6,7 @@ public class FatalDaoException extends Exception {
 
 	public FatalDaoException() {
 	}
-		
+
 	public FatalDaoException(String message) {
 		super(message);
 	}

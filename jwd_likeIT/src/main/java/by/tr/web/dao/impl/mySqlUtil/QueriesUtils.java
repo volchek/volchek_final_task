@@ -11,7 +11,7 @@ public interface QueriesUtils {
 	void registerUser(Connection conn, User user) throws SQLException, MySqlException;
 
 	User signIn(Connection conn, String login, String password) throws SQLException, MySqlException;
-	
+
 	User findUserByLogin(Connection conn, String login) throws SQLException, MySqlException;
-	
+
 }

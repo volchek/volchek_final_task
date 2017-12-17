@@ -16,18 +16,17 @@ import by.tr.web.service.UserService;
 import by.tr.web.service.factory.ServiceFactory;
 import by.tr.web.service.exception.ServiceException;
 
-
 public class SignIn implements ControllerCommand {
-	
+
 	private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
 	private static UserService userService = serviceFactory.getUserService();
-	
+
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		String login = request.getParameter(UserAttributes.LOGIN);
 		String password = request.getParameter(UserAttributes.PASSWORD);
-		
+
 		RequestDispatcher d = null;
 
 		try {
@@ -36,11 +35,10 @@ public class SignIn implements ControllerCommand {
 			session.setAttribute(UserAttributes.USER_ENTITY, user);
 			response.sendRedirect(CommandConsts.AFTER_PAGE);
 
-		} catch (ServiceException ex){
+		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(CommandConsts.CONTENT_ERROR_PAGE);
 			d.forward(request, response);
 		}
 	}
 
 }
-
