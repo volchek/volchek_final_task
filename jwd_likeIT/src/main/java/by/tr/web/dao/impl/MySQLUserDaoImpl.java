@@ -23,11 +23,11 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {
 			conn = ConnectionUtil.getConnection();
-			QueriesUtils query = new MySQLQueries();
+			QueriesUtils query = new MySQLQueries();// ошибка, каждый раз при вызове метода зачем-то будет создаваться новый объект
 			query.registerUser(conn, user);
 			return true;
 		} catch (MySqlFatalException ex) {
-			throw new FatalDaoException(DaoExceptionMessage.DATABASE_FATAL_ERROR, ex);
+			throw new FatalDaoException(DaoExceptionMessage.DATABASE_FATAL_ERROR, ex);// сообщения в исключениях и логах не именуются
 		} catch (MySqlException | SQLException ex) {
 			throw new DaoException(DaoExceptionMessage.REGISTRATION_ERROR, ex);
 		} finally {

@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean register(User user) throws ServiceException, FatalServiceException {
 
-		if (validateUser(user) == false) {
+		if (validateUser(user) == false) {// if (!validateUser(user))
 			throw new ServiceException(ServiceExceptionMessage.INCORRECT_INPUT);
 		}
 		
