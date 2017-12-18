@@ -27,7 +27,7 @@ public class MySQLConnection {
 	public static Connection getMySQLConnection() throws MySqlFatalException {
 
 		try {
-			Class.forName(DRIVER_CLASSNAME);
+			Class.forName(DRIVER_CLASSNAME);// при каждом вызове метода будешь пытаться грузить драйвер
 			Connection connection = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PASSWORD);
 			return connection;
 		} catch (ClassNotFoundException ex) {
