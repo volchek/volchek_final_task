@@ -10,7 +10,7 @@ import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlMessage;
 
 import org.apache.logging.log4j.LogManager;
 
-public class ConnectionUtils {
+public class ConnectionUtil {
 
 	private final static Logger logger = LogManager.getLogger();
 

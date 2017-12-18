@@ -1,6 +1,6 @@
 package by.tr.web.entity;
 
-public class UserAttributes {
+public class UserAttribute {
 
 	public static final String SURNAME = "surname";
 	public static final String NAME = "name";

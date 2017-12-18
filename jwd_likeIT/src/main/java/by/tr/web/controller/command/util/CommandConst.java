@@ -1,6 +1,6 @@
 package by.tr.web.controller.command.util;
 
-public class CommandConsts {
+public class CommandConst {
 
 	public static final String COMMAND_NAME = "command";
 

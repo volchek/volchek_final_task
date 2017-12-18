@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.tr.web.controller.command.ControllerCommand;
-import by.tr.web.controller.command.util.CommandConsts;
+import by.tr.web.controller.command.util.CommandConst;
 import by.tr.web.entity.User;
-import by.tr.web.entity.UserAttributes;
+import by.tr.web.entity.UserAttribute;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
@@ -23,18 +23,18 @@ public class FindByLogin implements ControllerCommand {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String login = request.getParameter(UserAttributes.LOGIN).toString();
+		String login = request.getParameter(UserAttribute.LOGIN).toString();
 
 		User user = null;
 		RequestDispatcher d = null;
 
 		try {
 			user = userService.findUserByLogin(login);
-			request.setAttribute(UserAttributes.USER_ENTITY, user);
-			d = request.getRequestDispatcher(CommandConsts.RESULT_PAGE);
+			request.setAttribute(UserAttribute.USER_ENTITY, user);
+			d = request.getRequestDispatcher(CommandConst.RESULT_PAGE);
 
 		} catch (ServiceException ex) {
-			d = request.getRequestDispatcher(CommandConsts.CONTENT_ERROR_PAGE);
+			d = request.getRequestDispatcher(CommandConst.CONTENT_ERROR_PAGE);
 		}
 		d.forward(request, response);
 	}

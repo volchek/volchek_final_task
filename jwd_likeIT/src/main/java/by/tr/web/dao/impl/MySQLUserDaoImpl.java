@@ -9,7 +9,7 @@ import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.DaoExceptionMessage;
 import by.tr.web.dao.exception.FatalDaoException;
-import by.tr.web.dao.impl.mysql_util.ConnectionUtils;
+import by.tr.web.dao.impl.mysql_util.ConnectionUtil;
 import by.tr.web.dao.impl.mysql_util.MySQLQueries;
 import by.tr.web.dao.impl.mysql_util.QueriesUtils;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
@@ -22,7 +22,7 @@ public class MySQLUserDaoImpl implements UserDao {
 
 		Connection conn = null;
 		try {
-			conn = ConnectionUtils.getConnection();
+			conn = ConnectionUtil.getConnection();
 			QueriesUtils query = new MySQLQueries();
 			query.registerUser(conn, user);
 			return true;
@@ -31,7 +31,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		} catch (MySqlException | SQLException ex) {
 			throw new DaoException(DaoExceptionMessage.REGISTRATION_ERROR, ex);
 		} finally {
-			ConnectionUtils.close(conn);
+			ConnectionUtil.close(conn);
 		}
 	}
 
@@ -40,7 +40,7 @@ public class MySQLUserDaoImpl implements UserDao {
 
 		Connection conn = null;
 		try {
-			conn = ConnectionUtils.getConnection();
+			conn = ConnectionUtil.getConnection();
 			QueriesUtils query = new MySQLQueries();
 			User user = query.signIn(conn, login, password);
 			if (user == null) {
@@ -52,7 +52,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		} catch (MySqlException | SQLException ex) {
 			throw new DaoException(DaoExceptionMessage.QUERY_ERROR, ex);
 		} finally {
-			ConnectionUtils.close(conn);
+			ConnectionUtil.close(conn);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class MySQLUserDaoImpl implements UserDao {
 
 		Connection conn = null;
 		try {
-			conn = ConnectionUtils.getConnection();
+			conn = ConnectionUtil.getConnection();
 			QueriesUtils query = new MySQLQueries();
 			User user = query.findUserByLogin(conn, login);
 
@@ -74,7 +74,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		} catch (MySqlException | SQLException ex) {
 			throw new DaoException(DaoExceptionMessage.QUERY_ERROR, ex);
 		} finally {
-			ConnectionUtils.close(conn);
+			ConnectionUtil.close(conn);
 		}
 	}
 

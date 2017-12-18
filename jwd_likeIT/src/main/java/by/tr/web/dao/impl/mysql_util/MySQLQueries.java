@@ -13,7 +13,7 @@ import java.util.List;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlMessage;
 import by.tr.web.entity.User;
-import by.tr.web.entity.UserAttributes;
+import by.tr.web.entity.UserAttribute;
 
 public class MySQLQueries implements QueriesUtils {
 
@@ -80,10 +80,10 @@ public class MySQLQueries implements QueriesUtils {
 		List<User> result = new ArrayList<User>();
 
 		while (rs.next()) {
-			String surname = rs.getString(UserAttributes.SURNAME);
-			String name = rs.getString(UserAttributes.NAME);
-			String login = rs.getString(UserAttributes.LOGIN);
-			String status = rs.getString(UserAttributes.STATUS);
+			String surname = rs.getString(UserAttribute.SURNAME);
+			String name = rs.getString(UserAttribute.NAME);
+			String login = rs.getString(UserAttribute.LOGIN);
+			String status = rs.getString(UserAttribute.STATUS);
 
 			User user = new User();
 

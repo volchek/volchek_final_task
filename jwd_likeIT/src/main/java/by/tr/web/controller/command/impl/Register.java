@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.tr.web.controller.command.ControllerCommand;
-import by.tr.web.controller.command.util.CommandConsts;
+import by.tr.web.controller.command.util.CommandConst;
 import by.tr.web.entity.User;
-import by.tr.web.entity.UserAttributes;
+import by.tr.web.entity.UserAttribute;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
@@ -29,23 +29,23 @@ public class Register implements ControllerCommand {
 		try {
 			boolean result = userService.registrate(user);
 			if (result == true) {
-				response.sendRedirect(CommandConsts.ENTRY_PAGE);
+				response.sendRedirect(CommandConst.ENTRY_PAGE);
 			}
 
 		} catch (ServiceException ex) {
 			RequestDispatcher d = null;
-			d = request.getRequestDispatcher(CommandConsts.CONTENT_ERROR_PAGE);
+			d = request.getRequestDispatcher(CommandConst.CONTENT_ERROR_PAGE);
 			d.forward(request, response);
 		}
 	}
 
 	private void getParameters(HttpServletRequest request, User user) {
 
-		String surname = request.getParameter(UserAttributes.SURNAME).toString();
-		String name = request.getParameter(UserAttributes.NAME).toString();
-		String status = request.getParameter(UserAttributes.STATUS).toString();
-		String login = request.getParameter(UserAttributes.LOGIN).toString();
-		String password = request.getParameter(UserAttributes.PASSWORD).toString();
+		String surname = request.getParameter(UserAttribute.SURNAME).toString();
+		String name = request.getParameter(UserAttribute.NAME).toString();
+		String status = request.getParameter(UserAttribute.STATUS).toString();
+		String login = request.getParameter(UserAttribute.LOGIN).toString();
+		String password = request.getParameter(UserAttribute.PASSWORD).toString();
 
 		user.setSurname(surname);
 		user.setName(name);

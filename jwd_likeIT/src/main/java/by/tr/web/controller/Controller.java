@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 
 import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.ControllerCommandFactory;
-import by.tr.web.controller.command.util.CommandConsts;
+import by.tr.web.controller.command.util.CommandConst;
 
 public class Controller extends HttpServlet {
 
@@ -23,7 +23,7 @@ public class Controller extends HttpServlet {
 			throws ServletException, IOException {
 
 		ControllerCommandFactory contrCommandObject = ControllerCommandFactory.getInstance();
-		String commandName = request.getParameter(CommandConsts.COMMAND_NAME);
+		String commandName = request.getParameter(CommandConst.COMMAND_NAME);
 		ControllerCommand command = contrCommandObject.getCommand(commandName);
 		command.execute(request, response);
 	}
