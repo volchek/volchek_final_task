@@ -12,6 +12,7 @@ import by.tr.web.controller.command.util.CommandConst;
 import by.tr.web.entity.User;
 import by.tr.web.entity.UserAttribute;
 import by.tr.web.service.UserService;
+import by.tr.web.service.exception.FatalServiceException;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
 
@@ -27,7 +28,7 @@ public class Register implements ControllerCommand {
 		getParameters(request, user);
 
 		try {
-			boolean result = userService.registrate(user);
+			boolean result = userService.register(user);
 			if (result == true) {
 				response.sendRedirect(CommandConst.ENTRY_PAGE);
 			}
@@ -35,6 +36,10 @@ public class Register implements ControllerCommand {
 		} catch (ServiceException ex) {
 			RequestDispatcher d = null;
 			d = request.getRequestDispatcher(CommandConst.CONTENT_ERROR_PAGE);
+			d.forward(request, response);
+		} catch (FatalServiceException ex) {
+			RequestDispatcher d = null;
+			d = request.getRequestDispatcher(CommandConst.DATABASE_ERROR_PAGE);
 			d.forward(request, response);
 		}
 	}

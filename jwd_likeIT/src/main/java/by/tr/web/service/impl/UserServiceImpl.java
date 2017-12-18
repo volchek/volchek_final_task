@@ -7,56 +7,71 @@ import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.entity.User;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.ServiceException;
+import by.tr.web.service.exception.FatalServiceException;
+import by.tr.web.service.exception.ServiceExceptionMessage;
 
 public class UserServiceImpl implements UserService {
 
-	private static DaoFactory daoInstance = DaoFactory.getInstance();
-	private static UserDao userDao = daoInstance.getUserDao();
-
 	@Override
-	public boolean registrate(User user) throws ServiceException {
+	public boolean register(User user) throws ServiceException, FatalServiceException {
 
 		if (validateUser(user) == false) {
-			throw new ServiceException("Incorrect input data");
+			throw new ServiceException(ServiceExceptionMessage.INCORRECT_INPUT);
 		}
 		
+		DaoFactory daoInstance = DaoFactory.getInstance();
+		UserDao userDao = daoInstance.getUserDao();
+
 		try {
 			return userDao.registerUser(user);
-		} catch (DaoException | FatalDaoException ex) {
-			throw new ServiceException("Can't registrate such user", ex);
-		}
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		} catch (FatalDaoException ex){
+			throw new FatalServiceException(ex);
+		}		
 	}
 
 	@Override
-	public User signIn(String login, String password) throws ServiceException {
+	public User signIn(String login, String password) throws ServiceException, FatalServiceException {
+
 		if (!validate(login) || !validate(password)) {
-			throw new ServiceException("One field is empty");
+			throw new ServiceException(ServiceExceptionMessage.EMPTY_FIELD);
 		}
+
+		DaoFactory daoInstance = DaoFactory.getInstance();
+		UserDao userDao = daoInstance.getUserDao();
 
 		User user = null;
 		try {
 			user = userDao.signIn(login, password);
-		} catch (DaoException | FatalDaoException ex) {
-			throw new ServiceException("User not found", ex);
+			return user;
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		} catch (FatalDaoException ex){
+			throw new FatalServiceException(ex);
 		}
-		return user;
 	}
 
 	@Override
-	public User findUserByLogin(String login) throws ServiceException {
+	public User findUserByLogin(String login) throws ServiceException, FatalServiceException {
 
 		if (!validate(login)) {
-			throw new ServiceException("Login is empty");
+			throw new ServiceException(ServiceExceptionMessage.EMPTY_LOGIN);
 		}
+
+		DaoFactory daoInstance = DaoFactory.getInstance();
+		UserDao userDao = daoInstance.getUserDao();
 
 		User user = null;
-
 		try {
 			user = userDao.findUserByLogin(login);
-		} catch (DaoException | FatalDaoException ex) {
-			throw new ServiceException("User not found", ex);
+			return user;
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		} catch (FatalDaoException ex){
+			throw new FatalServiceException(ex);
 		}
-		return user;
+
 	}
 
 	private static boolean validate(String login) {

@@ -12,6 +12,7 @@ import by.tr.web.controller.command.util.CommandConst;
 import by.tr.web.entity.User;
 import by.tr.web.entity.UserAttribute;
 import by.tr.web.service.UserService;
+import by.tr.web.service.exception.FatalServiceException;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
 
@@ -32,10 +33,11 @@ public class FindByLogin implements ControllerCommand {
 			user = userService.findUserByLogin(login);
 			request.setAttribute(UserAttribute.USER_ENTITY, user);
 			d = request.getRequestDispatcher(CommandConst.RESULT_PAGE);
-
 		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(CommandConst.CONTENT_ERROR_PAGE);
-		}
+		} catch (FatalServiceException ex) {
+			d = request.getRequestDispatcher(CommandConst.DATABASE_ERROR_PAGE);
+		} 
 		d.forward(request, response);
 	}
 

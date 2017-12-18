@@ -8,18 +8,18 @@
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="lc" />
 <fmt:message key="error.500" bundle="${lc}" var="msg" />
-<fmt:message key="error.link" bundle="${lc}" var="return" />
+<fmt:message key="error.link" bundle="${lc}" var="main_page" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-	<div class="../fragment/header">LikeIT</div>
+	<jsp:include page="../fragment/header.jsp" flush="true" />
 	<h2>
 		<c:out value="${msg}" />
 	</h2>
 	<br>
 	<br>
-	<a href="../index.jsp"><c:out value="${return}" /></a>
+	<a href="/final-task/index.jsp"><c:out value="${main_page}" /></a>
 </body>
 </html>

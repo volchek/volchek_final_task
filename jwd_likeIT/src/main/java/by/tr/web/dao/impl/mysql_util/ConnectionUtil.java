@@ -20,7 +20,9 @@ public class ConnectionUtil {
 
 	public static void close(Connection connection) {
 		try {
-			connection.close();
+			if (connection != null){
+				connection.close();				
+			}
 		} catch (SQLException ex) {
 			logger.warn(MySqlMessage.DATABASE_CLOSE_ERROR);
 			new MySqlException(MySqlMessage.DATABASE_CLOSE_ERROR, ex);
