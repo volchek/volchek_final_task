@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 		if (!validateUser(user)) {
 			throw new ServiceException("Incorrect input data");
 		}
-		
+
 		DaoFactory daoInstance = DaoFactory.getInstance();
 		UserDao userDao = daoInstance.getUserDao();
 
@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService {
 			return userDao.registerUser(user);
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);
-		} catch (FatalDaoException ex){
+		} catch (FatalDaoException ex) {
 			throw new FatalServiceException(ex);
-		}		
+		}
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 			return user;
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);
-		} catch (FatalDaoException ex){
+		} catch (FatalDaoException ex) {
 			throw new FatalServiceException(ex);
 		}
 	}
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 			return user;
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);
-		} catch (FatalDaoException ex){
+		} catch (FatalDaoException ex) {
 			throw new FatalServiceException(ex);
 		}
 
@@ -83,13 +83,13 @@ public class UserServiceImpl implements UserService {
 
 	private static boolean validateUser(User user) {
 
-		if (validate(user.getSurname()) == false) {
+		if (!validate(user.getSurname())) {
 			return false;
-		} else if (validate(user.getName()) == false) {
+		} else if (!validate(user.getName())) {
 			return false;
-		} else if (validate(user.getLogin()) == false) {
+		} else if (!validate(user.getLogin())) {
 			return false;
-		} else if (validate(user.getPassword()) == false) {
+		} else if (!validate(user.getPassword())) {
 			return false;
 		}
 
