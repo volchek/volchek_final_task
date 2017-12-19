@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlFatalException;
-import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlMessage;
 
 public class MySQLConnection {
 
@@ -31,11 +30,11 @@ public class MySQLConnection {
 			Connection connection = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PASSWORD);
 			return connection;
 		} catch (ClassNotFoundException ex) {
-			logger.fatal(MySqlMessage.DRIVER_ERROR);
-			throw new MySqlFatalException(MySqlMessage.DRIVER_ERROR, ex);
+			logger.fatal("Driver not found");
+			throw new MySqlFatalException("Driver not found", ex);
 		} catch (SQLException ex) {
-			logger.fatal(MySqlMessage.DATABASE_CONNECTION_ERROR);
-			throw new MySqlFatalException(MySqlMessage.DATABASE_CONNECTION_ERROR, ex);
+			logger.fatal("Can't connect to database " + CONNECTION_URL);
+			throw new MySqlFatalException("Can't connect to database");
 		}
 	}
 

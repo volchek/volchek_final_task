@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.CommandConst;
+import by.tr.web.controller.command.util.UserAttribute;
 import by.tr.web.entity.User;
-import by.tr.web.entity.UserAttribute;
 import by.tr.web.service.UserService;
 import by.tr.web.service.factory.ServiceFactory;
 import by.tr.web.service.exception.FatalServiceException;

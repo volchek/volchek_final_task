@@ -11,11 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
-import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlMessage;
 import by.tr.web.entity.User;
-import by.tr.web.entity.UserAttribute;
 
-public class MySQLQueries implements QueriesUtils {
+public class MySQLQuery implements QueriesUtil {
 
 	private static final String INSERT_USER_QUERY = "INSERT INTO Users (surname, name, login, password, status) VALUES (?, ?, ?, ?, ?)";
 	private static final String LOG_IN_QUERY = "SELECT * FROM Users WHERE login = ? and password = ?;";
@@ -80,10 +78,10 @@ public class MySQLQueries implements QueriesUtils {
 		List<User> result = new ArrayList<User>();
 
 		while (rs.next()) {
-			String surname = rs.getString(UserAttribute.SURNAME);
-			String name = rs.getString(UserAttribute.NAME);
-			String login = rs.getString(UserAttribute.LOGIN);
-			String status = rs.getString(UserAttribute.STATUS);
+			String surname = rs.getString(DatabaseField.SURNAME);
+			String name = rs.getString(DatabaseField.NAME);
+			String login = rs.getString(DatabaseField.LOGIN);
+			String status = rs.getString(DatabaseField.STATUS);
 
 			User user = new User();
 
@@ -128,7 +126,7 @@ public class MySQLQueries implements QueriesUtils {
 				st.close();
 			}
 		} catch (SQLException ex) {
-			logger.warn(MySqlMessage.STATEMENT_ERROR);
+			logger.warn("Can not close Statement");
 		}
 	}
 
@@ -138,7 +136,7 @@ public class MySQLQueries implements QueriesUtils {
 				rs.close();
 			}
 		} catch (SQLException ex) {
-			logger.warn(MySqlMessage.RESULT_SET_ERROR);
+			logger.warn("Can not close Result Set");
 		}
 	}
 

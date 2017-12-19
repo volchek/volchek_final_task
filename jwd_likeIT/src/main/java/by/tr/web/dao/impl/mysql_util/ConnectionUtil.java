@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlFatalException;
-import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlMessage;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -24,8 +23,8 @@ public class ConnectionUtil {
 				connection.close();				
 			}
 		} catch (SQLException ex) {
-			logger.warn(MySqlMessage.DATABASE_CLOSE_ERROR);
-			new MySqlException(MySqlMessage.DATABASE_CLOSE_ERROR, ex);
+			logger.warn("Can not close Database Connection");
+			new MySqlException("Can not close Database Connection");
 		}
 	}
 

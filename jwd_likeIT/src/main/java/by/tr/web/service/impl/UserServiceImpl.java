@@ -8,15 +8,14 @@ import by.tr.web.entity.User;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.exception.FatalServiceException;
-import by.tr.web.service.exception.ServiceExceptionMessage;
 
 public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean register(User user) throws ServiceException, FatalServiceException {
 
-		if (validateUser(user) == false) {
-			throw new ServiceException(ServiceExceptionMessage.INCORRECT_INPUT);
+		if (!validateUser(user)) {
+			throw new ServiceException("Incorrect input data");
 		}
 		
 		DaoFactory daoInstance = DaoFactory.getInstance();
@@ -35,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	public User signIn(String login, String password) throws ServiceException, FatalServiceException {
 
 		if (!validate(login) || !validate(password)) {
-			throw new ServiceException(ServiceExceptionMessage.EMPTY_FIELD);
+			throw new ServiceException("One field is empty");
 		}
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
@@ -56,7 +55,7 @@ public class UserServiceImpl implements UserService {
 	public User findUserByLogin(String login) throws ServiceException, FatalServiceException {
 
 		if (!validate(login)) {
-			throw new ServiceException(ServiceExceptionMessage.EMPTY_LOGIN);
+			throw new ServiceException("Login is empty");
 		}
 
 		DaoFactory daoInstance = DaoFactory.getInstance();

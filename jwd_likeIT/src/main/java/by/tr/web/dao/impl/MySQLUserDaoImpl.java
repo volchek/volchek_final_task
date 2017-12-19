@@ -7,29 +7,29 @@ import java.sql.SQLException;
 
 import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.exception.DaoExceptionMessage;
 import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.impl.mysql_util.ConnectionUtil;
-import by.tr.web.dao.impl.mysql_util.MySQLQueries;
-import by.tr.web.dao.impl.mysql_util.QueriesUtils;
+import by.tr.web.dao.impl.mysql_util.MySQLQuery;
+import by.tr.web.dao.impl.mysql_util.QueriesUtil;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlFatalException;
 
 public class MySQLUserDaoImpl implements UserDao {
 
+	
 	@Override
 	public boolean registerUser(User user) throws DaoException, FatalDaoException {
 
 		Connection conn = null;
 		try {
 			conn = ConnectionUtil.getConnection();
-			QueriesUtils query = new MySQLQueries();
+			QueriesUtil query = new MySQLQuery();
 			query.registerUser(conn, user);
 			return true;
 		} catch (MySqlFatalException ex) {
-			throw new FatalDaoException(DaoExceptionMessage.DATABASE_FATAL_ERROR, ex);
+			throw new FatalDaoException("Database connection is failed", ex);
 		} catch (MySqlException | SQLException ex) {
-			throw new DaoException(DaoExceptionMessage.REGISTRATION_ERROR, ex);
+			throw new DaoException("Can't register such user", ex);
 		} finally {
 			ConnectionUtil.close(conn);
 		}
@@ -41,16 +41,16 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {
 			conn = ConnectionUtil.getConnection();
-			QueriesUtils query = new MySQLQueries();
+			QueriesUtil query = new MySQLQuery();
 			User user = query.signIn(conn, login, password);
 			if (user == null) {
-				throw new DaoException(DaoExceptionMessage.SERCHING_ERROR);
+				throw new DaoException("User wasn't found");
 			}
 			return user;
 		} catch (MySqlFatalException ex) {
-			throw new FatalDaoException(DaoExceptionMessage.DATABASE_FATAL_ERROR, ex);
+			throw new FatalDaoException("Database connection is failed", ex);
 		} catch (MySqlException | SQLException ex) {
-			throw new DaoException(DaoExceptionMessage.QUERY_ERROR, ex);
+			throw new DaoException("Can't execute query", ex);
 		} finally {
 			ConnectionUtil.close(conn);
 		}
@@ -62,17 +62,17 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {
 			conn = ConnectionUtil.getConnection();
-			QueriesUtils query = new MySQLQueries();
+			QueriesUtil query = new MySQLQuery();
 			User user = query.findUserByLogin(conn, login);
 
 			if (user == null) {
-				throw new DaoException(DaoExceptionMessage.SERCHING_ERROR);
+				throw new DaoException("User wasn't found");
 			}
 			return user;
 		} catch (MySqlFatalException ex) {
-			throw new FatalDaoException(DaoExceptionMessage.DATABASE_FATAL_ERROR, ex);
+			throw new FatalDaoException("Database connection is failed", ex);
 		} catch (MySqlException | SQLException ex) {
-			throw new DaoException(DaoExceptionMessage.QUERY_ERROR, ex);
+			throw new DaoException("Can't execute query", ex);
 		} finally {
 			ConnectionUtil.close(conn);
 		}
