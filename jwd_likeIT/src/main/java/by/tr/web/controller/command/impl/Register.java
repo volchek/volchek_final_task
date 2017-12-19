@@ -57,7 +57,6 @@ public class Register implements ControllerCommand {
 		user.setStatus(status);
 		user.setLogin(login);
 		user.setPassword(password);
-
 	}
 
 }

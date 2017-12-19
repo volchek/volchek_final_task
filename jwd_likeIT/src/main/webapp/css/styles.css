@@ -24,22 +24,22 @@ ul {
 
 li {
 	float: left;
-	background-color: #132020;
 }
 
 li form {
 	line-height: 50px;
 }
 
-li form button {
+li, li form button {
 	background-color: #132020;
 	color: white;	
 	font-family: serif, Georgia, "Times New Roman", Times;
-	font-size: 120%;
+	font-size: 100%;
 }
 
 
-li a {
+li a, li span {
+	background-color: #132020;
 	display: block;
 	color: white;
 	text-align: center;
@@ -70,6 +70,7 @@ li a:hover {
 #menu {
 	width: 80%;
 	float: left;
+	margin-bottom: 50px;
 }
 
 .actions {

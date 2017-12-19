@@ -15,12 +15,33 @@
 <body>
 	<div class="header">LikeIT</div>
 	<ul id="menu">
-		<li><a href="../index.jsp"><c:out value="${logout}" /></a></li>
+		<li><span><c:out value="${user.login}"></c:out></span></li>
+		<li>
+			<form action="../Controller" method="post">
+				<input type="hidden" name="command" value="LOGOUT" />
+ 				<button type="submit"><c:out value="${logout}" /></button>
+			</form>
+		</li>
 		<li></li>
 	</ul>
 	<ul id="lang">
-		<li><a href="#">RU</a></li>
-		<li><a href="#">EN</a></li>
+		<li>
+			<form action="../Controller" method="post">
+				<input type="hidden" name="command" value="CHANGE_LANG" />
+				<input type="hidden" name="address" value="${pageContext.request.requestURL}"/>
+                <input type="hidden" name="query" value="${pageContext.request.queryString}"/>
+ 				<button type="submit" name="local" value="ru_RU">RU</button>
+			</form>
+		</li>
+		<li>
+			<form action="../Controller" method="post">
+				<input type="hidden" name="command" value="CHANGE_LANG" />
+				<input type="hidden" name="address" value="${pageContext.request.requestURL}"/>
+                <input type="hidden" name="query" value="${pageContext.request.queryString}"/>
+				<button type="submit" name="local" value="en_US">EN</button>
+			</form>
+		</li>
 	</ul>
+
 </body>
 </html>

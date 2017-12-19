@@ -35,7 +35,6 @@ public class SignIn implements ControllerCommand {
 			HttpSession session = request.getSession(true);
 			session.setAttribute(UserAttribute.USER_ENTITY, user);
 			response.sendRedirect(CommandConst.AFTER_PAGE);
-
 		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(CommandConst.CONTENT_ERROR_PAGE);
 			d.forward(request, response);

@@ -2,6 +2,10 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml"%>
+<%@ page isELIgnored="false"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,18 +33,21 @@
 		<li>
 			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="CHANGE_LANG" />
+				<input type="hidden" name="address" value="${pageContext.request.requestURL}"/>
+                <input type="hidden" name="query" value="${pageContext.request.queryString}"/>
  				<button type="submit" name="local" value="ru_RU">RU</button>
 			</form>
 		</li>
 		<li>
 			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="CHANGE_LANG" />
+				<input type="hidden" name="address" value="${pageContext.request.requestURL}"/>
+                <input type="hidden" name="query" value="${pageContext.request.queryString}"/>
 				<button type="submit" name="local" value="en_US">EN</button>
 			</form>
 		</li>
-
 	</ul>
-
+	
 	<div class="actions">
 		<div class="question">
 			<a href="#"><c:out value="${questions}" /></a>

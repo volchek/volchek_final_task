@@ -14,6 +14,7 @@
 <title>LikeIT</title>
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 <body>
+	<c:import url="fragment/menu.jsp"></c:import>
 	<form action="../Controller" method="get">
 		<input type="hidden" name="command" value="FIND_BY_LOGIN" />
 		<div class="container">
