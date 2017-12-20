@@ -22,6 +22,10 @@
 		<url-pattern>/Controller</url-pattern>
 	</servlet-mapping>
 
+	<listener>
+		<listener-class>by.tr.web.controller.listener.ControllerCreationListener</listener-class>
+	</listener>
+
 	<filter>
 		<display-name>CharsetFilter</display-name>
 		<filter-name>CharsetFilter</filter-name>

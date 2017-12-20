@@ -13,7 +13,7 @@ import java.util.List;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
 import by.tr.web.entity.User;
 
-public class MySQLQuery implements QueriesUtil {
+public class MySQLQuery {
 
 	private static final String INSERT_USER_QUERY = "INSERT INTO Users (surname, name, login, password, status) VALUES (?, ?, ?, ?, ?)";
 	private static final String LOG_IN_QUERY = "SELECT * FROM Users WHERE login = ? and password = ?;";
@@ -21,7 +21,6 @@ public class MySQLQuery implements QueriesUtil {
 
 	private static final Logger logger = LogManager.getLogger();
 
-	@Override
 	public void registerUser(Connection conn, User user) throws MySqlException {
 
 		PreparedStatement ps = null;
@@ -42,7 +41,6 @@ public class MySQLQuery implements QueriesUtil {
 		}
 	}
 
-	@Override
 	public User signIn(Connection conn, String login, String password) throws MySqlException {
 		PreparedStatement ps = null;
 		try {
@@ -58,7 +56,6 @@ public class MySQLQuery implements QueriesUtil {
 		}
 	}
 
-	@Override
 	public User findUserByLogin(Connection conn, String login) throws MySqlException {
 		PreparedStatement ps = null;
 		try {

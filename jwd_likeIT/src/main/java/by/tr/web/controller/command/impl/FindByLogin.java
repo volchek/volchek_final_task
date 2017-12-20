@@ -37,7 +37,7 @@ public class FindByLogin implements ControllerCommand {
 			d = request.getRequestDispatcher(CommandConst.CONTENT_ERROR_PAGE);
 		} catch (FatalServiceException ex) {
 			d = request.getRequestDispatcher(CommandConst.DATABASE_ERROR_PAGE);
-		} 
+		}
 		d.forward(request, response);
 	}
 
