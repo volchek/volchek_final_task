@@ -39,7 +39,7 @@
 		<filter-name>CharsetFilter</filter-name>
 		<url-pattern>/Controller</url-pattern>
 	</filter-mapping>
-
+	
 	<error-page>
 		<error-code>404</error-code>
 		<location>/jsp/error/404.jsp</location>

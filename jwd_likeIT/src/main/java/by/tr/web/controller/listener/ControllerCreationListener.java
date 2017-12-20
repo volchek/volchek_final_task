@@ -2,8 +2,8 @@ package by.tr.web.controller.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
 import by.tr.web.service.InitializeService;
+import by.tr.web.service.exception.FatalServiceException;
 import by.tr.web.service.factory.ServiceFactory;
 
 public class ControllerCreationListener implements ServletContextListener {
@@ -13,7 +13,11 @@ public class ControllerCreationListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		initializeService.initializeApplication();
+		try {
+			initializeService.initializeApplication();
+		} catch (FatalServiceException ex) {
+			System.err.println("Stop application");
+		}
 	}
 
 	@Override

@@ -1,6 +1,4 @@
-package by.tr.web.dao.impl.mysql_util;
-
-import by.tr.web.dao.impl.mysql_util.pool.ConnectionPool;
+package by.tr.web.dao.impl.mysql_util.pool;
 
 public class ConnectionPoolFactory {
 

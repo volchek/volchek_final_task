@@ -7,10 +7,11 @@ import java.sql.Connection;
 import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.FatalDaoException;
-import by.tr.web.dao.impl.mysql_util.ConnectionPoolFactory;
 import by.tr.web.dao.impl.mysql_util.MySQLQuery;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
+import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlFatalException;
 import by.tr.web.dao.impl.mysql_util.pool.ConnectionPool;
+import by.tr.web.dao.impl.mysql_util.pool.ConnectionPoolFactory;
 
 public class MySQLUserDaoImpl implements UserDao {
 
@@ -26,6 +27,8 @@ public class MySQLUserDaoImpl implements UserDao {
 			MySQLQuery query = new MySQLQuery();
 			query.registerUser(conn, user);
 			return true;
+		} catch (MySqlFatalException ex) {
+			throw new FatalDaoException("Can't get connection", ex);
 		} catch (MySqlException ex) {
 			throw new DaoException("Can't register such user", ex);
 		} finally {
@@ -49,6 +52,8 @@ public class MySQLUserDaoImpl implements UserDao {
 				throw new DaoException("User wasn't found");
 			}
 			return user;
+		} catch (MySqlFatalException ex) {
+			throw new FatalDaoException("Can't get connection", ex);
 		} catch (MySqlException ex) {
 			throw new DaoException("Can't execute query", ex);
 		} finally {
@@ -73,6 +78,8 @@ public class MySQLUserDaoImpl implements UserDao {
 				throw new DaoException("User wasn't found");
 			}
 			return user;
+		} catch (MySqlFatalException ex) {
+			throw new FatalDaoException("Can't get connection", ex);
 		} catch (MySqlException ex) {
 			throw new DaoException("Can't execute query", ex);
 		} finally {
