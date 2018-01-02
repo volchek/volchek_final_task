@@ -24,7 +24,6 @@
 <title>LikeIT</title>
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 <body>
-	<!-- <div class="header">Регистрация</div>  -->
 	<form action="../Controller" method="post"
 		onsubmit="return checkPasswords()">
 		<input type="hidden" name="command" value="REGISTER" />

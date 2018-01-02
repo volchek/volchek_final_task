@@ -21,6 +21,8 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+	<c:import url="fragment/header.jsp"></c:import>
+	<c:import url="menu.jsp"></c:import>
 	<h1>
 		<c:out value="${title}" />
 	</h1>

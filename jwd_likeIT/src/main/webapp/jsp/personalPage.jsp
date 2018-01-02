@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-
+	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml"%>
@@ -23,16 +23,15 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-	<c:import url="jsp/fragment/header.jsp"></c:import>
-	<c:import url="jsp/menu.jsp"></c:import>
-
-<!-- <ul id="menu">
+	<div class="header">LikeIT</div>
+	<ul id="menu">
 		<li><a href="jsp/login.jsp"><c:out value="${login}" /></a></li>
 		<li><a href="jsp/register.jsp"><c:out value="${registration}" /></a></li>
+		<li></li>
 	</ul>
 	<ul id="lang">
 		<li>
-			<form action="./Controller" method="post">
+			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="CHANGE_LANG" /> <input
 					type="hidden" name="address"
 					value="${pageContext.request.requestURL}" /> <input type="hidden"
@@ -41,7 +40,7 @@
 			</form>
 		</li>
 		<li>
-			<form action="./Controller" method="post">
+			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="CHANGE_LANG" /> <input
 					type="hidden" name="address"
 					value="${pageContext.request.requestURL}" /> <input type="hidden"
@@ -50,8 +49,7 @@
 			</form>
 		</li>
 	</ul>
-	 --> 	
-	
+
 	<div class="actions">
 		<div class="question">
 			<a href="#"><c:out value="${questions}" /></a>

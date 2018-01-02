@@ -59,7 +59,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		} finally {
 			try {
 				connPool.closeConnection(conn);
-			} catch (MySqlException ex) {
+			} catch (MySqlException ex) { //
 				throw new FatalDaoException(ex);
 			}
 		}

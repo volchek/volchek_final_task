@@ -11,6 +11,17 @@
 <body>
 	<c:import url="fragment/header.jsp"></c:import>
 	<c:import url="menu.jsp"></c:import>
-	<c:import url="fragment/regActions.jsp"></c:import>
+	<form>
+		<input type="text" name="text"> <input type="submit">
+		<div class="clearfix">
+			<button type="button" class="cancelbtn"
+				onclick="location.href='../index.jsp'">
+				<c:out value="${cancel}" />
+			</button>
+			<button type="submit" class="signupbtn">
+				<c:out value="${finish}" />
+			</button>
+		</div>
+	</form>
 </body>
 </html>

@@ -33,7 +33,7 @@ public class SignIn implements ControllerCommand {
 		try {
 			User user = userService.signIn(login, password);
 			HttpSession session = request.getSession(true);
-			session.setAttribute(UserAttribute.USER_ENTITY, user);
+			session.setAttribute(UserAttribute.CURRENT_USER, user);
 			response.sendRedirect(CommandConst.AFTER_PAGE);
 		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(CommandConst.CONTENT_ERROR_PAGE);

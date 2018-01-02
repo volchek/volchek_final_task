@@ -15,7 +15,8 @@
 <title>LikeIT</title>
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 <body>
-<body>
+	<c:import url="fragment/header.jsp"></c:import>
+	<c:import url="menu.jsp"></c:import>
 	<form action="../Controller" method="post">
 		<input type="hidden" name="command" value="SIGN_IN" />
 		<div class="container">

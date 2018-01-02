@@ -19,6 +19,7 @@ public class ChangeLanguage implements ControllerCommand {
 		String address = request.getParameter(CommandConst.ADDRESS_PARAMETER);
 		String query = request.getParameter(CommandConst.QUERY_PARAMETER);
 		String previousQuery = createQuery(address, query);
+
 		if (previousQuery != null && !previousQuery.isEmpty()) {
 			response.sendRedirect(previousQuery);
 		} else {
@@ -26,14 +27,17 @@ public class ChangeLanguage implements ControllerCommand {
 		}
 
 	}
-
+	
 	private String createQuery(String address, String query) {
 		StringBuilder resultQuery = new StringBuilder();
-		if (address != null && !address.isEmpty()) {
-			resultQuery.append(address);
-		}
 		if (query != null && !query.isEmpty()) {
+			resultQuery.append("Controller");
 			resultQuery.append("?").append(query);
+		}
+		else {
+			if (address != null && !address.isEmpty()) {
+				resultQuery.append(address);
+			}	
 		}
 		return resultQuery.toString();
 	}

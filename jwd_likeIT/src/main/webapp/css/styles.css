@@ -80,6 +80,38 @@ li a:hover {
 	display: flex;
 }
 
+.fullactions {
+	padding-top: 5px;
+	height: 100%;
+	width: 100%;
+	display: flex;
+}
+
+.fullactions div {
+	background-color: #bfbfbf;
+	width: 30%;
+	height: 200px;
+	margin: 10px 20px;
+	line-height: 20px;
+	text-align: center;
+	vertical-align: middle;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 150%;
+}
+
+.fullactions button {
+	background-color: lightgray;
+	margin: 10px;
+	width: 30%;
+	height: 200px;
+	margin: 10px 20px;
+	text-align: center;
+	vertical-align: middle;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 150%;
+}
+
+
 .error {
 	text-align: center;
 	font-family: Georgia, "Times New Roman", Times, serif;
