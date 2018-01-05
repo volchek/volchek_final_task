@@ -7,23 +7,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.tr.web.controller.command.ControllerCommand;
-import by.tr.web.controller.command.util.CommandConst;
+import by.tr.web.controller.command.util.PagePath;
+import by.tr.web.controller.command.util.attribute.CommandAttribute;
 
 public class ChangeLanguage implements ControllerCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.getSession(true).setAttribute(CommandConst.LOCAL_PARAMETER,
-		request.getParameter(CommandConst.LOCAL_PARAMETER));
-		String address = request.getParameter(CommandConst.ADDRESS_PARAMETER);
-		String query = request.getParameter(CommandConst.QUERY_PARAMETER);
+		request.getSession(true).setAttribute(CommandAttribute.LOCAL_PARAMETER,
+		request.getParameter(CommandAttribute.LOCAL_PARAMETER));
+		String address = request.getParameter(CommandAttribute.ADDRESS_PARAMETER);
+		String query = request.getParameter(CommandAttribute.QUERY_PARAMETER);
 		String previousQuery = createQuery(address, query);
 
 		if (previousQuery != null && !previousQuery.isEmpty()) {
 			response.sendRedirect(previousQuery);
 		} else {
-			response.sendRedirect(CommandConst.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.CONTENT_ERROR_PAGE);
 		}
 
 	}

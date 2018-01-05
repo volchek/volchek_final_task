@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import by.tr.web.controller.command.ControllerCommand;
-import by.tr.web.controller.command.util.CommandConst;
-import by.tr.web.controller.command.util.UserAttribute;
+import by.tr.web.controller.command.util.PagePath;
+import by.tr.web.controller.command.util.attribute.UserAttribute;
 import by.tr.web.entity.User;
 import by.tr.web.service.UserService;
 import by.tr.web.service.factory.ServiceFactory;
@@ -34,12 +34,12 @@ public class SignIn implements ControllerCommand {
 			User user = userService.signIn(login, password);
 			HttpSession session = request.getSession(true);
 			session.setAttribute(UserAttribute.CURRENT_USER, user);
-			response.sendRedirect(CommandConst.AFTER_PAGE);
+			response.sendRedirect(PagePath.AFTER_PAGE);
 		} catch (ServiceException ex) {
-			d = request.getRequestDispatcher(CommandConst.CONTENT_ERROR_PAGE);
+			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
 			d.forward(request, response);
 		} catch (FatalServiceException ex) {
-			d = request.getRequestDispatcher(CommandConst.DATABASE_ERROR_PAGE);
+			d = request.getRequestDispatcher(PagePath.DATABASE_ERROR_PAGE);
 			d.forward(request, response);
 		}
 	}

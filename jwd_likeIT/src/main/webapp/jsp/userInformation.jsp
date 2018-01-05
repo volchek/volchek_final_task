@@ -45,5 +45,6 @@
 	</table>
 	<br>
 	<a href="jsp/findUser.jsp" class="link"><c:out value="${link}" /></a>
+	<c:import url="fragment/footer.jsp"></c:import>
 </body>
 </html>

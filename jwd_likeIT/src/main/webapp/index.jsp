@@ -25,32 +25,6 @@
 <body>
 	<c:import url="jsp/fragment/header.jsp"></c:import>
 	<c:import url="jsp/menu.jsp"></c:import>
-
-<!-- <ul id="menu">
-		<li><a href="jsp/login.jsp"><c:out value="${login}" /></a></li>
-		<li><a href="jsp/register.jsp"><c:out value="${registration}" /></a></li>
-	</ul>
-	<ul id="lang">
-		<li>
-			<form action="./Controller" method="post">
-				<input type="hidden" name="command" value="CHANGE_LANG" /> <input
-					type="hidden" name="address"
-					value="${pageContext.request.requestURL}" /> <input type="hidden"
-					name="query" value="${pageContext.request.queryString}" />
-				<button type="submit" name="local" value="ru_RU">RU</button>
-			</form>
-		</li>
-		<li>
-			<form action="./Controller" method="post">
-				<input type="hidden" name="command" value="CHANGE_LANG" /> <input
-					type="hidden" name="address"
-					value="${pageContext.request.requestURL}" /> <input type="hidden"
-					name="query" value="${pageContext.request.queryString}" />
-				<button type="submit" name="local" value="en_US">EN</button>
-			</form>
-		</li>
-	</ul>
-	 --> 	
 	
 	<div class="actions">
 		<div class="question">
@@ -63,5 +37,6 @@
 			<a href="jsp/findUser.jsp"><c:out value="${find}" /></a>
 		</div>
 	</div>
+	<c:import url="jsp/fragment/footer.jsp"></c:import>
 </body>
 </html>

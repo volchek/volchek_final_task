@@ -15,67 +15,67 @@
 	var="registration" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
+<link rel="stylesheet" href=“css/normalize.css“>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Raleway"
+	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-	<c:choose>
-		<c:when test="${not empty sessionScope.current_user}">
-			<ul id="menu">
-				<li><span><c:out value="${current_user.login}"></c:out></span></li>
-				<li>
-					<!--			<form action="${pageContext.request.contextPath}/Controller" method="post"> -->
+	<div class="menu clearfix">
+		<div class="nav">
+			<c:choose>
+				<c:when test="${not empty sessionScope.current_user}">
+					<span><c:out value="${current_user.login}"></c:out></span>
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
 
-					<form action="../Controller" method="post">
 						<input type="hidden" name="command" value="EDIT" />
 						<button type="submit">
 							<c:out value="${edit}" />
 						</button>
 					</form>
-				</li>
-				<li>
-					<!--			<form action="${pageContext.request.contextPath}/Controller" method="post">	-->
-					<form action="../Controller" method="post">
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
 						<input type="hidden" name="command" value="LOGOUT" />
 						<button type="submit">
 							<c:out value="${logout}" />
 						</button>
 					</form>
-				</li>
-			</ul>
 
-		</c:when>
-		<c:otherwise>
-			<ul id="menu">
-				<li><a href="jsp/login.jsp">
-					<c:out value="${login}" /></a>
-				</li>
-				<li><a href="jsp/register.jsp">
-					<c:out value="${registration}" /></a>
-				</li>
-			</ul>
-		</c:otherwise>
-	</c:choose>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath}/jsp/login.jsp"> <c:out value="${login}" /></a> 
+					<a href="${pageContext.request.contextPath}/jsp/register.jsp"> <c:out value="${registration}" /></a>
+				</c:otherwise>
+			</c:choose>
 
-	<ul id="lang">
-		<li>
-			<form action="${pageContext.request.contextPath}/Controller" method="post">
-<!-- 			<form action="Controller" method="post">	 -->
-				<input type="hidden" name="command" value="CHANGE_LANG" /> 
- 				<input type="hidden" name="address" value="${pageContext.request.requestURL}" />
-				<input type="hidden" name="query" value="${pageContext.request.queryString}" />
-				<button type="submit" name="local" value="ru_RU">RU</button>
-			</form>
-		</li>
-		<li>
-			<form action="${pageContext.request.contextPath}/Controller" method="post">
-<!-- 			<form action="Controller" method="post">	 -->
-				<input type="hidden" name="command" value="CHANGE_LANG" />
- 				<input type="hidden" name="address" value="${pageContext.request.requestURL}" />
-				<input type="hidden" name="query" value="${pageContext.request.queryString}" />
-				<button type="submit" name="local" value="en_US">EN</button>
-			</form>
-		</li>
-	</ul>
+			<div class="menu-lang">
+				<form action="${pageContext.request.contextPath}/Controller"
+					method="post">
+					<input type="hidden" name="command" value="CHANGE_LANG" /> <input
+						type="hidden" name="address"
+						value="${pageContext.request.requestURL}" /> <input type="hidden"
+						name="query" value="${pageContext.request.queryString}" />
+					<button type="submit" name="local" value="ru_RU">RU</button>
+				</form>
+				<form action="${pageContext.request.contextPath}/Controller"
+					method="post">
+					<input type="hidden" name="command" value="CHANGE_LANG" /> <input
+						type="hidden" name="address"
+						value="${pageContext.request.requestURL}" /> <input type="hidden"
+						name="query" value="${pageContext.request.queryString}" />
+					<button type="submit" name="local" value="en_US">EN</button>
+				</form>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

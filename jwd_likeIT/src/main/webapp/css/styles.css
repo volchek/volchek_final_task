@@ -1,193 +1,255 @@
-body {
-	background-color: #E6E6FA;
-	margin: 0px;
-	padding: 0px;
-}
-
-.header {
+/* For mobile phones: */
+.menu {
 	width: 100%;
-	background-color: #555555;
-	font-family: serif, Georgia, "Times New Roman", Times;
-	font-size: 350%;
-	text-align: center;
-	color: white;
 }
 
-ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: #132020;
-	height: 50px;
-}
-
-li {
-	float: left;
-}
-
-li form {
-	line-height: 50px;
-}
-
-li, li form button {
-	background-color: #132020;
-	color: white;	
-	font-family: serif, Georgia, "Times New Roman", Times;
-	font-size: 100%;
-}
-
-
-li a, li span {
-	background-color: #132020;
-	display: block;
-	color: white;
-	text-align: center;
-	padding: 16px;
-	text-decoration: none;
-}
-
-li a:hover {
-	background-color: #111111;
-}
-
-.link:link, .link:visited, .link:hover, .link:active {
-	text-decoration: none;
-	color: #111111;
-	font-family: serif, Georgia, Times;
-	margin: 2% 2%;
-}
-
-#lang {
-	width: 20%;
-	float: left;
-}
-
-#lang li {
-	float: right;
-}
-
-#menu {
-	width: 80%;
-	float: left;
-	margin-bottom: 50px;
-}
-
-.actions {
-	padding-top: 50px;
-	height: 100%;
+.personal-info {
+	margin-left: 10px;
 	width: 100%;
-	display: flex;
 }
 
-.fullactions {
-	padding-top: 5px;
-	height: 100%;
+.nav a:not(:first-child) {
+	padding-left: 10px;
+}
+
+.menu-lang {
 	width: 100%;
-	display: flex;
+	padding-bottom: 5px;
+	margin-top: 15px;
+	border-bottom: 1px solid red;
 }
 
-.fullactions div {
-	background-color: #bfbfbf;
-	width: 30%;
-	height: 200px;
-	margin: 10px 20px;
-	line-height: 20px;
-	text-align: center;
-	vertical-align: middle;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 150%;
-}
-
-.fullactions button {
-	background-color: lightgray;
-	margin: 10px;
-	width: 30%;
-	height: 200px;
-	margin: 10px 20px;
-	text-align: center;
-	vertical-align: middle;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 150%;
-}
-
-
-.error {
-	text-align: center;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 150%;
-	margin-top: 60px;
-	margin-bottom: 50px;
-}
-
-div div {
-	background-color: #bfbfbf;
-	width: 30%;
-	height: 400px;
-	line-height: 400px;
-	margin: 20px;
-	text-align: center;
-	vertical-align: middle;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 150%;
-}
-
-div a {
-	color: #1a1a1a;
-	text-shadow: 1px 1px #e6e6e6;
-	text-decoration: none;
-}
-
-select, input[type=text], input[type=password], [type=date] {
+.right-side {
+	margin-left: 10px;
 	width: 100%;
-	padding: 10px 10px;
-	margin: 8px 0;
-	display: inline-block;
-	border: 1px solid #ccc;
-	box-sizing: border-box;
 }
 
 .container {
-	padding: 16px;
-	width: 30%;
-	margin: 2% 33%;
-	font-size: 90%;
+	width: 100%;
+	margin-top: 10px;
+	margin-left: 20px;
 }
 
-.clearfix {
-	width: 20%;
-	margin: 1% 40%;
+.buttons {
+	width: 100%;
 }
 
-button {
-	background-color: #4CAF50;
-	padding: 2px 20px;
-	margin: 2px 0;
+.footer {
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	padding-bottom: 0;
+	width: 100%;
+	border-top: 1px solid #FF0000;
+}
+
+select, input[type=text], [type=password], [type=date], [type=email], [type=url]
+	{
+	padding: 8px;
+	margin: 8px 0 20px;
+	border: 1px solid #ccc;
+	display: inline-block;
+	box-sizing: border-box;
+	width: 80%;
+}
+
+.container {
+	width: 90%;
+	margin-top: 40px;
+	margin-left: 5%;
+}
+
+.container input {
+	width: 90%;
+}
+
+/* For laptops: */
+@media only screen and (min-width: 800px) {	
+	.menu-lang {
+		width: auto;
+		float: right;
+		padding-bottom: auto;
+		margin-top: auto;
+		border-bottom: 0;
+	}
+	
+	.personal-info {
+		margin-left: 0px;
+		float: left;
+		width: 55%;
+	}
+	.right-side {
+		margin-left: 0px;
+		float: left;
+		width: 45%;
+	}
+	.buttons {
+		float: left;
+		width: 100%;
+	}
+	select, input[type=text], [type=password], [type=date], [type=email], [type=url]
+		{
+		width: 80%;
+	}
+	.container {
+		width: 40%;
+		margin-top: 30px;
+		margin-left: 30%;
+	}
+	.container input {
+		width: 100%;
+	}
+}
+
+@font-face {
+	font-family: Cinzel;
+	src: url(fonts/Cinzel/Cinzel-Regular.otf);
+}
+
+@font-face {
+	font-family: RegularRoboto;
+	src: url(fonts/Roboto/Roboto-Regular.ttf);
+}
+
+@font-face {
+	font-family: LightRoboto;
+	src: url(fonts/Roboto/RobotoCondensed-Light.ttf);
+}
+
+header, .header {
+	font-family: 'Work Sans', Cinzel, sans-serif;
+	font-size: 38pt;
+	padding-bottom: 20px;
+	border-width: 1px;
+	border-bottom-width: 2px;
+	border-bottom-color: #FF5533;
+	border-bottom-style: solid;
+}
+
+h2, nav, nav button, .nav, .nav button {
+	font-family: Roboto, sans-serif;
+	font-size: 18pt;
+}
+
+nav a:link, a:visited, .nav a:link, a:visited {
+	color: #090909;
+}
+
+nav a:hover, .nav a:hover {
+	color: #FFFFFF;
+	text-shadow: 1px 1px 2px #000000, 0 0 1px #FF0606;
+}
+
+div.right-side h2::after {
+	content:
+		"";
+	color: #FF0000;
+	font-size: 50%;
+	padding-left: 7px;
+	vertical-align: middle;
+}
+
+div {
+	font-family: Raleway, RegularRoboto, sans-serif;
+}
+
+div.lang {
+	font-family: 'Open Sans Condensed', LightRoboto, sans-serif;
+	font-size: 12pt;
+}
+
+.err {
+	color: red;
+}
+
+nav, .footer, .nav {
+	padding: 10px 2px;
+	background-color: #F8F8EE;
+}
+
+nav, .nav {
+	border-bottom: 1px solid #FF0000;
+}
+
+nav button, span>button, .nav button {
+	background-color: #F8F8EE;
+}
+
+span>button {
+	margin-left: 10px;
+	padding: 5px 5px;
+}
+
+div.menu-lang>form {
+	float: left;
+}
+
+div.menu-lang {
+	float: right;
+}
+
+.clearfix::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+div>button {
+	font-family: Roboto, Cinzel, sans-serif;
+	font-size: 12pt;
+	margin: 50px 0;
+	padding: 14px 20px;
 	border: none;
 	cursor: pointer;
 }
 
+.buttons {
+	text-align: center;
+	font-family: LightRoboto, sans-serif;
+}
+
 .cancelbtn {
-	padding: 14px 20px;
-	background-color: #132020;
-	color: white;
+	background-color: #DE6D6D;
+	color: #FFFFFF;
+	width: 100px;
 }
 
 .signupbtn {
-	padding: 14px 20px;
-	background-color: lightgray;
-	color: black;
+	background-color: #443333;
+	color: #FFFFFF;
+	width: 100px;
 }
 
-.cancelbtn, .signupbtn {
-	float: left;
-	width: 50%;
+.vertical-label {
+	display: inline-block;
+	text-align: center;
+}
+
+.vertical-label label {
+	display: block;
+	color: red;
+	font-size: 8pt;
+	margin-bottom: 1px;
+}
+
+.right-side td {
+	height: 45px;
+	padding-right: 5px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.right-side td:nth-child(2) {
+	padding-right: 40px;
+}
+
+.right-side td:nth-child(2n) {
+	width: 120px;
 }
 
 .userInfo {
-	font-family: Georgia, Times, serif;
+	font-family: Raleway, RegularRoboto, sans-serif;
 	text-align: center;
-	background-color: white;
 	margin: 20px 10px 50px;
 }
 
@@ -196,5 +258,5 @@ button {
 }
 
 .userInfo thead {
-	background-color: lightgray;
+	background-color: #FFE4E1;
 }

@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.tr.web.controller.command.ControllerCommand;
-import by.tr.web.controller.command.util.CommandConst;
-import by.tr.web.controller.command.util.UserAttribute;
+import by.tr.web.controller.command.util.PagePath;
+import by.tr.web.controller.command.util.attribute.UserAttribute;
 import by.tr.web.entity.User;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.FatalServiceException;
@@ -30,16 +30,16 @@ public class Register implements ControllerCommand {
 		try {
 			boolean result = userService.register(user);
 			if (result == true) {
-				response.sendRedirect(CommandConst.ENTRY_PAGE);
+				response.sendRedirect(PagePath.ENTRY_PAGE);
 			}
 
 		} catch (ServiceException ex) {
 			RequestDispatcher d = null;
-			d = request.getRequestDispatcher(CommandConst.CONTENT_ERROR_PAGE);
+			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
 			d.forward(request, response);
 		} catch (FatalServiceException ex) {
 			RequestDispatcher d = null;
-			d = request.getRequestDispatcher(CommandConst.DATABASE_ERROR_PAGE);
+			d = request.getRequestDispatcher(PagePath.DATABASE_ERROR_PAGE);
 			d.forward(request, response);
 		}
 	}

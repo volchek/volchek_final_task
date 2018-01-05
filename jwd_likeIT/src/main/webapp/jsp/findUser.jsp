@@ -20,10 +20,10 @@
 	<form action="../Controller" method="get">
 		<input type="hidden" name="command" value="FIND_BY_LOGIN" />
 		<div class="container">
-			<label><b><c:out value="${login}" /></b></label> <input type="text"
-				name="login" required>
+			<label><c:out value="${login}" /><br> <input
+				type="text" name="login" required> </label>
 		</div>
-		<div class="clearfix">
+		<div class="buttons">
 			<c:choose>
 				<c:when test="${not empty current_user.login}">
 					<button type="button" class="cancelbtn"
@@ -43,5 +43,6 @@
 			</button>
 		</div>
 	</form>
+	<c:import url="fragment/footer.jsp"></c:import>
 </body>
 </html>

@@ -24,15 +24,16 @@
 </head>
 <body>
 	<div class="fullactions">
-		<button>
-			<c:out value="${last_questions}" />
-		</button>
-		<button>
-			<c:out value="${my_questions}" />
-		</button>
-		<button>
-			<c:out value="${my_answers}" />
-		</button>
+		<div>
+			<a href="../jsp/lastQuestions.jsp"><c:out
+					value="${last_questions}" /></a>
+		</div>
+		<div>
+			<a href="../jsp/myQuestions.jsp"><c:out value="${my_questions}" /></a>
+		</div>
+		<div>
+			<a href="../jsp/myAnswers.jsp"><c:out value="${my_answers}" /></a>
+		</div>
 		<div>
 			<a href="../jsp/addQuestion.jsp"><c:out value="${ask_question}" /></a>
 		</div>

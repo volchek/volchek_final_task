@@ -20,12 +20,12 @@
 	<form action="../Controller" method="post">
 		<input type="hidden" name="command" value="SIGN_IN" />
 		<div class="container">
-			<label><b><c:out value="${login}" /></b></label> <input type="text"
-				name="login" required> <label><b><c:out
-						value="${password}" /></b></label> <input type="password" name="password"
-				required>
+			<label><c:out value="${login}" /><br><input type="text"
+				name="login" required></label> <br> <label><c:out
+						value="${password}" /><br><input type="password" name="password"
+				required></label> 
 		</div>
-		<div class="clearfix">
+		<div class="buttons">
 			<button type="button" class="cancelbtn"
 				onclick="location.href='../index.jsp'">
 				<c:out value="${cancel}" />
@@ -35,5 +35,6 @@
 			</button>
 		</div>
 	</form>
+	<c:import url="fragment/footer.jsp"></c:import>
 </body>
 </html>
