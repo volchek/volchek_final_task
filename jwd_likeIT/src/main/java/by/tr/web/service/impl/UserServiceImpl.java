@@ -7,6 +7,7 @@ import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.entity.User;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.ServiceException;
+import by.tr.web.service.impl.util.Validator;
 import by.tr.web.service.exception.FatalServiceException;
 
 public class UserServiceImpl implements UserService {
@@ -14,8 +15,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean register(User user) throws ServiceException, FatalServiceException {
 
-		if (!validateUser(user)) {
-			throw new ServiceException("Incorrect input data");
+		if (!Validator.validateUser(user)) {
+			// Add logging
 		}
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
@@ -33,8 +34,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User signIn(String login, String password) throws ServiceException, FatalServiceException {
 
-		if (!validate(login) || !validate(password)) {
-			throw new ServiceException("One field is empty");
+		if (!Validator.validateLogin(login) || !Validator.validatePassword(password)) {
+			// add logging
 		}
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
@@ -54,8 +55,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findUserByLogin(String login) throws ServiceException, FatalServiceException {
 
-		if (!validate(login)) {
-			throw new ServiceException("Login is empty");
+		if (!Validator.validateLogin(login)) {
+			// Add logging
 		}
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
@@ -69,31 +70,7 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException(ex);
 		} catch (FatalDaoException ex) {
 			throw new FatalServiceException(ex);
-		}
-
-	}
-
-	private static boolean validate(String login) {
-		login = login.trim();
-		if (login.isEmpty()) {
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean validateUser(User user) {
-
-		if (!validate(user.getSurname())) {
-			return false;
-		} else if (!validate(user.getName())) {
-			return false;
-		} else if (!validate(user.getLogin())) {
-			return false;
-		} else if (!validate(user.getPassword())) {
-			return false;
-		}
-
-		return true;
+		}		
 	}
 
 }

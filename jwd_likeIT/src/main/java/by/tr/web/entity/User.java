@@ -1,14 +1,22 @@
 package by.tr.web.entity;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private static final String stringFormat = "yyyy-MM-dd";
 
 	private String surname;
 	private String name;
@@ -27,6 +35,8 @@ public class User implements Serializable {
 	private boolean isBanned;
 
 	public User() {
+		email = new LinkedList<String>();
+		languages = new HashMap<Language, Integer>();
 	}
 
 	public void setName(String name) {
@@ -44,15 +54,25 @@ public class User implements Serializable {
 	public String getSurname() {
 		return surname;
 	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
+	
+	public void setBirthday(Date date){
+		birthday = date;
 	}
 
 	public void setBirthday(int date, int month, int year) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year, month, date);
 		birthday = calendar.getTime();
+	}
+
+	public void setBirthday(String date, String stringFormat) {
+		DateFormat format = new SimpleDateFormat(stringFormat, Locale.getDefault());
+		try {
+			birthday = format.parse(date);
+		} catch (ParseException e) {
+			// ADD logging
+			birthday = null;
+		}
 	}
 
 	public Date getBirthday() {
@@ -65,6 +85,12 @@ public class User implements Serializable {
 
 	public List<String> getEmail() {
 		return email;
+	}
+
+	public void addEmail(String email) {
+		if (email != null && !email.isEmpty()) {
+			this.email.add(email);
+		}
 	}
 
 	public void setAvatar(String avatar) {
@@ -118,7 +144,7 @@ public class User implements Serializable {
 	public boolean isAdmin() {
 		return isAdmin;
 	}
-	
+
 	public void setBanned(boolean banned) {
 		this.isBanned = banned;
 	}
@@ -126,7 +152,6 @@ public class User implements Serializable {
 	public boolean isBanned() {
 		return isBanned;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -174,7 +199,7 @@ public class User implements Serializable {
 		} else if (!surname.equals(other.surname)) {
 			return false;
 		}
-		
+
 		if (name == null) {
 			if (other.name != null) {
 				return false;
@@ -182,15 +207,20 @@ public class User implements Serializable {
 		} else if (!name.equals(other.name)) {
 			return false;
 		}
-		
+
 		if (birthday == null) {
 			if (other.birthday != null) {
 				return false;
 			}
-		} else if (!birthday.equals(other.birthday)) {
-			return false;
+		} else {
+			Format formatter = new SimpleDateFormat(stringFormat);
+			String s1 = formatter.format(birthday);
+			String s2 = formatter.format(other.birthday);
+			if (!s1.equals(s2)){
+				return false;
+			}
 		}
-		
+
 		if (email == null) {
 			if (other.email != null) {
 				return false;
@@ -198,7 +228,7 @@ public class User implements Serializable {
 		} else if (!email.equals(other.email)) {
 			return false;
 		}
-		
+
 		if (avatar == null) {
 			if (other.avatar != null) {
 				return false;
@@ -206,7 +236,7 @@ public class User implements Serializable {
 		} else if (!avatar.equals(other.avatar)) {
 			return false;
 		}
-		
+
 		if (login == null) {
 			if (other.login != null) {
 				return false;
@@ -214,7 +244,7 @@ public class User implements Serializable {
 		} else if (!login.equals(other.login)) {
 			return false;
 		}
-		
+
 		if (password == null) {
 			if (other.password != null) {
 				return false;
@@ -222,7 +252,7 @@ public class User implements Serializable {
 		} else if (!password.equals(other.password)) {
 			return false;
 		}
-		
+
 		if (status == null) {
 			if (other.status != null) {
 				return false;
@@ -230,7 +260,7 @@ public class User implements Serializable {
 		} else if (!status.equals(other.status)) {
 			return false;
 		}
-		
+
 		if (languages == null) {
 			if (other.languages != null) {
 				return false;
@@ -238,24 +268,23 @@ public class User implements Serializable {
 		} else if (!languages.equals(other.languages)) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "User: " + 
-			"surname=" + surname + 
-			"; name=" + name + 
-			"; birthday=" + birthday +
-			"; email=" + email +
-			"; avatarPath=" + avatar + 
-			"; login=" + login + 
-			"; password=" + password +
-			"; status=" + status +
-			"; languages=" + languages +
-			"; isAdmin=" + isAdmin +
-			"; isBanned=" + isBanned;
+		return "User: " + "surname=" + surname + 
+				"; name=" + name + 
+				"; birthday=" + birthday + 
+				"; email=" + email
+				+ "; avatarPath=" + avatar + 
+				"; login=" + login + 
+				"; password=" + password + 
+				"; status=" + status
+				+ "; languages=" + languages + 
+				"; isAdmin=" + isAdmin + 
+				"; isBanned=" + isBanned;
 	}
 
 }

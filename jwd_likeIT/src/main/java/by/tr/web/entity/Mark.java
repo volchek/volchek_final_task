@@ -1,7 +1,7 @@
 package by.tr.web.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Mark implements Serializable {
 
@@ -10,13 +10,13 @@ public class Mark implements Serializable {
 	private Text evaluatedText;
 	private int score;
 	private User user;
-	private LocalDateTime creationDateTime;
+	private Date creationDateTime;
 
 	public Mark() {
 
 	}
 
-	public Mark(Text evaluatedText, int score, User user, LocalDateTime creationDateTime) {
+	public Mark(Text evaluatedText, int score, User user, Date creationDateTime) {
 		this.evaluatedText = evaluatedText;
 		this.score = score;
 		this.user = user;
@@ -47,11 +47,11 @@ public class Mark implements Serializable {
 		this.user = user;
 	}
 
-	public LocalDateTime getCreationDateTime() {
+	public Date getCreationDateTime() {
 		return creationDateTime;
 	}
 
-	public void setCreationDateTime(LocalDateTime creationDateTime) {
+	public void setCreationDateTime(Date creationDateTime) {
 		this.creationDateTime = creationDateTime;
 	}
 

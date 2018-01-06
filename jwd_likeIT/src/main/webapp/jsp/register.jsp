@@ -65,17 +65,22 @@
 	<c:import url="registrationMenu.jsp"></c:import>
 
 	<form action="../Controller" method="post"
+	
+	
 		onsubmit="return checkPasswords()">
 		<input type="hidden" name="command" value="REGISTER" />
 		<div class="personal-info">
 			<h2>
 				<c:out value="${personal_info}" />
 			</h2>
+			<h4 id="registration-error">
+				
+			</h4>
 			<label><c:out value="${surname}" /> <br> <input
 				type="text" name="surname" pattern="^[\D]+$" required> </label> <br>
 			<label><c:out value="${name}" /> <br> <input
 				type="text" name="name" pattern="^[\D]+$" required> </label> <br>
-			<label><c:out value="${birthday}" /> <br> <input
+			<label><c:out value="${birthday}" />* <br> <input
 				type="date" name="date" value="1970-01-01" min="1900-01-01"
 				max="2011-01-01"> </label> <br> <label><c:out
 					value="${status}" /> <br> <select name="status">

@@ -6,8 +6,9 @@ import java.sql.Connection;
 
 import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
+import by.tr.web.dao.exception.DaoLoginException;
 import by.tr.web.dao.exception.FatalDaoException;
-import by.tr.web.dao.impl.mysql_util.MySQLQuery;
+import by.tr.web.dao.impl.mysql_util.MySQLUserQuery;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlFatalException;
 import by.tr.web.dao.impl.mysql_util.pool.ConnectionPool;
@@ -24,8 +25,10 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {
 			conn = connPool.getConnection();
-			MySQLQuery query = new MySQLQuery();
-			query.registerUser(conn, user);
+			MySQLUserQuery query = new MySQLUserQuery();
+			if (!query.registerUser(conn, user)){
+				throw new DaoLoginException("Such user exists in database");
+			}
 			return true;
 		} catch (MySqlFatalException ex) {
 			throw new FatalDaoException("Can't get connection", ex);
@@ -46,7 +49,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {
 			conn = connPool.getConnection();
-			MySQLQuery query = new MySQLQuery();
+			MySQLUserQuery query = new MySQLUserQuery();
 			User user = query.signIn(conn, login, password);
 			if (user == null) {
 				throw new DaoException("User wasn't found");
@@ -71,7 +74,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {
 			conn = connPool.getConnection();
-			MySQLQuery query = new MySQLQuery();
+			MySQLUserQuery query = new MySQLUserQuery();
 			User user = query.findUserByLogin(conn, login);
 
 			if (user == null) {
