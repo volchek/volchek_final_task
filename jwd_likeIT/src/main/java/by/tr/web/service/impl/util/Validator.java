@@ -90,7 +90,7 @@ public class Validator {
 		return true;
 	}
 
-	private static boolean isEmpty(String data) {
+	public static boolean isEmpty(String data) {
 		if (data == null) {
 			return true;
 		}

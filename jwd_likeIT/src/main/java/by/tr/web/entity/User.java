@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import by.tr.web.entity.language.Language;
+
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,6 +35,8 @@ public class User implements Serializable {
 
 	private boolean isAdmin;
 	private boolean isBanned;
+	
+	private int id;
 
 	public User() {
 		email = new LinkedList<String>();
@@ -152,11 +156,20 @@ public class User implements Serializable {
 	public boolean isBanned() {
 		return isBanned;
 	}
+	
+	public int getId(){
+		return id;
+	}
+	
+	public void setId(int id){
+		this.id = id;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + id;
 		result = prime * result + (isAdmin ? 1231 : 1237);
 		result = prime * result + (isBanned ? 1231 : 1237);
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
@@ -284,7 +297,8 @@ public class User implements Serializable {
 				"; status=" + status
 				+ "; languages=" + languages + 
 				"; isAdmin=" + isAdmin + 
-				"; isBanned=" + isBanned;
+				"; isBanned=" + isBanned +
+				"; id=" + id;
 	}
 
 }

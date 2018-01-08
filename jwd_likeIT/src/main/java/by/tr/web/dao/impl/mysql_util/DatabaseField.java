@@ -1,7 +1,8 @@
 package by.tr.web.dao.impl.mysql_util;
 
 public class DatabaseField {
-	public static final String ID = "userId";
+	// USER
+	public static final String USER_ID = "userId";
 	public static final String SURNAME = "surname";
 	public static final String NAME = "name";
 	public static final String LOGIN = "login";
@@ -13,4 +14,9 @@ public class DatabaseField {
 	public static final String AVATAR = "avatar";
 	public static final String EMAIL = "email";
 	public static final String IS_BANNED = "isBanned";
+	
+	// LANGUAGE
+	public static final String LANGUAGE_ID = "languageId";
+	public static final String LANGUAGE_NAME = "language";
+	public static final String LANGUAGE_LEVEL = "level";
 }

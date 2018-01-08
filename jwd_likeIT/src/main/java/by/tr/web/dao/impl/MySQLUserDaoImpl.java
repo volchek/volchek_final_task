@@ -3,6 +3,7 @@ package by.tr.web.dao.impl;
 import by.tr.web.entity.User;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
@@ -33,11 +34,11 @@ public class MySQLUserDaoImpl implements UserDao {
 		} catch (MySqlFatalException ex) {
 			throw new FatalDaoException("Can't get connection", ex);
 		} catch (MySqlException ex) {
-			throw new DaoException("Can't register such user", ex);
+			throw new DaoException(ex);
 		} finally {
 			try {
 				connPool.closeConnection(conn);
-			} catch (MySqlException ex) {
+			} catch (MySqlException ex) { //
 				throw new FatalDaoException(ex);
 			}
 		}

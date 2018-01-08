@@ -1,4 +1,4 @@
-package by.tr.web.entity;
+package by.tr.web.entity.language;
 
 public enum Language {
 

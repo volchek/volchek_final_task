@@ -3,6 +3,8 @@ package by.tr.web.entity;
 import java.util.Date;
 import java.util.List;
 
+import by.tr.web.entity.language.Language;
+
 public class Question extends Text {
 
 	private static final long serialVersionUID = 1L;

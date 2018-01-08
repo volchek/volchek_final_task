@@ -18,14 +18,15 @@ import by.tr.web.entity.User;
 public class MySQLUserQuery {
 
 	private static final String CHECK_EXIST_LOGIN = "SELECT * FROM Users WHERE login = ?;";
-	// private static final String INSERT_USER_QUERY = "INSERT INTO Users
-	// (surname, name, login, password, status) VALUES (?, ?, ?, ?, ?)";
 	private static final String INSERT_USER_QUERY = "INSERT INTO Users (surname, name, login, password,"
-			+ " status, registrationDate, birthdayDate, email, avatar) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ " status, registrationDate, birthdayDate, email, avatar) " 
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String LOG_IN_QUERY = "SELECT * FROM Users WHERE login = ? and password = ?;";
 	private static final String FIND_USER_BY_LOGIN_QUERY = "SELECT * FROM Users WHERE login = ?;";
-	
+
 	private static final Logger logger = LogManager.getLogger();
+
+	private MySQLLanguageQuery langQuery = new MySQLLanguageQuery();
 
 	public boolean registerUser(Connection conn, User user) throws MySqlException {
 
@@ -35,21 +36,35 @@ public class MySQLUserQuery {
 
 		PreparedStatement ps = null;
 		try {
+			langQuery.getLanguages().clear();
+			langQuery.getAllLanguages(conn);
+
+			conn.setAutoCommit(false);
 			ps = prepareUserInsertionStatement(conn, ps, user);
 			ps.executeUpdate();
-
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				int userID = rs.getInt(1);
-				// TODO
-				// insertUserLanguages()
+				langQuery.insertUserLanguages(conn, user, userID);
+				conn.commit();
+			} else {
+				conn.rollback();
 			}
-
 			return true;
-		} catch (SQLException ex) {
+		} catch (SQLException | MySqlException ex) {
 			logger.error(ex.getMessage());
+			try {
+				conn.rollback();
+			} catch (SQLException e) {
+				// Add logging
+			}
 			throw new MySqlException(ex);
 		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e) {
+				// Add logging
+			}
 			closeStatement(ps);
 		}
 	}
@@ -60,7 +75,7 @@ public class MySQLUserQuery {
 			ps = conn.prepareStatement(LOG_IN_QUERY);
 			ps.setString(1, login);
 			ps.setString(2, password);
-			return executeQuery(ps);
+			return executeQuery(conn, ps);
 		} catch (SQLException ex) {
 			logger.error(ex.getMessage());
 			throw new MySqlException(ex);
@@ -74,7 +89,7 @@ public class MySQLUserQuery {
 		try {
 			ps = conn.prepareStatement(FIND_USER_BY_LOGIN_QUERY);
 			ps.setString(1, login);
-			return executeQuery(ps);
+			return executeQuery(conn, ps);
 		} catch (SQLException ex) {
 			logger.error(ex.getMessage());
 			throw new MySqlException(ex);
@@ -104,7 +119,7 @@ public class MySQLUserQuery {
 	private static PreparedStatement prepareUserInsertionStatement(Connection conn, PreparedStatement ps, User user)
 			throws SQLException {
 
-		ps = conn.prepareStatement(INSERT_USER_QUERY, ps.RETURN_GENERATED_KEYS);
+		ps = conn.prepareStatement(INSERT_USER_QUERY, Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, user.getSurname());
 		ps.setString(2, user.getName());
 		ps.setString(3, user.getLogin());
@@ -140,6 +155,7 @@ public class MySQLUserQuery {
 			String accessLevel = rs.getString(DatabaseField.ACCESS);
 			boolean isAdmin = (accessLevel.equals("admin") ? true : false);
 			Boolean isBanned = rs.getBoolean(DatabaseField.IS_BANNED);
+			int id = rs.getInt(DatabaseField.USER_ID);
 
 			User user = new User();
 
@@ -153,6 +169,7 @@ public class MySQLUserQuery {
 			user.setStatus(status);
 			user.setAdmin(isAdmin);
 			user.setBanned(isBanned);
+			user.setId(id);
 
 			result.add(user);
 		}
@@ -160,13 +177,14 @@ public class MySQLUserQuery {
 		return result;
 	}
 
-	private User executeQuery(PreparedStatement ps) throws SQLException {
+	private User executeQuery(Connection conn, PreparedStatement ps) throws SQLException, MySqlException {
 
 		ResultSet rs = null;
 		try {
 			rs = ps.executeQuery();
 
 			User user = getFirstUser(rs);
+			addLanguages(conn, user);
 			return user;
 		} finally {
 			closeResultSet(rs);
@@ -183,6 +201,10 @@ public class MySQLUserQuery {
 		}
 
 		return null;
+	}
+
+	private void addLanguages(Connection conn, User user) throws SQLException, MySqlException {
+		langQuery.getUserLanguages(conn, user);
 	}
 
 	private void closeStatement(Statement st) {

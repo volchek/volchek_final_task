@@ -23,7 +23,7 @@
 <fmt:message key="register.password" bundle="${lc}" var="password" />
 <fmt:message key="register.rpt_password" bundle="${lc}"
 	var="rpt_password" />
-<fmt:message key="register.btn.cancel" bundle="${lc}" var="cancel" />
+<fmt:message key="register.btn.clear" bundle="${lc}" var="cancel" />
 <fmt:message key="register.btn.finish" bundle="${lc}" var="finish" />
 <fmt:message key="register.language" bundle="${lc}" var="language" />
 <fmt:message key="register.level.beginner" bundle="${lc}" var="beginner" />
@@ -83,7 +83,7 @@
 			<label><c:out value="${birthday}" />* <br> <input
 				type="date" name="date" value="1970-01-01" min="1900-01-01"
 				max="2011-01-01"> </label> <br> <label><c:out
-					value="${status}" /> <br> <select name="status">
+					value="${status}" /> <br> <select name="status" id="status">
 					<option value="none">------</option>
 					<option value="student"><c:out value="${student}" /></option>
 					<option value="trainer"><c:out value="${trainer}" /></option>
@@ -373,7 +373,7 @@
 		</div>
 		<div class="buttons">
 			<button type="submit" class="cancelbtn"
-				onclick="location.href='../index.jsp'">
+				onclick="resetFields()">
 				<c:out value="${cancel}" />
 			</button>
 			<button type="submit" class="signupbtn">

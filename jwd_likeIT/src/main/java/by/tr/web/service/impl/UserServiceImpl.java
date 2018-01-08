@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User signIn(String login, String password) throws ServiceException, FatalServiceException {
 
-		if (!Validator.validateLogin(login) || !Validator.validatePassword(password)) {
+		if (!Validator.isEmpty(login) || !Validator.isEmpty(password)) {
 			// add logging
 		}
 

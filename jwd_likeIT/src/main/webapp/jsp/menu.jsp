@@ -32,22 +32,18 @@
 		<div class="nav">
 			<c:choose>
 				<c:when test="${not empty sessionScope.current_user}">
-					<span><c:out value="${current_user.login}"></c:out></span>
 					<form action="${pageContext.request.contextPath}/Controller"
-						method="post">
-
-						<input type="hidden" name="command" value="EDIT" />
-						<button type="submit">
-							<c:out value="${edit}" />
-						</button>
+						method="post" id="form_edit">
+						<input type="hidden" name="command" value="EDIT"/>
 					</form>
 					<form action="${pageContext.request.contextPath}/Controller"
-						method="post">
+						method="post" id="form_logout">
 						<input type="hidden" name="command" value="LOGOUT" />
-						<button type="submit">
-							<c:out value="${logout}" />
-						</button>
 					</form>
+
+					<span class="user"><c:out value="${current_user.login}"></c:out></span>
+					<a href='javascript:document.getElementById("form_edit").submit()'><c:out value="${edit}" /></a>
+					<a href='javascript:document.getElementById("form_logout").submit()'><c:out value="${logout}" /></a>
 
 				</c:when>
 				<c:otherwise>
