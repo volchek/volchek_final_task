@@ -18,9 +18,6 @@ import by.tr.web.service.factory.ServiceFactory;
 
 public class FindByLogin implements ControllerCommand {
 
-	private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
-	private static UserService userService = serviceFactory.getUserService();
-
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -29,6 +26,9 @@ public class FindByLogin implements ControllerCommand {
 		User user = null;
 		RequestDispatcher d = null;
 
+		ServiceFactory serviceFactory = ServiceFactory.getInstance();
+		UserService userService = serviceFactory.getUserService();
+		
 		try {
 			user = userService.findUserByLogin(login);
 			request.setAttribute(UserAttribute.USER_ENTITY, user);

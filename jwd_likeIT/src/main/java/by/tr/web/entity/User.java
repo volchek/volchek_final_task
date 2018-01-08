@@ -140,6 +140,17 @@ public class User implements Serializable {
 	public Map<Language, Integer> getLanguages() {
 		return languages;
 	}
+	
+	public Map<String, Integer> getStringLanguages(){
+		Map<String, Integer> lang = new HashMap<String, Integer>();
+		for (Map.Entry<Language, Integer> entry : languages.entrySet()){
+			if (entry.getKey() != null){
+				lang.put(entry.getKey().getName(), entry.getValue());
+			}
+		}
+		return lang;
+	}
+
 
 	public void setAdmin(boolean admin) {
 		this.isAdmin = admin;

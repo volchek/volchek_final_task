@@ -35,6 +35,18 @@ public class Validator {
 
 		return true;
 	}
+	
+	public static boolean validatePersonalData(User user) throws ServiceException {
+
+		validateNameAndSurname(user.getSurname());
+		validateNameAndSurname(user.getName());
+
+		validateEmail(user.getEmail());
+		validateDate(user.getBirthday());
+
+		return true;
+	}
+	
 
 	public static boolean validateNameAndSurname(String name) throws NameException {
 		if (!validate(name, namePattern)) {

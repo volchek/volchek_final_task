@@ -95,4 +95,12 @@ public class MySQLUserDaoImpl implements UserDao {
 		}
 	}
 
+	@Override
+	public boolean updatePersonalInfo(int id, User user) throws DaoException, FatalDaoException {
+
+		System.out.println("IN DAO");
+		
+		return false;
+	}
+
 }

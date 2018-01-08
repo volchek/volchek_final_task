@@ -11,5 +11,7 @@ public interface UserService {
 	boolean register(User user) throws ServiceException, FatalServiceException;
 
 	User signIn(String login, String password) throws ServiceException, FatalServiceException;
+	
+	boolean updatePersonalInfo(int id, User user) throws ServiceException, FatalServiceException;
 
 }

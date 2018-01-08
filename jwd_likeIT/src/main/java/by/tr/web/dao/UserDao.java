@@ -7,9 +7,11 @@ import by.tr.web.entity.User;
 public interface UserDao {
 
 	boolean registerUser(User user) throws DaoException, FatalDaoException;
-	
+
 	User signIn(String login, String password) throws DaoException, FatalDaoException;
 
 	User findUserByLogin(String login) throws DaoException, FatalDaoException;
+
+	boolean updatePersonalInfo(int id, User user) throws DaoException, FatalDaoException;
 
 }

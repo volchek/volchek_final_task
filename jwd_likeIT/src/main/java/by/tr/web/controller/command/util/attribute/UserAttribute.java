@@ -14,5 +14,6 @@ public class UserAttribute {
 	public static final String EMAIL = "email";
 	public static final String RESERVE_EMAIL = "second-email";
 	public static final String AVATAR = "avatar";
+	public static final String STRING_LANGUAGES = "string_languages";
 
 }

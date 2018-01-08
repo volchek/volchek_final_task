@@ -22,6 +22,24 @@
 		<url-pattern>/Controller</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>PersonalData</servlet-name>
+		<jsp-file>/WEB-INF/jsp/personalData.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PersonalData</servlet-name>
+		<url-pattern>/PersonalData</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SuccessfulUpdating</servlet-name>
+		<jsp-file>/WEB-INF/jsp/afterUserUpdating.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SuccessfulUpdating</servlet-name>
+		<url-pattern>/SuccessfulUpdating</url-pattern>
+	</servlet-mapping>
+
 	<listener>
 		<listener-class>by.tr.web.controller.listener.ControllerCreationListener</listener-class>
 	</listener>
@@ -39,7 +57,7 @@
 		<filter-name>CharsetFilter</filter-name>
 		<url-pattern>/Controller</url-pattern>
 	</filter-mapping>
-	
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/jsp/error/404.jsp</location>

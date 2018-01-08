@@ -73,4 +73,23 @@ public class UserServiceImpl implements UserService {
 		}		
 	}
 
+	@Override
+	public boolean updatePersonalInfo(int id, User user) throws ServiceException, FatalServiceException {
+		
+		if (!Validator.validatePersonalData(user)) {
+			// Add logging
+		}
+
+		DaoFactory daoInstance = DaoFactory.getInstance();
+		UserDao userDao = daoInstance.getUserDao();
+
+		try {
+			return userDao.updatePersonalInfo(id, user);
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		} catch (FatalDaoException ex) {
+			throw new FatalServiceException(ex);
+		}
+	}
+
 }

@@ -34,6 +34,7 @@ public class SignIn implements ControllerCommand {
 			User user = userService.signIn(login, password);
 			HttpSession session = request.getSession(true);
 			session.setAttribute(UserAttribute.CURRENT_USER, user);
+			session.setAttribute(UserAttribute.STRING_LANGUAGES, user.getStringLanguages());
 			response.sendRedirect(PagePath.AFTER_PAGE);
 		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
@@ -43,5 +44,5 @@ public class SignIn implements ControllerCommand {
 			d.forward(request, response);
 		}
 	}
-
+	
 }
