@@ -18,11 +18,13 @@ import by.tr.web.entity.User;
 public class MySQLUserQuery {
 
 	private static final String CHECK_EXIST_LOGIN = "SELECT * FROM Users WHERE login = ?;";
-	private static final String INSERT_USER_QUERY = "INSERT INTO Users (surname, name, login, password,"
-			+ " status, registrationDate, birthdayDate, email, avatar) " 
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_USER_QUERY = "INSERT INTO Users (surname, name, "
+			+ " birthdayDate, status, avatar, email, reserveEmail, registrationDate, login, password) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String LOG_IN_QUERY = "SELECT * FROM Users WHERE login = ? and password = ?;";
 	private static final String FIND_USER_BY_LOGIN_QUERY = "SELECT * FROM Users WHERE login = ?;";
+	private static final String UPDATE_PERSONAL_DATA = "UPDATE users SET surname = ?, "
+			+ "name = ?, birthdayDate = ?, status = ?, avatar = ?, email = ?, reserveEmail = ? " + "WHERE userId = ?;";
 
 	private static final Logger logger = LogManager.getLogger();
 
@@ -45,7 +47,7 @@ public class MySQLUserQuery {
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				int userID = rs.getInt(1);
-				langQuery.insertUserLanguages(conn, user, userID);
+				langQuery.insertUserLanguages(conn, user.getLanguages(), userID);
 				conn.commit();
 			} else {
 				conn.rollback();
@@ -98,6 +100,35 @@ public class MySQLUserQuery {
 		}
 	}
 
+	public boolean updatePersonalData(Connection conn, User modifiedUser, int userId) throws MySqlException {
+
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(UPDATE_PERSONAL_DATA);
+			ps = preparePersonalDataStatement(ps, modifiedUser);
+			ps.setInt(8, userId);
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException ex) {
+			logger.error(ex.getMessage());
+			return false;
+		} finally {
+			closeStatement(ps);
+		}
+	}
+	
+	public boolean updateUser(Connection conn, User currentUser, User modifiedUser) throws MySqlException {
+
+		PreparedStatement ps = null;
+		try {
+			updatePersonalData(conn, modifiedUser, currentUser.getId());
+			langQuery.updateUserLanguages(conn, currentUser, modifiedUser);
+			return true;
+		}  finally {
+			closeStatement(ps);
+		}
+	}
+
 	private boolean isExistedLogin(Connection conn, User user) throws MySqlException {
 
 		PreparedStatement ps = null;
@@ -120,20 +151,35 @@ public class MySQLUserQuery {
 			throws SQLException {
 
 		ps = conn.prepareStatement(INSERT_USER_QUERY, Statement.RETURN_GENERATED_KEYS);
-		ps.setString(1, user.getSurname());
-		ps.setString(2, user.getName());
-		ps.setString(3, user.getLogin());
-		ps.setString(4, user.getPassword());
-		ps.setString(5, user.getStatus());
-		ps.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
 
-		java.sql.Date sqlBirthday = new java.sql.Date(user.getBirthday().getTime());
-		ps.setDate(7, sqlBirthday);
+		ps = preparePersonalDataStatement(ps, user);
 
-		ps.setString(8, user.getEmail().get(0));
-		ps.setString(9, user.getAvatar());
+		ps.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+		ps.setString(9, user.getLogin());
+		ps.setString(10, user.getPassword());
 
 		return ps;
+	}
+
+	private static PreparedStatement preparePersonalDataStatement(PreparedStatement ps, User user) throws SQLException {
+
+		ps.setString(1, user.getSurname());
+		ps.setString(2, user.getName());
+		java.sql.Date sqlBirthday = new java.sql.Date(user.getBirthday().getTime());
+		ps.setDate(3, sqlBirthday);
+		ps.setString(4, user.getStatus());
+		ps.setString(5, user.getAvatar());
+		if (user.getEmail() != null){
+			ps.setString(6, user.getEmail().get(0));
+		}
+		if (user.getEmail().size() > 1) {
+			ps.setString(7, user.getEmail().get(1));
+		} else {
+			ps.setString(7, null);
+		}
+
+		return ps;
+
 	}
 
 	private static List<User> createUsers(ResultSet rs) throws SQLException {
@@ -150,11 +196,12 @@ public class MySQLUserQuery {
 			Date birthday = rs.getDate(DatabaseField.BIRTHDAY_DATE);
 			String avatar = rs.getString(DatabaseField.AVATAR);
 			String email = rs.getString(DatabaseField.EMAIL);
+			String reserveEmail = rs.getString(DatabaseField.RESERVE_EMAIL);
 
 			String status = rs.getString(DatabaseField.STATUS);
 			String accessLevel = rs.getString(DatabaseField.ACCESS);
 			boolean isAdmin = (accessLevel.equals("admin") ? true : false);
-			Boolean isBanned = rs.getBoolean(DatabaseField.IS_BANNED);
+			boolean isBanned = rs.getBoolean(DatabaseField.IS_BANNED);
 			int id = rs.getInt(DatabaseField.USER_ID);
 
 			User user = new User();
@@ -166,6 +213,7 @@ public class MySQLUserQuery {
 			user.setBirthday(birthday);
 			user.setAvatar(avatar);
 			user.addEmail(email);
+			user.addEmail(reserveEmail);
 			user.setStatus(status);
 			user.setAdmin(isAdmin);
 			user.setBanned(isBanned);

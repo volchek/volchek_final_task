@@ -78,9 +78,15 @@ public class User implements Serializable {
 			birthday = null;
 		}
 	}
-
+	
 	public Date getBirthday() {
 		return birthday;
+	}
+	
+	public String getBirthday(String dateFormat){
+		Format formatter = new SimpleDateFormat(dateFormat);
+		String date = formatter.format(birthday);
+		return date;
 	}
 
 	public void setEmail(List<String> email) {

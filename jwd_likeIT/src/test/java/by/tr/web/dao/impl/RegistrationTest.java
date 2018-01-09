@@ -28,7 +28,7 @@ public class RegistrationTest {
 	private static UserDao userDao = daoInstance.getUserDao();
 	private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
 	private static InitializeService initializeService = serviceFactory.getInitializeService();
-	
+
 	@BeforeClass
 	public static void createUser() throws FatalServiceException {
 		initializeService.initializeApplication();
@@ -81,5 +81,5 @@ public class RegistrationTest {
 
 		assertTrue(user.equals(newUser));
 	}
-
+	
 }

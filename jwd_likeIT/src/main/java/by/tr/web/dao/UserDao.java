@@ -10,8 +10,12 @@ public interface UserDao {
 
 	User signIn(String login, String password) throws DaoException, FatalDaoException;
 
+	boolean updatePersonalInfo(User currentUser, User modifiedUser) throws DaoException, FatalDaoException;
+
+	boolean updateUserLanguages(User currentUser, User modifiedUser) throws DaoException, FatalDaoException;
+
+	boolean updateUser(User currentUser, User modifiedUser) throws DaoException, FatalDaoException;
+
 	User findUserByLogin(String login) throws DaoException, FatalDaoException;
-
-	boolean updatePersonalInfo(int id, User user) throws DaoException, FatalDaoException;
-
+	
 }

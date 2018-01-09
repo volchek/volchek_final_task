@@ -32,7 +32,7 @@ public class EditUser implements ControllerCommand {
 		UserService userService = serviceFactory.getUserService();
 
 		try {
-			userService.updatePersonalInfo(currentUser.getId(), modifiedUser);
+			userService.updatePersonalInfo(currentUser, modifiedUser);
 			request.setAttribute(CommandAttribute.COMMAND_RESULT, true);
 
 //			request.removeAttribute(UserAttribute.STRING_LANGUAGES);

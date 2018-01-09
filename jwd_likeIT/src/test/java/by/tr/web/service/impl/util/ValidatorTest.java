@@ -1,9 +1,12 @@
 package by.tr.web.service.impl.util;
 
 import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import by.tr.web.entity.User;
+import by.tr.web.entity.language.LanguageCommand;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.exception.NameException;
 import by.tr.web.service.exception.LoginException;
@@ -238,6 +241,76 @@ public class ValidatorTest {
 		user.setPassword("Ivan1234");
 		user.setBirthday("1985/01/10", "yyyy/MM/dd");
 		assertTrue(Validator.validateUser(user));
+	}
+
+	/* Check user parts */
+
+	@Test
+	public void shouldCheckPersonalDataForUsers() {
+		User firstUser = new User();
+		firstUser.setSurname("Ivanov");
+		firstUser.setName("Ivan");
+		firstUser.setStatus("student");
+		firstUser.addEmail("Ivanov@email.org");
+		firstUser.setBirthday("1985/01/10", "yyyy/MM/dd");
+
+		User secondUser = new User();
+		secondUser.setSurname("Ivanov");
+		secondUser.setName("Ivan");
+		secondUser.setStatus("student");
+		secondUser.addEmail("Ivanov@email.org");
+		secondUser.setBirthday("1985/01/10", "yyyy/MM/dd");
+
+		assertTrue(Validator.personalDataEqual(firstUser, secondUser));
+
+		firstUser.setSurname("Petrov");
+		assertFalse(Validator.personalDataEqual(firstUser, secondUser));
+
+		secondUser.setSurname("Petrov");
+		firstUser.setName("Petr");
+		assertFalse(Validator.personalDataEqual(firstUser, secondUser));
+
+		secondUser.setName("Petr");
+		firstUser.setStatus("guru");
+		assertFalse(Validator.personalDataEqual(firstUser, secondUser));
+
+		secondUser.setStatus("guru");
+		firstUser.addEmail("guru@tut.by");
+		assertFalse(Validator.personalDataEqual(firstUser, secondUser));
+
+		secondUser.addEmail("guru@tut.by");
+		firstUser.setBirthday("1967/01/10", "yyyy/MM/dd");
+		assertFalse(Validator.personalDataEqual(firstUser, secondUser));
+
+		secondUser.setBirthday("1967/01/10", "yyyy/MM/dd");
+		assertTrue(Validator.personalDataEqual(firstUser, secondUser));
+	}
+	
+	@Test
+	public void shouldCheckLanguagesForUsers() {
+		User firstUser = new User();
+		User secondUser = new User();
+		assertTrue(Validator.userLanguagesEqual(firstUser, secondUser));
+		
+		LanguageCommand langCommand = LanguageCommand.getInstance();
+		
+		firstUser.addLanguage(langCommand.getLanguage("C"), 1);
+		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
+		
+		secondUser.addLanguage(langCommand.getLanguage("C"), 1);
+		assertTrue(Validator.userLanguagesEqual(firstUser, secondUser));
+		
+		firstUser.addLanguage(langCommand.getLanguage("C++"), 2);
+		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
+		
+		secondUser.addLanguage(langCommand.getLanguage("C++"), 4);
+		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
+		
+		firstUser.addLanguage(langCommand.getLanguage("Java"), 4);
+		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
+		
+		secondUser.addLanguage(langCommand.getLanguage("Java"), 4);
+		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
 	}
 
 }

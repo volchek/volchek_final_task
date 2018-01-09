@@ -1,14 +1,15 @@
 package by.tr.web.dao.impl;
 
-import by.tr.web.entity.User;
-
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.Map;
 
+import by.tr.web.entity.User;
+import by.tr.web.entity.language.Language;
 import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.DaoLoginException;
 import by.tr.web.dao.exception.FatalDaoException;
+import by.tr.web.dao.impl.mysql_util.MySQLLanguageQuery;
 import by.tr.web.dao.impl.mysql_util.MySQLUserQuery;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlFatalException;
@@ -19,7 +20,7 @@ public class MySQLUserDaoImpl implements UserDao {
 
 	private final static ConnectionPoolFactory poolFactory = ConnectionPoolFactory.getInstance();
 	private final static ConnectionPool connPool = poolFactory.getConnectionPool();
-	
+
 	@Override
 	public boolean registerUser(User user) throws DaoException, FatalDaoException {
 
@@ -27,7 +28,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		try {
 			conn = connPool.getConnection();
 			MySQLUserQuery query = new MySQLUserQuery();
-			if (!query.registerUser(conn, user)){
+			if (!query.registerUser(conn, user)) {
 				throw new DaoLoginException("Such user exists in database");
 			}
 			return true;
@@ -38,8 +39,8 @@ public class MySQLUserDaoImpl implements UserDao {
 		} finally {
 			try {
 				connPool.closeConnection(conn);
-			} catch (MySqlException ex) { //
-				throw new FatalDaoException(ex);
+			} catch (MySqlException ex) {
+				// Add logging
 			}
 		}
 	}
@@ -63,8 +64,8 @@ public class MySQLUserDaoImpl implements UserDao {
 		} finally {
 			try {
 				connPool.closeConnection(conn);
-			} catch (MySqlException ex) { //
-				throw new FatalDaoException(ex);
+			} catch (MySqlException ex) {
+				// Add logging
 			}
 		}
 	}
@@ -90,17 +91,112 @@ public class MySQLUserDaoImpl implements UserDao {
 			try {
 				connPool.closeConnection(conn);
 			} catch (MySqlException ex) {
-				throw new FatalDaoException(ex);
+				// Add logging
 			}
 		}
 	}
 
 	@Override
-	public boolean updatePersonalInfo(int id, User user) throws DaoException, FatalDaoException {
+	public boolean updatePersonalInfo(User currentUser, User modifiedUser) throws DaoException, FatalDaoException {
 
-		System.out.println("IN DAO");
-		
-		return false;
+		Connection conn = null;
+		try {
+			conn = connPool.getConnection();
+			MySQLUserQuery query = new MySQLUserQuery();
+			int id = currentUser.getId();
+
+			if (query.updatePersonalData(conn, modifiedUser, id)) {
+				updatePersonalDataOfCurrentUser(currentUser, modifiedUser);
+				return true;
+			} else {
+				throw new DaoLoginException("Can't update personal info for user with id " + id);
+			}
+		} catch (MySqlFatalException ex) {
+			throw new FatalDaoException("Can't get connection", ex);
+		} catch (MySqlException ex) {
+			throw new DaoException(ex);
+		} finally {
+			try {
+				connPool.closeConnection(conn);
+			} catch (MySqlException ex) {
+				// Add logging
+			}
+		}
+	}
+
+	@Override
+	public boolean updateUserLanguages(User currentUser, User modifiedUser) throws DaoException, FatalDaoException {
+
+		Connection conn = null;
+		try {
+			conn = connPool.getConnection();
+			MySQLLanguageQuery query = new MySQLLanguageQuery();
+			int id = currentUser.getId();
+
+			if (query.updateUserLanguages(conn, currentUser, modifiedUser)) {
+				updateLanguagesOfCurrentUser(currentUser, modifiedUser);
+				return true;
+			} else {
+				throw new DaoLoginException("Can't update language list for user with id " + id);
+			}
+		} catch (MySqlFatalException ex) {
+			throw new FatalDaoException("Can't get connection", ex);
+		} finally {
+			try {
+				connPool.closeConnection(conn);
+			} catch (MySqlException ex) {
+				// Add logging
+			}
+		}
+	}
+
+	@Override
+	public boolean updateUser(User currentUser, User modifiedUser) throws DaoException, FatalDaoException {
+		System.out.println("HERE");
+		Connection conn = null;
+		try {
+			conn = connPool.getConnection();
+			MySQLUserQuery query = new MySQLUserQuery();
+			int id = currentUser.getId();
+
+			if (query.updateUser(conn, currentUser, modifiedUser)) {
+				System.out.println("UPDATE USER");
+				updatePersonalDataOfCurrentUser(currentUser, modifiedUser);
+				updateLanguagesOfCurrentUser(currentUser, modifiedUser);
+				return true;
+			} else {
+				throw new DaoLoginException("Can't update user with id " + id);
+			}
+		} catch (MySqlFatalException ex) {
+			throw new FatalDaoException("Can't get connection", ex);
+		} catch (MySqlException ex) {
+			// add logging
+			throw new DaoException("Can't update user", ex);
+		} finally {
+			try {
+				connPool.closeConnection(conn);
+			} catch (MySqlException ex) {
+				// Add logging
+			}
+		}
+	}
+
+	private void updatePersonalDataOfCurrentUser(User currentUser, User modifiedUser) {
+		currentUser.setSurname(modifiedUser.getSurname());
+		currentUser.setName(modifiedUser.getName());
+		currentUser.setStatus(modifiedUser.getStatus());
+		currentUser.setAvatar(modifiedUser.getAvatar());
+		currentUser.setEmail(modifiedUser.getEmail());
+		currentUser.setBirthday(modifiedUser.getBirthday());
+		System.out.println("OK");
+	}
+
+	private void updateLanguagesOfCurrentUser(User currentUser, User modifiedUser) {
+		// currentUser.setLanguages(modifiedUser.getLanguages()); - shallow copy
+		currentUser.getLanguages().clear();
+		for (Map.Entry<Language, Integer> lang : modifiedUser.getLanguages().entrySet()) {
+			currentUser.addLanguage(lang.getKey(), lang.getValue());
+		}
 	}
 
 }

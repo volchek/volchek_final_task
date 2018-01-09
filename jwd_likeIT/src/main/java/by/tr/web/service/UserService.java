@@ -12,6 +12,6 @@ public interface UserService {
 
 	User signIn(String login, String password) throws ServiceException, FatalServiceException;
 	
-	boolean updatePersonalInfo(int id, User user) throws ServiceException, FatalServiceException;
+	boolean updatePersonalInfo(User user, User modifiedUser) throws ServiceException, FatalServiceException;
 
 }

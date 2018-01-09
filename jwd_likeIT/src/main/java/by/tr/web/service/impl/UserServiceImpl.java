@@ -70,26 +70,40 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException(ex);
 		} catch (FatalDaoException ex) {
 			throw new FatalServiceException(ex);
-		}		
+		}
 	}
 
 	@Override
-	public boolean updatePersonalInfo(int id, User user) throws ServiceException, FatalServiceException {
-		
+	public boolean updatePersonalInfo(User user, User modifiedUser) throws ServiceException, FatalServiceException {
+
 		if (!Validator.validatePersonalData(user)) {
 			// Add logging
 		}
 
-		DaoFactory daoInstance = DaoFactory.getInstance();
-		UserDao userDao = daoInstance.getUserDao();
-
 		try {
-			return userDao.updatePersonalInfo(id, user);
+			return updateUser(user, modifiedUser);
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);
 		} catch (FatalDaoException ex) {
 			throw new FatalServiceException(ex);
 		}
+	}
+
+	private boolean updateUser(User firstUser, User secondUser) throws DaoException, FatalDaoException {
+
+		DaoFactory daoInstance = DaoFactory.getInstance();
+		UserDao userDao = daoInstance.getUserDao();
+
+		if (!Validator.personalDataEqual(firstUser, secondUser)) {
+			if (!Validator.userLanguagesEqual(firstUser, secondUser)) {
+				return userDao.updateUser(firstUser, secondUser);
+			} else {
+				return userDao.updatePersonalInfo(firstUser, secondUser);
+			}
+		} else if (!Validator.userLanguagesEqual(firstUser, secondUser)) {
+			return userDao.updateUserLanguages(firstUser, secondUser);
+		}
+		return false;
 	}
 
 }

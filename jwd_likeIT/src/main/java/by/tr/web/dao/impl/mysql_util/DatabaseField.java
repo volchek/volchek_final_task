@@ -13,6 +13,7 @@ public class DatabaseField {
 	public static final String STATUS = "status";
 	public static final String AVATAR = "avatar";
 	public static final String EMAIL = "email";
+	public static final String RESERVE_EMAIL = "reserveEmail";
 	public static final String IS_BANNED = "isBanned";
 	
 	// LANGUAGE

@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 
 import by.tr.web.entity.User;
+import by.tr.web.entity.language.Language;
 import by.tr.web.service.exception.NameException;
 import by.tr.web.service.exception.LoginException;
 import by.tr.web.service.exception.PasswordException;
@@ -13,7 +15,7 @@ import by.tr.web.service.exception.DateException;
 import by.tr.web.service.exception.EmailException;
 import by.tr.web.service.exception.ServiceException;
 
-public class Validator {
+public final class Validator {
 
 	private static final String namePattern = "\\D+";
 	private static final String loginPattern = "[a-zA-Z][0-9a-zA-Z_]{3,}";
@@ -21,6 +23,7 @@ public class Validator {
 	private static final String emailPattern = "[a-zA-Z0-9_\\-\\.]+@([\\S]+\\.)+[a-zA-Z]+";
 	private static final Date defaultMinDate = new GregorianCalendar(1920, Calendar.JANUARY, 01).getTime();
 	private static final Date currentDate = Calendar.getInstance().getTime();
+	private static final String dateFormat = "yyyy-MM-dd";
 
 	public static boolean validateUser(User user) throws ServiceException {
 
@@ -35,7 +38,7 @@ public class Validator {
 
 		return true;
 	}
-	
+
 	public static boolean validatePersonalData(User user) throws ServiceException {
 
 		validateNameAndSurname(user.getSurname());
@@ -46,7 +49,6 @@ public class Validator {
 
 		return true;
 	}
-	
 
 	public static boolean validateNameAndSurname(String name) throws NameException {
 		if (!validate(name, namePattern)) {
@@ -124,6 +126,42 @@ public class Validator {
 		}
 
 		return true;
+	}
+
+	public static boolean personalDataEqual(User firstUser, User secondUser) {
+
+		if (!firstUser.getSurname().equals(secondUser.getSurname())) {
+			return false;
+		} else if (!firstUser.getName().equals(secondUser.getName())) {
+			return false;
+		} else if (!firstUser.getStatus().equals(secondUser.getStatus())) {
+			return false;
+		} else if (!firstUser.getEmail().equals(secondUser.getEmail())) {
+			return false;
+		} else if (firstUser.getAvatar() != null) {
+			if (!firstUser.getAvatar().equals(secondUser.getAvatar())) {
+				return false;
+			}
+		} else if (!(firstUser.getBirthday(dateFormat)).equals(secondUser.getBirthday(dateFormat))) {
+			return false;
+		}
+		return true;
+	}
+
+	public static boolean userLanguagesEqual(User firstUser, User secondUser) {
+		Map<Language, Integer> firstUserLang = firstUser.getLanguages();
+		Map<Language, Integer> secondUserLang = secondUser.getLanguages();
+
+		if (firstUserLang == null && secondUserLang == null) {
+			return true;
+		} else if (firstUserLang != null && secondUserLang != null) {
+			return firstUserLang.equals(secondUserLang);
+		}
+		return false;
+	}
+
+	private Validator() {
+
 	}
 
 }
