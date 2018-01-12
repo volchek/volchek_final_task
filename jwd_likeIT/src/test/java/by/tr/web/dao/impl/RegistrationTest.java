@@ -35,8 +35,8 @@ public class RegistrationTest {
 		user = new User();
 		user.setLogin("Zayatc");
 		user.setPassword("abacabaV1");
-		user.setName("Ivan");
-		user.setSurname("Ivanov");
+		user.setName("Петр");
+		user.setSurname("Иванов");
 		user.addEmail("Ivanov@mail.ru");
 		user.setStatus("student");
 		user.setBirthday(13, Calendar.JANUARY, 1995);

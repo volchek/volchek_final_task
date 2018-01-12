@@ -48,6 +48,7 @@
 <c:set var="user_status" value="${sessionScope.current_user.status}" />
 <c:set var="user_languages" value="${sessionScope.string_languages}" />
 <c:set var="user_emails" value="${sessionScope.current_user.email}" />
+<fmt:formatDate value = "${sessionScope.current_user.birthday}" pattern = "yyyy-MM-dd" var="user_birthday" />
 	
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
@@ -82,7 +83,7 @@
 				type="text" name="name" pattern="^[\D]+$" value="<c:out value="${sessionScope.current_user.name}" />" required> </label> <br>
 			<label><c:out value="${birthday}" />* <br> <input
 				type="date" name="date" min="1900-01-01"
-				max="2011-01-01" value="<c:out value="${sessionScope.current_user.birthday}" />"></label>
+				max="2011-01-01" value="<c:out value="${user_birthday}" />"></label>
 				<br>
 			<label><c:out value="${status}" />
 			<br>

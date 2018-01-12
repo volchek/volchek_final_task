@@ -1,9 +1,6 @@
 package by.tr.web.dao.impl;
 
-import java.util.Properties;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.ResourceBundle;
 
 import by.tr.web.dao.DatabaseDao;
 import by.tr.web.dao.exception.FatalDaoException;
@@ -11,33 +8,33 @@ import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlFatalException;
 import by.tr.web.dao.impl.mysql_util.pool.ConnectionPool;
 import by.tr.web.dao.impl.mysql_util.pool.ConnectionPoolFactory;
-import by.tr.web.dao.impl.mysql_util.properties_util.PropertiesReader;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DatabaseDaoImpl implements DatabaseDao {
 
-	private PropertiesReader reader = new PropertiesReader();
 	private ConnectionPoolFactory poolFactory = ConnectionPoolFactory.getInstance();
 	private ConnectionPool connPool = poolFactory.getConnectionPool();
 
-	private final static Logger logger = LogManager.getLogger();
+	private final static Logger logger = LogManager.getLogger(DatabaseDaoImpl.class.getName());
 
 	@Override
 	public void initConnectionPool() throws FatalDaoException {
-		Properties properties = null;
 
-		try {
-			properties = reader.readDatabaseProperties();
-		} catch (MySqlFatalException ex) {
-			throw new FatalDaoException(ex);
-		}
+		ResourceBundle bundle = ResourceBundle.getBundle("database");
 
-		String database = properties.getProperty("database");
-		String username = properties.getProperty("username");
-		String password = properties.getProperty("password");
-		String host = properties.getProperty("host");
-		String port = properties.getProperty("port");
-		String driver = properties.getProperty("driver");
+		String database = bundle.getString("database");
+		String username = bundle.getString("username");
+		String password = bundle.getString("password");
+		String host = bundle.getString("host");
+		String port = bundle.getString("port");
+		String driver = bundle.getString("driver");
+		String collation = bundle.getString("collation");
 		String connectionUrl = "jdbc:mysql://" + host + ":" + port + "/" + database;
+		if (collation.equals("utf-8")) {
+			connectionUrl += "?useUnicode=true&characterEncoding=utf-8";
+		}
 
 		try {
 			connPool.initializePool(connectionUrl, username, password, driver);
@@ -56,11 +53,11 @@ public class DatabaseDaoImpl implements DatabaseDao {
 	public void clearConnectionPool() {
 		connPool.finishWork();
 	}
-	
+
 	private void setSpecialPoolProperties() throws MySqlException {
-		Properties properties = new Properties();
-		properties = reader.readPoolProperties();
-		int size = Integer.parseInt(properties.getProperty("max_size"));
+		ResourceBundle bundle = ResourceBundle.getBundle("pool");
+		String poolSize = bundle.getString("max_size");
+		int size = Integer.parseInt(poolSize);
 		connPool.setMaxSize(size);
 	}
 

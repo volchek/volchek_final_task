@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.PagePath;
@@ -25,22 +26,21 @@ public class EditUser implements ControllerCommand {
 		User currentUser = (User) request.getSession().getAttribute(UserAttribute.CURRENT_USER);
 		User modifiedUser = getModifiedUser(request);
 
-		System.out.println(currentUser);
-		System.out.println(modifiedUser);
-
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		UserService userService = serviceFactory.getUserService();
 
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
 			request.setAttribute(CommandAttribute.COMMAND_RESULT, true);
-
-//			request.removeAttribute(UserAttribute.STRING_LANGUAGES);
-//			request.setAttribute(UserAttribute.STRING_LANGUAGES, currentUser.getStringLanguages());
+			
+			System.out.println(currentUser);
+			
+			HttpSession session = request.getSession(true);
+			session.removeAttribute(UserAttribute.STRING_LANGUAGES);
+			session.setAttribute(UserAttribute.STRING_LANGUAGES, currentUser.getStringLanguages());
 			
 			
 		} catch (ServiceException | FatalServiceException e) {
-			// TODO Auto-generated catch block
 			request.setAttribute(CommandAttribute.COMMAND_RESULT, false);
 		}
 		response.sendRedirect(PagePath.AFTER_USER_UPDATING);

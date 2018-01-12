@@ -15,9 +15,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean register(User user) throws ServiceException, FatalServiceException {
 
-		if (!Validator.validateUser(user)) {
-			// Add logging
-		}
+		Validator.validateUser(user);
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
 		UserDao userDao = daoInstance.getUserDao();
@@ -34,9 +32,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User signIn(String login, String password) throws ServiceException, FatalServiceException {
 
-		if (!Validator.isEmpty(login) || !Validator.isEmpty(password)) {
-			// add logging
-		}
+		Validator.isEmpty(login);
+		Validator.isEmpty(password);
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
 		UserDao userDao = daoInstance.getUserDao();
@@ -56,7 +53,7 @@ public class UserServiceImpl implements UserService {
 	public User findUserByLogin(String login) throws ServiceException, FatalServiceException {
 
 		if (!Validator.validateLogin(login)) {
-			// Add logging
+			return null;
 		}
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
@@ -76,10 +73,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean updatePersonalInfo(User user, User modifiedUser) throws ServiceException, FatalServiceException {
 
-		if (!Validator.validatePersonalData(user)) {
-			// Add logging
-		}
-
+		Validator.validatePersonalData(user);
+		
 		try {
 			return updateUser(user, modifiedUser);
 		} catch (DaoException ex) {

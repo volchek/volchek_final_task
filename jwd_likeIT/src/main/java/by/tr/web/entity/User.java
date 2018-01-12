@@ -74,7 +74,6 @@ public class User implements Serializable {
 		try {
 			birthday = format.parse(date);
 		} catch (ParseException e) {
-			// ADD logging
 			birthday = null;
 		}
 	}

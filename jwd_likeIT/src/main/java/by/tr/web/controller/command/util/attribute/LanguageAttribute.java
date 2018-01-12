@@ -14,5 +14,8 @@ public class LanguageAttribute {
 	public static final String LANG_CSS = "css";
 	public static final String LANG_SQL = "sql";
 	public static final String LANG_JAVASCRIPT = "js";
+	public static final String LANG_RUST = "rust";
+	public static final String LANG_GO = "go";
+	public static final String LANG_SCRATCH = "scratch";
 
 }

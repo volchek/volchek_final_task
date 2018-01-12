@@ -21,6 +21,9 @@ public class LanguageCommand {
 		langCommand.put(Language.SQL.getName(), Language.SQL);
 		langCommand.put(Language.JAVASCRIPT.getName(), Language.JAVASCRIPT);
 		langCommand.put(Language.PHP.getName(), Language.PHP);
+		langCommand.put(Language.RUST.getName(), Language.RUST);
+		langCommand.put(Language.SCRATCH.getName(), Language.SCRATCH);
+		langCommand.put(Language.GO.getName(), Language.GO);
 	}
 
 	public static LanguageCommand getInstance() {
