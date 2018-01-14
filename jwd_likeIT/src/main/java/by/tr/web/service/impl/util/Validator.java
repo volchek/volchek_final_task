@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import by.tr.web.dao.impl.mysql_util.pool.ConnectionPool;
 import by.tr.web.entity.User;
 import by.tr.web.entity.language.Language;
+import by.tr.web.entity.tag.Tag;
 import by.tr.web.service.exception.NameException;
 import by.tr.web.service.exception.LoginException;
 import by.tr.web.service.exception.PasswordException;
@@ -163,7 +164,15 @@ public final class Validator {
 		}
 		return false;
 	}
+	
+	public static List<Tag> validateTags(List<String> tags){
+		return null;
+	}
 
+	public static List<Language> validateLanguages(List<String> languages){
+		return null;
+	}
+	
 	private static boolean validate(String data, String pattern) {
 		if (isEmpty(data)) {
 			return false;

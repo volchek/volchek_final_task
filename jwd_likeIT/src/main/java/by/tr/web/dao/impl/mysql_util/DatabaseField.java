@@ -20,4 +20,9 @@ public class DatabaseField {
 	public static final String LANGUAGE_ID = "languageId";
 	public static final String LANGUAGE_NAME = "language";
 	public static final String LANGUAGE_LEVEL = "level";
+	
+	// TAG
+	public static final String TAG_ID = "keywordId";
+	public static final String TAG_NAME = "keyword";
+	
 }

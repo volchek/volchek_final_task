@@ -32,9 +32,7 @@ public class EditUser implements ControllerCommand {
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
 			request.setAttribute(CommandAttribute.COMMAND_RESULT, true);
-			
-			System.out.println(currentUser);
-			
+						
 			HttpSession session = request.getSession(true);
 			session.removeAttribute(UserAttribute.STRING_LANGUAGES);
 			session.setAttribute(UserAttribute.STRING_LANGUAGES, currentUser.getStringLanguages());

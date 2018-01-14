@@ -1,18 +1,18 @@
-package by.tr.web.entity;
+package by.tr.web.entity.tag;
 
 import java.io.Serializable;
 
-public class Keyword implements Serializable {
+public class Tag implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private String keyword;
 
-	public Keyword() {
+	public Tag() {
 
 	}
 
-	public Keyword(String keyword) {
+	public Tag(String keyword) {
 		this.keyword = keyword;
 	}
 
@@ -44,7 +44,7 @@ public class Keyword implements Serializable {
 			return false;
 		}
 
-		Keyword other = (Keyword) obj;
+		Tag other = (Tag) obj;
 		if (keyword == null) {
 			if (other.keyword != null) {
 				return false;

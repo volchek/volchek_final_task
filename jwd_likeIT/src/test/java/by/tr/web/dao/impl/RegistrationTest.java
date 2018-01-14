@@ -31,7 +31,9 @@ public class RegistrationTest {
 
 	@BeforeClass
 	public static void createUser() throws FatalServiceException {
+		
 		initializeService.initializeApplication();
+		
 		user = new User();
 		user.setLogin("Zayatc");
 		user.setPassword("abacabaV1");

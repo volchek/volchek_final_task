@@ -1,5 +1,8 @@
 package by.tr.web.controller.command.util.attribute;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import by.tr.web.entity.User;
@@ -44,12 +47,21 @@ public class ExtractParameter {
 			String reserveEmail = request.getParameter(UserAttribute.RESERVE_EMAIL).toString();
 			user.addEmail(reserveEmail);
 		}
-		
-		if (request.getParameter(UserAttribute.AVATAR) != null){
+
+		if (request.getParameter(UserAttribute.AVATAR) != null) {
 			String avatar = request.getParameter(UserAttribute.AVATAR).toString();
-			user.setAvatar(avatar);			
+			user.setAvatar(avatar);
 		}
 
+	}
+
+	public static List<String> extractParameterList(HttpServletRequest request, String parameterName) {
+		String languageArray[] = request.getParameterValues(parameterName);
+		List<String> languageList = null;
+		if (languageArray.length != 0) {
+			languageList = Arrays.asList(languageArray);
+		}
+		return languageList;
 	}
 
 	public static void extractLanguages(HttpServletRequest request, User user) {

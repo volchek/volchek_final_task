@@ -23,7 +23,7 @@ public class MySQLUserDaoImpl implements UserDao {
 	private final static ConnectionPoolFactory poolFactory = ConnectionPoolFactory.getInstance();
 	private final static ConnectionPool connPool = poolFactory.getConnectionPool();
 
-	private final static Logger logger = LogManager.getLogger(MySQLUserQuery.class.getName());
+	private final static Logger logger = LogManager.getLogger(MySQLUserDaoImpl.class.getName());
 
 	@Override
 	public boolean registerUser(User user) throws DaoException {

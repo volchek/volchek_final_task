@@ -12,12 +12,12 @@ import by.tr.web.dao.impl.mysql_util.pool.ConnectionPoolFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class DatabaseDaoImpl implements DatabaseDao {
+public class MySQLDatabaseDaoImpl implements DatabaseDao {
 
 	private ConnectionPoolFactory poolFactory = ConnectionPoolFactory.getInstance();
 	private ConnectionPool connPool = poolFactory.getConnectionPool();
 
-	private final static Logger logger = LogManager.getLogger(DatabaseDaoImpl.class.getName());
+	private final static Logger logger = LogManager.getLogger(MySQLDatabaseDaoImpl.class.getName());
 
 	@Override
 	public void initConnectionPool() throws FatalDaoException {

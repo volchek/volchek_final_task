@@ -9,6 +9,8 @@
 <fmt:message key="menu.edit" bundle="${lc}" var="edit" />
 <fmt:message key="menu.logout" bundle="${lc}" var="logout" />
 <fmt:message key="main_menu.login" bundle="${lc}" var="login" />
+<fmt:message key="menu.ask_question" bundle="${lc}"
+	var="ask" />
 <fmt:message key="main_menu.registration" bundle="${lc}"
 	var="registration" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -28,6 +30,7 @@
 				<span class="user"><c:out value="${current_user.login}"></c:out></span>
 				<a href='javascript:document.getElementById("form_edit").submit()'><c:out
 						value="${edit}" /></a>
+				<a href="${pageContext.request.contextPath}/addQuestion"><c:out value="${ask}" /></a>
 				<a href='javascript:document.getElementById("form_logout").submit()'><c:out
 						value="${logout}" /></a>
 

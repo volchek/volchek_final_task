@@ -130,7 +130,7 @@ public class ConnectionPool {
 				connection = DriverManager.getConnection(url, userName, password);
 				freeConnQueue.put(connection);
 			} catch (SQLException ex) {
-				logger.error("Can't create a new connection");
+				logger.error("Can't create a new connection", ex);
 				throw new MySqlException("Can't create a new connection");
 			} catch (InterruptedException ex) {
 				logger.error("Can't add a new connection");

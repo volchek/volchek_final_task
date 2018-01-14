@@ -1,115 +1,3 @@
-/* For mobile phones: */
-.menu {
-	width: 100%;
-}
-
-.personal-info {
-	margin-left: 10px;
-	width: 100%;
-}
-
-.nav a:not(:first-child) {
-	padding-left: 10px;
-}
-
-.menu-lang {
-	width: 100%;
-	padding-bottom: 5px;
-	margin-top: 15px;
-	border-bottom: 1px solid red;
-}
-
-.right-side {
-	margin-left: 10px;
-	width: 100%;
-}
-
-.container {
-	width: 100%;
-	margin-top: 10px;
-	margin-left: 20px;
-}
-
-.buttons {
-	width: 100%;
-}
-
-.footer {
-	text-align: center;
-	position: fixed;
-	bottom: 0;
-	padding-bottom: 0;
-	width: 100%;
-	border-top: 1px solid #FF0000;
-}
-
-select, input[type=text], [type=password], [type=date], [type=email], [type=url]
-	{
-	padding: 8px;
-	margin: 8px 0 20px;
-	border: 1px solid #ccc;
-	display: inline-block;
-	box-sizing: border-box;
-	width: 80%;
-}
-
-.container {
-	width: 90%;
-	margin-top: 40px;
-	margin-left: 5%;
-}
-
-.container input {
-	width: 90%;
-}
-
-/* For laptops: */
-@media only screen and (min-width: 800px) {	
-	.menu-lang {
-		width: auto;
-		float: right;
-		padding-bottom: auto;
-		margin-top: auto;
-		border-bottom: 0;
-	}
-	
-	.personal-info {
-		margin-left: 0px;
-		float: left;
-		width: 55%;
-	}
-
-	.right-side {
-		margin-left: 0px;
-		float: left;
-		width: 45%;
-	}
-	
-	.buttons {
-		float: left;
-		width: 100%;
-	}
-	
-	.menu_but {
-		display: inline-block;
-		float: left;
-	}
-	
-	select, input[type=text], [type=password], [type=date], [type=email], [type=url]
-		{
-		width: 80%;
-	}
-
-	.container {
-		width: 40%;
-		margin-top: 30px;
-		margin-left: 30%;
-	}
-	.container input {
-		width: 100%;
-	}
-}
-
 @font-face {
 	font-family: Cinzel;
 	src: url(fonts/Cinzel/Cinzel-Regular.otf);
@@ -135,6 +23,25 @@ header, .header {
 	border-bottom-style: solid;
 }
 
+.pell-actionbar {
+	background-color: #FFFFEE;
+	border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	width: 100%;
+}
+
+.pell-actionbar button {
+	margin: 3px 4px;
+	height: 35px;
+	padding: 3px 0;
+	vertical-align: middle;
+}
+
+.pell-content {
+	background-color: #FFEEEE;
+}
+
 h2, nav, nav button, .nav, .nav button {
 	font-family: Roboto, sans-serif;
 	font-size: 18pt;
@@ -150,8 +57,7 @@ nav a:hover, .nav a:hover {
 }
 
 div.right-side h2::after {
-	content:
-		"";
+	content: "";
 	color: #FF0000;
 	font-size: 50%;
 	padding-left: 7px;
@@ -229,6 +135,11 @@ div>button {
 	width: 100px;
 }
 
+.cancelbtn, .signupbtn {
+	padding: 15px 0;
+	text-align: center;
+}
+
 .vertical-label {
 	display: inline-block;
 	text-align: center;
@@ -273,4 +184,260 @@ div>button {
 .user {
 	color: #443333;
 	padding-right: 30px;
+}
+
+form.question {
+	width: 55%;
+	padding: 10px 5px;
+	float: right;
+}
+
+div.tooltip {
+	margin-top: 10px;
+	float: left;
+	width: 35%;
+	background: #F5ECCE;
+	border: 1px #681A1A solid;
+	text-align: justify;
+	padding: 10px 5px;
+}
+
+.add-tag {
+	text-decoration: none;
+	background-color: #EEEEEE;
+	font-size: 14px;
+	color: red;
+	padding: 2px 6px 2px 6px;
+	margin-right: 5px;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+	display:inline-block;
+	width: 6px;
+}
+
+
+/* For mobile phones: */
+.menu {
+	width: 100%;
+}
+
+.personal-info {
+	margin-left: 10px;
+	width: 100%;
+}
+
+.nav
+
+
+ 
+
+
+a
+
+
+
+
+
+
+:not
+
+
+
+
+
+
+(
+:first-child
+
+
+
+
+
+
+)
+{
+padding-left
+
+
+
+
+
+
+:
+
+
+
+
+
+
+10
+px
+
+
+
+
+
+
+
+
+;
+}
+.menu-lang {
+	width: 100%;
+	padding-bottom: 5px;
+	margin-top: 15px;
+	border-bottom: 1px solid red;
+}
+
+.right-side
+,
+{
+margin-left
+
+
+
+
+
+
+:
+
+
+
+ 
+
+
+
+10
+px
+
+
+
+
+
+
+;
+width
+
+
+
+
+
+
+:
+
+
+
+ 
+
+
+
+100%;
+}
+div.tooltip {
+	width: 95%;
+	display: block;
+}
+
+form.question {
+	width: 98%;
+	padding: 10px 10px;
+	display: block;
+}
+
+.container {
+	width: 100%;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+
+.buttons {
+	width: 100%;
+}
+
+.footer {
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	padding-bottom: 0;
+	width: 100%;
+	border-top: 1px solid #FF0000;
+}
+
+select, input[type=text], [type=password], [type=date], [type=email], [type=url]
+	{
+	padding: 8px;
+	margin: 8px 0 20px;
+	border: 1px solid #ccc;
+	display: inline-block;
+	box-sizing: border-box;
+	width: 80%;
+}
+
+.container {
+	width: 90%;
+	margin-top: 40px;
+	margin-left: 5%;
+}
+
+.container input {
+	width: 90%;
+}
+
+/* For laptops: */
+@media only screen and (min-width: 800px) {
+	.menu-lang {
+		width: auto;
+		float: right;
+		padding-bottom: auto;
+		margin-top: auto;
+		border-bottom: 0;
+	}
+	.personal-info {
+		margin-left: 0px;
+		float: left;
+		width: 55%;
+	}
+	.right-side {
+		margin-left: 0px;
+		float: left;
+		width: 45%;
+	}
+	div.tooltip {
+		width: 35%;
+		margin: 10px;
+		float: right;
+	}
+	form.question {
+		width: 55%;
+		margin: 10px;
+		float: left;
+	}
+	.buttons {
+		float: left;
+		width: 100%;
+	}
+	.menu_but {
+		display: inline-block;
+		float: left;
+	}
+	select, input[type=text], [type=password], [type=date], [type=email], [type=url]
+		{
+		width: 80%;
+	}
+	.container {
+		width: 40%;
+		margin-top: 30px;
+		margin-left: 30%;
+	}
+	.container input {
+		width: 100%;
+	}
+	input.tag {
+		width: 140px;
+		background-color: #FFF;
+		margin-right: 15px;
+		display: inline;
+	}
 }

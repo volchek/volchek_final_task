@@ -40,6 +40,15 @@
 		<url-pattern>/SuccessfulUpdating</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>AddQuestion</servlet-name>
+		<jsp-file>/WEB-INF/jsp/addQuestion.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddQuestion</servlet-name>
+		<url-pattern>/addQuestion</url-pattern>
+	</servlet-mapping>
+
 	<listener>
 		<listener-class>by.tr.web.controller.listener.ControllerCreationListener</listener-class>
 	</listener>

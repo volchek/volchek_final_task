@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import by.tr.web.controller.command.impl.SignIn;
+import by.tr.web.controller.command.impl.AddQuestion;
 import by.tr.web.controller.command.impl.ChangeLanguage;
 import by.tr.web.controller.command.impl.EditUser;
 import by.tr.web.controller.command.impl.FindByLogin;
@@ -23,6 +24,7 @@ public class ControllerCommandFactory {
 		commands.put(CommandType.FIND_BY_LOGIN.name(), new FindByLogin());
 		commands.put(CommandType.CHANGE_LANG.name(), new ChangeLanguage());
 		commands.put(CommandType.EDIT_USER.name(), new EditUser());
+		commands.put(CommandType.ADD_QUESTION.name(), new AddQuestion());
 	}
 
 	public static ControllerCommandFactory getInstance() {

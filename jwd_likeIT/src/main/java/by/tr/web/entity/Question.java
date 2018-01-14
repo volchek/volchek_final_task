@@ -11,15 +11,17 @@ public class Question extends Text {
 
 	private String title;
 	private List<Language> languages;
+	private List<String> tags;
 
 	public Question() {
 
 	}
 
-	public Question(int id, String text, String title, User author, Date creationDate, List<Language> languages) {
+	public Question(int id, String text, String title, User author, Date creationDate, List<Language> languages, List<String> tags) {
 		super(id, text, author, creationDate);
 		this.title = title;
 		this.languages = languages;
+		this.tags = tags;
 	}
 
 	public String getTitle() {
@@ -37,12 +39,22 @@ public class Question extends Text {
 	public List<Language> getLanguages() {
 		return languages;
 	}
+	
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((languages == null) ? 0 : languages.hashCode());
+		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
@@ -67,6 +79,14 @@ public class Question extends Text {
 		} else if (!languages.equals(other.languages)) {
 			return false;
 		}
+		if (tags == null) {
+			if (other.tags != null) {
+				return false;
+			}
+		} else if (!tags.equals(other.tags)) {
+			return false;
+		}
+
 		if (title == null) {
 			if (other.title != null) {
 				return false;
@@ -82,6 +102,7 @@ public class Question extends Text {
 	public String toString() {
 		return "Question: title=" + title + 
 				", languages=" + languages + "; " + 
+				", tags=" + tags + "; " + 
 				super.toString();
 	}
 

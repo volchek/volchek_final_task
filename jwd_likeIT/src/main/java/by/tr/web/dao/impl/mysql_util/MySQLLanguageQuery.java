@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -20,6 +22,7 @@ import by.tr.web.entity.language.LanguageCommand;
 public class MySQLLanguageQuery {
 
 	private static final String SELECT_ALL_LANGUAGES = "SELECT * FROM Languages";
+	private static final String SELECT_LANGUAGE_NAMES = "SELECT language FROM Languages";
 	private static final String SELECT_ALL_LANGUAGES_FOR_USER = "SELECT lang.languageId, " + "lang.language, us.level "
 			+ "FROM likeit2.users2languages AS us " + "INNER JOIN likeit2.languages AS lang "
 			+ "ON lang.languageId = us.languageId " + "WHERE us.userId = ?;";
@@ -45,6 +48,21 @@ public class MySQLLanguageQuery {
 		} catch (SQLException ex) {
 			logger.error("Can't get full language list");
 			throw new MySqlException("Can't get full language list", ex);
+		}
+	}
+	
+	public List<String> getLanguageNames(Connection conn) throws MySqlException {
+		
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(SELECT_LANGUAGE_NAMES)){
+			List<String> languages = new ArrayList<String>();
+			while (rs.next()){
+				String langName = rs.getString(DatabaseField.LANGUAGE_NAME);
+				languages.add(langName);
+			}
+			return languages;
+		} catch (SQLException ex){
+			logger.error("Can't get a list of language names");
+			throw new MySqlException("Can't get a list of language names");
 		}
 	}
 
@@ -89,6 +107,9 @@ public class MySQLLanguageQuery {
 
 		try (PreparedStatement ps = conn.prepareStatement(INSERT_LANGUAGE)) {
 			Integer langId = languages.get(language.getName());
+			if (langId == null) {
+				throw new MySqlException("Can't insert language " + language.getName());
+			}
 			ps.setInt(1, userId);
 			ps.setInt(2, langId);
 			ps.setInt(3, score);
