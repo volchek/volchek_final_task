@@ -1,4 +1,6 @@
-package by.tr.web.service.exception;
+package by.tr.web.service.exception.user_exception;
+
+import by.tr.web.service.exception.ServiceException;
 
 public class NameException extends ServiceException {
 

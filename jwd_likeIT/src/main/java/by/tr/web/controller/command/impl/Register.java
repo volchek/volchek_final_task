@@ -13,12 +13,12 @@ import by.tr.web.controller.command.util.attribute.ExtractParameter;
 import by.tr.web.entity.User;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.FatalServiceException;
-import by.tr.web.service.exception.LoginException;
-import by.tr.web.service.exception.PasswordException;
-import by.tr.web.service.exception.NameException;
-import by.tr.web.service.exception.DateException;
-import by.tr.web.service.exception.EmailException;
 import by.tr.web.service.exception.ServiceException;
+import by.tr.web.service.exception.user_exception.DateException;
+import by.tr.web.service.exception.user_exception.EmailException;
+import by.tr.web.service.exception.user_exception.LoginException;
+import by.tr.web.service.exception.user_exception.NameException;
+import by.tr.web.service.exception.user_exception.PasswordException;
 import by.tr.web.service.factory.ServiceFactory;
 
 public class Register implements ControllerCommand {

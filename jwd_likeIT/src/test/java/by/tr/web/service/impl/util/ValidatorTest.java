@@ -1,26 +1,51 @@
 package by.tr.web.service.impl.util;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import by.tr.web.dao.DatabaseDao;
+import by.tr.web.dao.TagDao;
+import by.tr.web.dao.exception.DaoException;
+import by.tr.web.dao.exception.FatalDaoException;
+import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.entity.User;
 import by.tr.web.entity.language.LanguageCommand;
 import by.tr.web.service.exception.ServiceException;
-import by.tr.web.service.exception.NameException;
-import by.tr.web.service.exception.LoginException;
-import by.tr.web.service.exception.PasswordException;
-import by.tr.web.service.exception.DateException;
-import by.tr.web.service.exception.EmailException;
+import by.tr.web.service.exception.text_exception.LanguageException;
+import by.tr.web.service.exception.text_exception.TagException;
+import by.tr.web.service.exception.user_exception.DateException;
+import by.tr.web.service.exception.user_exception.EmailException;
+import by.tr.web.service.exception.user_exception.LoginException;
+import by.tr.web.service.exception.user_exception.NameException;
+import by.tr.web.service.exception.user_exception.PasswordException;
 
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ValidatorTest {
+
+	private static DaoFactory daoInstance = DaoFactory.getInstance();
+	private static DatabaseDao dbDao = daoInstance.getDatabaseDao();
+	private static TagDao tagDao = daoInstance.getTagDao();
+
+	@BeforeClass
+	public static void startApplication() throws FatalDaoException, DaoException {
+		dbDao.initConnectionPool();
+		tagDao.getAllTagInfo();
+	}
+
+	@AfterClass
+	public static void stopDatabase() throws FatalDaoException {
+		dbDao.clearConnectionPool();
+	}
 
 	/* Check name and surname */
 
@@ -285,32 +310,140 @@ public class ValidatorTest {
 		secondUser.setBirthday("1967/01/10", "yyyy/MM/dd");
 		assertTrue(Validator.personalDataEqual(firstUser, secondUser));
 	}
-	
+
 	@Test
 	public void shouldCheckLanguagesForUsers() {
 		User firstUser = new User();
 		User secondUser = new User();
 		assertTrue(Validator.userLanguagesEqual(firstUser, secondUser));
-		
+
 		LanguageCommand langCommand = LanguageCommand.getInstance();
-		
+
 		firstUser.addLanguage(langCommand.getLanguage("C"), 1);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
-		
+
 		secondUser.addLanguage(langCommand.getLanguage("C"), 1);
 		assertTrue(Validator.userLanguagesEqual(firstUser, secondUser));
-		
+
 		firstUser.addLanguage(langCommand.getLanguage("C++"), 2);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
-		
+
 		secondUser.addLanguage(langCommand.getLanguage("C++"), 4);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
-		
+
 		firstUser.addLanguage(langCommand.getLanguage("Java"), 4);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
-		
+
 		secondUser.addLanguage(langCommand.getLanguage("Java"), 4);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
+	}
+
+	/* Check languages */
+
+	@Test(expected = LanguageException.class)
+	public void shouldCheckEmptyLanguageList() throws LanguageException {
+		List<String> langs = new ArrayList<String>();
+		Validator.validateLanguages(langs);
+	}
+
+	@Test(expected = LanguageException.class)
+	public void shouldCheckLanguageListOfEmptyStrings() throws LanguageException {
+		List<String> langs = new ArrayList<String>();
+		langs.add("");
+		langs.add("   ");
+		langs.add("        ");
+		Validator.validateLanguages(langs);
+	}
+
+	@Test
+	public void shouldCheckCorrectLanguages() throws LanguageException {
+		List<String> langs = new ArrayList<String>();
+		langs.add("C#");
+		langs.add("Java");
+		langs.add("Python");
+		langs.add("JavaScript");
+		assertTrue(Validator.validateLanguages(langs));
+	}
+
+	@Test
+	public void shouldCheckCorrectLowerCaseLanguages() throws LanguageException {
+		List<String> langs = new ArrayList<String>();
+		langs.add("c#");
+		langs.add("java");
+		langs.add("python");
+		langs.add("javascript");
+		langs.add("latex");
+		assertTrue(Validator.validateLanguages(langs));
+	}
+
+	@Test
+	public void shouldCheckMixedLanguageList() throws LanguageException {
+		List<String> langs = new ArrayList<String>();
+		langs.add("c");
+		langs.add(" ");
+		langs.add("java");
+		assertTrue(Validator.validateLanguages(langs));
+	}
+
+	@Test(expected = LanguageException.class)
+	public void shouldCheckIncorrectLanguageName() throws LanguageException {
+		List<String> langs = new ArrayList<String>();
+		langs.add("c");
+		langs.add("javac");
+		assertTrue(Validator.validateLanguages(langs));
+	}
+
+	/* Check tags */
+
+	@Test(expected = TagException.class)
+	public void shouldCheckEmptyTagList() throws TagException {
+		List<String> tags = new ArrayList<String>();
+		Validator.validateTags(tags);
+	}
+
+	@Test(expected = TagException.class)
+	public void shouldCheckTagListOfEmptyStrings() throws LanguageException, TagException {
+		List<String> tags = new ArrayList<String>();
+		tags.add("");
+		tags.add("   ");
+		tags.add("        ");
+		Validator.validateTags(tags);
+	}
+
+	@Test
+	public void shouldCheckCorrectTags() throws TagException, DaoException, FatalDaoException {
+
+		List<String> tags = new ArrayList<String>();
+		tags.add("read");
+		tags.add("recursion");
+		tags.add("class");
+		tags.add("function");
+
+		assertTrue(Validator.validateTags(tags));
+	}
+
+	@Test
+	public void shouldCheckTagsInIncorrectCase() throws TagException, DaoException, FatalDaoException {
+
+		List<String> tags = new ArrayList<String>();
+		tags.add("READ");
+		tags.add("tcp");
+		tags.add("Class");
+		tags.add("JDbc");
+
+		assertTrue(Validator.validateTags(tags));
+	}
+
+	@Test(expected = TagException.class)
+	public void shouldCheckIncorrectTagList() throws TagException {
+
+		List<String> tags = new ArrayList<String>();
+		tags.add("function");
+		tags.add("classes");
+		tags.add("inharitance");
+		tags.add("odbc");
+
+		Validator.validateTags(tags);
 	}
 
 }

@@ -3,6 +3,7 @@ package by.tr.web.service.impl.util;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,13 +13,17 @@ import org.apache.logging.log4j.Logger;
 import by.tr.web.dao.impl.mysql_util.pool.ConnectionPool;
 import by.tr.web.entity.User;
 import by.tr.web.entity.language.Language;
-import by.tr.web.entity.tag.Tag;
-import by.tr.web.service.exception.NameException;
-import by.tr.web.service.exception.LoginException;
-import by.tr.web.service.exception.PasswordException;
-import by.tr.web.service.exception.DateException;
-import by.tr.web.service.exception.EmailException;
+import by.tr.web.entity.language.LanguageCommand;
+import by.tr.web.entity.tag.TagSet;
+import by.tr.web.entity.tag.TagSetSingleton;
 import by.tr.web.service.exception.ServiceException;
+import by.tr.web.service.exception.text_exception.LanguageException;
+import by.tr.web.service.exception.text_exception.TagException;
+import by.tr.web.service.exception.user_exception.DateException;
+import by.tr.web.service.exception.user_exception.EmailException;
+import by.tr.web.service.exception.user_exception.LoginException;
+import by.tr.web.service.exception.user_exception.NameException;
+import by.tr.web.service.exception.user_exception.PasswordException;
 
 public final class Validator {
 
@@ -164,15 +169,81 @@ public final class Validator {
 		}
 		return false;
 	}
-	
-	public static List<Tag> validateTags(List<String> tags){
-		return null;
+
+	public static boolean validateLanguages(List<String> languages) throws LanguageException {
+
+		if (languages == null) {
+			throw new LanguageException("Language list is empty");
+		}
+
+		Iterator<String> it = languages.iterator();
+		while (it.hasNext()) {
+			String currentLanguage = it.next();
+			if (!validateOneLanguage(currentLanguage)){
+				it.remove();
+			}
+		}
+		
+		if (languages.isEmpty()){
+			throw new LanguageException("All languages are incorrect");
+		}
+		
+		return true;
 	}
 
-	public static List<Language> validateLanguages(List<String> languages){
-		return null;
+	public static boolean validateTags(List<String> tags) throws TagException {
+
+		if (tags == null) {
+			throw new TagException("Tag list is empty");
+		}
+
+		Iterator<String> it = tags.iterator();
+		while (it.hasNext()) {
+			if (!validateOneTag(it.next())){
+				it.remove();
+			}
+		}
+		if (tags.isEmpty()){
+			throw new TagException("All tags are incorrect or unknown");
+		}
+		
+		return true;
+	}
+
+	private static boolean validateOneLanguage(String possibleLanguage) throws LanguageException {
+
+		if (isEmpty(possibleLanguage)) {
+			return false;
+		}
+
+		Map<String, Language> standartLanguages = LanguageCommand.getInstance().getLanguages();
+		Map<String, Language> lowerCaseLanguages = LanguageCommand.getInstance().getLowerCaseLanguages();
+		if (standartLanguages.containsKey(possibleLanguage)) {
+			return true;
+		} else if (lowerCaseLanguages.containsKey(possibleLanguage.toLowerCase())) {
+			return true;
+		} else {
+			throw new LanguageException("Language '" + possibleLanguage + "' has an incorrect name");
+		}
 	}
 	
+	private static boolean validateOneTag(String tag) throws TagException{
+
+		if (isEmpty(tag)) {
+			return false;
+		}
+		
+		TagSetSingleton tagSetSingleton = TagSetSingleton.getInstance();
+		TagSet tagSet = tagSetSingleton.getTagSet();
+		Map<String, Integer> standartTags = tagSet.getTagToIdSet();
+
+		if (standartTags.containsKey(tag.toLowerCase())) {
+			return true;
+		} else {
+			throw new TagException("Tag '" + tag + "' has an incorrect name");
+		}
+	}
+
 	private static boolean validate(String data, String pattern) {
 		if (isEmpty(data)) {
 			return false;

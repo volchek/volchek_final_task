@@ -7,8 +7,6 @@ import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.entity.Question;
-import by.tr.web.entity.language.Language;
-import by.tr.web.entity.tag.Tag;
 import by.tr.web.service.QuestionService;
 import by.tr.web.service.exception.FatalServiceException;
 import by.tr.web.service.exception.ServiceException;
@@ -20,14 +18,14 @@ public class QuestionServiceImpl implements QuestionService {
 	public Question addQuestion(int id, String title, List<String> languages, List<String> tags, String text)
 			throws ServiceException, FatalServiceException {
 
+		Validator.validateLanguages(languages);
+		Validator.validateTags(tags);
+		
 		DaoFactory daoInstance = DaoFactory.getInstance();
 		QuestionDao questionDao = daoInstance.getQuestionDao();
 
-		List<Tag> tagList = Validator.validateTags(tags);
-		List<Language> langList = Validator.validateLanguages(languages);
-
-			try {
-			Question question = questionDao.addQuestion(id, title, langList, tagList, text);
+		try {
+			Question question = questionDao.addQuestion(id, title, languages, tags, text);
 			return question;
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);

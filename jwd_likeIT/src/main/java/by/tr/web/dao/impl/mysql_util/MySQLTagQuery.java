@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -51,5 +52,23 @@ public class MySQLTagQuery {
 			throw new MySqlException("Can't get a list of tag names");
 		}
 	}
-	
+
+	public Map<String, Integer> getAllTagInfo(Connection conn) throws MySqlException {
+
+		Map<String, Integer> tagInfo = new HashMap<String, Integer>();
+
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(SELECT_ALL_TAGS)) {
+
+			while (rs.next()) {
+				String tagName = rs.getString(DatabaseField.TAG_NAME);
+				Integer tagID = rs.getInt(DatabaseField.TAG_ID);
+				tagInfo.put(tagName, tagID);
+			}
+			return tagInfo;
+
+		} catch (SQLException ex) {
+			logger.error("Can't get information about all tags");
+			throw new MySqlException("Can't get information about all tags", ex);
+		}
+	}
 }
