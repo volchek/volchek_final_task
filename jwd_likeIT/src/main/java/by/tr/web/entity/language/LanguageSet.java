@@ -3,6 +3,7 @@ package by.tr.web.entity.language;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -30,6 +31,10 @@ public class LanguageSet {
 
 	public void setCaseNormalizationMapping(BiMap<String, String> caseNormalizationMapping) {
 		this.caseNormalizationMapping = caseNormalizationMapping;
+	}
+	
+	public Set<String> getLanguageSet(){
+		return caseNormalizationMapping.values();
 	}
 
 	public boolean addLanguage(String language, int id) {
@@ -115,6 +120,6 @@ public class LanguageSet {
 		return "LanguageSet: languageToIdSet=" + languageToIdSet 
 				+ ", caseNormalizationMapping="
 				+ caseNormalizationMapping;
-	}
+	}	
 	
 }

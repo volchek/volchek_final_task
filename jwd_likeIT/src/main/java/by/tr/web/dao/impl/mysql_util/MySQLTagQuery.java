@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,22 +20,6 @@ public class MySQLTagQuery {
 	private static final String SELECT_TAG_NAMES = "SELECT keyword FROM keywords;";
 
 	private final static Logger logger = LogManager.getLogger(MySQLTagQuery.class.getName());
-
-	private Map<String, Integer> tags = new ConcurrentHashMap<String, Integer>();
-
-	public void getAllTags(Connection conn) throws MySqlException {
-
-		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(SELECT_ALL_TAGS)) {
-			while (rs.next()) {
-				String tagName = rs.getString(DatabaseField.TAG_NAME);
-				Integer tagID = rs.getInt(DatabaseField.TAG_ID);
-				tags.put(tagName, tagID);
-			}
-		} catch (SQLException ex) {
-			logger.error("Can't get full tag list");
-			throw new MySqlException("Can't get full tag list", ex);
-		}
-	}
 
 	public List<String> getTagNames(Connection conn) throws MySqlException {
 
@@ -52,7 +35,7 @@ public class MySQLTagQuery {
 			throw new MySqlException("Can't get a list of tag names");
 		}
 	}
-
+	
 	public Map<String, Integer> getAllTagInfo(Connection conn) throws MySqlException {
 
 		Map<String, Integer> tagInfo = new HashMap<String, Integer>();

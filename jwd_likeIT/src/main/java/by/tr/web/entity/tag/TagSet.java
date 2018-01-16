@@ -3,6 +3,7 @@ package by.tr.web.entity.tag;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -30,6 +31,10 @@ public class TagSet {
 
 	public void setCaseNormalizationMapping(BiMap<String, String> caseNormalizationMapping) {
 		this.caseNormalizationMapping = caseNormalizationMapping;
+	}
+
+	public Set<String> getTagSet() {
+		return caseNormalizationMapping.values();
 	}
 
 	public boolean addTag(String tag, int id) {

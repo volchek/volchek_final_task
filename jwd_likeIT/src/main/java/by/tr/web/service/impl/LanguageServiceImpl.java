@@ -12,20 +12,5 @@ import by.tr.web.service.exception.ServiceException;
 
 public class LanguageServiceImpl implements LanguageService {
 
-	@Override
-	public List<String> getLanguageList() throws ServiceException, FatalServiceException {
-
-		DaoFactory daoInstance = DaoFactory.getInstance();
-		LanguageDao langDao = daoInstance.getLanguageDao();
-
-		try {
-			List<String> languages = langDao.getLanguageList();
-			return languages;
-		} catch (DaoException ex) {
-			throw new ServiceException(ex);
-		} catch (FatalDaoException ex) {
-			throw new FatalServiceException(ex);
-		}
-	}
 
 }

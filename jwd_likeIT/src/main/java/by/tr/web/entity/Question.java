@@ -3,21 +3,20 @@ package by.tr.web.entity;
 import java.util.Date;
 import java.util.List;
 
-import by.tr.web.entity.language.Language;
-
 public class Question extends Text {
 
 	private static final long serialVersionUID = 1L;
 
 	private String title;
-	private List<Language> languages;
+	private List<String> languages;
 	private List<String> tags;
 
 	public Question() {
 
 	}
 
-	public Question(int id, String text, String title, User author, Date creationDate, List<Language> languages, List<String> tags) {
+	public Question(int id, String text, String title, User author, Date creationDate, List<String> languages,
+			List<String> tags) {
 		super(id, text, author, creationDate);
 		this.title = title;
 		this.languages = languages;
@@ -32,14 +31,14 @@ public class Question extends Text {
 		this.title = title;
 	}
 
-	public void setLanguages(List<Language> languages) {
+	public void setLanguages(List<String> languages) {
 		this.languages = languages;
 	}
 
-	public List<Language> getLanguages() {
+	public List<String> getLanguages() {
 		return languages;
 	}
-	
+
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
@@ -47,7 +46,6 @@ public class Question extends Text {
 	public List<String> getTags() {
 		return tags;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -100,10 +98,8 @@ public class Question extends Text {
 
 	@Override
 	public String toString() {
-		return "Question: title=" + title + 
-				", languages=" + languages + "; " + 
-				", tags=" + tags + "; " + 
-				super.toString();
+		return "Question: title=" + title + ", languages=" + languages + "; " + ", tags=" + tags + "; "
+				+ super.toString();
 	}
 
 }

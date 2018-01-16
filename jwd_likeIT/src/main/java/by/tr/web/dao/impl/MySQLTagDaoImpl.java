@@ -1,7 +1,6 @@
 package by.tr.web.dao.impl;
 
 import java.sql.Connection;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,28 +24,7 @@ public class MySQLTagDaoImpl implements TagDao {
 	private final static Logger logger = LogManager.getLogger(MySQLTagDaoImpl.class.getName());
 
 	@Override
-	public List<String> getTagList() throws DaoException, FatalDaoException {
-
-		Connection conn = null;
-
-		try {
-			conn = connPool.getConnection();
-			MySQLTagQuery query = new MySQLTagQuery();
-
-			List<String> tags = query.getTagNames(conn);
-			return tags;
-
-		} catch (MySqlException ex) {
-			logger.error("Can't execute query and get a tag list", ex);
-		} finally {
-			connPool.closeConnection(conn);
-		}
-
-		return null;
-	}
-
-	@Override
-	public Map<String, Integer> getAllTagInfo() throws DaoException, FatalDaoException {
+	public void extractAllTagInfo() throws DaoException, FatalDaoException {
 
 		Connection conn = null;
 
@@ -57,21 +35,17 @@ public class MySQLTagDaoImpl implements TagDao {
 			Map<String, Integer> tags = query.getAllTagInfo(conn);
 			fillTagMaps(tags);
 
-			return tags;
-
 		} catch (MySqlException ex) {
 			logger.error("Can't execute query and get information about all tags", ex);
 		} finally {
 			connPool.closeConnection(conn);
 		}
-
-		return null;
 	}
 
 	private void fillTagMaps(Map<String, Integer> tagInfo) throws DaoException {
 
 		if (tagInfo == null) {
-			throw new DaoException("Error");
+			throw new DaoException("There isn't information about tags in the database");
 		}
 
 		TagSetSingleton tagSetSingleton = TagSetSingleton.getInstance();
@@ -80,7 +54,6 @@ public class MySQLTagDaoImpl implements TagDao {
 		for (Map.Entry<String, Integer> oneTagInfo : tagInfo.entrySet()) {
 			tagSet.addTag(oneTagInfo.getKey(), oneTagInfo.getValue());
 		}
-
 	}
 
 }

@@ -13,7 +13,6 @@ import org.junit.Test;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.entity.User;
-import by.tr.web.entity.language.Language;
 import by.tr.web.service.InitializeService;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.FatalServiceException;
@@ -29,7 +28,7 @@ public class UpdateUserTest {
 	private static InitializeService initializeService = serviceFactory.getInitializeService();
 
 	@BeforeClass
-	public static void createUser() throws FatalServiceException {
+	public static void createUser() throws FatalServiceException, DaoException {
 		initializeService.initializeApplication();
 
 		currentUser = new User();
@@ -43,7 +42,7 @@ public class UpdateUserTest {
 		currentUser.setAdmin(false);
 		currentUser.setAvatar(null);
 		currentUser.setBanned(false);
-		currentUser.addLanguage(Language.PYTHON, 2);
+		currentUser.addLanguage("Python", 2);
 
 		modifiedUser = new User();
 		modifiedUser.setSurname("Kacher");
@@ -53,7 +52,7 @@ public class UpdateUserTest {
 		modifiedUser.setAdmin(false);
 		modifiedUser.setAvatar(null);
 		modifiedUser.setBanned(false);
-		modifiedUser.addLanguage(Language.PYTHON, 2);
+		modifiedUser.addLanguage("Python", 2);
 	}
 
 	@AfterClass
@@ -103,9 +102,9 @@ public class UpdateUserTest {
 	@Test
 	public void shouldUpdateLanguages() throws DaoException, FatalDaoException {
 
-		modifiedUser.addLanguage(Language.C, 1);
-		modifiedUser.getLanguages().remove(Language.PYTHON);
-		modifiedUser.addLanguage(Language.PYTHON, 4);
+		modifiedUser.addLanguage("C", 1);
+		modifiedUser.getLanguages().remove("Python");
+		modifiedUser.addLanguage("Python", 4);
 
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
@@ -114,8 +113,8 @@ public class UpdateUserTest {
 		}
 		assertTrue(currentUser.getLanguages().equals(modifiedUser.getLanguages()));
 
-		modifiedUser.getLanguages().remove(Language.PYTHON);
-		modifiedUser.addLanguage(Language.PYTHON, 2);
+		modifiedUser.getLanguages().remove("Python");
+		modifiedUser.addLanguage("Python", 2);
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
 		} catch (ServiceException | FatalServiceException e) {
@@ -123,7 +122,7 @@ public class UpdateUserTest {
 		}
 		assertTrue(currentUser.getLanguages().equals(modifiedUser.getLanguages()));
 
-		modifiedUser.getLanguages().remove(Language.C);
+		modifiedUser.getLanguages().remove("C");
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
 		} catch (ServiceException | FatalServiceException e) {
@@ -141,7 +140,7 @@ public class UpdateUserTest {
 		avatar.append(timestamp.getTime());
 		avatar.append("@tut.by");
 		modifiedUser.setAvatar(avatar.toString());
-		modifiedUser.addLanguage(Language.C, 1);
+		modifiedUser.addLanguage("C", 1);
 
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
@@ -150,7 +149,7 @@ public class UpdateUserTest {
 		}
 		assertTrue(currentUser.getLanguages().equals(modifiedUser.getLanguages()));
 
-		modifiedUser.getLanguages().remove(Language.C);
+		modifiedUser.getLanguages().remove("C");
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
 		} catch (ServiceException | FatalServiceException e) {
@@ -158,5 +157,5 @@ public class UpdateUserTest {
 		}
 		assertTrue(currentUser.getLanguages().equals(modifiedUser.getLanguages()));
 	}
-
+	
 }

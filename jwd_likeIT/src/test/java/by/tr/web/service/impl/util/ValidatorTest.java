@@ -8,12 +8,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import by.tr.web.dao.DatabaseDao;
+import by.tr.web.dao.LanguageDao;
 import by.tr.web.dao.TagDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.entity.User;
-import by.tr.web.entity.language.LanguageCommand;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.exception.text_exception.LanguageException;
 import by.tr.web.service.exception.text_exception.TagException;
@@ -35,11 +35,13 @@ public class ValidatorTest {
 	private static DaoFactory daoInstance = DaoFactory.getInstance();
 	private static DatabaseDao dbDao = daoInstance.getDatabaseDao();
 	private static TagDao tagDao = daoInstance.getTagDao();
+	private static LanguageDao langDao = daoInstance.getLanguageDao();
 
 	@BeforeClass
 	public static void startApplication() throws FatalDaoException, DaoException {
 		dbDao.initConnectionPool();
-		tagDao.getAllTagInfo();
+		tagDao.extractAllTagInfo();
+		langDao.extractAllLanguageInfo();
 	}
 
 	@AfterClass
@@ -317,24 +319,22 @@ public class ValidatorTest {
 		User secondUser = new User();
 		assertTrue(Validator.userLanguagesEqual(firstUser, secondUser));
 
-		LanguageCommand langCommand = LanguageCommand.getInstance();
-
-		firstUser.addLanguage(langCommand.getLanguage("C"), 1);
+		firstUser.addLanguage("C", 1);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
 
-		secondUser.addLanguage(langCommand.getLanguage("C"), 1);
+		secondUser.addLanguage("C", 1);
 		assertTrue(Validator.userLanguagesEqual(firstUser, secondUser));
 
-		firstUser.addLanguage(langCommand.getLanguage("C++"), 2);
+		firstUser.addLanguage("C++", 2);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
 
-		secondUser.addLanguage(langCommand.getLanguage("C++"), 4);
+		secondUser.addLanguage("C++", 4);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
 
-		firstUser.addLanguage(langCommand.getLanguage("Java"), 4);
+		firstUser.addLanguage("Java", 4);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
 
-		secondUser.addLanguage(langCommand.getLanguage("Java"), 4);
+		secondUser.addLanguage("Java", 4);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
 	}
 

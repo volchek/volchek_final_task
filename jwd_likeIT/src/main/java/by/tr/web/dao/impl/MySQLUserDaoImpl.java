@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.entity.User;
-import by.tr.web.entity.language.Language;
 import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.DaoLoginException;
@@ -200,7 +199,7 @@ public class MySQLUserDaoImpl implements UserDao {
 
 	private void updateLanguagesOfCurrentUser(User currentUser, User modifiedUser) {
 		currentUser.getLanguages().clear();
-		for (Map.Entry<Language, Integer> lang : modifiedUser.getLanguages().entrySet()) {
+		for (Map.Entry<String, Integer> lang : modifiedUser.getLanguages().entrySet()) {
 			currentUser.addLanguage(lang.getKey(), lang.getValue());
 		}
 	}

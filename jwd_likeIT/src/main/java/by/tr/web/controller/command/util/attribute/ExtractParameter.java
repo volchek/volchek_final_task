@@ -6,7 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import by.tr.web.entity.User;
-import by.tr.web.entity.language.Language;
+import by.tr.web.entity.language.LanguageSet;
+import by.tr.web.entity.language.LanguageSetSingleton;
 
 public class ExtractParameter {
 
@@ -65,29 +66,34 @@ public class ExtractParameter {
 	}
 
 	public static void extractLanguages(HttpServletRequest request, User user) {
-		extractLanguage(request, user, LanguageAttribute.LANG_C, Language.C);
-		extractLanguage(request, user, LanguageAttribute.LANG_CPP, Language.CPP);
-		extractLanguage(request, user, LanguageAttribute.LANG_C_SHARP, Language.C_SHARP);
-		extractLanguage(request, user, LanguageAttribute.LANG_JAVA, Language.JAVA);
-		extractLanguage(request, user, LanguageAttribute.LANG_PYTHON, Language.PYTHON);
-		extractLanguage(request, user, LanguageAttribute.LANG_SWIFT, Language.SWIFT);
-		extractLanguage(request, user, LanguageAttribute.LANG_PERL, Language.PERL);
-		extractLanguage(request, user, LanguageAttribute.LANG_PHP, Language.PHP);
-		extractLanguage(request, user, LanguageAttribute.LANG_HTML, Language.HTML);
-		extractLanguage(request, user, LanguageAttribute.LANG_CSS, Language.CSS);
-		extractLanguage(request, user, LanguageAttribute.LANG_JAVASCRIPT, Language.JAVASCRIPT);
-		extractLanguage(request, user, LanguageAttribute.LANG_SQL, Language.SQL);
+		extractLanguage(request, user, LanguageAttribute.LANG_C);
+		extractLanguage(request, user, LanguageAttribute.LANG_CPP);
+		extractLanguage(request, user, LanguageAttribute.LANG_C_SHARP);
+		extractLanguage(request, user, LanguageAttribute.LANG_JAVA);
+		extractLanguage(request, user, LanguageAttribute.LANG_PYTHON);
+		extractLanguage(request, user, LanguageAttribute.LANG_SWIFT);
+		extractLanguage(request, user, LanguageAttribute.LANG_PERL);
+		extractLanguage(request, user, LanguageAttribute.LANG_PHP);
+		extractLanguage(request, user, LanguageAttribute.LANG_HTML);
+		extractLanguage(request, user, LanguageAttribute.LANG_CSS);
+		extractLanguage(request, user, LanguageAttribute.LANG_JAVASCRIPT);
+		extractLanguage(request, user, LanguageAttribute.LANG_SQL);
 	}
 
-	private static boolean extractLanguage(HttpServletRequest request, User user, String langAttr,
-			Language langObject) {
-		if (request.getParameter(langAttr) == null) {
+	private static boolean extractLanguage(HttpServletRequest request, User user, String language) {
+		if (request.getParameter(language) == null) {
 			return false;
 		}
-		String stringLevel = request.getParameter(langAttr).toString();
+
+		String stringLevel = request.getParameter(language).toString();
 		if (stringLevel != null && !stringLevel.isEmpty()) {
 			Integer intLevel = Integer.parseInt(stringLevel);
-			user.addLanguage(langObject, intLevel);
+
+			LanguageSetSingleton languageSingleton = LanguageSetSingleton.getInstance();
+			LanguageSet languageSet = languageSingleton.getLanguageSet();
+			String normalizeLanguage = languageSet.getLanguageStandartName(language);
+
+			user.addLanguage(normalizeLanguage, intLevel);
 		}
 		return true;
 	}

@@ -160,19 +160,19 @@
 					<td><span class="label-lang"><c:out value="${cpp}" /></span></td>
 					<td>
 						<div class="vertical-label">
-							<label for="cpp1">1</label><input type="radio" name="cpp"
+							<label for="cpp1">1</label><input type="radio" name="c++"
 								value="1" id="cpp1" ${user_languages['C++'] == 1 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
-							<label for="cpp2">2</label><input type="radio" name="cpp"
+							<label for="cpp2">2</label><input type="radio" name="c++"
 								value="2" id="cpp2" ${user_languages['C++'] == 2 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
-							<label for="cpp3">3</label><input type="radio" name="cpp"
+							<label for="cpp3">3</label><input type="radio" name="c++"
 								value="3" id="cpp3" ${user_languages['C++'] == 3 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
-							<label for="cpp4">4</label><input type="radio" name="cpp"
+							<label for="cpp4">4</label><input type="radio" name="c++"
 								value="4" id="cpp4" ${user_languages['C++'] == 4 ? 'checked' : ''}>
 						</div>
 					</td>
@@ -180,19 +180,19 @@
 					<td>
 						<div class="vertical-label">
 							<label for="php1">1</label><input type="radio" name="php"
-								value="1" id="php1" ${user_languages['php'] == 1 ? 'checked' : ''}>
+								value="1" id="php1" ${user_languages['PHP'] == 1 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="php2">2</label><input type="radio" name="php"
-								value="2" id="php2" ${user_languages['php'] == 2 ? 'checked' : ''}>
+								value="2" id="php2" ${user_languages['PHP'] == 2 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="php3">3</label><input type="radio" name="php"
-								value="3" id="php3" ${user_languages['php'] == 3 ? 'checked' : ''}>
+								value="3" id="php3" ${user_languages['PHP'] == 3 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="php4">4</label><input type="radio" name="php"
-								value="4" id="php4" ${user_languages['php'] == 4 ? 'checked' : ''}>
+								value="4" id="php4" ${user_languages['PHP'] == 4 ? 'checked' : ''}>
 						</div>
 					</td>
 				</tr>
@@ -200,19 +200,19 @@
 					<td><span class="label-lang"><c:out value="${csharp}" /></span></td>
 					<td>
 						<div class="vertical-label">
-							<label for="csharp1">1</label><input type="radio" name="csharp"
+							<label for="csharp1">1</label><input type="radio" name="c#"
 								value="1" id="csharp1" ${user_languages['C#'] == 1 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
-							<label for="csharp2">2</label><input type="radio" name="csharp"
+							<label for="csharp2">2</label><input type="radio" name="c#"
 								value="2" id="csharp2" ${user_languages['C#'] == 2 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
-							<label for="csharp3">3</label><input type="radio" name="csharp"
+							<label for="csharp3">3</label><input type="radio" name="c#"
 								value="3" id="csharp3" ${user_languages['C#'] == 3 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
-							<label for="csharp4">4</label><input type="radio" name="csharp"
+							<label for="csharp4">4</label><input type="radio" name="c#"
 								value="4" id="csharp4" ${user_languages['C#'] == 4 ? 'checked' : ''}>
 						</div>
 					</td>
@@ -220,19 +220,19 @@
 					<td>
 						<div class="vertical-label">
 							<label for="html1">1</label><input type="radio" name="html"
-								value="1" id="html1" ${user_languages['html'] == 1 ? 'checked' : ''}>
+								value="1" id="html1" ${user_languages['HTML'] == 1 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="html2">2</label><input type="radio" name="html"
-								value="2" id="html2" ${user_languages['html'] == 2 ? 'checked' : ''}>
+								value="2" id="html2" ${user_languages['HTML'] == 2 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="html3">3</label><input type="radio" name="html"
-								value="3" id="html3" ${user_languages['html'] == 3 ? 'checked' : ''}>
+								value="3" id="html3" ${user_languages['HTML'] == 3 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="html4">4</label><input type="radio" name="html"
-								value="4" id="html4" ${user_languages['html'] == 4 ? 'checked' : ''}>
+								value="4" id="html4" ${user_languages['HTML'] == 4 ? 'checked' : ''}>
 						</div>
 					</td>
 				</tr>
@@ -260,19 +260,19 @@
 					<td>
 						<div class="vertical-label">
 							<label for="css1">1</label><input type="radio" name="css"
-								value="1" id="css1" ${user_languages['css'] == 1 ? 'checked' : ''}>
+								value="1" id="css1" ${user_languages['CSS'] == 1 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="css2">2</label><input type="radio" name="css"
-								value="2" id="css2" ${user_languages['css'] == 2 ? 'checked' : ''}>
+								value="2" id="css2" ${user_languages['CSS'] == 2 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="css3">3</label><input type="radio" name="css"
-								value="3" id="css3" ${user_languages['css'] == 3 ? 'checked' : ''}>
+								value="3" id="css3" ${user_languages['CSS'] == 3 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="css4">4</label><input type="radio" name="css"
-								value="4" id="css4" ${user_languages['css'] == 4 ? 'checked' : ''}>
+								value="4" id="css4" ${user_languages['CSS'] == 4 ? 'checked' : ''}>
 						</div>
 					</td>
 				</tr>
@@ -300,19 +300,19 @@
 					<td>
 						<div class="vertical-label">
 							<label for="sql1">1</label><input type="radio" name="sql"
-								value="1" id="sql1" ${user_languages['Sql'] == 1 ? 'checked' : ''}>
+								value="1" id="sql1" ${user_languages['SQL'] == 1 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="sql2">2</label><input type="radio" name="sql"
-								value="2" id="sql2" ${user_languages['Sql'] == 2 ? 'checked' : ''}>
+								value="2" id="sql2" ${user_languages['SQL'] == 2 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="sql3">3</label><input type="radio" name="sql"
-								value="3" id="sql3" ${user_languages['Sql'] == 3 ? 'checked' : ''}>
+								value="3" id="sql3" ${user_languages['SQL'] == 3 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
 							<label for="sql4">4</label><input type="radio" name="sql"
-								value="4" id="sql4" ${user_languages['Sql'] == 4 ? 'checked' : ''}>
+								value="4" id="sql4" ${user_languages['SQL'] == 4 ? 'checked' : ''}>
 						</div>
 					</td>
 				</tr>
@@ -339,19 +339,19 @@
 					<td><span class="label-lang"><c:out value="${js}" /></span></td>
 					<td>
 						<div class="vertical-label">
-							<label for="js1">1</label><input type="radio" name="js" value="1"
+							<label for="js1">1</label><input type="radio" name="javascript" value="1"
 								id="js1" ${user_languages['JavaScript'] == 1 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
-							<label for="js2">2</label><input type="radio" name="js" value="2"
+							<label for="js2">2</label><input type="radio" name="javascript" value="2"
 								id="js2" ${user_languages['JavaScript'] == 2 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
-							<label for="js3">3</label><input type="radio" name="js" value="3"
+							<label for="js3">3</label><input type="radio" name="javascript" value="3"
 								id="js3" ${user_languages['JavaScript'] == 3 ? 'checked' : ''}>
 						</div>
 						<div class="vertical-label">
-							<label for="js4">4</label><input type="radio" name="js" value="4"
+							<label for="js4">4</label><input type="radio" name="javascript" value="4"
 								id="js4" ${user_languages['JavaScript'] == 4 ? 'checked' : ''}>
 						</div>
 					</td>

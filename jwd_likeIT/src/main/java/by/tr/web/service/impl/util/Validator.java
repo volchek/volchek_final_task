@@ -12,8 +12,8 @@ import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.impl.mysql_util.pool.ConnectionPool;
 import by.tr.web.entity.User;
-import by.tr.web.entity.language.Language;
-import by.tr.web.entity.language.LanguageCommand;
+import by.tr.web.entity.language.LanguageSet;
+import by.tr.web.entity.language.LanguageSetSingleton;
 import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;
 import by.tr.web.service.exception.ServiceException;
@@ -159,8 +159,8 @@ public final class Validator {
 
 	public static boolean userLanguagesEqual(User firstUser, User secondUser) {
 
-		Map<Language, Integer> firstUserLang = firstUser.getLanguages();
-		Map<Language, Integer> secondUserLang = secondUser.getLanguages();
+		Map<String, Integer> firstUserLang = firstUser.getLanguages();
+		Map<String, Integer> secondUserLang = secondUser.getLanguages();
 
 		if (firstUserLang == null && secondUserLang == null) {
 			return true;
@@ -179,15 +179,15 @@ public final class Validator {
 		Iterator<String> it = languages.iterator();
 		while (it.hasNext()) {
 			String currentLanguage = it.next();
-			if (!validateOneLanguage(currentLanguage)){
+			if (!validateOneLanguage(currentLanguage)) {
 				it.remove();
 			}
 		}
-		
-		if (languages.isEmpty()){
+
+		if (languages.isEmpty()) {
 			throw new LanguageException("All languages are incorrect");
 		}
-		
+
 		return true;
 	}
 
@@ -199,14 +199,14 @@ public final class Validator {
 
 		Iterator<String> it = tags.iterator();
 		while (it.hasNext()) {
-			if (!validateOneTag(it.next())){
+			if (!validateOneTag(it.next())) {
 				it.remove();
 			}
 		}
-		if (tags.isEmpty()){
+		if (tags.isEmpty()) {
 			throw new TagException("All tags are incorrect or unknown");
 		}
-		
+
 		return true;
 	}
 
@@ -216,23 +216,23 @@ public final class Validator {
 			return false;
 		}
 
-		Map<String, Language> standartLanguages = LanguageCommand.getInstance().getLanguages();
-		Map<String, Language> lowerCaseLanguages = LanguageCommand.getInstance().getLowerCaseLanguages();
-		if (standartLanguages.containsKey(possibleLanguage)) {
-			return true;
-		} else if (lowerCaseLanguages.containsKey(possibleLanguage.toLowerCase())) {
+		LanguageSetSingleton languageSetSingleton = LanguageSetSingleton.getInstance();
+		LanguageSet languageSet = languageSetSingleton.getLanguageSet();
+		Map<String, String> standartLanguages = languageSet.getCaseNormalizationMapping();
+
+		if (standartLanguages.containsKey(possibleLanguage.toLowerCase())) {
 			return true;
 		} else {
 			throw new LanguageException("Language '" + possibleLanguage + "' has an incorrect name");
 		}
 	}
-	
-	private static boolean validateOneTag(String tag) throws TagException{
+
+	private static boolean validateOneTag(String tag) throws TagException {
 
 		if (isEmpty(tag)) {
 			return false;
 		}
-		
+
 		TagSetSingleton tagSetSingleton = TagSetSingleton.getInstance();
 		TagSet tagSet = tagSetSingleton.getTagSet();
 		Map<String, Integer> standartTags = tagSet.getTagToIdSet();

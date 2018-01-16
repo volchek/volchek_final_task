@@ -35,8 +35,7 @@ public class EditUser implements ControllerCommand {
 						
 			HttpSession session = request.getSession(true);
 			session.removeAttribute(UserAttribute.STRING_LANGUAGES);
-			session.setAttribute(UserAttribute.STRING_LANGUAGES, currentUser.getStringLanguages());
-			
+			session.setAttribute(UserAttribute.STRING_LANGUAGES, currentUser.getLanguages());
 			
 		} catch (ServiceException | FatalServiceException e) {
 			request.setAttribute(CommandAttribute.COMMAND_RESULT, false);

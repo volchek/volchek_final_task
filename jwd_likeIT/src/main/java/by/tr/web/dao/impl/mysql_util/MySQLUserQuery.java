@@ -37,9 +37,6 @@ public class MySQLUserQuery {
 			return false;
 		}
 		
-		langQuery.getLanguages().clear();
-		langQuery.getAllLanguages(conn);
-
 		PreparedStatement ps = null;
 		
 		try {

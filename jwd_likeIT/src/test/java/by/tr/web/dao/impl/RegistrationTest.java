@@ -16,7 +16,6 @@ import by.tr.web.dao.exception.DaoLoginException;
 import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.entity.User;
-import by.tr.web.entity.language.Language;
 import by.tr.web.service.InitializeService;
 import by.tr.web.service.exception.FatalServiceException;
 import by.tr.web.service.factory.ServiceFactory;
@@ -30,7 +29,7 @@ public class RegistrationTest {
 	private static InitializeService initializeService = serviceFactory.getInitializeService();
 
 	@BeforeClass
-	public static void createUser() throws FatalServiceException {
+	public static void createUser() throws FatalServiceException, DaoException {
 		
 		initializeService.initializeApplication();
 		
@@ -45,10 +44,10 @@ public class RegistrationTest {
 		user.setAdmin(false);
 		user.setAvatar(null);
 		user.setBanned(false);
-		user.addLanguage(Language.C, 2);
-		user.addLanguage(Language.CPP, 3);
-		user.addLanguage(Language.PYTHON, 4);
-		user.addLanguage(Language.SQL, 1);
+		user.addLanguage("C", 2);
+		user.addLanguage("C++", 3);
+		user.addLanguage("Python", 4);
+		user.addLanguage("SQL", 1);
 	}
 
 	@AfterClass

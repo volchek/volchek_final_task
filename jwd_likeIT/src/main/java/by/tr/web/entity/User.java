@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import by.tr.web.entity.language.Language;
-
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -31,7 +29,7 @@ public class User implements Serializable {
 	private String password;
 
 	private String status;
-	private Map<Language, Integer> languages;
+	private Map<String, Integer> languages;
 
 	private boolean isAdmin;
 	private boolean isBanned;
@@ -40,7 +38,7 @@ public class User implements Serializable {
 
 	public User() {
 		email = new LinkedList<String>();
-		languages = new HashMap<Language, Integer>();
+		languages = new HashMap<String, Integer>();
 	}
 
 	public void setName(String name) {
@@ -134,28 +132,17 @@ public class User implements Serializable {
 		return status;
 	}
 
-	public void setLanguages(Map<Language, Integer> languages) {
+	public void setLanguages(Map<String, Integer> languages) {
 		this.languages = languages;
 	}
 
-	public void addLanguage(Language language, int level) {
+	public void addLanguage(String language, int level) {
 		languages.put(language, level);
 	}
 
-	public Map<Language, Integer> getLanguages() {
+	public Map<String, Integer> getLanguages() {
 		return languages;
-	}
-	
-	public Map<String, Integer> getStringLanguages(){
-		Map<String, Integer> lang = new HashMap<String, Integer>();
-		for (Map.Entry<Language, Integer> entry : languages.entrySet()){
-			if (entry.getKey() != null){
-				lang.put(entry.getKey().getName(), entry.getValue());
-			}
-		}
-		return lang;
-	}
-
+	}	
 
 	public void setAdmin(boolean admin) {
 		this.isAdmin = admin;
