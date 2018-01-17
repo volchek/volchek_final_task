@@ -1,6 +1,7 @@
 package by.tr.web.service.impl.util;
 
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -177,14 +178,15 @@ public final class Validator {
 		}
 
 		Iterator<String> it = languages.iterator();
+		List<String> resultLanguages = new ArrayList<String>();
 		while (it.hasNext()) {
 			String currentLanguage = it.next();
-			if (!validateOneLanguage(currentLanguage)) {
-				it.remove();
+			if (validateOneLanguage(currentLanguage)) {
+				resultLanguages.add(currentLanguage);
 			}
 		}
 
-		if (languages.isEmpty()) {
+		if (resultLanguages.isEmpty()) {
 			throw new LanguageException("All languages are incorrect");
 		}
 
@@ -196,11 +198,13 @@ public final class Validator {
 		if (tags == null) {
 			throw new TagException("Tag list is empty");
 		}
-
+		
+		List<String> resultTags = new ArrayList<String>();
 		Iterator<String> it = tags.iterator();
 		while (it.hasNext()) {
-			if (!validateOneTag(it.next())) {
-				it.remove();
+			String currentTag = it.next();
+			if (!validateOneTag(currentTag)) {
+				resultTags.add(currentTag);
 			}
 		}
 		if (tags.isEmpty()) {

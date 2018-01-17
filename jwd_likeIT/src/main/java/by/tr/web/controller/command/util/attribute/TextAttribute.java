@@ -7,6 +7,6 @@ public class TextAttribute {
 	public static final String TAG = "tag";
 	public static final String LANGUAGE = "language";
 	public static final String TITLE = "title";
-	public static final String QUESTION_TEXT = "question";
-	
+	public static final String QUESTION_TEXT = "question_text";
+	public static final String QUESTION = "question";
 }

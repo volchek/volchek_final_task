@@ -29,17 +29,18 @@ public class AddQuestion implements ControllerCommand {
 		QuestionService questionService = serviceFactory.getQuestionService();
 
 		User user = (User) request.getSession().getAttribute(UserAttribute.CURRENT_USER);
-		int userId = user.getId();
 		String title = request.getParameter(TextAttribute.TITLE);
 		List<String> languages = ExtractParameter.extractParameterList(request, TextAttribute.LANGUAGE);
 		List<String> tags = ExtractParameter.extractParameterList(request, TextAttribute.TAG);
-		String text = request.getParameter(TextAttribute.QUESTION_TEXT);
+		String text = request.getParameter(TextAttribute.QUESTION_TEXT);		
 
 		RequestDispatcher d = null;
 
 		try {
-			Question question = questionService.addQuestion(userId, title, languages, tags, text);
-			request.setAttribute("questoin", question);
+			Question question = questionService.addQuestion(user, title, languages, tags, text);
+			request.setAttribute(TextAttribute.QUESTION, question);
+			System.out.println("CONTROLLER");
+			System.out.println(question);
 			d = request.getRequestDispatcher(PagePath.RESULT_PAGE);
 
 		} catch (ServiceException e) {

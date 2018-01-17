@@ -103,7 +103,7 @@
 		<div class="content" >
 			<div id="pell" class="pell" ></div>
 			<div id="text-output" style="display: none" onKeyUp="addCodeTag(replacePreTags())"></div>
-			<textarea name="question" id="question" style="display: none" ></textarea>
+			<textarea name="question_text" id="question" style="display: none" ></textarea>
 		</div>
 
 
