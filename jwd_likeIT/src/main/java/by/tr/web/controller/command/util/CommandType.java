@@ -2,6 +2,13 @@ package by.tr.web.controller.command.util;
 
 public enum CommandType {
 
-	SIGN_IN, REGISTER, LOGOUT, FIND_BY_LOGIN, CHANGE_LANG, EDIT_USER, ADD_QUESTION;
+	CHANGE_LANG, 
+	FIND_BY_LOGIN, 
+	REGISTER, 
+	SIGN_IN, 
+	LOGOUT, 
+	EDIT_USER, 
+	ADD_QUESTION,
+	GET_ANSWER;
 
 }

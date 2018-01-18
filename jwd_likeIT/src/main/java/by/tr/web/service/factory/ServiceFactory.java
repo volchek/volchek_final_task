@@ -1,10 +1,12 @@
 package by.tr.web.service.factory;
 
+import by.tr.web.service.AnswerService;
 import by.tr.web.service.InitializeService;
 import by.tr.web.service.LanguageService;
 import by.tr.web.service.QuestionService;
 import by.tr.web.service.TagService;
 import by.tr.web.service.UserService;
+import by.tr.web.service.impl.AnswerServiceImpl;
 import by.tr.web.service.impl.InitializeServiceImpl;
 import by.tr.web.service.impl.LanguageServiceImpl;
 import by.tr.web.service.impl.QuestionServiceImpl;
@@ -20,6 +22,7 @@ public final class ServiceFactory {
 	private final LanguageService langService = new LanguageServiceImpl();
 	private final TagService tagService = new TagServiceImpl();
 	private final QuestionService questionService = new QuestionServiceImpl();
+	private final AnswerService answerService = new AnswerServiceImpl();
 
 	private ServiceFactory() {
 
@@ -49,4 +52,8 @@ public final class ServiceFactory {
 		return questionService;
 	}
 
+	public AnswerService getAnswerService() {
+		return answerService;
+	}
+	
 }

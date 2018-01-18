@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
 import by.tr.web.entity.Question;
-import by.tr.web.entity.User;
 import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
 import by.tr.web.entity.tag.TagSet;
@@ -24,17 +22,20 @@ import by.tr.web.entity.tag.TagSetSingleton;
 
 public class MySQLQuestionQuery {
 
-	private final static String INSERT_QUESTION_QUERY = "INSERT INTO Questions (title, text, userId, creationDatetime) "
+	private final static String INSERT_QUESTION = 
+			"INSERT INTO Questions (title, text, userId, creationDatetime) "
 			+ "VALUES (?, ?, ?, ?)";
 
-	private final static String INSERT_QUESTION_LANGUAGES = "INSERT INTO Questions2Languages (questionId, languageId) "
+	private final static String INSERT_QUESTION_LANGUAGES = 
+			"INSERT INTO Questions2Languages (questionId, languageId) "
 			+ "VALUES (?, ?)";
 
-	private final static String INSERT_QUESTION_TAGS = "INSERT INTO Questions2Keywords (questionId, keywordId) "
+	private final static String INSERT_QUESTION_TAGS = 
+			"INSERT INTO Questions2Keywords (questionId, keywordId) "
 			+ "VALUES (?, ?)";
 
 	private final static String SELECT_QUESTION_BY_ID = 
-			"SELECT q.questionId, q.title, q.text, q.creationDatetime, "
+			"SELECT q.questionId, q.title, q.text, q.creationDatetime, u.login ,"
 			+ "GROUP_CONCAT(DISTINCT	l.language ORDER BY l.language ASC SEPARATOR','), "
 			+ "GROUP_CONCAT(DISTINCT k.keyword ORDER BY k.keyword ASC SEPARATOR ',') "
 			+ "FROM likeit2.questions AS q "
@@ -46,17 +47,21 @@ public class MySQLQuestionQuery {
 			+ "ON q.questionId = ql.questionId "
 			+ "INNER JOIN likeit2.languages AS l "
 			+ "ON ql.languageId = l.languageId "
+			+ "INNER JOIN likeit2.users AS u "
+			+ "ON q.userId = u.userId "
 			+ "WHERE q.questionId = ?;";
 
+	private final static String PATTERN_TO_SPLIT_TAGS = "\\s*,\\s*";
+	
 	private final static Logger logger = LogManager.getLogger(MySQLQuestionQuery.class.getName());
 
-	public Question addQuestion(Connection conn, User author, String title, String text, List<String> languages,
+	public Question addQuestion(Connection conn, int authorId, String title, String text, List<String> languages,
 			List<String> tags) throws MySqlException {
 
 		PreparedStatement ps = null;
 		try {
 			conn.setAutoCommit(false);
-			int userId = author.getId();
+			int userId = authorId;
 			ps = prepareQuestionInsertionStatement(conn, ps, userId, title, text);
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
@@ -65,17 +70,14 @@ public class MySQLQuestionQuery {
 				insertAllQuestionLanguages(conn, questionId, languages);
 				insertAllQuestionTags(conn, questionId, tags);
 				conn.commit();
-				Question question = selectQuestion(conn, questionId);
-				if (question != null){
-					question.setAuthor(author);
-				}
+				Question question = selectQuestionById(conn, questionId);
 				return question;
 			} else {
 				conn.rollback();
 			}
 			return null;
 		} catch (SQLException ex) {
-			logger.error("Can't insert question of user with id = " + author.getId());
+			logger.error("Can't insert question of user with id = " + authorId);
 			try {
 				conn.rollback();
 			} catch (SQLException e) {
@@ -92,6 +94,31 @@ public class MySQLQuestionQuery {
 		}
 	}
 
+	public Question selectQuestionById(Connection conn, int questionId) {
+		
+		Question question = null;
+		try (PreparedStatement ps = conn.prepareStatement(SELECT_QUESTION_BY_ID)) {
+			ps.setInt(1, questionId);
+			try (ResultSet rs = ps.executeQuery()){
+				while (rs.next()){
+					question = new Question();
+					question.setId(rs.getInt(1));
+					question.setTitle(rs.getString(2));
+					question.setText(rs.getString(3));
+					question.setCreationDate(rs.getDate(4));
+					question.setAuthorLogin(rs.getString(5));
+					List<String> languages = getDataList(rs, 6);
+					question.setLanguages(languages);
+					List<String> tags = getDataList(rs, 7);
+					question.setTags(tags);
+				}
+			} 
+		} catch (SQLException e) {
+			logger.error("Can't create a question object for the question with id=" + questionId);
+		}
+		return question;
+	}
+	
 	private void insertAllQuestionLanguages(Connection conn, int questionId, List<String> languages)
 			throws MySqlException {
 		LanguageSet languageSet = LanguageSetSingleton.getInstance().getLanguageSet();
@@ -148,7 +175,7 @@ public class MySQLQuestionQuery {
 	private static PreparedStatement prepareQuestionInsertionStatement(Connection conn, PreparedStatement ps, int id,
 			String title, String text) throws SQLException {
 
-		ps = conn.prepareStatement(INSERT_QUESTION_QUERY, Statement.RETURN_GENERATED_KEYS);
+		ps = conn.prepareStatement(INSERT_QUESTION, Statement.RETURN_GENERATED_KEYS);
 
 		ps.setString(1, title);
 		ps.setString(2, text);
@@ -168,30 +195,10 @@ public class MySQLQuestionQuery {
 		}
 	}
 
-	private Question selectQuestion(Connection conn, int questionId) {
-		
-		Question question = null;
-		try (PreparedStatement ps = conn.prepareStatement(SELECT_QUESTION_BY_ID)) {
-			ps.setInt(1, questionId);
-			try (ResultSet rs = ps.executeQuery()){
-				while (rs.next()){
-					question = new Question();
-					question.setId(rs.getInt(1));
-					question.setTitle(rs.getString(2));
-					question.setText(rs.getString(3));
-					question.setCreationDate(rs.getDate(4));
-					String strLangs = rs.getString(5);
-					List<String> langs = Arrays.asList(strLangs.split("\\s*,\\s*"));
-					question.setLanguages(langs);
-					String strTags = rs.getString(6);
-					List<String> tags = Arrays.asList(strTags.split("\\s*,\\s*"));
-					question.setTags(tags);
-				}
-			} 
-		} catch (SQLException e) {
-			logger.error("Can't create a question object");
-		}
-		return question;
+	private List<String> getDataList(ResultSet rs, int column) throws SQLException{
+		String strLangs = rs.getString(column);
+		List<String> langs = Arrays.asList(strLangs.split(PATTERN_TO_SPLIT_TAGS));
+		return langs;
 	}
 
 }

@@ -11,7 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.entity.User;
 import by.tr.web.service.InitializeService;
 import by.tr.web.service.UserService;
@@ -61,12 +60,12 @@ public class UpdateUserTest {
 	}
 
 	@Test
-	public void shouldDenyUpdateUser() throws DaoException, FatalDaoException {
+	public void shouldDenyUpdateUser() throws DaoException {
 
 		try {
 			assertFalse(userService.updatePersonalInfo(currentUser, modifiedUser));
-		} catch (ServiceException | FatalServiceException e) {
-			e.printStackTrace();
+		} catch (ServiceException ex) {
+			ex.printStackTrace();
 		}
 		assertTrue(currentUser.getSurname().equals(modifiedUser.getSurname()));
 		assertTrue(currentUser.getName().equals(modifiedUser.getName()));
@@ -76,7 +75,7 @@ public class UpdateUserTest {
 	}
 
 	@Test
-	public void shouldUpdatePersonalInfo() throws DaoException, FatalDaoException {
+	public void shouldUpdatePersonalInfo() throws DaoException {
 
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
@@ -89,8 +88,8 @@ public class UpdateUserTest {
 
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
-		} catch (ServiceException | FatalServiceException e) {
-			e.printStackTrace();
+		} catch (ServiceException ex) {
+			ex.printStackTrace();
 		}
 		assertTrue(currentUser.getSurname().equals(modifiedUser.getSurname()));
 		assertTrue(currentUser.getName().equals(modifiedUser.getName()));
@@ -100,7 +99,7 @@ public class UpdateUserTest {
 	}
 
 	@Test
-	public void shouldUpdateLanguages() throws DaoException, FatalDaoException {
+	public void shouldUpdateLanguages() throws DaoException {
 
 		modifiedUser.addLanguage("C", 1);
 		modifiedUser.getLanguages().remove("Python");
@@ -108,8 +107,8 @@ public class UpdateUserTest {
 
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
-		} catch (ServiceException | FatalServiceException e) {
-			e.printStackTrace();
+		} catch (ServiceException ex) {
+			ex.printStackTrace();
 		}
 		assertTrue(currentUser.getLanguages().equals(modifiedUser.getLanguages()));
 
@@ -117,22 +116,22 @@ public class UpdateUserTest {
 		modifiedUser.addLanguage("Python", 2);
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
-		} catch (ServiceException | FatalServiceException e) {
-			e.printStackTrace();
+		} catch (ServiceException ex) {
+			ex.printStackTrace();
 		}
 		assertTrue(currentUser.getLanguages().equals(modifiedUser.getLanguages()));
 
 		modifiedUser.getLanguages().remove("C");
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
-		} catch (ServiceException | FatalServiceException e) {
-			e.printStackTrace();
+		} catch (ServiceException ex) {
+			ex.printStackTrace();
 		}
 		assertTrue(currentUser.getLanguages().equals(modifiedUser.getLanguages()));
 	}
 
 	@Test
-	public void shouldUpdateUser() throws DaoException, FatalDaoException {
+	public void shouldUpdateUser() throws DaoException {
 
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
@@ -144,16 +143,16 @@ public class UpdateUserTest {
 
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
-		} catch (ServiceException | FatalServiceException e) {
-			e.printStackTrace();
+		} catch (ServiceException ex) {
+			ex.printStackTrace();
 		}
 		assertTrue(currentUser.getLanguages().equals(modifiedUser.getLanguages()));
 
 		modifiedUser.getLanguages().remove("C");
 		try {
 			userService.updatePersonalInfo(currentUser, modifiedUser);
-		} catch (ServiceException | FatalServiceException e) {
-			e.printStackTrace();
+		} catch (ServiceException ex) {
+			ex.printStackTrace();
 		}
 		assertTrue(currentUser.getLanguages().equals(modifiedUser.getLanguages()));
 	}

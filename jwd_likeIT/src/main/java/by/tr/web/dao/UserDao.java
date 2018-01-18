@@ -1,21 +1,20 @@
 package by.tr.web.dao;
 
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.entity.User;
 
 public interface UserDao {
 
-	boolean registerUser(User user) throws DaoException, FatalDaoException;
+	boolean registerUser(User user) throws DaoException;
 
-	User signIn(String login, String password) throws DaoException, FatalDaoException;
+	User signIn(String login, String password) throws DaoException;
 
-	boolean updatePersonalInfo(User currentUser, User modifiedUser) throws DaoException, FatalDaoException;
+	boolean updatePersonalInfo(User currentUser, User modifiedUser) throws DaoException;
 
-	boolean updateUserLanguages(User currentUser, User modifiedUser) throws DaoException, FatalDaoException;
+	boolean updateUserLanguages(User currentUser, User modifiedUser) throws DaoException;
 
-	boolean updateUser(User currentUser, User modifiedUser) throws DaoException, FatalDaoException;
+	boolean updateUser(User currentUser, User modifiedUser) throws DaoException;
 
-	User findUserByLogin(String login) throws DaoException, FatalDaoException;
+	User findUserByLogin(String login) throws DaoException;
 	
 }

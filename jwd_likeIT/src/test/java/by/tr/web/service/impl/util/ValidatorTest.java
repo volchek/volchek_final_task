@@ -17,6 +17,7 @@ import by.tr.web.entity.User;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.exception.text_exception.LanguageException;
 import by.tr.web.service.exception.text_exception.TagException;
+import by.tr.web.service.exception.text_exception.TitleException;
 import by.tr.web.service.exception.user_exception.DateException;
 import by.tr.web.service.exception.user_exception.EmailException;
 import by.tr.web.service.exception.user_exception.LoginException;
@@ -337,6 +338,15 @@ public class ValidatorTest {
 		secondUser.addLanguage("Java", 4);
 		assertFalse(Validator.userLanguagesEqual(firstUser, secondUser));
 	}
+	
+	/* Check question title and text */
+	
+	@Test(expected = TitleException.class)
+	public void shouldCheckEmptyQuestionTitle() throws ServiceException{
+		List<String> langs = null;
+		List<String> tags = null;
+		Validator.validateQuestion("  ", "abacaba", langs, tags);
+	}
 
 	/* Check languages */
 
@@ -402,7 +412,7 @@ public class ValidatorTest {
 	}
 
 	@Test(expected = TagException.class)
-	public void shouldCheckTagListOfEmptyStrings() throws LanguageException, TagException {
+	public void shouldCheckTagListOfEmptyStrings() throws TagException {
 		List<String> tags = new ArrayList<String>();
 		tags.add("");
 		tags.add("   ");

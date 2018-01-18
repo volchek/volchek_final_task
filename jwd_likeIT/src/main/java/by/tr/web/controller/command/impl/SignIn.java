@@ -21,7 +21,6 @@ import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;
 import by.tr.web.service.UserService;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.exception.FatalServiceException;
 import by.tr.web.service.exception.ServiceException;
 
 public class SignIn implements ControllerCommand {
@@ -51,12 +50,9 @@ public class SignIn implements ControllerCommand {
 				jsonTags = JsonConverter.getJson(tags);
 			}
 			createSession(request, user, jsonLanguages, jsonTags);
-			response.sendRedirect(PagePath.AFTER_PAGE);
+			response.sendRedirect(PagePath.AFTER_SING_IN_PAGE);
 		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
-			d.forward(request, response);
-		} catch (FatalServiceException ex) {
-			d = request.getRequestDispatcher(PagePath.DATABASE_ERROR_PAGE);
 			d.forward(request, response);
 		}
 	}

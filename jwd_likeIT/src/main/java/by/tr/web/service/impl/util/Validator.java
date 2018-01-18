@@ -1,7 +1,6 @@
 package by.tr.web.service.impl.util;
 
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -20,6 +19,8 @@ import by.tr.web.entity.tag.TagSetSingleton;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.exception.text_exception.LanguageException;
 import by.tr.web.service.exception.text_exception.TagException;
+import by.tr.web.service.exception.text_exception.TextException;
+import by.tr.web.service.exception.text_exception.TitleException;
 import by.tr.web.service.exception.user_exception.DateException;
 import by.tr.web.service.exception.user_exception.EmailException;
 import by.tr.web.service.exception.user_exception.LoginException;
@@ -61,6 +62,23 @@ public final class Validator {
 
 		validateLogin(user.getLogin());
 		validatePassword(user.getPassword());
+
+		return true;
+	}
+
+	public static boolean validateQuestion(String title, String text, List<String> languages, List<String> tags)
+			throws ServiceException {
+
+		if (isEmpty(title)) {
+			logger.error("Title is empty");
+			throw new TitleException("Title is empty");
+		} else if (isEmpty(text)) {
+			logger.error("Question text is empty");
+			throw new TextException("Question text is empty");
+		}
+
+		validateLanguages(languages);
+		validateTags(tags);
 
 		return true;
 	}
@@ -178,15 +196,15 @@ public final class Validator {
 		}
 
 		Iterator<String> it = languages.iterator();
-		List<String> resultLanguages = new ArrayList<String>();
+		int countIncorrectLanguages = 0;
 		while (it.hasNext()) {
 			String currentLanguage = it.next();
-			if (validateOneLanguage(currentLanguage)) {
-				resultLanguages.add(currentLanguage);
+			if (!validateOneLanguage(currentLanguage)) {
+				countIncorrectLanguages++;
 			}
 		}
 
-		if (resultLanguages.isEmpty()) {
+		if (countIncorrectLanguages == languages.size()) {
 			throw new LanguageException("All languages are incorrect");
 		}
 
@@ -198,16 +216,16 @@ public final class Validator {
 		if (tags == null) {
 			throw new TagException("Tag list is empty");
 		}
-		
-		List<String> resultTags = new ArrayList<String>();
+
+		int countIncorrectTags = 0;
 		Iterator<String> it = tags.iterator();
 		while (it.hasNext()) {
 			String currentTag = it.next();
 			if (!validateOneTag(currentTag)) {
-				resultTags.add(currentTag);
+				countIncorrectTags++;
 			}
 		}
-		if (tags.isEmpty()) {
+		if (countIncorrectTags == tags.size()) {
 			throw new TagException("All tags are incorrect or unknown");
 		}
 

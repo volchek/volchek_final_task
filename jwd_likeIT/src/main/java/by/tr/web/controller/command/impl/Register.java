@@ -12,7 +12,6 @@ import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.ExtractParameter;
 import by.tr.web.entity.User;
 import by.tr.web.service.UserService;
-import by.tr.web.service.exception.FatalServiceException;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.exception.user_exception.DateException;
 import by.tr.web.service.exception.user_exception.EmailException;
@@ -42,13 +41,9 @@ public class Register implements ControllerCommand {
 
 		} catch (LoginException | DateException | PasswordException | NameException | EmailException ex) {
 			d = request.getRequestDispatcher(PagePath.REGISTER_PAGE);
-			d.forward(request, response);
 		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
-			d.forward(request, response);
-		} catch (FatalServiceException ex) {
-			d = request.getRequestDispatcher(PagePath.DATABASE_ERROR_PAGE);
-			d.forward(request, response);
 		}
+		d.forward(request, response);
 	}
 }

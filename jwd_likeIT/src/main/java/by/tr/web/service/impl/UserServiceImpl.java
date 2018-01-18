@@ -2,18 +2,16 @@ package by.tr.web.service.impl;
 
 import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.entity.User;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.impl.util.Validator;
-import by.tr.web.service.exception.FatalServiceException;
 
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public boolean register(User user) throws ServiceException, FatalServiceException {
+	public boolean register(User user) throws ServiceException {
 
 		Validator.validateUser(user);
 
@@ -24,13 +22,11 @@ public class UserServiceImpl implements UserService {
 			return userDao.registerUser(user);
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);
-		} catch (FatalDaoException ex) {
-			throw new FatalServiceException(ex);
 		}
 	}
 
 	@Override
-	public User signIn(String login, String password) throws ServiceException, FatalServiceException {
+	public User signIn(String login, String password) throws ServiceException {
 
 		Validator.isEmpty(login);
 		Validator.isEmpty(password);
@@ -44,13 +40,11 @@ public class UserServiceImpl implements UserService {
 			return user;
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);
-		} catch (FatalDaoException ex) {
-			throw new FatalServiceException(ex);
 		}
 	}
 
 	@Override
-	public User findUserByLogin(String login) throws ServiceException, FatalServiceException {
+	public User findUserByLogin(String login) throws ServiceException {
 
 		if (!Validator.validateLogin(login)) {
 			return null;
@@ -65,13 +59,11 @@ public class UserServiceImpl implements UserService {
 			return user;
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);
-		} catch (FatalDaoException ex) {
-			throw new FatalServiceException(ex);
 		}
 	}
 
 	@Override
-	public boolean updatePersonalInfo(User user, User modifiedUser) throws ServiceException, FatalServiceException {
+	public boolean updatePersonalInfo(User user, User modifiedUser) throws ServiceException {
 
 		Validator.validatePersonalData(user);
 		
@@ -79,12 +71,10 @@ public class UserServiceImpl implements UserService {
 			return updateUser(user, modifiedUser);
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);
-		} catch (FatalDaoException ex) {
-			throw new FatalServiceException(ex);
-		}
+		} 
 	}
 
-	private boolean updateUser(User firstUser, User secondUser) throws DaoException, FatalDaoException {
+	private boolean updateUser(User firstUser, User secondUser) throws DaoException {
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
 		UserDao userDao = daoInstance.getUserDao();

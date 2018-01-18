@@ -14,7 +14,6 @@ import by.tr.web.controller.command.util.attribute.ExtractParameter;
 import by.tr.web.controller.command.util.attribute.UserAttribute;
 import by.tr.web.entity.User;
 import by.tr.web.service.UserService;
-import by.tr.web.service.exception.FatalServiceException;
 import by.tr.web.service.exception.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
 
@@ -37,7 +36,7 @@ public class EditUser implements ControllerCommand {
 			session.removeAttribute(UserAttribute.STRING_LANGUAGES);
 			session.setAttribute(UserAttribute.STRING_LANGUAGES, currentUser.getLanguages());
 			
-		} catch (ServiceException | FatalServiceException e) {
+		} catch (ServiceException e) {
 			request.setAttribute(CommandAttribute.COMMAND_RESULT, false);
 		}
 		response.sendRedirect(PagePath.AFTER_USER_UPDATING);

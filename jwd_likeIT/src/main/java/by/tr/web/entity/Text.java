@@ -8,7 +8,7 @@ public abstract class Text implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String text;
-	private User author;
+	private String authorLogin;
 	private Date creationDate;
 	private int id;
 
@@ -16,10 +16,10 @@ public abstract class Text implements Serializable {
 
 	}
 
-	public Text(int id, String text, User author, Date creationDate) {
+	public Text(int id, String text, String author, Date creationDate) {
 		this.id = id;
 		this.text = text;
-		this.author = author;
+		this.authorLogin = author;
 		this.creationDate = creationDate;
 	}
 
@@ -39,12 +39,12 @@ public abstract class Text implements Serializable {
 		this.text = text;
 	}
 
-	public User getAuthor() {
-		return author;
+	public String getAuthorLogin() {
+		return authorLogin;
 	}
 
-	public void setAuthor(User author) {
-		this.author = author;
+	public void setAuthorLogin(String author) {
+		this.authorLogin = author;
 	}
 
 	public Date getCreationDate() {
@@ -59,9 +59,9 @@ public abstract class Text implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((author == null) ? 0 : author.hashCode());
-		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + id;
+		result = prime * result + ((authorLogin == null) ? 0 : authorLogin.hashCode());
+		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
@@ -79,11 +79,11 @@ public abstract class Text implements Serializable {
 		}
 
 		Text other = (Text) obj;
-		if (author == null) {
-			if (other.author != null) {
+		if (authorLogin == null) {
+			if (other.authorLogin != null) {
 				return false;
 			}
-		} else if (!author.equals(other.author)) {
+		} else if (!authorLogin.equals(other.authorLogin)) {
 			return false;
 		}
 		if (creationDate == null) {
@@ -110,7 +110,7 @@ public abstract class Text implements Serializable {
 	@Override
 	public String toString() {
 		return "Text: text=" + text + 
-				", author=" + author + 
+				", authorLogin=" + authorLogin + 
 				", creationDate=" + creationDate + 
 				", id=" + id;
 	}

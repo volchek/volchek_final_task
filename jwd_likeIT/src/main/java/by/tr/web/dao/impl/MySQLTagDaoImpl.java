@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.TagDao;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.impl.mysql_util.MySQLTagQuery;
 import by.tr.web.dao.impl.mysql_util.mysql_exception.MySqlException;
 import by.tr.web.dao.impl.mysql_util.pool.ConnectionPool;
@@ -24,7 +23,7 @@ public class MySQLTagDaoImpl implements TagDao {
 	private final static Logger logger = LogManager.getLogger(MySQLTagDaoImpl.class.getName());
 
 	@Override
-	public void extractAllTagInfo() throws DaoException, FatalDaoException {
+	public void extractAllTagInfo() throws DaoException {
 
 		Connection conn = null;
 
@@ -37,6 +36,7 @@ public class MySQLTagDaoImpl implements TagDao {
 
 		} catch (MySqlException ex) {
 			logger.error("Can't execute query and get information about all tags", ex);
+			throw new DaoException("Failed to execute command and extract information about all tags", ex);
 		} finally {
 			connPool.closeConnection(conn);
 		}
