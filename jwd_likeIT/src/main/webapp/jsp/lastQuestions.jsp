@@ -14,6 +14,20 @@
 <body>
 	<c:import url="fragment/header.jsp"></c:import>
 	<c:import url="menu.jsp"></c:import>
-	LAST QUESTIONS
+
+
+	<table class="feed">
+		<tr>
+			<td class="mark">5</td>
+			<td class="text">2 Answers</td>
+			<td class="question-container">Title Title Title Title Title
+				Title Title Title Title Title Title Title Title Title Title<br>
+				<span class="lang">lang</span><span class="lang">lang</span><span
+				class="lang">lang</span><span class="lang">lang</span><span class="lang">lang</span><span class="lang">lang</span>
+			</td>
+			<td class="author">User</td>
+		</tr>
+	</table>
+	<c:import url="fragment/footer.jsp"></c:import>
 </body>
 </html>

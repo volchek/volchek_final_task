@@ -7,6 +7,8 @@
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="lc" />
 <fmt:message key="menu.edit" bundle="${lc}" var="edit" />
+<fmt:message key="menu.my_questions" bundle="${lc}" var="questions" />
+<fmt:message key="menu.my_answers" bundle="${lc}" var="answers" />
 <fmt:message key="menu.logout" bundle="${lc}" var="logout" />
 <fmt:message key="main_menu.login" bundle="${lc}" var="login" />
 <fmt:message key="menu.ask_question" bundle="${lc}"
@@ -18,10 +20,18 @@
 <div class="menu clearfix">
 	<div class="nav">
 		<c:choose>
-			<c:when test="${not empty sessionScope.current_user}">
+			<c:when test="${empty sessionScope.current_user}">
 				<form action="${pageContext.request.contextPath}/PersonalData"
 					method="post" id="form_edit">
 				</form>
+				
+				<form action="${pageContext.request.contextPath}/myQuestions"
+					method="post" id="my_questions">
+				</form>
+				<form action="${pageContext.request.contextPath}/myAnswers"
+					method="post" id="my_answers">
+				</form>
+				
 				<form action="${pageContext.request.contextPath}/Controller"
 					method="post" id="form_logout">
 					<input type="hidden" name="command" value="LOGOUT" />
@@ -31,6 +41,10 @@
 				<a href='javascript:document.getElementById("form_edit").submit()'><c:out
 						value="${edit}" /></a>
 				<a href="${pageContext.request.contextPath}/addQuestion"><c:out value="${ask}" /></a>
+				<a href='javascript:document.getElementById("my_questions").submit()'><c:out
+						value="${questions}" /></a>
+				<a href='javascript:document.getElementById("my_answers").submit()'><c:out
+						value="${answers}" /></a>
 				<a href='javascript:document.getElementById("form_logout").submit()'><c:out
 						value="${logout}" /></a>
 

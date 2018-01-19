@@ -16,46 +16,97 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/pell.css">
 <body>
-	<c:import url="fragment/header.jsp"></c:import>
-	<c:import url="menu.jsp"></c:import>
+	<c:import url="fragment/header.jsp" />
+	<c:import url="menu.jsp" />
 	<c:out value="${requestScope.question.id}" />
 	<c:out value="${requestScope.question.title}" />
 	<c:out value="${requestScope.question.text}" />
 	<c:out value="${requestScope.question.languages}" />
 	<c:out value="${requestScope.question.tags}" />
 
-	<div class="container">
-		<div>Оценка</div>
+	<div class="all-content">
 		<div>
-			<h1>Title</h1>
-			<p>Time</p>
-			<p>Text... Text... Text...</p>
-			<p>Author</p>
-		</div>
-		<div>answer</div>
-		<form action="${pageContext.request.contextPath}/Controller"
-			method="post">
-			<input type="hidden" name="command" value="GET_ANSWER" />
-			<div class="clearfix">
-				<c:if test="${empty current_user.login}">
+			<div class="question-container clearfix">
+				<div class="mark clearfix">
+					<div class="number">5</div>
+					<form action="#" method="post" class="clearfix">
+						<input type="hidden" name="command" value="SET_MARK" /> <select
+							name="mark" class="styled-select pink rounded clearfix">
+							<option>5</option>
+							<option>4</option>
+							<option>3</option>
+							<option>2</option>
+							<option>1</option>
+							<option>0</option>
+						</select>
+						<button type="submit" class="clearfix">OK</button>
+					</form>
+				</div>
+				<div class="question clearfix">
+					<h1>Title</h1>
 					<div>
-						<div class="content">
-							<div id="pell" class="pell"></div>
-							<div id="text-output" style="display: none"
-								onKeyUp="addCodeTag(replacePreTags())"></div>
-							<textarea name="answer_text" id="answer" style="display: none"></textarea>
-						</div>
-
-						<button type="submit" class="signupbtn"
-							onclick="location.href='afterLogIn.jsp'">
-							<c:out value="${send}" />
-						</button>
+					<span class="lang">Lang1</span><span class="lang">Lang2</span><span class="lang">Lang3</span>
 					</div>
-				</c:if>
+					<div>
+					<span class="tag">Tag1</span><span class="tag">Tag2</span><span class="tag">Tag3</span>				
+					</div>
+					<p>Text... Text... Text...</p>
+					<p class="date">Вопрос задан: Time</p>
+					<p class="author">Author</p>
+				</div>
 			</div>
-		</form>
+			<div class="question-container">
+				<div class="mark clearfix">
+					<div class="number">4</div>
+					<form action="#" method="post" class="clearfix">
+						<input type="hidden" name="command" value="SET_MARK" /> <select
+							name="mark" class="styled-select pink rounded clearfix">
+							<option>5</option>
+							<option>4</option>
+							<option>3</option>
+							<option>2</option>
+							<option>1</option>
+							<option>0</option>
+						</select>
+						<button type="submit" class="clearfix">OK</button>
+					</form>
+				</div>
+				<div class="question">
+					<p>LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
+						LOREM IPSUMLOREM IPSUM LOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM
+						IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM v v LOREM
+						IPSUM</p>
+					<p class="date">Time</p>
+					<p class="author">Author</p>
+				</div>
+			</div>
+			<div class="answer">
+				<p>Ваш ответ</p>
+				<form action="${pageContext.request.contextPath}/Controller"
+					method="post">
+					<input type="hidden" name="command" value="GET_ANSWER" />
+					<c:if test="${empty current_user.login}">
+						<div>
+							<div class="content">
+								<div id="pell" class="pell"></div>
+								<div id="text-output" style="display: none"
+									onKeyUp="addCodeTag(replacePreTags())"></div>
+								<textarea name="answer_text" id="answer" style="display: none"></textarea>
+							</div>
+
+							<button type="submit" class="signupbtn"
+								onclick="location.href='afterLogIn.jsp'">
+								<c:out value="${send}" />
+							</button>
+						</div>
+					</c:if>
+				</form>
+			</div>
+		</div>
 	</div>
-	<div>Additional info</div>
+	<div class="links clearfix">
+		<p>info</p>
+	</div>
 	<c:import url="fragment/footer.jsp"></c:import>
 	<script src="${pageContext.request.contextPath}/js/pell.js"></script>
 	<script>

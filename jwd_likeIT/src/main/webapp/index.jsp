@@ -27,7 +27,7 @@
 	<c:import url="jsp/menu.jsp"></c:import>
 	
 	<div class="actions">
-		<div class="question">
+		<div class="questions">
 			<a href="#"><c:out value="${questions}" /></a>
 		</div>
 		<div class="answers">

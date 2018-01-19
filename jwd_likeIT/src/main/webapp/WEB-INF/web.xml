@@ -49,6 +49,24 @@
 		<url-pattern>/addQuestion</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>MyQuestions</servlet-name>
+		<jsp-file>/WEB-INF/jsp/myQuestions.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MyQuestions</servlet-name>
+		<url-pattern>/myQuestions</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MyAnswers</servlet-name>
+		<jsp-file>/WEB-INF/jsp/myAnswers.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MyAnswers</servlet-name>
+		<url-pattern>/myAnswers</url-pattern>
+	</servlet-mapping>
+
 	<listener>
 		<listener-class>by.tr.web.controller.listener.ControllerCreationListener</listener-class>
 	</listener>

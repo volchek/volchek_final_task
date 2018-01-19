@@ -69,7 +69,7 @@
 	
 		onsubmit="return checkPasswords()">
 		<input type="hidden" name="command" value="REGISTER" />
-		<div class="personal-info">
+		<div class="personal-info clearfix">
 			<h2>
 				<c:out value="${personal_info}" />
 			</h2>
@@ -113,11 +113,11 @@
 				onblur="return checkPasswords()"> </label><span class="err"
 				id="psw-error"></span>
 		</div>
-		<div class="right-side">
+		<div class="right-side clearfix">
 			<h2>
 				<c:out value="${language}" />
 			</h2>
-			<div class="lang">
+			<div class="lang clearfix">
 				(1 &ndash;
 				<c:out value="${beginner}" />
 				; 2 &ndash;
