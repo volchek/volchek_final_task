@@ -11,8 +11,8 @@ import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.query.MySQLAnswerQuery;
-import by.tr.web.dao.query.MySQLQuestionQuery;
+import by.tr.web.dao.mysql.submitter.AnswerQuerySubmitter;
+import by.tr.web.dao.mysql.submitter.QuestionQuerySubmitter;
 import by.tr.web.entity.Answer;
 import by.tr.web.entity.Question;
 import by.tr.web.entity.Text;
@@ -31,10 +31,10 @@ public class MySQLAnswerDaoImpl implements AnswerDao {
 		
 		try {
 			conn = connPool.getConnection();
-			MySQLAnswerQuery answerQuery = new MySQLAnswerQuery();
+			AnswerQuerySubmitter answerQuery = new AnswerQuerySubmitter();
 			answerQuery.insertAnswer(conn, questionId, userId, text);
 			
-			MySQLQuestionQuery questionQuery = new MySQLQuestionQuery();
+			QuestionQuerySubmitter questionQuery = new QuestionQuerySubmitter();
 			Question question = questionQuery.selectQuestionById(conn, questionId);
 			List<Answer> answerList = answerQuery.selectAnswersToTheQuestion(conn, questionId);
 			question.setAnswers(answerList);

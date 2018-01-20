@@ -1,4 +1,4 @@
-package by.tr.web.dao.query;
+package by.tr.web.dao.mysql.submitter;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -13,26 +13,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.util.exception.MySqlException;
+import by.tr.web.dao.mysql.query.AnswerQuery;
 import by.tr.web.entity.Answer;
 
-public class MySQLAnswerQuery {
+public class AnswerQuerySubmitter {
 
-	public static final String INSERT_ANSWER = "INSERT INTO Answers "
-			+ " (questionId, answerText, userId, creationDatetime) " 
-			+ "VALUES (?, ?, ?, ?);";
-
-	public static final String SELECT_ANSWERS_TO_THE_QUESTION = 
-			"SELECT a.answerId, a.questionId, a.answerText, a.creationDatetime, u.login "
-			+ "FROM Answers AS a "
-			+ "INNER JOIN Users AS u "
-			+ "ON a.userId = u.userId "
-			+ "WHERE questionId = ?;";
-	
-	public static final Logger logger = LogManager.getLogger(MySQLAnswerQuery.class.getName());
+	public static final Logger logger = LogManager.getLogger(AnswerQuerySubmitter.class.getName());
 
 	public void insertAnswer(Connection conn, int questionId, int userId, String text) throws MySqlException {
 
-		try (PreparedStatement ps = conn.prepareStatement(INSERT_ANSWER, Statement.RETURN_GENERATED_KEYS)) {
+		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.INSERT_ANSWER, Statement.RETURN_GENERATED_KEYS)) {
 
 			ps.setInt(1, questionId);
 			ps.setString(2, text);
@@ -48,7 +38,7 @@ public class MySQLAnswerQuery {
 
 	public List<Answer> selectAnswersToTheQuestion(Connection conn, int questionId) throws MySqlException {
 
-		try (PreparedStatement ps = conn.prepareStatement(SELECT_ANSWERS_TO_THE_QUESTION)) {
+		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.SELECT_ANSWERS_TO_THE_QUESTION)) {
 			ps.setInt(1, questionId);
 			ResultSet rs = ps.executeQuery();
 			List<Answer> answer = createAnswers(rs);

@@ -10,8 +10,8 @@ import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.query.MySQLAnswerQuery;
-import by.tr.web.dao.query.MySQLQuestionQuery;
+import by.tr.web.dao.mysql.submitter.AnswerQuerySubmitter;
+import by.tr.web.dao.mysql.submitter.QuestionQuerySubmitter;
 import by.tr.web.dao.question.QuestionDao;
 import by.tr.web.entity.Answer;
 import by.tr.web.entity.Question;
@@ -32,10 +32,10 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 
 		try {
 			conn = connPool.getConnection();
-			MySQLQuestionQuery questionQuery = new MySQLQuestionQuery();
+			QuestionQuerySubmitter questionQuery = new QuestionQuerySubmitter();
 			Question question = questionQuery.addQuestion(conn, authorId, title, text, languages, tags);
 			
-			MySQLAnswerQuery answerQuery = new MySQLAnswerQuery();
+			AnswerQuerySubmitter answerQuery = new AnswerQuerySubmitter();
 			List<Answer> answers = answerQuery.selectAnswersToTheQuestion(conn, question.getId());
 			question.setAnswers(answers);
 
@@ -52,7 +52,18 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 	@Override
 	public List<Text> evaluateQuestion(int userId, int questionId, int mark) throws DaoException {
 		
-		// TODO Auto-generated method stub
+		Connection conn = null;
+		
+		try {
+			conn = connPool.getConnection();
+			QuestionQuerySubmitter questionQuery = new QuestionQuerySubmitter();
+			
+		} catch (MySqlException ex){
+			logger.error("Can't execure query and insert a new mark to the question with id = " + questionId + " added by user with id = " + userId);
+			throw new DaoException("Failed to add a new question mark", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
 		
 		return null;
 	}

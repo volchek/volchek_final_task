@@ -12,8 +12,8 @@ public class Answer extends Text {
 
 	}
 
-	public Answer(int id, String text, String author, Date creationDate, int question) {
-		super(id, text, author, creationDate);
+	public Answer(int id, String text, String author, Date creationDate, int question, int averageMark) {
+		super(id, text, author, creationDate, averageMark);
 		this.question = question;
 	}
 
@@ -56,5 +56,5 @@ public class Answer extends Text {
 	public String toString() {
 		return "Answer: question=" + question + "; " + super.toString();
 	}
-	
+
 }

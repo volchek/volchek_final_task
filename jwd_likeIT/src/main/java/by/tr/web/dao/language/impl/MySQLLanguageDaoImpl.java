@@ -11,7 +11,7 @@ import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.language.LanguageDao;
-import by.tr.web.dao.query.MySQLLanguageQuery;
+import by.tr.web.dao.mysql.submitter.LanguageQuerySubmitter;
 import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
 
@@ -29,7 +29,7 @@ public class MySQLLanguageDaoImpl implements LanguageDao {
 
 		try {
 			conn = connPool.getConnection();
-			MySQLLanguageQuery query = new MySQLLanguageQuery();
+			LanguageQuerySubmitter query = new LanguageQuerySubmitter();
 
 			Map<String, Integer> languages = query.getAllLanguageInfo(conn);
 			fillLanguageMaps(languages);

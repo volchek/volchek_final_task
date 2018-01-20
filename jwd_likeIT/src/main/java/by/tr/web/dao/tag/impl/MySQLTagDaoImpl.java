@@ -10,7 +10,7 @@ import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.query.MySQLTagQuery;
+import by.tr.web.dao.mysql.submitter.TagQuerySubmitter;
 import by.tr.web.dao.tag.TagDao;
 import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;
@@ -29,7 +29,7 @@ public class MySQLTagDaoImpl implements TagDao {
 
 		try {
 			conn = connPool.getConnection();
-			MySQLTagQuery query = new MySQLTagQuery();
+			TagQuerySubmitter query = new TagQuerySubmitter();
 
 			Map<String, Integer> tags = query.getAllTagInfo(conn);
 			fillTagMaps(tags);

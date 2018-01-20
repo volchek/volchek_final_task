@@ -1,4 +1,4 @@
-package by.tr.web.dao.query;
+package by.tr.web.dao.mysql.submitter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,18 +13,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.util.exception.MySqlException;
-import by.tr.web.dao.query.util.DatabaseField;
+import by.tr.web.dao.mysql.query.TagQuery;
+import by.tr.web.dao.mysql.query.util.DatabaseField;
 
-public class MySQLTagQuery {
+public class TagQuerySubmitter {
 
-	private static final String SELECT_ALL_TAGS = "SELECT * FROM keywords;";
-	private static final String SELECT_TAG_NAMES = "SELECT keyword FROM keywords;";
-
-	private final static Logger logger = LogManager.getLogger(MySQLTagQuery.class.getName());
+	private final static Logger logger = LogManager.getLogger(TagQuerySubmitter.class.getName());
 
 	public List<String> getTagNames(Connection conn) throws MySqlException {
 
-		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(SELECT_TAG_NAMES)) {
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(TagQuery.SELECT_TAG_NAMES)) {
 			List<String> tags = new ArrayList<String>();
 			while (rs.next()) {
 				String tagName = rs.getString(DatabaseField.TAG_NAME);
@@ -36,12 +34,12 @@ public class MySQLTagQuery {
 			throw new MySqlException("Can't get a list of tag names");
 		}
 	}
-	
+
 	public Map<String, Integer> getAllTagInfo(Connection conn) throws MySqlException {
 
 		Map<String, Integer> tagInfo = new HashMap<String, Integer>();
 
-		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(SELECT_ALL_TAGS)) {
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(TagQuery.SELECT_ALL_TAGS)) {
 
 			while (rs.next()) {
 				String tagName = rs.getString(DatabaseField.TAG_NAME);

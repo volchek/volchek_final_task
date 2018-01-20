@@ -1,4 +1,4 @@
-package by.tr.web.dao.query;
+package by.tr.web.dao.mysql.submitter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,46 +14,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.util.exception.MySqlException;
+import by.tr.web.dao.mysql.query.QuestionQuery;
 import by.tr.web.entity.Question;
 import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
 import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;
 
-public class MySQLQuestionQuery {
-
-	private final static String INSERT_QUESTION = 
-			"INSERT INTO Questions (title, text, userId, creationDatetime) "
-			+ "VALUES (?, ?, ?, ?)";
-
-	private final static String INSERT_QUESTION_LANGUAGES = 
-			"INSERT INTO Questions2Languages (questionId, languageId) "
-			+ "VALUES (?, ?)";
-
-	private final static String INSERT_QUESTION_TAGS = 
-			"INSERT INTO Questions2Keywords (questionId, keywordId) "
-			+ "VALUES (?, ?)";
-
-	private final static String SELECT_QUESTION_BY_ID = 
-			"SELECT q.questionId, q.title, q.text, q.creationDatetime, u.login ,"
-			+ "GROUP_CONCAT(DISTINCT	l.language ORDER BY l.language ASC SEPARATOR','), "
-			+ "GROUP_CONCAT(DISTINCT k.keyword ORDER BY k.keyword ASC SEPARATOR ',') "
-			+ "FROM likeit2.questions AS q "
-			+ "LEFT JOIN questions2keywords AS qk "
-			+ "ON q.questionId = qk.questionId "
-			+ "INNER JOIN likeit2.keywords AS k "
-			+ "ON k.keywordId = qk.keywordId "
-			+ "LEFT JOIN likeit2.questions2languages AS ql "
-			+ "ON q.questionId = ql.questionId "
-			+ "INNER JOIN likeit2.languages AS l "
-			+ "ON ql.languageId = l.languageId "
-			+ "INNER JOIN likeit2.users AS u "
-			+ "ON q.userId = u.userId "
-			+ "WHERE q.questionId = ?;";
+public class QuestionQuerySubmitter {
 
 	private final static String PATTERN_TO_SPLIT_TAGS = "\\s*,\\s*";
-	
-	private final static Logger logger = LogManager.getLogger(MySQLQuestionQuery.class.getName());
+
+	private final static Logger logger = LogManager.getLogger(QuestionQuerySubmitter.class.getName());
 
 	public Question addQuestion(Connection conn, int authorId, String title, String text, List<String> languages,
 			List<String> tags) throws MySqlException {
@@ -95,12 +67,12 @@ public class MySQLQuestionQuery {
 	}
 
 	public Question selectQuestionById(Connection conn, int questionId) {
-		
+
 		Question question = null;
-		try (PreparedStatement ps = conn.prepareStatement(SELECT_QUESTION_BY_ID)) {
+		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTION_BY_ID)) {
 			ps.setInt(1, questionId);
-			try (ResultSet rs = ps.executeQuery()){
-				while (rs.next()){
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
 					question = new Question();
 					question.setId(rs.getInt(1));
 					question.setTitle(rs.getString(2));
@@ -112,13 +84,13 @@ public class MySQLQuestionQuery {
 					List<String> tags = getDataList(rs, 7);
 					question.setTags(tags);
 				}
-			} 
+			}
 		} catch (SQLException e) {
 			logger.error("Can't create a question object for the question with id=" + questionId);
 		}
 		return question;
 	}
-	
+
 	private void insertAllQuestionLanguages(Connection conn, int questionId, List<String> languages)
 			throws MySqlException {
 		LanguageSet languageSet = LanguageSetSingleton.getInstance().getLanguageSet();
@@ -136,7 +108,7 @@ public class MySQLQuestionQuery {
 
 		PreparedStatement ps = null;
 		try {
-			ps = conn.prepareStatement(INSERT_QUESTION_LANGUAGES);
+			ps = conn.prepareStatement(QuestionQuery.INSERT_QUESTION_LANGUAGES);
 			ps.setInt(1, questionId);
 			ps.setInt(2, languageId);
 			ps.executeUpdate();
@@ -162,7 +134,7 @@ public class MySQLQuestionQuery {
 
 		PreparedStatement ps = null;
 		try {
-			ps = conn.prepareStatement(INSERT_QUESTION_TAGS);
+			ps = conn.prepareStatement(QuestionQuery.INSERT_QUESTION_TAGS);
 			ps.setInt(1, questionId);
 			ps.setInt(2, tagId);
 			ps.executeUpdate();
@@ -175,7 +147,7 @@ public class MySQLQuestionQuery {
 	private static PreparedStatement prepareQuestionInsertionStatement(Connection conn, PreparedStatement ps, int id,
 			String title, String text) throws SQLException {
 
-		ps = conn.prepareStatement(INSERT_QUESTION, Statement.RETURN_GENERATED_KEYS);
+		ps = conn.prepareStatement(QuestionQuery.INSERT_QUESTION, Statement.RETURN_GENERATED_KEYS);
 
 		ps.setString(1, title);
 		ps.setString(2, text);
@@ -195,7 +167,7 @@ public class MySQLQuestionQuery {
 		}
 	}
 
-	private List<String> getDataList(ResultSet rs, int column) throws SQLException{
+	private List<String> getDataList(ResultSet rs, int column) throws SQLException {
 		String strLangs = rs.getString(column);
 		List<String> langs = Arrays.asList(strLangs.split(PATTERN_TO_SPLIT_TAGS));
 		return langs;

@@ -11,16 +11,18 @@ public abstract class Text implements Serializable {
 	private String authorLogin;
 	private Date creationDate;
 	private int id;
+	private double averageMark;
 
 	public Text() {
 
 	}
 
-	public Text(int id, String text, String author, Date creationDate) {
+	public Text(int id, String text, String author, Date creationDate, double averageMark) {
 		this.id = id;
 		this.text = text;
 		this.authorLogin = author;
 		this.creationDate = creationDate;
+		this.averageMark = averageMark;
 	}
 
 	public int getId() {
@@ -55,6 +57,14 @@ public abstract class Text implements Serializable {
 		this.creationDate = creationDate;
 	}
 
+	public double getAverageMark() {
+		return averageMark;
+	}
+
+	public void setAverageMark(double averageMark) {
+		this.averageMark = averageMark;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -63,6 +73,9 @@ public abstract class Text implements Serializable {
 		result = prime * result + ((authorLogin == null) ? 0 : authorLogin.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(averageMark);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -103,16 +116,14 @@ public abstract class Text implements Serializable {
 		} else if (!text.equals(other.text)) {
 			return false;
 		}
-
+		if (Double.doubleToLongBits(averageMark) != Double.doubleToLongBits(other.averageMark)) {
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Text: text=" + text + 
-				", authorLogin=" + authorLogin + 
-				", creationDate=" + creationDate + 
-				", id=" + id;
+		return "Text: text=" + text + ", authorLogin=" + authorLogin + ", creationDate=" + creationDate + ", id=" + id;
 	}
-
 }

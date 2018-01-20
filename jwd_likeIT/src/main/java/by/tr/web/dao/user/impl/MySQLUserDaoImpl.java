@@ -13,8 +13,8 @@ import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.DaoLoginException;
-import by.tr.web.dao.query.MySQLLanguageQuery;
-import by.tr.web.dao.query.MySQLUserQuery;
+import by.tr.web.dao.mysql.submitter.LanguageQuerySubmitter;
+import by.tr.web.dao.mysql.submitter.UserQuerySubmitter;
 import by.tr.web.dao.user.UserDao;
 
 public class MySQLUserDaoImpl implements UserDao {
@@ -30,7 +30,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {
 			conn = connPool.getConnection();
-			MySQLUserQuery query = new MySQLUserQuery();
+			UserQuerySubmitter query = new UserQuerySubmitter();
 			conn.setAutoCommit(false);
 			if (!query.registerUser(conn, user)) {
 				throw new DaoLoginException("Such user exists in database");
@@ -60,7 +60,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {
 			conn = connPool.getConnection();
-			MySQLUserQuery query = new MySQLUserQuery();
+			UserQuerySubmitter query = new UserQuerySubmitter();
 			User user = query.signIn(conn, login, password);
 			if (user == null) {
 				throw new DaoException("User wasn't found");
@@ -79,7 +79,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {
 			conn = connPool.getConnection();
-			MySQLUserQuery query = new MySQLUserQuery();
+			UserQuerySubmitter query = new UserQuerySubmitter();
 			User user = query.findUserByLogin(conn, login);
 
 			if (user == null) {
@@ -99,7 +99,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		Connection conn = null;
 		try {
 			conn = connPool.getConnection();
-			MySQLUserQuery query = new MySQLUserQuery();
+			UserQuerySubmitter query = new UserQuerySubmitter();
 			int id = currentUser.getId();
 
 			if (query.updatePersonalInfo(conn, modifiedUser, id)) {
@@ -122,7 +122,7 @@ public class MySQLUserDaoImpl implements UserDao {
 		try {
 			conn = connPool.getConnection();
 			conn.setAutoCommit(false);
-			MySQLLanguageQuery query = new MySQLLanguageQuery();
+			LanguageQuerySubmitter query = new LanguageQuerySubmitter();
 			int id = currentUser.getId();
 
 			if (query.updateUserLanguages(conn, currentUser, modifiedUser)) {
@@ -158,7 +158,7 @@ public class MySQLUserDaoImpl implements UserDao {
 			if (conn.getAutoCommit()) {
 				conn.setAutoCommit(false);
 			}
-			MySQLUserQuery query = new MySQLUserQuery();
+			UserQuerySubmitter query = new UserQuerySubmitter();
 			int id = currentUser.getId();
 
 			if (query.updateUser(conn, currentUser, modifiedUser)) {

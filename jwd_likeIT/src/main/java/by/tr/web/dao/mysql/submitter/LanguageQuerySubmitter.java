@@ -1,4 +1,4 @@
-package by.tr.web.dao.query;
+package by.tr.web.dao.mysql.submitter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,32 +14,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.util.exception.MySqlException;
-import by.tr.web.dao.query.util.DatabaseField;
+import by.tr.web.dao.mysql.query.LanguageQuery;
+import by.tr.web.dao.mysql.query.util.DatabaseField;
 import by.tr.web.entity.User;
 import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
 
-public class MySQLLanguageQuery {
+public class LanguageQuerySubmitter {
 
-	private static final String SELECT_ALL_LANGUAGES = "SELECT * FROM Languages";
-	private static final String SELECT_LANGUAGE_NAMES = "SELECT language FROM Languages";
-	private static final String SELECT_ALL_LANGUAGES_FOR_USER = "SELECT lang.languageId, " + "lang.language, us.level "
-			+ "FROM likeit2.users2languages AS us " + "INNER JOIN likeit2.languages AS lang "
-			+ "ON lang.languageId = us.languageId " + "WHERE us.userId = ?;";
-	private static final String INSERT_LANGUAGE = "INSERT INTO users2languages " + "(userId, languageId, level) "
-			+ "VALUES (?, ?, ?);";
-	private static final String UPDATE_USER_LANGUAGE = "UPDATE users2languages "
-			+ "SET level = ? WHERE userId = ? and languageId = ?;";
-	private static final String DELETE_USER_LANGUAGE = "DELETE FROM users2languages"
-			+ "	WHERE userId = ? and languageId = ?;";
-
-	private final static Logger logger = LogManager.getLogger(MySQLLanguageQuery.class.getName());
+	private final static Logger logger = LogManager.getLogger(LanguageQuerySubmitter.class.getName());
 
 	private LanguageSet languageSet = LanguageSetSingleton.getInstance().getLanguageSet();
 
 	public Map<String, Integer> getAllLanguageInfo(Connection conn) throws MySqlException {
 
-		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(SELECT_ALL_LANGUAGES)) {
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(LanguageQuery.SELECT_ALL_LANGUAGES)) {
 			Map<String, Integer> languages = new HashMap<String, Integer>();
 			while (rs.next()) {
 				String langName = rs.getString(DatabaseField.LANGUAGE_NAME);
@@ -55,7 +44,8 @@ public class MySQLLanguageQuery {
 
 	public List<String> getLanguageNames(Connection conn) throws MySqlException {
 
-		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(SELECT_LANGUAGE_NAMES)) {
+		try (Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(LanguageQuery.SELECT_LANGUAGE_NAMES)) {
 			List<String> languages = new ArrayList<String>();
 			while (rs.next()) {
 				String langName = rs.getString(DatabaseField.LANGUAGE_NAME);
@@ -76,7 +66,7 @@ public class MySQLLanguageQuery {
 
 	public Map<String, Integer> getUserLanguages(Connection conn, int userId) throws MySqlException {
 
-		try (PreparedStatement ps = conn.prepareStatement(SELECT_ALL_LANGUAGES_FOR_USER)) {
+		try (PreparedStatement ps = conn.prepareStatement(LanguageQuery.SELECT_ALL_LANGUAGES_FOR_USER)) {
 			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
 			Map<String, Integer> userLanguages = new HashMap<String, Integer>();
@@ -105,7 +95,7 @@ public class MySQLLanguageQuery {
 	public void insertOneUserLanguage(Connection conn, int userId, String language, Integer score)
 			throws MySqlException {
 
-		try (PreparedStatement ps = conn.prepareStatement(INSERT_LANGUAGE)) {
+		try (PreparedStatement ps = conn.prepareStatement(LanguageQuery.INSERT_LANGUAGE)) {
 			Integer langId = languageSet.getLanguageId(language.toLowerCase());
 
 			ps.setInt(1, userId);
@@ -131,7 +121,7 @@ public class MySQLLanguageQuery {
 	public void updateOneUserLanguage(Connection conn, int userId, String language, Integer score)
 			throws MySqlException {
 
-		try (PreparedStatement ps = conn.prepareStatement(UPDATE_USER_LANGUAGE)) {
+		try (PreparedStatement ps = conn.prepareStatement(LanguageQuery.UPDATE_USER_LANGUAGE)) {
 			Integer langId = languageSet.getLanguageId(language.toLowerCase());
 			ps.setInt(1, score);
 			ps.setInt(2, userId);
@@ -154,7 +144,7 @@ public class MySQLLanguageQuery {
 
 	public void deleteOneUserLanguage(Connection conn, int userId, String language) throws MySqlException {
 
-		try (PreparedStatement ps = conn.prepareStatement(DELETE_USER_LANGUAGE)) {
+		try (PreparedStatement ps = conn.prepareStatement(LanguageQuery.DELETE_USER_LANGUAGE)) {
 			Integer langId = languageSet.getLanguageId(language.toLowerCase());
 			ps.setInt(1, userId);
 			ps.setInt(2, langId);
