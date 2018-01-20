@@ -10,7 +10,7 @@ import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.mysql_query.MySQLTagQuery;
+import by.tr.web.dao.query.MySQLTagQuery;
 import by.tr.web.dao.tag.TagDao;
 import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;

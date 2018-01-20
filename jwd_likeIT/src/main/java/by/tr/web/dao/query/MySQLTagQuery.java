@@ -1,4 +1,4 @@
-package by.tr.web.dao.mysql_query;
+package by.tr.web.dao.query;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.util.exception.MySqlException;
-import by.tr.web.dao.mysql_query.util.DatabaseField;
+import by.tr.web.dao.query.util.DatabaseField;
 
 public class MySQLTagQuery {
 

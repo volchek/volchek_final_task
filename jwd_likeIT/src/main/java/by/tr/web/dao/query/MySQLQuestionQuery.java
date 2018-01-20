@@ -1,4 +1,4 @@
-package by.tr.web.dao.mysql_query;
+package by.tr.web.dao.query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,4 +1,4 @@
-package by.tr.web.dao.mysql_query;
+package by.tr.web.dao.query;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.tr.web.dao.database.util.exception.MySqlException;
-import by.tr.web.dao.mysql_query.util.DatabaseField;
+import by.tr.web.dao.query.util.DatabaseField;
 import by.tr.web.entity.User;
 
 public class MySQLUserQuery {

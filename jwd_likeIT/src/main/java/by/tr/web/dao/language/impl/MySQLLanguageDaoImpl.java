@@ -11,7 +11,7 @@ import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.language.LanguageDao;
-import by.tr.web.dao.mysql_query.MySQLLanguageQuery;
+import by.tr.web.dao.query.MySQLLanguageQuery;
 import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
 
