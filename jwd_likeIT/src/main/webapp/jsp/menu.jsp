@@ -20,7 +20,7 @@
 <div class="menu clearfix">
 	<div class="nav">
 		<c:choose>
-			<c:when test="${empty sessionScope.current_user}">
+			<c:when test="${not empty sessionScope.current_user}">
 				<form action="${pageContext.request.contextPath}/PersonalData"
 					method="post" id="form_edit">
 				</form>

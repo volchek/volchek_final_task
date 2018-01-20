@@ -13,6 +13,8 @@
 <fmt:message key="main_menu.login" bundle="${lc}" var="login" />
 <fmt:message key="main_menu.registration" bundle="${lc}"
 	var="registration" />
+<fmt:message key="main_menu.index" bundle="${lc}"
+	var="index" />	
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
 <link rel="stylesheet" href=“css/normalize.css“>
@@ -31,6 +33,7 @@
 	<div class="menu clearfix">
 		<div class="nav">
 			<a href="login.jsp"><c:out value="${login}" /></a>
+			<a href="../index.jsp"><c:out value="${index}" /></a>
 
 			<div class="menu-lang">
 				<form action="${pageContext.request.contextPath}/Controller"

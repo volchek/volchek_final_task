@@ -16,18 +16,51 @@
 	<c:import url="menu.jsp"></c:import>
 
 
-	<table class="feed">
-		<tr>
-			<td class="mark">5</td>
-			<td class="text">2 Answers</td>
-			<td class="question-container">Title Title Title Title Title
-				Title Title Title Title Title Title Title Title Title Title<br>
-				<span class="lang">lang</span><span class="lang">lang</span><span
-				class="lang">lang</span><span class="lang">lang</span><span class="lang">lang</span><span class="lang">lang</span>
-			</td>
-			<td class="author">User</td>
-		</tr>
-	</table>
+	<div class="feed clearfix">
+		<div class="question-container">Title Title Title Title Title
+			Title Title Title Title Title Title Title Title Title Title Title
+			Title Title Title Title Title Title Title</div>
+		<div class="question-container clearfix">
+			<span class="lang">lang</span><span class="lang">lang</span><span
+				class="lang">lang</span> <span class="lang">lang</span><span
+				class="lang">lang</span><span class="lang">lang</span>
+		</div>
+		<div class="info clearfix">
+			<div class="question-info clearfix">
+				<div class="date">15.01.2018</div>
+				<div class="author">User</div>
+			</div>
+			<div class="tmp-info clearfix">
+				<div class="mark">
+					<span class="mark-text">Score: </span>5
+				</div>
+				<div class="text">2 answers</div>
+			</div>
+		</div>
+	</div>
+	
+		<div class="feed clearfix">
+		<div class="question-container">Title Title Title Title Title
+			Title Title Title Title Title Title Title Title Title Title Title
+			Title Title Title Title Title Title Title</div>
+		<div class="question-container clearfix">
+			<span class="lang">lang</span><span class="lang">lang</span><span
+				class="lang">lang</span> <span class="lang">lang</span><span
+				class="lang">lang</span><span class="lang">lang</span>
+		</div>
+		<div class="info clearfix">
+			<div class="question-info clearfix">
+				<div class="date">15.01.2018</div>
+				<div class="author">User</div>
+			</div>
+			<div class="tmp-info clearfix">
+				<div class="mark">
+					<span class="mark-text">Score: </span>5
+				</div>
+				<div class="text">Answers: 2</div>
+			</div>
+		</div>
+	</div>
 	<c:import url="fragment/footer.jsp"></c:import>
 </body>
 </html>
