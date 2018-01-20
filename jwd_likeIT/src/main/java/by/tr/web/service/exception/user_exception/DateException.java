@@ -1,6 +1,6 @@
 package by.tr.web.service.exception.user_exception;
 
-import by.tr.web.service.exception.ServiceException;
+import by.tr.web.service.exception.common.ServiceException;
 
 public class DateException extends ServiceException {
 

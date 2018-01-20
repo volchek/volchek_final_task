@@ -1,6 +1,6 @@
 package by.tr.web.service.exception.text_exception;
 
-import by.tr.web.service.exception.ServiceException;
+import by.tr.web.service.exception.common.ServiceException;
 
 public class TitleException extends ServiceException {
 

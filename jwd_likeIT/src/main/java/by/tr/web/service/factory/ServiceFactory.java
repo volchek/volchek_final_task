@@ -1,17 +1,17 @@
 package by.tr.web.service.factory;
 
-import by.tr.web.service.AnswerService;
-import by.tr.web.service.InitializeService;
-import by.tr.web.service.LanguageService;
-import by.tr.web.service.QuestionService;
-import by.tr.web.service.TagService;
-import by.tr.web.service.UserService;
-import by.tr.web.service.impl.AnswerServiceImpl;
-import by.tr.web.service.impl.InitializeServiceImpl;
-import by.tr.web.service.impl.LanguageServiceImpl;
-import by.tr.web.service.impl.QuestionServiceImpl;
-import by.tr.web.service.impl.TagServiceImpl;
-import by.tr.web.service.impl.UserServiceImpl;
+import by.tr.web.service.answer.AnswerService;
+import by.tr.web.service.answer.impl.AnswerServiceImpl;
+import by.tr.web.service.application.InitializeService;
+import by.tr.web.service.application.impl.InitializeServiceImpl;
+import by.tr.web.service.language.LanguageService;
+import by.tr.web.service.language.impl.LanguageServiceImpl;
+import by.tr.web.service.question.QuestionService;
+import by.tr.web.service.question.impl.QuestionServiceImpl;
+import by.tr.web.service.tag.TagService;
+import by.tr.web.service.tag.impl.TagServiceImpl;
+import by.tr.web.service.user.UserService;
+import by.tr.web.service.user.impl.UserServiceImpl;
 
 public final class ServiceFactory {
 

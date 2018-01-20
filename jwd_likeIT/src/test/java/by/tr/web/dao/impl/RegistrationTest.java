@@ -10,14 +10,14 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 
-import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.DaoLoginException;
 import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.factory.DaoFactory;
+import by.tr.web.dao.user.UserDao;
 import by.tr.web.entity.User;
-import by.tr.web.service.InitializeService;
-import by.tr.web.service.exception.FatalServiceException;
+import by.tr.web.service.application.InitializeService;
+import by.tr.web.service.exception.common.FatalServiceException;
 import by.tr.web.service.factory.ServiceFactory;
 
 public class RegistrationTest {

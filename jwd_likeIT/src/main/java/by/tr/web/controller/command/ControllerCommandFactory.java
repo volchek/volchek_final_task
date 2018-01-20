@@ -3,14 +3,19 @@ package by.tr.web.controller.command;
 import java.util.Map;
 import java.util.HashMap;
 
-import by.tr.web.controller.command.impl.SignIn;
-import by.tr.web.controller.command.impl.AddQuestion;
-import by.tr.web.controller.command.impl.ChangeLanguage;
-import by.tr.web.controller.command.impl.EditUser;
-import by.tr.web.controller.command.impl.FindByLogin;
-import by.tr.web.controller.command.impl.GetAnswer;
-import by.tr.web.controller.command.impl.Logout;
-import by.tr.web.controller.command.impl.Register;
+import by.tr.web.controller.command.impl.user.EditUser;
+import by.tr.web.controller.command.impl.user.FindUserByLogin;
+import by.tr.web.controller.command.impl.user.Logout;
+import by.tr.web.controller.command.impl.user.Register;
+import by.tr.web.controller.command.impl.user.SignIn;
+import by.tr.web.controller.command.impl.language.ChangeLanguage;
+import by.tr.web.controller.command.impl.text.AddQuestion;
+import by.tr.web.controller.command.impl.text.EvaluateAnswer;
+import by.tr.web.controller.command.impl.text.EvaluateQuestion;
+import by.tr.web.controller.command.impl.text.ShowLastQuestions;
+import by.tr.web.controller.command.impl.text.ShowUserAnswer;
+import by.tr.web.controller.command.impl.text.ShowUserQuestion;
+import by.tr.web.controller.command.impl.text.AddAnswer;
 import by.tr.web.controller.command.util.CommandType;
 
 public class ControllerCommandFactory {
@@ -20,15 +25,20 @@ public class ControllerCommandFactory {
 	private final Map<String, ControllerCommand> commands = new HashMap<>();
 	{
 		commands.put(CommandType.CHANGE_LANG.name(), new ChangeLanguage());
-		commands.put(CommandType.FIND_BY_LOGIN.name(), new FindByLogin());
+		commands.put(CommandType.FIND_USER_BY_LOGIN.name(), new FindUserByLogin());
 		commands.put(CommandType.REGISTER.name(), new Register());
 		commands.put(CommandType.SIGN_IN.name(), new SignIn());
 		commands.put(CommandType.LOGOUT.name(), new Logout());
 		commands.put(CommandType.EDIT_USER.name(), new EditUser());
 		commands.put(CommandType.ADD_QUESTION.name(), new AddQuestion());
-		commands.put(CommandType.GET_ANSWER.name(), new GetAnswer());
+		commands.put(CommandType.GET_ANSWER.name(), new AddAnswer());
+		commands.put(CommandType.EVALUATE_QUESTION.name(), new EvaluateQuestion());
+		commands.put(CommandType.EVALUATE_ANSWER.name(), new EvaluateAnswer());
+		commands.put(CommandType.SHOW_USER_QUESTIONS.name(), new ShowUserQuestion());
+		commands.put(CommandType.SHOW_USER_ANSWERS.name(), new ShowUserAnswer());
+		commands.put(CommandType.SHOW_LAST_QUESTIONS.name(), new ShowLastQuestions());
 	}
-
+	
 	public static ControllerCommandFactory getInstance() {
 		return instance;
 	}

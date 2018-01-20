@@ -4,8 +4,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.service.InitializeService;
-import by.tr.web.service.exception.FatalServiceException;
+import by.tr.web.service.application.InitializeService;
+import by.tr.web.service.exception.common.FatalServiceException;
 import by.tr.web.service.factory.ServiceFactory;
 
 public class ControllerCreationListener implements ServletContextListener {

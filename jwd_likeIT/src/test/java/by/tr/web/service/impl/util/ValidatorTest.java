@@ -7,14 +7,14 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import by.tr.web.dao.DatabaseDao;
-import by.tr.web.dao.LanguageDao;
-import by.tr.web.dao.TagDao;
+import by.tr.web.dao.database.DatabaseDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.factory.DaoFactory;
+import by.tr.web.dao.language.LanguageDao;
+import by.tr.web.dao.tag.TagDao;
 import by.tr.web.entity.User;
-import by.tr.web.service.exception.ServiceException;
+import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.exception.text_exception.LanguageException;
 import by.tr.web.service.exception.text_exception.TagException;
 import by.tr.web.service.exception.text_exception.TitleException;
@@ -23,6 +23,7 @@ import by.tr.web.service.exception.user_exception.EmailException;
 import by.tr.web.service.exception.user_exception.LoginException;
 import by.tr.web.service.exception.user_exception.NameException;
 import by.tr.web.service.exception.user_exception.PasswordException;
+import by.tr.web.service.validator.Validator;
 
 import java.util.Date;
 import java.util.ArrayList;

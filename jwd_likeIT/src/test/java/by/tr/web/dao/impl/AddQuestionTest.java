@@ -12,11 +12,11 @@ import org.junit.Test;
 
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.entity.Question;
-import by.tr.web.service.InitializeService;
-import by.tr.web.service.QuestionService;
-import by.tr.web.service.exception.FatalServiceException;
-import by.tr.web.service.exception.ServiceException;
+import by.tr.web.service.application.InitializeService;
+import by.tr.web.service.exception.common.FatalServiceException;
+import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
+import by.tr.web.service.question.QuestionService;
 
 public class AddQuestionTest {
 
