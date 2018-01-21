@@ -1,4 +1,4 @@
-package by.tr.web.dao.mysql.submitter;
+package by.tr.web.dao.database.mysql.submitter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,9 +12,9 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.tr.web.dao.database.mysql.query.TagQuery;
+import by.tr.web.dao.database.mysql.query.util.DatabaseField;
 import by.tr.web.dao.database.util.exception.MySqlException;
-import by.tr.web.dao.mysql.query.TagQuery;
-import by.tr.web.dao.mysql.query.util.DatabaseField;
 
 public class TagQuerySubmitter {
 

@@ -1,4 +1,4 @@
-package by.tr.web.service.impl.util;
+package by.tr.web.service.validator;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

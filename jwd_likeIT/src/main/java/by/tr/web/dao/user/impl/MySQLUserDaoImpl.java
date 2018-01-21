@@ -8,13 +8,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.entity.User;
+import by.tr.web.dao.database.mysql.submitter.LanguageQuerySubmitter;
+import by.tr.web.dao.database.mysql.submitter.UserQuerySubmitter;
 import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.DaoLoginException;
-import by.tr.web.dao.mysql.submitter.LanguageQuerySubmitter;
-import by.tr.web.dao.mysql.submitter.UserQuerySubmitter;
 import by.tr.web.dao.user.UserDao;
 
 public class MySQLUserDaoImpl implements UserDao {

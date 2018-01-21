@@ -1,4 +1,4 @@
-package by.tr.web.dao.impl;
+package by.tr.web.dao.user;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

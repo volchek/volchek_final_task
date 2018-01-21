@@ -6,11 +6,11 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.tr.web.dao.database.mysql.submitter.TagQuerySubmitter;
 import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.mysql.submitter.TagQuerySubmitter;
 import by.tr.web.dao.tag.TagDao;
 import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;

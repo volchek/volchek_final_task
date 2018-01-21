@@ -1,4 +1,4 @@
-package by.tr.web.dao.mysql.query.util;
+package by.tr.web.dao.database.mysql.query.util;
 
 public class DatabaseField {
 	// USER

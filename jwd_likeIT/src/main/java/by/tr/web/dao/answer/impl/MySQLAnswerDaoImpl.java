@@ -7,12 +7,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.answer.AnswerDao;
+import by.tr.web.dao.database.mysql.submitter.AnswerQuerySubmitter;
+import by.tr.web.dao.database.mysql.submitter.QuestionQuerySubmitter;
 import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.dao.mysql.submitter.AnswerQuerySubmitter;
-import by.tr.web.dao.mysql.submitter.QuestionQuerySubmitter;
 import by.tr.web.entity.Answer;
 import by.tr.web.entity.Question;
 import by.tr.web.entity.Text;

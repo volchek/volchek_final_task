@@ -18,7 +18,7 @@
 	<c:import url="menu.jsp"></c:import>
 
 	<form action="../Controller" method="get">
-		<input type="hidden" name="command" value="FIND_BY_LOGIN" />
+		<input type="hidden" name="command" value="FIND_USER_BY_LOGIN" />
 		<div class="container">
 			<label><c:out value="${login}" /><br> <input
 				type="text" name="login" required> </label>

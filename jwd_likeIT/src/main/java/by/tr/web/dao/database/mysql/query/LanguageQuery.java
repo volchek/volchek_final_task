@@ -1,4 +1,4 @@
-package by.tr.web.dao.mysql.query;
+package by.tr.web.dao.database.mysql.query;
 
 public final class LanguageQuery {
 

@@ -1,4 +1,4 @@
-package by.tr.web.dao.mysql.submitter;
+package by.tr.web.dao.database.mysql.submitter;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -11,9 +11,9 @@ import org.apache.logging.log4j.LogManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.tr.web.dao.database.mysql.query.UserQuery;
+import by.tr.web.dao.database.mysql.query.util.DatabaseField;
 import by.tr.web.dao.database.util.exception.MySqlException;
-import by.tr.web.dao.mysql.query.UserQuery;
-import by.tr.web.dao.mysql.query.util.DatabaseField;
 import by.tr.web.entity.User;
 
 public class UserQuerySubmitter {

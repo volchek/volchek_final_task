@@ -1,4 +1,4 @@
-package by.tr.web.dao.impl;
+package by.tr.web.dao.answer;
 
 import static org.junit.Assert.assertEquals;
 
