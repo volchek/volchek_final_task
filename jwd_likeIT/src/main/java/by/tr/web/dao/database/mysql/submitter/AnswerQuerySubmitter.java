@@ -1,5 +1,6 @@
 package by.tr.web.dao.database.mysql.submitter;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
@@ -59,6 +60,9 @@ public class AnswerQuerySubmitter {
 				answer.setText(rs.getString(3));
 				answer.setCreationDate(rs.getDate(4));
 				answer.setAuthorLogin(rs.getString(5));
+				BigDecimal mark = rs.getBigDecimal(6);
+				Double averageMark = (mark == null ? null : mark.doubleValue());
+				answer.setAverageMark(averageMark);
 				answerList.add(answer);
 			}
 			return answerList;

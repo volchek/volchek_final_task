@@ -7,11 +7,14 @@ public final class AnswerQuery {
 			+ "VALUES (?, ?, ?, ?);";
 
 	public static final String SELECT_ANSWERS_TO_THE_QUESTION = 
-			"SELECT a.answerId, a.questionId, a.answerText, a.creationDatetime, u.login "
+			"SELECT a.answerId, a.questionId, a.answerText, a.creationDatetime, u.login, AVG(m.mark) "
 			+ "FROM Answers AS a "
 			+ "INNER JOIN Users AS u "
 			+ "ON a.userId = u.userId "
-			+ "WHERE questionId = ?;";
+			+ "LEFT JOIN answermarks AS m "
+			+ "ON a.answerId = m.answerId "
+			+ "GROUP BY a.answerId "
+			+ "HAVING a.questionId = ?;";
 		
 	private AnswerQuery(){
 		

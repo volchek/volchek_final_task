@@ -11,13 +11,13 @@ public abstract class Text implements Serializable {
 	private String authorLogin;
 	private Date creationDate;
 	private int id;
-	private double averageMark;
+	private Double averageMark;
 
 	public Text() {
 
 	}
 
-	public Text(int id, String text, String author, Date creationDate, double averageMark) {
+	public Text(int id, String text, String author, Date creationDate, Double averageMark) {
 		this.id = id;
 		this.text = text;
 		this.authorLogin = author;
@@ -57,11 +57,11 @@ public abstract class Text implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public double getAverageMark() {
+	public Double getAverageMark() {
 		return averageMark;
 	}
 
-	public void setAverageMark(double averageMark) {
+	public void setAverageMark(Double averageMark) {
 		this.averageMark = averageMark;
 	}
 
@@ -116,14 +116,23 @@ public abstract class Text implements Serializable {
 		} else if (!text.equals(other.text)) {
 			return false;
 		}
-		if (Double.doubleToLongBits(averageMark) != Double.doubleToLongBits(other.averageMark)) {
+		if (averageMark == null){
+			if (other.averageMark != null){
+				return false;
+			}
+		} else if (Double.doubleToLongBits(averageMark) != Double.doubleToLongBits(other.averageMark)) {
 			return false;
 		}
+		
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Text: text=" + text + ", authorLogin=" + authorLogin + ", creationDate=" + creationDate + ", id=" + id;
+		return "Text: text=" 
+				+ text + ", authorLogin=" 
+				+ authorLogin + ", creationDate=" 
+				+ creationDate + ", id=" 
+				+ id + ", averageMark=" + averageMark;
 	}
 }

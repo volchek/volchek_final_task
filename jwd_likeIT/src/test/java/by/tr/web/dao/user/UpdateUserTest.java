@@ -22,7 +22,7 @@ public class UpdateUserTest {
 
 	private static User currentUser;
 	private static User modifiedUser;
-	UserService userService = serviceFactory.getUserService();
+	private UserService userService = serviceFactory.getUserService();
 	private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
 	private static InitializeService initializeService = serviceFactory.getInitializeService();
 

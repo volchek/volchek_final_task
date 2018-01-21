@@ -48,4 +48,10 @@ public class MySQLAnswerDaoImpl implements AnswerDao {
 		}
 	}
 
+	@Override
+	public List<Text> evaluateAnswer(int userId, int answerId, int mark) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

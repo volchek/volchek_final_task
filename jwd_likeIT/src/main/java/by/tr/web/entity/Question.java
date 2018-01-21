@@ -17,7 +17,7 @@ public class Question extends Text {
 	}
 
 	public Question(int id, String text, String title, String author, Date creationDate, List<String> languages,
-			List<String> tags, List<Answer> answers, double averageMark) {
+			List<String> tags, List<Answer> answers, Double averageMark) {
 		super(id, text, author, creationDate, averageMark);
 		this.title = title;
 		this.languages = languages;

@@ -1,5 +1,7 @@
 package by.tr.web.service.answer.impl;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,6 +34,20 @@ public class AnswerServiceImpl implements AnswerService {
 			return result;
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);
-		} 
+		}
+	}
+
+	@Override
+	public List<Text> evaluateAnswer(int userId, int answerId, int mark) throws ServiceException {
+
+		DaoFactory daoFactory = DaoFactory.getInstance();
+		AnswerDao answerDao = daoFactory.getAnswerDao();
+
+		try {
+			List<Text> result = answerDao.evaluateAnswer(userId, answerId, mark);
+			return result;
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		}
 	}
 }

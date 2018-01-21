@@ -16,7 +16,7 @@ public final class QuestionQuery {
 
 	public final static String SELECT_QUESTION_BY_ID = 
 			"SELECT q.questionId, q.title, q.text, q.creationDatetime, u.login ,"
-			+ "GROUP_CONCAT(DISTINCT	l.language ORDER BY l.language ASC SEPARATOR','), "
+			+ "GROUP_CONCAT(DISTINCT l.language ORDER BY l.language ASC SEPARATOR','), "
 			+ "GROUP_CONCAT(DISTINCT k.keyword ORDER BY k.keyword ASC SEPARATOR ',') "
 			+ "FROM likeit2.questions AS q "
 			+ "LEFT JOIN questions2keywords AS qk "

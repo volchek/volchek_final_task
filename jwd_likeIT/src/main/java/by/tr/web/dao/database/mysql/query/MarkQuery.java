@@ -11,11 +11,11 @@ public final class MarkQuery {
 			+ "WHERE answerId = ? AND userId = ?;";
 
 	public static final String INSERT_QUESTION_MARK = 
-			"INSERT INTO QuestionMarks (questionId, userId, mark, datetime) "
+			"INSERT INTO QuestionMarks (mark, datetime, questionId, userId) "
 			+ "VALUES (?, ?, ?, ?);";
 	
 	public static final String INSERT_ANSWER_MARK = "INSERT INTO AnswerMarks "
-			+ "(answerId, userId, mark, datetime) "
+			+ "(mark, datetime, answerId, userId) "
 			+ "VALUES (?, ?, ?, ?);";
 	
 	public static final String UPDATE_QUESTION_MARK = 

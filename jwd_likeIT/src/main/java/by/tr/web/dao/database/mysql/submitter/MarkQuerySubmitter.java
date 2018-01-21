@@ -48,11 +48,10 @@ public class MarkQuerySubmitter {
 			String queryTemplate) throws MySqlException {
 
 		try (PreparedStatement ps = conn.prepareStatement(queryTemplate)) {
-			ps.setInt(1, textId);
-			ps.setInt(2, userId);
-			ps.setInt(3, mark);
-			ps.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-
+			ps.setInt(1, mark);
+			ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+			ps.setInt(3, textId);
+			ps.setInt(4, userId);
 			ps.executeUpdate();
 
 		} catch (SQLException ex) {
@@ -62,7 +61,7 @@ public class MarkQuerySubmitter {
 		}
 	}
 
-	public void addedMark(Connection conn, int textId, int userId, int mark, String queryTemplate, TEXT_TYPE textType)
+	public void addedMark(Connection conn, int textId, int userId, int mark, TEXT_TYPE textType)
 			throws MySqlException {
 
 		try {
@@ -108,7 +107,7 @@ public class MarkQuerySubmitter {
 		}
 	}
 
-	boolean deleteMark(Connection conn, int textId, int userId, TEXT_TYPE textType) throws MySqlException {
+	public boolean deleteMark(Connection conn, int textId, int userId, TEXT_TYPE textType) throws MySqlException {
 
 		try {
 			conn.setAutoCommit(false);
@@ -144,7 +143,8 @@ public class MarkQuerySubmitter {
 
 	private boolean deleteMarkFromDatabase(Connection conn, int textId, int userId, String checkQuery,
 			String deleteQuery) throws MySqlException {
-		if (checkIfMarkExists(conn, textId, userId, checkQuery)) {
+		if (!checkIfMarkExists(conn, textId, userId, checkQuery)) {
+			logger.warn("Can't delete an unexisting mark");
 			return false;
 		}
 

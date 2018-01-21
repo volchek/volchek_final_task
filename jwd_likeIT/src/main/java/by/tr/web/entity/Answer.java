@@ -12,7 +12,7 @@ public class Answer extends Text {
 
 	}
 
-	public Answer(int id, String text, String author, Date creationDate, int question, int averageMark) {
+	public Answer(int id, String text, String author, Date creationDate, int question, Double averageMark) {
 		super(id, text, author, creationDate, averageMark);
 		this.question = question;
 	}

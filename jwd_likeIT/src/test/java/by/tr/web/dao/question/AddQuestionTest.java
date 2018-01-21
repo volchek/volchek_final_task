@@ -20,7 +20,7 @@ import by.tr.web.service.question.QuestionService;
 
 public class AddQuestionTest {
 
-	QuestionService questionService = serviceFactory.getQuestionService();
+	private QuestionService questionService = serviceFactory.getQuestionService();
 	private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
 	private static InitializeService initializeService = serviceFactory.getInitializeService();
 
