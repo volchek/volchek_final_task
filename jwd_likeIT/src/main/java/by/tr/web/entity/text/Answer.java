@@ -1,4 +1,4 @@
-package by.tr.web.entity;
+package by.tr.web.entity.text;
 
 import java.util.Date;
 

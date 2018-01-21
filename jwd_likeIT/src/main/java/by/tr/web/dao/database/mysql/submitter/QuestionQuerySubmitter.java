@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.mysql.query.QuestionQuery;
 import by.tr.web.dao.database.util.exception.MySqlException;
-import by.tr.web.entity.Question;
+import by.tr.web.entity.text.Question;
 import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
 import by.tr.web.entity.tag.TagSet;

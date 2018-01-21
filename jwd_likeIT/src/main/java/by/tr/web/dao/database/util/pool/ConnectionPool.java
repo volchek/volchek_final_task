@@ -84,10 +84,16 @@ public class ConnectionPool {
 		return conn;
 	}
 
+	public boolean isConnectionClose(Connection conn){
+		if (workingConnQueue.contains(conn)){
+			return false;
+		}
+		return true;
+	}
+
 	public void closeConnection(Connection conn) {
 		if (conn == null) {
-			logger.error("You try close empty connection");
-		}
+			logger.error("You try close empty connection");		}
 
 		if (!workingConnQueue.remove(conn)) {
 			logger.error("Try remove unexpected connection");
@@ -99,7 +105,7 @@ public class ConnectionPool {
 			logger.error("Can't add connection to queue");
 		}
 	}
-
+	
 	public void closeConnection(Connection conn, Statement st) throws MySqlException {
 		closeConnection(conn);
 		closeStatement(st);

@@ -1,14 +1,13 @@
 package by.tr.web.service.answer.impl;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.answer.AnswerDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.factory.DaoFactory;
-import by.tr.web.entity.Text;
+import by.tr.web.entity.text.Answer;
+import by.tr.web.entity.text.Text;
 import by.tr.web.service.answer.AnswerService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.exception.text_exception.TextException;
@@ -38,16 +37,17 @@ public class AnswerServiceImpl implements AnswerService {
 	}
 
 	@Override
-	public List<Text> evaluateAnswer(int userId, int answerId, int mark) throws ServiceException {
+	public Answer findAnswerById(int answerId) throws ServiceException {
 
 		DaoFactory daoFactory = DaoFactory.getInstance();
 		AnswerDao answerDao = daoFactory.getAnswerDao();
 
 		try {
-			List<Text> result = answerDao.evaluateAnswer(userId, answerId, mark);
-			return result;
+			Answer answer = answerDao.findAnswerById(answerId);
+			return answer;
 		} catch (DaoException ex) {
 			throw new ServiceException(ex);
 		}
 	}
+
 }

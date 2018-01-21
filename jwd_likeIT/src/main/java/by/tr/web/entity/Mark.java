@@ -3,6 +3,8 @@ package by.tr.web.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import by.tr.web.entity.text.Text;
+
 public class Mark implements Serializable {
 
 	private static final long serialVersionUID = 1L;

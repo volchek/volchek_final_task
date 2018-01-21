@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.mysql.query.MarkQuery;
-import by.tr.web.dao.database.mysql.query.util.TEXT_TYPE;
+import by.tr.web.entity.text.TextType;
 import by.tr.web.dao.database.util.exception.MySqlException;
 
 public class MarkQuerySubmitter {
@@ -61,16 +61,16 @@ public class MarkQuerySubmitter {
 		}
 	}
 
-	public void addedMark(Connection conn, int textId, int userId, int mark, TEXT_TYPE textType)
+	public void addedMark(Connection conn, int textId, int userId, int mark, TextType textType)
 			throws MySqlException {
 
 		try {
 			conn.setAutoCommit(false);
 
-			if (TEXT_TYPE.QUESTION.equals(textType)) {
+			if (TextType.QUESTION.equals(textType)) {
 				addedMarkIntoDatabase(conn, textId, userId, mark, MarkQuery.CHECK_QUESTION_MARK,
 						MarkQuery.INSERT_QUESTION_MARK, MarkQuery.UPDATE_QUESTION_MARK);
-			} else if (TEXT_TYPE.ANSWER.equals(textType)) {
+			} else if (TextType.ANSWER.equals(textType)) {
 				addedMarkIntoDatabase(conn, textId, userId, mark, MarkQuery.CHECK_ANSWER_MARK,
 						MarkQuery.INSERT_ANSWER_MARK, MarkQuery.UPDATE_ANSWER_MARK);
 			}
@@ -85,13 +85,13 @@ public class MarkQuerySubmitter {
 		}
 	}
 
-	public Double getAverageMark(Connection conn, int textId, TEXT_TYPE textType) throws MySqlException {
+	public Double getAverageMark(Connection conn, int textId, TextType textType) throws MySqlException {
 
 		try {
 			PreparedStatement ps = null;
-			if (TEXT_TYPE.QUESTION.equals(textType)) {
+			if (TextType.QUESTION.equals(textType)) {
 				ps = conn.prepareStatement(MarkQuery.FIND_AVERAGE_QUESTION_MARK);
-			} else if (TEXT_TYPE.ANSWER.equals(textType)) {
+			} else if (TextType.ANSWER.equals(textType)) {
 				ps = conn.prepareStatement(MarkQuery.FIND_AVERAGE_ANSWER_MARK);
 			}
 			ps.setInt(1, textId);
@@ -107,15 +107,15 @@ public class MarkQuerySubmitter {
 		}
 	}
 
-	public boolean deleteMark(Connection conn, int textId, int userId, TEXT_TYPE textType) throws MySqlException {
+	public boolean deleteMark(Connection conn, int textId, int userId, TextType textType) throws MySqlException {
 
 		try {
 			conn.setAutoCommit(false);
 
-			if (TEXT_TYPE.QUESTION.equals(textType)) {
+			if (TextType.QUESTION.equals(textType)) {
 				return deleteMarkFromDatabase(conn, textId, userId, MarkQuery.CHECK_QUESTION_MARK,
 						MarkQuery.DELETE_QUESTION_MARK);
-			} else if (TEXT_TYPE.ANSWER.equals(textType)) {
+			} else if (TextType.ANSWER.equals(textType)) {
 				return deleteMarkFromDatabase(conn, textId, userId, MarkQuery.CHECK_ANSWER_MARK,
 						MarkQuery.DELETE_ANSWER_MARK);
 			}

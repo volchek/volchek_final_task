@@ -8,7 +8,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.entity.Question;
+import by.tr.web.entity.text.Question;
 import by.tr.web.service.answer.AnswerService;
 import by.tr.web.service.application.InitializeService;
 import by.tr.web.service.exception.common.FatalServiceException;

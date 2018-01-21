@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.tr.web.dao.database.mysql.query.util.TEXT_TYPE;
 import by.tr.web.dao.database.mysql.submitter.AnswerQuerySubmitter;
 import by.tr.web.dao.database.mysql.submitter.MarkQuerySubmitter;
 import by.tr.web.dao.database.mysql.submitter.QuestionQuerySubmitter;
@@ -15,8 +14,9 @@ import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.question.QuestionDao;
-import by.tr.web.entity.Answer;
-import by.tr.web.entity.Question;
+import by.tr.web.entity.text.Answer;
+import by.tr.web.entity.text.Question;
+import by.tr.web.entity.text.TextType;
 
 public class MySQLQuestionDaoImpl implements QuestionDao {
 
@@ -51,60 +51,31 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public Question evaluateQuestion(int userId, int questionId, int mark) throws DaoException {
+	public Question findQuestionById(int questionId) throws DaoException {
 
 		Connection conn = null;
-
 		try {
 			conn = connPool.getConnection();
 
-			MarkQuerySubmitter markSubmitter = new MarkQuerySubmitter();
-			markSubmitter.addedMark(conn, questionId, userId, mark, TEXT_TYPE.QUESTION);
-
-			Question question = selectQuestionById(conn, questionId, markSubmitter);
+			Question question = selectQuestionById(conn, questionId);
 			return question;
 
 		} catch (MySqlException ex) {
-			logger.error("Can't execure query and insert a new mark to the question with id = " + questionId
-					+ " added by user with id = " + userId);
-			throw new DaoException("Failed to add a new question mark", ex);
+			logger.error("Can't execure query and select a question with id = " + questionId);
+			throw new DaoException("Failed to select a question", ex);
 		} finally {
 			connPool.closeConnection(conn);
 		}
 	}
 
-	@Override
-	public Question deleteQuestionMark(int userId, int questionId) throws DaoException {
-
-		Connection conn = null;
-
-		try {
-			conn = connPool.getConnection();
-
-			MarkQuerySubmitter markSubmitter = new MarkQuerySubmitter();
-			markSubmitter.deleteMark(conn, questionId, userId, TEXT_TYPE.QUESTION);
-
-			Question question = selectQuestionById(conn, questionId, markSubmitter);
-			return question;
-
-		} catch (MySqlException ex) {
-			logger.error("Can't execure query and delete a mark to the question with id = " + questionId
-					+ " added by user with id = " + userId);
-			throw new DaoException("Failed to delete a question mark", ex);
-		} finally {
-			connPool.closeConnection(conn);
-		}
-	}
-
-	private Question selectQuestionById(Connection conn, int questionId, MarkQuerySubmitter markSubm)
-			throws MySqlException {
+	public Question selectQuestionById(Connection conn, int questionId) throws MySqlException {
 
 		QuestionQuerySubmitter questionSubmitter = new QuestionQuerySubmitter();
 		Question question = questionSubmitter.selectQuestionById(conn, questionId);
 
-		MarkQuerySubmitter markSubmitter = (markSubm == null ? new MarkQuerySubmitter() : markSubm);
-		
-		Double averageMark = markSubmitter.getAverageMark(conn, questionId, TEXT_TYPE.QUESTION);
+		MarkQuerySubmitter markSubmitter = new MarkQuerySubmitter();
+
+		Double averageMark = markSubmitter.getAverageMark(conn, questionId, TextType.QUESTION);
 		question.setAverageMark(averageMark);
 
 		AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
@@ -115,21 +86,4 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 
 	}
 
-	@Override
-	public Question findQuestionById(int questionId) throws DaoException {
-
-		Connection conn = null;
-		try {
-			conn = connPool.getConnection();
-
-			Question question = selectQuestionById(conn, questionId, null);
-			return question;
-
-		} catch (MySqlException ex) {
-			logger.error("Can't execure query and select a question with id = " + questionId);
-			throw new DaoException("Failed to select a question", ex);
-		} finally {
-			connPool.closeConnection(conn);
-		}
-	}
 }

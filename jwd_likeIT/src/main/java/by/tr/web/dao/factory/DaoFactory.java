@@ -12,6 +12,8 @@ import by.tr.web.dao.question.QuestionDao;
 import by.tr.web.dao.question.impl.MySQLQuestionDaoImpl;
 import by.tr.web.dao.tag.TagDao;
 import by.tr.web.dao.tag.impl.MySQLTagDaoImpl;
+import by.tr.web.dao.text.CommonTextDao;
+import by.tr.web.dao.text.impl.MySQLCommonTextDaoImpl;
 
 public class DaoFactory {
 
@@ -23,6 +25,7 @@ public class DaoFactory {
 	private static final TagDao tagDao = new MySQLTagDaoImpl();
 	private static final QuestionDao questionDao = new MySQLQuestionDaoImpl();
 	private static final AnswerDao answerDao = new MySQLAnswerDaoImpl();
+	private static final CommonTextDao textDao = new MySQLCommonTextDaoImpl();
 
 	private DaoFactory() {
 
@@ -54,6 +57,10 @@ public class DaoFactory {
 
 	public AnswerDao getAnswerDao() {
 		return answerDao;
+	}
+
+	public CommonTextDao getCommonTextDao() {
+		return textDao;
 	}
 
 }

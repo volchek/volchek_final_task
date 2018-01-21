@@ -10,6 +10,8 @@ import by.tr.web.service.question.QuestionService;
 import by.tr.web.service.question.impl.QuestionServiceImpl;
 import by.tr.web.service.tag.TagService;
 import by.tr.web.service.tag.impl.TagServiceImpl;
+import by.tr.web.service.text.CommonTextService;
+import by.tr.web.service.text.impl.CommonTextServiceImpl;
 import by.tr.web.service.user.UserService;
 import by.tr.web.service.user.impl.UserServiceImpl;
 
@@ -23,6 +25,7 @@ public final class ServiceFactory {
 	private final TagService tagService = new TagServiceImpl();
 	private final QuestionService questionService = new QuestionServiceImpl();
 	private final AnswerService answerService = new AnswerServiceImpl();
+	private final CommonTextService textService = new CommonTextServiceImpl();
 
 	private ServiceFactory() {
 
@@ -55,5 +58,8 @@ public final class ServiceFactory {
 	public AnswerService getAnswerService() {
 		return answerService;
 	}
-	
+
+	public CommonTextService getCommonTextService() {
+		return textService;
+	}
 }

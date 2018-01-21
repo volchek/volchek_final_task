@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.mysql.query.AnswerQuery;
 import by.tr.web.dao.database.util.exception.MySqlException;
-import by.tr.web.entity.Answer;
+import by.tr.web.entity.text.Answer;
 
 public class AnswerQuerySubmitter {
 
@@ -39,13 +39,44 @@ public class AnswerQuerySubmitter {
 
 	public List<Answer> selectAnswersToTheQuestion(Connection conn, int questionId) throws MySqlException {
 
-		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.SELECT_ANSWERS_TO_THE_QUESTION)) {
-			ps.setInt(1, questionId);
+		return selectAnswersByTextId(conn, questionId, AnswerQuery.SELECT_ANSWERS_TO_THE_QUESTION);
+	}
+
+	public List<Answer> selectAnswerById(Connection conn, int textId) throws MySqlException {
+
+		return selectAnswersByTextId(conn, textId, AnswerQuery.SELECT_ANSWER_BY_ID);
+	}
+
+	public int findQuestionIdForTheAnswer(Connection conn, int answerId) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.SELECT_QUESTION_ID_FOR_THE_ANSWER)) {
+
+			ps.setInt(1, answerId);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt(1);
+			} else {
+				throw new MySqlException(
+						"There is not an answer with id = " + answerId + " or there is an incorrect it's question id");
+			}
+		} catch (SQLException ex) {
+			logger.error("Can't select questionId for the answer with id = " + answerId);
+			throw new MySqlException("Failed to execute a select query", ex);
+		}
+
+	}
+
+	private List<Answer> selectAnswersByTextId(Connection conn, int textId, String queryTemplate)
+			throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(queryTemplate)) {
+			ps.setInt(1, textId);
 			ResultSet rs = ps.executeQuery();
 			List<Answer> answer = createAnswers(rs);
 			return answer;
 		} catch (SQLException ex) {
-			logger.error("Can't select answers to the question with id = " + questionId);
+			logger.error("Can't select answers to the text with id = " + textId);
 			throw new MySqlException("Failed to execute a select query", ex);
 		}
 	}

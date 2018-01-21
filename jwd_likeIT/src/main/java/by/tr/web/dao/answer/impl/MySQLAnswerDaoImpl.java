@@ -13,9 +13,9 @@ import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.entity.Answer;
-import by.tr.web.entity.Question;
-import by.tr.web.entity.Text;
+import by.tr.web.entity.text.Answer;
+import by.tr.web.entity.text.Question;
+import by.tr.web.entity.text.Text;
 
 public class MySQLAnswerDaoImpl implements AnswerDao {
 
@@ -49,9 +49,41 @@ public class MySQLAnswerDaoImpl implements AnswerDao {
 	}
 
 	@Override
-	public List<Text> evaluateAnswer(int userId, int answerId, int mark) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+	public Answer findAnswerById(int answerId) throws DaoException {
+
+		Connection conn = null;
+		
+		try {
+			conn = connPool.getConnection();
+			AnswerQuerySubmitter answerQuery = new AnswerQuerySubmitter();
+			List<Answer> answers = answerQuery.selectAnswerById(conn, answerId);
+			if (answers != null){
+				return answers.get(0);
+			}
+			return null;
+		} catch (MySqlException ex) {
+			logger.error("Can't find an answer with id = " + answerId);
+			throw new DaoException("Failed to select an answer", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
+	}
+
+	@Override
+	public int findQuestionIdForTheAnswer(int answerId) throws DaoException {
+		
+		Connection conn = null;
+		
+		try {
+			conn = connPool.getConnection();
+			AnswerQuerySubmitter answerQuery = new AnswerQuerySubmitter();
+			return answerQuery.findQuestionIdForTheAnswer(conn, answerId);
+		} catch (MySqlException ex) {
+			logger.error("Can't select a question id for the answer with id = " + answerId);
+			throw new DaoException("Failed to select a question id for the answer", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
 	}
 
 }
