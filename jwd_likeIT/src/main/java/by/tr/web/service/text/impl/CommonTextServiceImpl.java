@@ -1,5 +1,7 @@
 package by.tr.web.service.text.impl;
 
+import java.util.List;
+
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.dao.text.CommonTextDao;
@@ -38,5 +40,19 @@ public class CommonTextServiceImpl implements CommonTextService {
 			throw new ServiceException(ex);
 		}
 	}
-	
+
+	@Override
+	public List<Question> showUserTexts(int userId, TextType textType) throws ServiceException {
+
+		DaoFactory daoInstance = DaoFactory.getInstance();
+		CommonTextDao textDao = daoInstance.getCommonTextDao();
+
+		try {
+			List<Question> question = textDao.showUserTexts(userId, textType);
+			return question;
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		}
+	}
+
 }

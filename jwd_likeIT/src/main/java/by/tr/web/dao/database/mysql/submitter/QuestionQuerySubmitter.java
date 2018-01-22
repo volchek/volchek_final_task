@@ -1,11 +1,13 @@
 package by.tr.web.dao.database.mysql.submitter;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -74,15 +76,8 @@ public class QuestionQuerySubmitter {
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
 					question = new Question();
-					question.setId(rs.getInt(1));
-					question.setTitle(rs.getString(2));
-					question.setText(rs.getString(3));
-					question.setCreationDate(rs.getDate(4));
-					question.setAuthorLogin(rs.getString(5));
-					List<String> languages = getDataList(rs, 6);
-					question.setLanguages(languages);
-					List<String> tags = getDataList(rs, 7);
-					question.setTags(tags);
+					setMainQuestionFields(rs, question);
+					question.setAuthorLogin(rs.getString(7));
 				}
 			}
 		} catch (SQLException e) {
@@ -91,8 +86,33 @@ public class QuestionQuerySubmitter {
 		return question;
 	}
 
+	public List<Question> selectUserQuestion(Connection conn, int userId) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_USER_QUESTIONS)) {
+
+			ps.setInt(1, userId);
+			ResultSet rs = ps.executeQuery();
+
+			List<Question> questions = new ArrayList<Question>();
+
+			while (rs.next()) {
+				Question question = new Question();
+				setMainQuestionFields(rs, question);
+				BigDecimal mark = rs.getBigDecimal(7);
+				question.setAverageMark(mark == null ? null : mark.doubleValue());
+				questions.add(question);
+			}
+			return questions;
+			
+		} catch (SQLException ex) {
+			logger.error("Can't execute query and select questions of the user with id = " + userId);
+			throw new MySqlException("Can't execute select query", ex);
+		}
+	}
+
 	private void insertAllQuestionLanguages(Connection conn, int questionId, List<String> languages)
 			throws MySqlException {
+		
 		LanguageSet languageSet = LanguageSetSingleton.getInstance().getLanguageSet();
 		Map<String, Integer> allLanguages = languageSet.getLanguageToIdSet();
 		for (String language : languages) {
@@ -119,6 +139,7 @@ public class QuestionQuerySubmitter {
 	}
 
 	private void insertAllQuestionTags(Connection conn, int questionId, List<String> tags) throws MySqlException {
+		
 		TagSet tagSet = TagSetSingleton.getInstance().getTagSet();
 		Map<String, Integer> allTags = tagSet.getTagToIdSet();
 		for (String tag : tags) {
@@ -165,6 +186,20 @@ public class QuestionQuerySubmitter {
 		} catch (SQLException ex) {
 			logger.warn("Can not close Statement");
 		}
+	}
+
+	private void setMainQuestionFields(ResultSet rs, Question question) throws SQLException {
+
+		question.setId(rs.getInt(1));
+		question.setTitle(rs.getString(2));
+		question.setText(rs.getString(3));
+		question.setCreationDate(rs.getDate(4));
+		
+		List<String> languages = getDataList(rs, 5);
+		question.setLanguages(languages);
+		
+		List<String> tags = getDataList(rs, 6);
+		question.setTags(tags);
 	}
 
 	private List<String> getDataList(ResultSet rs, int column) throws SQLException {

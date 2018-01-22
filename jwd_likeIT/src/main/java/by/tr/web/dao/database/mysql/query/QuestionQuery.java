@@ -15,23 +15,43 @@ public final class QuestionQuery {
 			+ "VALUES (?, ?)";
 
 	public final static String SELECT_QUESTION_BY_ID = 
-			"SELECT q.questionId, q.title, q.text, q.creationDatetime, u.login ,"
+			"SELECT q.questionId, q.title, q.text, q.creationDatetime,"
 			+ "GROUP_CONCAT(DISTINCT l.language ORDER BY l.language ASC SEPARATOR','), "
-			+ "GROUP_CONCAT(DISTINCT k.keyword ORDER BY k.keyword ASC SEPARATOR ',') "
-			+ "FROM likeit2.questions AS q "
+			+ "GROUP_CONCAT(DISTINCT k.keyword ORDER BY k.keyword ASC SEPARATOR ','), u.login  "
+			+ "FROM questions AS q "
 			+ "LEFT JOIN questions2keywords AS qk "
 			+ "ON q.questionId = qk.questionId "
-			+ "INNER JOIN likeit2.keywords AS k "
+			+ "INNER JOIN keywords AS k "
 			+ "ON k.keywordId = qk.keywordId "
-			+ "LEFT JOIN likeit2.questions2languages AS ql "
+			+ "LEFT JOIN questions2languages AS ql "
 			+ "ON q.questionId = ql.questionId "
-			+ "INNER JOIN likeit2.languages AS l "
+			+ "INNER JOIN languages AS l "
 			+ "ON ql.languageId = l.languageId "
-			+ "INNER JOIN likeit2.users AS u "
+			+ "INNER JOIN users AS u "
 			+ "ON q.userId = u.userId "
 			+ "WHERE q.questionId = ?;";
 
-	
+	public final static String SELECT_USER_QUESTIONS =
+			"SELECT q.questionId, q.title, q.text, q.creationDatetime, "
+			+ "GROUP_CONCAT(DISTINCT l.language ORDER BY l.language ASC SEPARATOR','), "
+			+ "GROUP_CONCAT(DISTINCT k.keyword ORDER BY k.keyword ASC SEPARATOR ','), "
+			+ "AVG(m.mark) "
+			+ "FROM questions AS q "
+			+ "LEFT JOIN questions2keywords AS qk "
+			+ "ON q.questionId = qk.questionId "
+			+ "INNER JOIN keywords AS k "
+			+ "ON k.keywordId = qk.keywordId "
+			+ "LEFT JOIN questions2languages AS ql "
+			+ "ON q.questionId = ql.questionId "
+			+ "INNER JOIN languages AS l "
+			+ "ON ql.languageId = l.languageId "
+			+ "INNER JOIN users AS u "
+			+ "ON q.userId = u.userId "
+			+ "LEFT JOIN questionmarks AS m "
+			+ "ON q.questionId = m.questionId "
+			+ "WHERE u.userId = ? "
+			+ "GROUP BY q.questionId;";
+					
 	private QuestionQuery() {
 		
 	}

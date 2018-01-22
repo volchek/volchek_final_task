@@ -1,12 +1,14 @@
 package by.tr.web.dao.text.impl;
 
 import java.sql.Connection;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.mysql.submitter.AnswerQuerySubmitter;
 import by.tr.web.dao.database.mysql.submitter.MarkQuerySubmitter;
+import by.tr.web.dao.database.mysql.submitter.QuestionQuerySubmitter;
 import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
@@ -39,8 +41,8 @@ public class MySQLCommonTextDaoImpl implements CommonTextDao {
 			return getQuestion(conn, textId, textType);
 
 		} catch (MySqlException ex) {
-			logger.error("Can't execure query and insert a new mark to the " + textType.name() + " with id = " + textId
-					+ " added by user with id = " + userId);
+			logger.error("Can't execure query and insert a new mark to the " + textType.name().toLowerCase()
+					+ " with id = " + textId + " added by user with id = " + userId);
 			throw new DaoException("Failed to add a new mark", ex);
 		} finally {
 			if (!connPool.isConnectionClose(conn)) {
@@ -63,13 +65,39 @@ public class MySQLCommonTextDaoImpl implements CommonTextDao {
 			return getQuestion(conn, textId, textType);
 
 		} catch (MySqlException ex) {
-			logger.error("Can't execure query and delete a mark to the " + textType.name() + " with id = " + textId
-					+ " added by user with id = " + userId);
+			logger.error("Can't execure query and delete a mark to the " + textType.name().toLowerCase() + " with id = "
+					+ textId + " added by user with id = " + userId);
 			throw new DaoException("Failed to delete a mark", ex);
 		} finally {
 			if (!connPool.isConnectionClose(conn)) {
 				connPool.closeConnection(conn);
 			}
+		}
+	}
+
+	@Override
+	public List<Question> showUserTexts(int userId, TextType textType) throws DaoException {
+
+		Connection conn = null;
+
+		try {
+			conn = connPool.getConnection();
+
+			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
+			List<Question> questions = null;
+			if (textType.equals(TextType.QUESTION)) {
+				questions = submitter.selectUserQuestion(conn, userId);
+			} else if (textType.equals(TextType.ANSWER)) {
+				// TODO
+			}
+			return questions;
+
+		} catch (MySqlException ex) {
+			logger.error("Can't execure query and show all " + textType.name().toLowerCase()
+					+ "s of the user with id = " + userId);
+			throw new DaoException("Failed to select user texts", ex);
+		} finally {
+			connPool.closeConnection(conn);
 		}
 	}
 
