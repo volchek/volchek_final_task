@@ -29,6 +29,17 @@ public final class AnswerQuery {
 	public static final String SELECT_QUESTION_ID_FOR_THE_ANSWER = 
 			"SELECT questionId FROM Answers "
 			+ "WHERE answerId = ?;";
+	
+	public static final String SELECT_USER_ANSWERS = 
+			"SELECT q.questionId, a.answerId, a.answerText, "
+			+ "a.creationDatetime, AVG(m.mark), COUNT(m.answerId) "
+			+ "FROM answers AS a "
+			+ "LEFT JOIN questions AS q "
+			+ "ON a.questionId = q.questionId "
+			+ "LEFT JOIN likeit2.answermarks AS m "
+			+ "ON a.answerId = m.answerId "
+			+ "WHERE a.userId = ? "
+			+ "GROUP BY a.answerId;";
 		
 	private AnswerQuery(){
 		

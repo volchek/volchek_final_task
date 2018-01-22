@@ -2,6 +2,7 @@ package by.tr.web.dao.text.impl;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +17,7 @@ import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.question.QuestionDao;
 import by.tr.web.dao.question.impl.MySQLQuestionDaoImpl;
 import by.tr.web.dao.text.CommonTextDao;
+import by.tr.web.entity.text.Answer;
 import by.tr.web.entity.text.Question;
 import by.tr.web.entity.text.TextType;
 
@@ -83,12 +85,15 @@ public class MySQLCommonTextDaoImpl implements CommonTextDao {
 		try {
 			conn = connPool.getConnection();
 
-			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
+			QuestionQuerySubmitter questionSubmitter = new QuestionQuerySubmitter();
 			List<Question> questions = null;
 			if (textType.equals(TextType.QUESTION)) {
-				questions = submitter.selectUserQuestion(conn, userId);
+				questions = questionSubmitter.selectUserQuestion(conn, userId);
 			} else if (textType.equals(TextType.ANSWER)) {
-				// TODO
+				questions = questionSubmitter.selectQuestionsWithUserAnswer(conn, userId);
+				AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
+				Map<Integer, List<Answer>> answers = answerSubmitter.selectUserAnswers(conn, userId);
+				joinQuestionsAndAnswers(questions, answers);
 			}
 			return questions;
 
@@ -114,6 +119,14 @@ public class MySQLCommonTextDaoImpl implements CommonTextDao {
 			question = questionDao.findQuestionById(questionId);
 		}
 		return question;
+	}
+
+	private void joinQuestionsAndAnswers(List<Question> questions, Map<Integer, List<Answer>> answers) {
+
+		for (Question question : questions) {
+			Integer questionId = question.getId();
+			question.setAnswers(answers.get(questionId));
+		}
 	}
 
 }

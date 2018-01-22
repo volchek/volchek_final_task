@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +35,39 @@ public class AnswerQuerySubmitter {
 
 		} catch (SQLException ex) {
 			logger.error("Can't create a prepared statement");
-			throw new MySqlException("Can't create a prepared statement", ex);
+			throw new MySqlException("Can't execute select query", ex);
+		}
+	}
+
+	public Map<Integer, List<Answer>> selectUserAnswers(Connection conn, int userId) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.SELECT_USER_ANSWERS)) {
+
+			ps.setInt(1, userId);
+			ResultSet rs = ps.executeQuery();
+
+			Map<Integer, List<Answer>> answers = new HashMap<Integer, List<Answer>>();
+			while (rs.next()) {
+				Answer answer = new Answer();
+				Integer questionId = rs.getInt(1);
+				answer.setId(rs.getInt(2));
+				answer.setText(rs.getString(3));
+				answer.setCreationDate(rs.getDate(4));
+				answer.setAverageMark(extractAverageMark(rs, 5));
+				answer.setMarkCount(rs.getInt(6));
+
+				if (!answers.containsKey(questionId)) {
+					List<Answer> answerList = new ArrayList<Answer>();
+					answerList.add(answer);
+					answers.put(questionId, answerList);
+				} else {
+					answers.get(questionId).add(answer);
+				}
+			}
+			return answers;
+		} catch (SQLException ex) {
+			logger.error("Can't select answers of the user with id = " + userId);
+			throw new MySqlException("Can't execute select query", ex);
 		}
 	}
 
@@ -91,9 +125,7 @@ public class AnswerQuerySubmitter {
 				answer.setText(rs.getString(3));
 				answer.setCreationDate(rs.getDate(4));
 				answer.setAuthorLogin(rs.getString(5));
-				BigDecimal mark = rs.getBigDecimal(6);
-				Double averageMark = (mark == null ? null : mark.doubleValue());
-				answer.setAverageMark(averageMark);
+				answer.setAverageMark(extractAverageMark(rs, 6));
 				answerList.add(answer);
 			}
 			return answerList;
@@ -101,6 +133,12 @@ public class AnswerQuerySubmitter {
 			logger.error("Can't create a list of answers");
 			throw new MySqlException("Failed to execute query to select an answer list", ex);
 		}
+	}
+
+	private Double extractAverageMark(ResultSet rs, int columnNumber) throws SQLException {
+		BigDecimal mark = rs.getBigDecimal(columnNumber);
+		Double averageMark = (mark == null ? null : mark.doubleValue());
+		return averageMark;
 	}
 
 }

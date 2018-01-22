@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.mysql.query.QuestionQuery;
 import by.tr.web.dao.database.util.exception.MySqlException;
+import by.tr.web.entity.text.Answer;
 import by.tr.web.entity.text.Question;
 import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
@@ -103,16 +104,46 @@ public class QuestionQuerySubmitter {
 				questions.add(question);
 			}
 			return questions;
-			
+
 		} catch (SQLException ex) {
 			logger.error("Can't execute query and select questions of the user with id = " + userId);
 			throw new MySqlException("Can't execute select query", ex);
 		}
 	}
 
+	public List<Question> selectQuestionsWithUserAnswer(Connection conn, int userId) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_WITH_USER_ANSWERS)) {
+
+			ps.setInt(1, userId);
+			ResultSet rs = ps.executeQuery();
+
+			List<Question> questions = new ArrayList<Question>();
+
+			while (rs.next()) {
+				Question question = new Question();
+				setMainQuestionFields(rs, question);
+				question.setAuthorLogin(rs.getString(7));
+				BigDecimal mark = rs.getBigDecimal(8);
+				question.setAverageMark(mark == null ? null : mark.doubleValue());
+				Answer answer = new Answer();
+				answer.setId(rs.getInt(8));
+				question.addAnswer(answer);
+
+				questions.add(question);
+			}
+			return questions;
+
+		} catch (SQLException ex) {
+			logger.error(
+					"Can't execute query and select questions that contains an answer of the user with id = " + userId);
+			throw new MySqlException("Can't execute select query", ex);
+		}
+	}
+
 	private void insertAllQuestionLanguages(Connection conn, int questionId, List<String> languages)
 			throws MySqlException {
-		
+
 		LanguageSet languageSet = LanguageSetSingleton.getInstance().getLanguageSet();
 		Map<String, Integer> allLanguages = languageSet.getLanguageToIdSet();
 		for (String language : languages) {
@@ -139,7 +170,7 @@ public class QuestionQuerySubmitter {
 	}
 
 	private void insertAllQuestionTags(Connection conn, int questionId, List<String> tags) throws MySqlException {
-		
+
 		TagSet tagSet = TagSetSingleton.getInstance().getTagSet();
 		Map<String, Integer> allTags = tagSet.getTagToIdSet();
 		for (String tag : tags) {
@@ -194,10 +225,10 @@ public class QuestionQuerySubmitter {
 		question.setTitle(rs.getString(2));
 		question.setText(rs.getString(3));
 		question.setCreationDate(rs.getDate(4));
-		
+
 		List<String> languages = getDataList(rs, 5);
 		question.setLanguages(languages);
-		
+
 		List<String> tags = getDataList(rs, 6);
 		question.setTags(tags);
 	}
