@@ -14,7 +14,7 @@ public interface QuestionService {
 
 	List<Question> showLastQuestions() throws ServiceException;
 
-	List<Question> showLastQuestionsForRegisteredUser() throws ServiceException;
+	List<Question> showLastQuestionsForRegisteredUser(int userId) throws ServiceException;
 
 	List<Question> findQuestionByLanguage(List<String> languages) throws ServiceException;
 

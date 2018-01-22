@@ -136,7 +136,8 @@ public class QuestionQuerySubmitter {
 			while (rs.next()) {
 				Question question = new Question();
 				setMainQuestionFields(rs, question);
-				BigDecimal mark = rs.getBigDecimal(7);
+				question.setAuthorLogin(rs.getString(7));
+				BigDecimal mark = rs.getBigDecimal(8);
 				question.setAverageMark(mark == null ? null : mark.doubleValue());
 				questions.add(question);
 			}

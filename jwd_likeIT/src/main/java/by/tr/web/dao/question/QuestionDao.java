@@ -14,7 +14,7 @@ public interface QuestionDao {
 
 	List<Question> showLastQuestions() throws DaoException;
 
-	List<Question> showLastQuestionsForRegisteredUser() throws DaoException;
+	List<Question> showLastQuestionsForRegisteredUser(int userId) throws DaoException;
 
 	List<Question> findQuestionByLanguage(List<String> languages) throws DaoException;
 

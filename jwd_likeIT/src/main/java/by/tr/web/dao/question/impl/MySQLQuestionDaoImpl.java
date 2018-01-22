@@ -127,13 +127,26 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public List<Question> showLastQuestions() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+
+		Connection conn = null;
+		try {
+			conn = connPool.getConnection();
+
+			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
+			List<Question> questionList = null;
+			// submitter.selectQuestionByLanguageOrTag(conn);
+			return questionList;
+		} catch (MySqlException ex) {
+			logger.error("Can't execure query and select last questions");
+			throw new DaoException("Failed to select a question list", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
 	}
 
 	@Override
-	public List<Question> showLastQuestionsForRegisteredUser() throws DaoException {
-		// TODO Auto-generated method stub
+	public List<Question> showLastQuestionsForRegisteredUser(int userId) throws DaoException {
+		// TODO
 		return null;
 	}
 

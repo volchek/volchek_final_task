@@ -60,13 +60,13 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public List<Question> showLastQuestionsForRegisteredUser() throws ServiceException {
+	public List<Question> showLastQuestionsForRegisteredUser(int userId) throws ServiceException {
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
 		QuestionDao questionDao = daoInstance.getQuestionDao();
 
 		try {
-			List<Question> result = questionDao.showLastQuestionsForRegisteredUser();
+			List<Question> result = questionDao.showLastQuestionsForRegisteredUser(userId);
 			return result;
 
 		} catch (DaoException ex) {

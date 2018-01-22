@@ -46,25 +46,25 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AddQuestion</servlet-name>
-		<url-pattern>/addQuestion</url-pattern>
+		<url-pattern>/add-question</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>MyQuestions</servlet-name>
-		<jsp-file>/WEB-INF/jsp/myQuestions.jsp</jsp-file>
+		<jsp-file>/WEB-INF/jsp/userQuestions.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MyQuestions</servlet-name>
-		<url-pattern>/myQuestions</url-pattern>
+		<url-pattern>/user-questions</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>MyAnswers</servlet-name>
-		<jsp-file>/WEB-INF/jsp/myAnswers.jsp</jsp-file>
+		<jsp-file>/WEB-INF/jsp/userAnswers.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MyAnswers</servlet-name>
-		<url-pattern>/myAnswers</url-pattern>
+		<url-pattern>/user-answers</url-pattern>
 	</servlet-mapping>
 
 	<listener>

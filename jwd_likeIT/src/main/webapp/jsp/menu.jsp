@@ -25,11 +25,13 @@
 					method="post" id="form_edit">
 				</form>
 				
-				<form action="${pageContext.request.contextPath}/myQuestions"
+				<form action="${pageContext.request.contextPath}/Controller"
 					method="post" id="my_questions">
+					<input type="hidden" name="command" value="SHOW_USER_QUESTIONS" />
 				</form>
-				<form action="${pageContext.request.contextPath}/myAnswers"
+				<form action="${pageContext.request.contextPath}/Controller"
 					method="post" id="my_answers">
+					<input type="hidden" name="command" value="SHOW_USER_ANSWERS" />
 				</form>
 				
 				<form action="${pageContext.request.contextPath}/Controller"
@@ -40,7 +42,7 @@
 				<span class="user"><c:out value="${current_user.login}"></c:out></span>
 				<a href='javascript:document.getElementById("form_edit").submit()'><c:out
 						value="${edit}" /></a>
-				<a href="${pageContext.request.contextPath}/addQuestion"><c:out value="${ask}" /></a>
+				<a href="${pageContext.request.contextPath}/add-question"><c:out value="${ask}" /></a>
 				<a href='javascript:document.getElementById("my_questions").submit()'><c:out
 						value="${questions}" /></a>
 				<a href='javascript:document.getElementById("my_answers").submit()'><c:out

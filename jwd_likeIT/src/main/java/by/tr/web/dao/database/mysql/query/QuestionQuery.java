@@ -35,7 +35,7 @@ public final class QuestionQuery {
 			"SELECT q.questionId, q.title, q.text, q.creationDatetime, "
 			+ "GROUP_CONCAT(DISTINCT l.language ORDER BY l.language ASC SEPARATOR','), "
 			+ "GROUP_CONCAT(DISTINCT k.keyword ORDER BY k.keyword ASC SEPARATOR ','), "
-			+ "AVG(m.mark) "
+			+ "u.login, AVG(m.mark) "
 			+ "FROM questions AS q "
 			+ "LEFT JOIN questions2keywords AS qk "
 			+ "ON q.questionId = qk.questionId "

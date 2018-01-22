@@ -1,6 +1,6 @@
 package by.tr.web.controller.command.util.attribute;
 
-public class TextAttribute {
+public final class TextAttribute {
 
 	public static final String TAGS_LIST = "tags";
 	public static final String LANGUAGE_LIST = "languages";
@@ -9,4 +9,9 @@ public class TextAttribute {
 	public static final String TITLE = "title";
 	public static final String QUESTION_TEXT = "question_text";
 	public static final String QUESTION = "question";
+	public static final String QUESTION_LIST = "question_list";
+	public static final String QUESTION_ID = "question_id";
+	public static final String ANSWER_TEXT = "answer";
+	
+	private TextAttribute(){ }
 }

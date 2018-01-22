@@ -14,5 +14,7 @@ public class PagePath {
 
 	public static final String EDIT_PERSONAL_DATA_PAGE = "PersonalData";
 	public static final String AFTER_USER_UPDATING = "SuccessfulUpdating";
-
+	
+	public static final String USER_QUESTIONS_PAGE = "user-questions";
+	public static final String USER_ANSWERS_PAGE = "user-answers";
 }
