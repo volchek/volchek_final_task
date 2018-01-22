@@ -27,6 +27,7 @@ import by.tr.web.entity.tag.TagSetSingleton;
 public class QuestionQuerySubmitter {
 
 	private final static String PATTERN_TO_SPLIT_TAGS = "\\s*,\\s*";
+	private final static int SEARCH_CRITERIA_COUNT = 3;
 
 	private final static Logger logger = LogManager.getLogger(QuestionQuerySubmitter.class.getName());
 
@@ -69,7 +70,7 @@ public class QuestionQuerySubmitter {
 		}
 	}
 
-	public Question selectQuestionById(Connection conn, int questionId) {
+	public Question selectQuestionById(Connection conn, int questionId) throws MySqlException {
 
 		Question question = null;
 		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTION_BY_ID)) {
@@ -81,10 +82,37 @@ public class QuestionQuerySubmitter {
 					question.setAuthorLogin(rs.getString(7));
 				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException ex) {
 			logger.error("Can't create a question object for the question with id=" + questionId);
+			throw new MySqlException("Failed to execute command and select a question", ex);
 		}
 		return question;
+	}
+
+	public List<Question> selectQuestionByLanguage(Connection conn, List<String> languages) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_LANGUAGE)) {
+
+			List<Integer> idList = getLanguageIdList(languages);
+			ps.setInt(1, idList.get(0));
+			ps.setInt(2, idList.get(1));
+			ps.setInt(3, idList.get(2));
+
+			ResultSet rs = ps.executeQuery();
+
+			List<Question> questionList = new ArrayList<Question>();
+			while (rs.next()) {
+				Question question = new Question();
+				setMainQuestionFields(rs, question);
+				question.setAuthorLogin(rs.getString(7));
+				question.setAverageMark(extractAverageMark(rs, 8));
+				questionList.add(question);
+			}
+			return questionList;
+		} catch (SQLException ex) {
+			logger.error("Can't execute a query and extract information about questions asken in some languages");
+			throw new MySqlException("Failed to execute command and select question list", ex);
+		}
 	}
 
 	public List<Question> selectUserQuestion(Connection conn, int userId) throws MySqlException {
@@ -237,6 +265,29 @@ public class QuestionQuerySubmitter {
 		String strLangs = rs.getString(column);
 		List<String> langs = Arrays.asList(strLangs.split(PATTERN_TO_SPLIT_TAGS));
 		return langs;
+	}
+
+	private Double extractAverageMark(ResultSet rs, int columnNumber) throws SQLException {
+		BigDecimal mark = rs.getBigDecimal(columnNumber);
+		Double averageMark = (mark == null ? null : mark.doubleValue());
+		return averageMark;
+	}
+
+	private List<Integer> getLanguageIdList(List<String> languages) {
+
+		LanguageSet standardLanguages = LanguageSetSingleton.getInstance().getLanguageSet();
+
+		List<Integer> langIdList = new ArrayList<Integer>();
+		for (String lang : languages) {
+			int langId = standardLanguages.getLanguageId(lang);
+			langIdList.add(langId);
+		}
+
+		while (langIdList.size() < SEARCH_CRITERIA_COUNT) {
+			langIdList.add(langIdList.get(0));
+		}
+
+		return langIdList;
 	}
 
 }

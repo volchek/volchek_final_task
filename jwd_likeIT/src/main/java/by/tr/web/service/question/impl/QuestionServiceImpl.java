@@ -44,4 +44,68 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 	}
 
+	@Override
+	public List<Question> showLastQuestions() throws ServiceException {
+
+		DaoFactory daoInstance = DaoFactory.getInstance();
+		QuestionDao questionDao = daoInstance.getQuestionDao();
+
+		try {
+			List<Question> result = questionDao.showLastQuestions();
+			return result;
+
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		}
+	}
+
+	@Override
+	public List<Question> showLastQuestionsForRegisteredUser() throws ServiceException {
+
+		DaoFactory daoInstance = DaoFactory.getInstance();
+		QuestionDao questionDao = daoInstance.getQuestionDao();
+
+		try {
+			List<Question> result = questionDao.showLastQuestionsForRegisteredUser();
+			return result;
+
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		}
+	}
+
+	@Override
+	public List<Question> findQuestionByLanguage(List<String> languages) throws ServiceException {
+
+		Validator.validateLanguages(languages);
+
+		DaoFactory daoInstance = DaoFactory.getInstance();
+		QuestionDao questionDao = daoInstance.getQuestionDao();
+
+		try {
+			List<Question> result = questionDao.findQuestionByLanguage(languages);
+			return result;
+
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		}
+	}
+
+	@Override
+	public List<Question> findQuestionByTag(List<String> tags) throws ServiceException {
+
+		Validator.validateTags(tags);
+
+		DaoFactory daoInstance = DaoFactory.getInstance();
+		QuestionDao questionDao = daoInstance.getQuestionDao();
+
+		try {
+			List<Question> result = questionDao.findQuestionByTag(tags);
+			return result;
+
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		}
+	}
+
 }

@@ -12,4 +12,12 @@ public interface QuestionDao {
 
 	Question findQuestionById(int questionId) throws DaoException;
 
+	List<Question> showLastQuestions() throws DaoException;
+
+	List<Question> showLastQuestionsForRegisteredUser() throws DaoException;
+
+	List<Question> findQuestionByLanguage(List<String> languages) throws DaoException;
+
+	List<Question> findQuestionByTag(List<String> tags) throws DaoException;
+
 }

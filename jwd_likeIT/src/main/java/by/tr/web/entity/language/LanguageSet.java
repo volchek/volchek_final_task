@@ -47,7 +47,7 @@ public class LanguageSet {
 		return true;
 	}
 
-	public boolean removeTag(String language) {
+	public boolean removeLanguage(String language) {
 		String lowerCaseLanguage = language.toLowerCase();
 		if (!languageToIdSet.containsKey(lowerCaseLanguage)) {
 			return false;

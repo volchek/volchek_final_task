@@ -11,5 +11,13 @@ public interface QuestionService {
 			throws ServiceException;
 
 	Question findQuestionById(int questionId) throws ServiceException;
+
+	List<Question> showLastQuestions() throws ServiceException;
+
+	List<Question> showLastQuestionsForRegisteredUser() throws ServiceException;
+
+	List<Question> findQuestionByLanguage(List<String> languages) throws ServiceException;
+
+	List<Question> findQuestionByTag(List<String> tags) throws ServiceException;
 	
 }

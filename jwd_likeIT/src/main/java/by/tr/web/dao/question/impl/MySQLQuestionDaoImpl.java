@@ -86,4 +86,53 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 
 	}
 
+	@Override
+	public List<Question> showLastQuestions() throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Question> showLastQuestionsForRegisteredUser() throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Question> findQuestionByLanguage(List<String> languages) throws DaoException {
+		
+		Connection conn = null;
+		try {
+			conn = connPool.getConnection();
+			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
+			
+			List<Question> question = submitter.selectQuestionByLanguage(conn, languages);
+			return question;
+
+		} catch (MySqlException ex) {
+			logger.error("Can't execure query and select questions asked in language list: " + languages.toString());
+			throw new DaoException("Failed to select a question list", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
+	}
+
+	@Override
+	public List<Question> findQuestionByTag(List<String> tags) throws DaoException {
+
+		Connection conn = null;
+		try {
+			conn = connPool.getConnection();
+
+			List<Question> question = null; // selectQuestionById(conn, questionId);
+			return question;
+
+		} catch (MySqlException ex) {
+			logger.error("Can't execure query and select questions asked in tag list: " + tags.toString());
+			throw new DaoException("Failed to select a question list", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
+	}
+
 }
