@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.tr.web.dao.database.mysql.query.util.KeywordType;
 import by.tr.web.dao.database.mysql.submitter.AnswerQuerySubmitter;
 import by.tr.web.dao.database.mysql.submitter.MarkQuerySubmitter;
 import by.tr.web.dao.database.mysql.submitter.QuestionQuerySubmitter;
@@ -87,27 +88,16 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public List<Question> showLastQuestions() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Question> showLastQuestionsForRegisteredUser() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Question> findQuestionByLanguage(List<String> languages) throws DaoException {
-		
+
 		Connection conn = null;
 		try {
 			conn = connPool.getConnection();
 			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
-			
-			List<Question> question = submitter.selectQuestionByLanguage(conn, languages);
-			return question;
+
+			List<Question> questionList = submitter.selectQuestionByLanguageOrTag(conn, languages,
+					KeywordType.LANGUAGE);
+			return questionList;
 
 		} catch (MySqlException ex) {
 			logger.error("Can't execure query and select questions asked in language list: " + languages.toString());
@@ -124,15 +114,27 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 		try {
 			conn = connPool.getConnection();
 
-			List<Question> question = null; // selectQuestionById(conn, questionId);
-			return question;
-
+			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
+			List<Question> questionList = submitter.selectQuestionByLanguageOrTag(conn, tags, KeywordType.TAG);
+			return questionList;
 		} catch (MySqlException ex) {
 			logger.error("Can't execure query and select questions asked in tag list: " + tags.toString());
 			throw new DaoException("Failed to select a question list", ex);
 		} finally {
 			connPool.closeConnection(conn);
 		}
+	}
+
+	@Override
+	public List<Question> showLastQuestions() throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Question> showLastQuestionsForRegisteredUser() throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

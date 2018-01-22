@@ -7,11 +7,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.entity.language.LanguageSetSingleton;
 import by.tr.web.entity.text.Question;
 import by.tr.web.entity.text.TextType;
 import by.tr.web.service.application.InitializeService;
@@ -51,26 +49,49 @@ public class ShowQuestionTest {
 		questions = textService.showUserTexts(userId, TextType.QUESTION);
 		assertEquals(questions, new ArrayList<Question>());
 	}
-	
+
 	@Test
-	public void shouldShowQuestionsByUserLanguages() throws ServiceException {
+	public void shouldShowQuestionsByLanguages() throws ServiceException {
 
 		List<String> languages = new ArrayList<String>();
 
-		languages.add("basic");		
+		languages.add("basic");
 		List<Question> questions = questionService.findQuestionByLanguage(languages);
 		assertEquals(questions, new ArrayList<Question>());
-		
-		languages.add("C++");		
+
+		languages.add("C++");
 		questions = questionService.findQuestionByLanguage(languages);
 		assertNotNull(questions);
 
 		languages.add("Java");
 		questions = questionService.findQuestionByLanguage(languages);
 		assertNotNull(questions);
-		
+
 		languages.add("Perl");
 		questions = questionService.findQuestionByLanguage(languages);
+		assertNotNull(questions);
+	}
+
+	@Test
+	public void shouldShowQuestionsByTags() throws ServiceException {
+
+		List<String> tags = new ArrayList<String>();
+
+		tags.add("jar");
+		List<Question> questions = questionService.findQuestionByTag(tags);
+		assertEquals(questions, new ArrayList<Question>());
+
+		tags.add("file");
+		questions = questionService.findQuestionByTag(tags);
+		assertNotNull(questions);
+
+		tags.add("template");
+		questions = questionService.findQuestionByTag(tags);
+		assertNotNull(questions);
+
+		tags.add("write");
+		questions = questionService.findQuestionByTag(tags);
+		System.out.println(questions);
 		assertNotNull(questions);
 	}
 

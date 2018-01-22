@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.mysql.query.QuestionQuery;
+import by.tr.web.dao.database.mysql.query.util.KeywordType;
 import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.entity.text.Answer;
 import by.tr.web.entity.text.Question;
@@ -89,17 +90,25 @@ public class QuestionQuerySubmitter {
 		return question;
 	}
 
-	public List<Question> selectQuestionByLanguage(Connection conn, List<String> languages) throws MySqlException {
+	public List<Question> selectQuestionByLanguageOrTag(Connection conn, List<String> keywords, KeywordType keywordType)
+			throws MySqlException {
 
-		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_LANGUAGE)) {
+		PreparedStatement ps = null;
+		List<Integer> keywordIdList = null;
+		try {
+			if (keywordType.equals(KeywordType.LANGUAGE)) {
+				ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_LANGUAGE);
+				keywordIdList = getLanguageIdList(keywords);
+			} else if (keywordType.equals(KeywordType.TAG)) {
+				ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_TAG);
+				keywordIdList = getTagIdList(keywords);
+			}
 
-			List<Integer> idList = getLanguageIdList(languages);
-			ps.setInt(1, idList.get(0));
-			ps.setInt(2, idList.get(1));
-			ps.setInt(3, idList.get(2));
+			ps.setInt(1, keywordIdList.get(0));
+			ps.setInt(2, keywordIdList.get(1));
+			ps.setInt(3, keywordIdList.get(2));
 
 			ResultSet rs = ps.executeQuery();
-
 			List<Question> questionList = new ArrayList<Question>();
 			while (rs.next()) {
 				Question question = new Question();
@@ -110,7 +119,7 @@ public class QuestionQuerySubmitter {
 			}
 			return questionList;
 		} catch (SQLException ex) {
-			logger.error("Can't execute a query and extract information about questions asken in some languages");
+			logger.error("Can't execute a query and extract information about questions asked in some keywords");
 			throw new MySqlException("Failed to execute command and select question list", ex);
 		}
 	}
@@ -282,12 +291,27 @@ public class QuestionQuerySubmitter {
 			int langId = standardLanguages.getLanguageId(lang);
 			langIdList.add(langId);
 		}
-
-		while (langIdList.size() < SEARCH_CRITERIA_COUNT) {
-			langIdList.add(langIdList.get(0));
-		}
-
+		completeTagOrLanguageArray(langIdList);
 		return langIdList;
+	}
+
+	private List<Integer> getTagIdList(List<String> tags) {
+
+		TagSet standardTags = TagSetSingleton.getInstance().getTagSet();
+
+		List<Integer> tagIdList = new ArrayList<Integer>();
+		for (String tag : tags) {
+			int tagId = standardTags.getTagId(tag);
+			tagIdList.add(tagId);
+		}
+		completeTagOrLanguageArray(tagIdList);
+		return tagIdList;
+	}
+
+	private void completeTagOrLanguageArray(List<Integer> elements) {
+		while (elements.size() < SEARCH_CRITERIA_COUNT) {
+			elements.add(elements.get(0));
+		}
 	}
 
 }
