@@ -85,6 +85,13 @@
 		<url-pattern>/Controller</url-pattern>
 	</filter-mapping>
 
+	<jsp-config>
+		<taglib>
+			<taglib-uri>likeitTagLib</taglib-uri>
+			<taglib-location>/WEB-INF/tld/likeitTagLib.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/jsp/error/404.jsp</location>

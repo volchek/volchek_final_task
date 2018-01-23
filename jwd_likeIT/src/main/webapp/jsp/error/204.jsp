@@ -8,7 +8,7 @@
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="lc" />
 <fmt:message key="error.204" bundle="${lc}" var="msg" />
-<fmt:message key="user.link" bundle="${lc}" var="find" />
+<fmt:message key="error.link" bundle="${lc}" var="link" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -20,6 +20,6 @@
 	</div>
 	<br>
 	<br>
-	<a href="jsp/findUser.jsp" class="link"><c:out value="${find}" /></a>
+	<a href="../index.jsp" class="link"><c:out value="${link}" /></a>
 </body>
 </html>

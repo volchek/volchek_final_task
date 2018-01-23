@@ -15,6 +15,7 @@ import by.tr.web.controller.command.impl.text.EvaluateQuestion;
 import by.tr.web.controller.command.impl.text.FindQuestionByLanguage;
 import by.tr.web.controller.command.impl.text.FindQuestionByTag;
 import by.tr.web.controller.command.impl.text.ShowLastQuestions;
+import by.tr.web.controller.command.impl.text.FindQuestionById;
 import by.tr.web.controller.command.impl.text.ShowUserAnswer;
 import by.tr.web.controller.command.impl.text.ShowUserQuestion;
 import by.tr.web.controller.command.impl.text.AddAnswer;
@@ -41,6 +42,7 @@ public class ControllerCommandFactory {
 		commands.put(CommandType.SHOW_LAST_QUESTIONS.name(), new ShowLastQuestions());
 		commands.put(CommandType.FIND_QUESTION_BY_LANGUAGE.name(), new FindQuestionByLanguage());
 		commands.put(CommandType.FIND_QUESTION_BY_TAG.name(), new FindQuestionByTag());
+		commands.put(CommandType.FIND_QUESTION_BY_ID.name(), new FindQuestionById());
 	}
 	
 	public static ControllerCommandFactory getInstance() {

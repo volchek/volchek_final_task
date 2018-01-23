@@ -15,6 +15,8 @@
 	var="ask" />
 <fmt:message key="main_menu.registration" bundle="${lc}"
 	var="registration" />
+<fmt:message key="main_menu.search" bundle="${lc}"
+	var="search" />	
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <div class="menu clearfix">
@@ -47,6 +49,8 @@
 						value="${questions}" /></a>
 				<a href='javascript:document.getElementById("my_answers").submit()'><c:out
 						value="${answers}" /></a>
+				<a href="${pageContext.request.contextPath}/jsp/findQuestion.jsp"> <c:out
+						value="${search}" /></a>
 				<a href='javascript:document.getElementById("form_logout").submit()'><c:out
 						value="${logout}" /></a>
 
@@ -56,6 +60,8 @@
 						value="${login}" /></a>
 				<a href="${pageContext.request.contextPath}/jsp/register.jsp"> <c:out
 						value="${registration}" /></a>
+				<a href="${pageContext.request.contextPath}/jsp/findQuestion.jsp"> <c:out
+						value="${search}" /></a>
 			</c:otherwise>
 		</c:choose>
 

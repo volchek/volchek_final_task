@@ -10,7 +10,7 @@ public interface QuestionService {
 	Question addQuestion(int authorId, String title, List<String> languages, List<String> tags, String text)
 			throws ServiceException;
 
-	Question findQuestionById(int questionId) throws ServiceException;
+	Question findQuestionById(String questionId) throws ServiceException;
 
 	List<Question> showLastQuestions() throws ServiceException;
 

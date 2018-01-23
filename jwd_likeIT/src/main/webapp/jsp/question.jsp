@@ -8,29 +8,43 @@
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="lc" />
 <fmt:message key="question.text" bundle="${lc}" var="text" />
+<fmt:message key="question.author_info" bundle="${lc}" var="question_info" />
 <fmt:message key="answer.get_answer" bundle="${lc}" var="send" />
+<fmt:message key="question.answer" bundle="${lc}" var="get_answer" />
+
+<fmt:formatDate value = "${requestScope.question.creationDate}" pattern = "dd-MM-yyyy" var="date" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/styles.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/pell.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/default.css">
+	
 <body>
 	<c:import url="fragment/header.jsp" />
 	<c:import url="menu.jsp" />
-	<c:out value="${requestScope.question.id}" />
-	<c:out value="${requestScope.question.title}" />
-	<c:out value="${requestScope.question.text}" />
-	<c:out value="${requestScope.question.languages}" />
-	<c:out value="${requestScope.question.tags}" />
 
 	<div class="all-content">
 		<div>
 			<div class="question-container clearfix">
 				<div class="mark clearfix">
-					<div class="number">5</div>
-					<form action="#" method="post" class="clearfix">
-						<input type="hidden" name="command" value="SET_MARK" /> <select
+					<div class="number">
+					<c:choose>
+					<c:when test="${empty requestScope.question.averageMark}}">
+					&mdash;
+					</c:when>
+					<c:otherwise>
+					<c:out value="${requestScope.question.averageMark}" />
+					</c:otherwise>
+					</c:choose>
+					</div>
+					<form action="${pageContext.request.contextPath}/Controller" method="post" class="clearfix">
+						<input type="hidden" name="command" value="EVALUATE_QUESTION" />
+						<input type="hidden" name="question" value="${requestScope.question.id}" />
+						 <select
 							name="mark" class="styled-select pink rounded clearfix">
 							<option>5</option>
 							<option>4</option>
@@ -43,23 +57,33 @@
 					</form>
 				</div>
 				<div class="question clearfix">
-					<h1>Title</h1>
+					<h1><c:out value="${ requestScope.question.title }" /></h1>
 					<div>
-					<span class="lang">Lang1</span><span class="lang">Lang2</span><span class="lang">Lang3</span>
+					<c:forEach var="tag" items="${requestScope.question.tags}">
+						<span class="lang"><c:out value="${tag}" /></span>
+					</c:forEach>
 					</div>
 					<div>
-					<span class="tag">Tag1</span><span class="tag">Tag2</span><span class="tag">Tag3</span>				
+					<c:forEach var="lang" items="${requestScope.question.languages}">
+						<span class="lang"><c:out value="${lang}" /></span>
+					</c:forEach>
 					</div>
-					<p>Text... Text... Text...</p>
-					<p class="date">Вопрос задан: Time</p>
-					<p class="author">Author</p>
+					<p id="text" >${ requestScope.question.text }</p>
+					<p class="date"><c:out value="${question_info}" /> <c:out value="${date}" /></p>
+					<p class="author"><c:out value="${ requestScope.question.authorLogin }" /></p>
 				</div>
 			</div>
+			
+			<c:forEach var="answer" items="${requestScope.question.answers}">				
 			<div class="question-container">
 				<div class="mark clearfix">
-					<div class="number">4</div>
+					<c:out value="${not empty answer.averageMark ? answer.averageMark : '—'}"/>
+
 					<form action="#" method="post" class="clearfix">
-						<input type="hidden" name="command" value="SET_MARK" /> <select
+						<input type="hidden" name="command" value="EVALUATE_ANSWER" />
+						<input type="hidden" name="answer" value="${answer.id}" />
+						
+						<select
 							name="mark" class="styled-select pink rounded clearfix">
 							<option>5</option>
 							<option>4</option>
@@ -72,26 +96,26 @@
 					</form>
 				</div>
 				<div class="question">
-					<p>LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
-						LOREM IPSUMLOREM IPSUM LOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM
-						IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM v v LOREM
-						IPSUM</p>
-					<p class="date">Time</p>
-					<p class="author">Author</p>
+					<p>${answer.text}</p>
+					<fmt:formatDate value = "${answer.creationDate}" pattern = "dd-MM-yyyy" var="date" />
+					<p class="date">${date}</p>
+					<p class="author">${answer.authorLogin}</p>
 				</div>
 			</div>
+			</c:forEach>
+
+			<c:if test="${not empty current_user.login}">
 			<div class="answer">
-				<p>Ваш ответ</p>
+				<p><c:out value="${get_answer}" /></p>
 				<form action="${pageContext.request.contextPath}/Controller"
 					method="post">
 					<input type="hidden" name="command" value="GET_ANSWER" />
-					<c:if test="${empty current_user.login}">
 						<div>
 							<div class="content">
 								<div id="pell" class="pell"></div>
 								<div id="text-output" style="display: none"
 									onKeyUp="addCodeTag(replacePreTags())"></div>
-								<textarea name="answer_text" id="answer" style="display: none"></textarea>
+								<textarea name="answer_text" id="question" style="display: none"></textarea>
 							</div>
 
 							<button type="submit" class="signupbtn"
@@ -99,16 +123,21 @@
 								<c:out value="${send}" />
 							</button>
 						</div>
-					</c:if>
 				</form>
 			</div>
+			</c:if>
 		</div>
 	</div>
 	<div class="links clearfix">
-		<p>info</p>
+		<p>C++</p>
+		<p>Java</p>
+		<p>Python</p>
+		<p>JavaScript</p>
 	</div>
 	<c:import url="fragment/footer.jsp"></c:import>
 	<script src="${pageContext.request.contextPath}/js/pell.js"></script>
+	<script src="${pageContext.request.contextPath}/js/add_question.js"></script>
+	<script src="${pageContext.request.contextPath}/js/highlight.pack.js"></script>
 	<script>
       function ensureHTTP (str) {
         return /^https?:\/\//.test(str) && str || `http://${str}`
@@ -171,6 +200,9 @@
         }
       })
     </script>
-
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>
+	   initHighlighting();
+	</script>
 </body>
 </html>

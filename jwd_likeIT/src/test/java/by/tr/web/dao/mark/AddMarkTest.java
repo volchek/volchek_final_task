@@ -51,7 +51,7 @@ public class AddMarkTest {
 	@Test
 	public void shouldAddAndDeleteNewQuestionMark() throws ServiceException {
 
-		Question oldQuestion = questionService.findQuestionById(questionId);
+		Question oldQuestion = questionService.findQuestionById(String.valueOf(questionId));
 
 		Question questionAfterMarkInserting = textService.evaluateText(userId, questionId, mark, TextType.QUESTION);
 		boolean isEquals = oldQuestion.equals(questionAfterMarkInserting);
@@ -64,7 +64,7 @@ public class AddMarkTest {
 	@Test
 	public void shouldUpdateQuestionMark() throws ServiceException {
 
-		Question oldQuestion = questionService.findQuestionById(questionId);
+		Question oldQuestion = questionService.findQuestionById(String.valueOf(questionId));
 
 		Question question = textService.evaluateText(userId, questionId, mark, TextType.QUESTION);
 		double firstAverageMark = question.getAverageMark();

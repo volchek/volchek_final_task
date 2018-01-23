@@ -30,13 +30,15 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public Question findQuestionById(int questionId) throws ServiceException {
+	public Question findQuestionById(String questionId) throws ServiceException {
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
 		QuestionDao questionDao = daoInstance.getQuestionDao();
+		
+		int id = Validator.validateId(questionId);
 
 		try {
-			Question result = questionDao.findQuestionById(questionId);
+			Question result = questionDao.findQuestionById(id);
 			return result;
 
 		} catch (DaoException ex) {

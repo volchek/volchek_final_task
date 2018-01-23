@@ -17,6 +17,7 @@ import by.tr.web.entity.language.LanguageSetSingleton;
 import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;
 import by.tr.web.service.exception.common.ServiceException;
+import by.tr.web.service.exception.text_exception.IdException;
 import by.tr.web.service.exception.text_exception.LanguageException;
 import by.tr.web.service.exception.text_exception.TagException;
 import by.tr.web.service.exception.text_exception.TextException;
@@ -137,6 +138,16 @@ public final class Validator {
 			throw new PasswordException("Password is empty or incorrect");
 		}
 		return true;
+	}
+	
+	public static int validateId(String id) throws IdException {
+		try {
+			int correctId = Integer.parseInt(id);
+			return correctId;
+		} catch (NumberFormatException ex){
+			logger.error("Id " + id + "has an incorrect format");
+			throw new IdException("Id is incorrect", ex);
+		}
 	}
 
 	public static boolean isEmpty(String data) {
