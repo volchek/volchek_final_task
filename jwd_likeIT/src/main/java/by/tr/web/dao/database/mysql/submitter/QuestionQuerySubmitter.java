@@ -76,18 +76,17 @@ public class QuestionQuerySubmitter {
 		Question question = null;
 		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTION_BY_ID)) {
 			ps.setInt(1, questionId);
-			try (ResultSet rs = ps.executeQuery()) {
-				while (rs.next()) {
-					question = new Question();
-					setMainQuestionFields(rs, question);
-					question.setAuthorLogin(rs.getString(7));
-				}
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				question = new Question();
+				setMainQuestionFields(rs, question);
+				question.setAuthorLogin(rs.getString(7));
 			}
+			return question;
 		} catch (SQLException ex) {
 			logger.error("Can't create a question object for the question with id=" + questionId);
 			throw new MySqlException("Failed to execute command and select a question", ex);
 		}
-		return question;
 	}
 
 	public List<Question> selectQuestionByLanguageOrTag(Connection conn, List<String> keywords, KeywordType keywordType)
@@ -257,13 +256,17 @@ public class QuestionQuerySubmitter {
 		}
 	}
 
-	private void setMainQuestionFields(ResultSet rs, Question question) throws SQLException {
+	private void setMainQuestionFields(ResultSet rs, Question question) throws SQLException, MySqlException {
 
+		if (rs.getObject(1) == null){
+			throw new MySqlException("The query result is empty");
+		}
+		
 		question.setId(rs.getInt(1));
 		question.setTitle(rs.getString(2));
 		question.setText(rs.getString(3));
 		question.setCreationDate(rs.getDate(4));
-
+				
 		List<String> languages = getDataList(rs, 5);
 		question.setLanguages(languages);
 

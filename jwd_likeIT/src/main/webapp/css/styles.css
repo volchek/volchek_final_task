@@ -315,6 +315,7 @@ form.question {
 .question-container {
   margin-left: 10px;
   margin-top: 30px;
+  margin-bottom: 40px;
 }
 
 .mark {
@@ -516,7 +517,7 @@ div.links {
   background-color: #FFE5E5;
 }
 
-.myquestions a {
+.myquestions a, .myanswers a {
   margin-top: 0;
   color: #320911;
 }
@@ -545,6 +546,10 @@ div.links {
 
 .hide {
   display: none;
+}
+
+.nonvisible {
+	visibility: hidden;
 }
 
 /* MY ANSWERS */
@@ -886,6 +891,10 @@ span>button {
     display: inline-block;
     text-align: center;
   }
+  
+  div.mark span.tag {
+    display: inline-block;
+  }
 
   .clearfix:after {
     clear: both;
@@ -963,9 +972,9 @@ span>button {
   }
   
   .myquestions .mark .tag {
-      height: 40px;
-      width: 40px;
-      line-height: 40px;
+      height: 30px;
+      width: 30px;
+      line-height: 30px;
   }
   
   

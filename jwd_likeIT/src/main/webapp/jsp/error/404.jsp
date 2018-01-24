@@ -16,7 +16,8 @@
 <body>
 	<jsp:include page="../fragment/header.jsp" flush="true" />
 	<div class="error"><c:out value="${msg}" /></div>
-	<br><br>	
-    <a href="/final-task/index.jsp" class="link"><c:out value="${main_page}" /></a>
+	<br><br>
+    <a href="${pageContext.request.contextPath}/index.jsp" class="link"><c:out value="${main_page}" /></a>
+    <jsp:include page="../fragment/footer.jsp" flush="true" />
 </body>
 </html>

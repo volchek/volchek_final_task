@@ -28,11 +28,11 @@
 				</form>
 				
 				<form action="${pageContext.request.contextPath}/Controller"
-					method="post" id="my_questions">
+					method="get" id="my_questions">
 					<input type="hidden" name="command" value="SHOW_USER_QUESTIONS" />
 				</form>
 				<form action="${pageContext.request.contextPath}/Controller"
-					method="post" id="my_answers">
+					method="get" id="my_answers">
 					<input type="hidden" name="command" value="SHOW_USER_ANSWERS" />
 				</form>
 				

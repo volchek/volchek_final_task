@@ -5,7 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml"%>
 <%@ page isELIgnored="false"%>
-<%@ taglib uri="likeitTagLib" prefix="ct" %>
 
 <!DOCTYPE html>
 <html>

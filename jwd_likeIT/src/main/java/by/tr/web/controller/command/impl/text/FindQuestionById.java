@@ -28,7 +28,6 @@ public class FindQuestionById implements ControllerCommand {
 		try {
 			String questionId = request.getParameter(TextAttribute.QUESTION_ID);
 			Question question = questionService.findQuestionById(questionId);
-			System.out.println(question);
 			request.setAttribute(TextAttribute.QUESTION, question);
 			d = request.getRequestDispatcher(PagePath.QUESTION_PAGE);
 		} catch (ServiceException ex) {

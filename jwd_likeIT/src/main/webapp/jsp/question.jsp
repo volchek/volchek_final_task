@@ -2,17 +2,18 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="likeitTagLib" prefix="ct"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="lc" />
 <fmt:message key="question.text" bundle="${lc}" var="text" />
-<fmt:message key="question.author_info" bundle="${lc}" var="question_info" />
+<fmt:message key="question.author_info" bundle="${lc}"
+	var="question_info" />
 <fmt:message key="answer.get_answer" bundle="${lc}" var="send" />
 <fmt:message key="question.answer" bundle="${lc}" var="get_answer" />
-
-<fmt:formatDate value = "${requestScope.question.creationDate}" pattern = "dd-MM-yyyy" var="date" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
@@ -22,7 +23,6 @@
 	href="${pageContext.request.contextPath}/css/pell.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/default.css">
-	
 <body>
 	<c:import url="fragment/header.jsp" />
 	<c:import url="menu.jsp" />
@@ -32,20 +32,19 @@
 			<div class="question-container clearfix">
 				<div class="mark clearfix">
 					<div class="number">
-					<c:choose>
-					<c:when test="${empty requestScope.question.averageMark}}">
-					&mdash;
-					</c:when>
-					<c:otherwise>
-					<c:out value="${requestScope.question.averageMark}" />
-					</c:otherwise>
-					</c:choose>
+					<ct:mark averageMark="${requestScope.question.averageMark}"/>
 					</div>
-					<form action="${pageContext.request.contextPath}/Controller" method="post" class="clearfix">
+					<c:if
+						test="${(not empty sessionScope.current_user) and (sessionScope.current_user.login != requestScope.question.authorLogin)  } ">
+						<c:set value="true" var="display_mark" />
+					</c:if>
+					<c:out value="${ test }" />
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="get" class="clearfix">
 						<input type="hidden" name="command" value="EVALUATE_QUESTION" />
-						<input type="hidden" name="question" value="${requestScope.question.id}" />
-						 <select
-							name="mark" class="styled-select pink rounded clearfix">
+						<input type="hidden" name="question"
+							value="${requestScope.question.id}" /> <select name="mark"
+							class="${!display_mark ? 'styled-select pink rounded clearfix' : 'nonvisible'}">
 							<option>5</option>
 							<option>4</option>
 							<option>3</option>
@@ -53,63 +52,78 @@
 							<option>1</option>
 							<option>0</option>
 						</select>
-						<button type="submit" class="clearfix">OK</button>
+						<button type="submit"
+							class="${!display_mark ? 'clearfix' : 'nonvisible'}">OK</button>
 					</form>
 				</div>
 				<div class="question clearfix">
-					<h1><c:out value="${ requestScope.question.title }" /></h1>
+					<h1>
+						<c:out value="${ requestScope.question.title }" />
+					</h1>
 					<div>
-					<c:forEach var="tag" items="${requestScope.question.tags}">
-						<span class="lang"><c:out value="${tag}" /></span>
-					</c:forEach>
+						<ct:keyword cssClass="tag"
+							keywordList="${requestScope.question.tags}" />
 					</div>
 					<div>
-					<c:forEach var="lang" items="${requestScope.question.languages}">
-						<span class="lang"><c:out value="${lang}" /></span>
-					</c:forEach>
+						<ct:keyword cssClass="lang"
+							keywordList="${requestScope.question.languages}" />
 					</div>
-					<p id="text" >${ requestScope.question.text }</p>
-					<p class="date"><c:out value="${question_info}" /> <c:out value="${date}" /></p>
-					<p class="author"><c:out value="${ requestScope.question.authorLogin }" /></p>
+					<p id="text">${ requestScope.question.text }</p>
+					<p class="date">
+						<ct:date date="${requestScope.question.creationDate}"
+							text="${question_info}" format="dd-MM-yyyy" />
+					</p>
+					<p class="author">
+						<c:out value="${ requestScope.question.authorLogin }" />
+					</p>
 				</div>
 			</div>
-			
-			<c:forEach var="answer" items="${requestScope.question.answers}">				
-			<div class="question-container">
-				<div class="mark clearfix">
-					<c:out value="${not empty answer.averageMark ? answer.averageMark : '—'}"/>
 
-					<form action="#" method="post" class="clearfix">
-						<input type="hidden" name="command" value="EVALUATE_ANSWER" />
-						<input type="hidden" name="answer" value="${answer.id}" />
-						
-						<select
-							name="mark" class="styled-select pink rounded clearfix">
-							<option>5</option>
-							<option>4</option>
-							<option>3</option>
-							<option>2</option>
-							<option>1</option>
-							<option>0</option>
-						</select>
-						<button type="submit" class="clearfix">OK</button>
-					</form>
+			<c:forEach var="answer" items="${requestScope.question.answers}">
+				<div class="question-container">
+					<div class="mark clearfix">
+						<c:if
+							test="${(not empty sessionScope.current_user) 
+							and (sessionScope.current_user.login != answer.authorLogin)} ">
+							<c:set value="true" var="display_answer" />
+						</c:if>
+
+						<ct:mark averageMark="${answer.averageMark}" />
+						<form action="${pageContext.request.contextPath}/Controller"
+							method="get" class="clearfix">
+							<input type="hidden" name="command" value="EVALUATE_ANSWER" /> <input
+								type="hidden" name="answer" value="${answer.id}" /> <select
+								name="mark"
+								class="${!display_answer ? 'styled-select pink rounded clearfix' : 'nonvisible'}">
+								<option>5</option>
+								<option>4</option>
+								<option>3</option>
+								<option>2</option>
+								<option>1</option>
+								<option>0</option>
+							</select>
+							<button type="submit"
+								class="${!display_answer ? 'clearfix' : 'nonvisible'}">OK</button>
+						</form>
+					</div>
+					<div class="question">
+						<p>${answer.text}</p>
+						<p class="date">
+							<ct:date date="${answer.creationDate}" format="dd-MM-yyyy" />
+						</p>
+						<p class="author">${answer.authorLogin}</p>
+					</div>
 				</div>
-				<div class="question">
-					<p>${answer.text}</p>
-					<fmt:formatDate value = "${answer.creationDate}" pattern = "dd-MM-yyyy" var="date" />
-					<p class="date">${date}</p>
-					<p class="author">${answer.authorLogin}</p>
-				</div>
-			</div>
 			</c:forEach>
 
 			<c:if test="${not empty current_user.login}">
-			<div class="answer">
-				<p><c:out value="${get_answer}" /></p>
-				<form action="${pageContext.request.contextPath}/Controller"
-					method="post">
-					<input type="hidden" name="command" value="GET_ANSWER" />
+				<div class="answer">
+					<p>
+						<c:out value="${get_answer}" />
+					</p>
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
+						<input type="hidden" name="command" value="GET_ANSWER" />
 						<div>
 							<div class="content">
 								<div id="pell" class="pell"></div>
@@ -123,8 +137,8 @@
 								<c:out value="${send}" />
 							</button>
 						</div>
-				</form>
-			</div>
+					</form>
+				</div>
 			</c:if>
 		</div>
 	</div>
@@ -138,6 +152,12 @@
 	<script src="${pageContext.request.contextPath}/js/pell.js"></script>
 	<script src="${pageContext.request.contextPath}/js/add_question.js"></script>
 	<script src="${pageContext.request.contextPath}/js/highlight.pack.js"></script>
+	<script>
+		hljs.configure({
+		  tabReplace: '    '
+		})
+		hljs.initHighlightingOnLoad();
+	</script>
 	<script>
       function ensureHTTP (str) {
         return /^https?:\/\//.test(str) && str || `http://${str}`
@@ -200,9 +220,5 @@
         }
       })
     </script>
-	<script>hljs.initHighlightingOnLoad();</script>
-	<script>
-	   initHighlighting();
-	</script>
 </body>
 </html>

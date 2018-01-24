@@ -20,6 +20,7 @@
 	</div>
 	<br>
 	<br>
-	<a href="../index.jsp" class="link"><c:out value="${link}" /></a>
+	<a href="${pageContext.request.contextPath}/index.jsp" class="link"><c:out value="${link}" /></a>
+	<jsp:include page="../fragment/footer.jsp" flush="true" />
 </body>
 </html>

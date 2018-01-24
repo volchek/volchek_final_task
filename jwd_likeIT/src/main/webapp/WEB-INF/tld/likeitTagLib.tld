@@ -6,16 +6,59 @@
 	<tlib-version>1.0</tlib-version>
 	<short-name>ct</short-name>
 	<uri>/WEB-INF/tld/likeitTagLib</uri>
+
 	<tag>
-		<name>today</name>
-		<tag-class>by.tr.web.controller.tag.SimpleQuestionTag</tag-class>
+		<name>keyword</name>
+		<tag-class>by.tr.web.controller.tag.KeywordTag</tag-class>
+		<body-content>empty</body-content>
+		<info>Tag to show keywords (languages or tags) of the question</info>
+		<attribute>
+			<name>cssClass</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>keywordList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>date</name>
+		<tag-class>by.tr.web.controller.tag.DateTag</tag-class>
 		<body-content>empty</body-content>
 		<info>Format date</info>
 		<attribute>
-			<name>format</name>
+			<name>text</name>
+			<required>false</required>
+			<description>Provide an accompanying text</description>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>date</name>
 			<required>true</required>
+			<description>A date when question or answer was asked</description>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>format</name>
+			<required>false</required>
 			<description>Provide a display format</description>
 			<rtexprvalue>false</rtexprvalue>
 		</attribute>
 	</tag>
+
+	<tag>
+		<name>mark</name>
+		<tag-class>by.tr.web.controller.tag.MarkTag</tag-class>
+		<body-content>empty</body-content>
+		<info>Tag to show average mark of the question or answer</info>
+		<attribute>
+			<name>averageMark</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
 </taglib>
