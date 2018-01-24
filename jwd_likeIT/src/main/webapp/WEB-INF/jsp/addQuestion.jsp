@@ -19,8 +19,8 @@
 <fmt:message key="question.tooltip3" bundle="${lc}" var="tooltip3" />
 <fmt:message key="question.tooltip4" bundle="${lc}" var="tooltip4" />
 
-<c:set var="lang_list" value="${sessionScope.languages}" />
-<c:set var="tag_list" value="${sessionScope.tags}" />
+<c:set var="lang_list" value="${applicationScope.languages}" />
+<c:set var="tag_list" value="${applicationScope.tags}" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
@@ -117,6 +117,7 @@
 		</div>
 	</form>
 	<c:import url="jsp/fragment/footer.jsp"></c:import>
+	<script src="${pageContext.request.contextPath}/js/add_element.js"></script>
 	<script src="${pageContext.request.contextPath}/js/add_question.js"></script>
 	<script src="${pageContext.request.contextPath}/js/awesomplete.js"></script>
 	<script src="${pageContext.request.contextPath}/js/pell.js"></script>

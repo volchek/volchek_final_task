@@ -27,24 +27,24 @@
 	<c:import url="fragment/header.jsp" />
 	<c:import url="menu.jsp" />
 
-	<div class="all-content">
-		<div>
+	<div class="all-content clearfix">
+		<div class="clearfix">
 			<div class="question-container clearfix">
 				<div class="mark clearfix">
 					<div class="number">
-					<ct:mark averageMark="${requestScope.question.averageMark}"/>
+						<ct:mark averageMark="${requestScope.question.averageMark}" />
 					</div>
 					<c:if
-						test="${(not empty sessionScope.current_user) and (sessionScope.current_user.login != requestScope.question.authorLogin)  } ">
+						test="${(not empty sessionScope.current_user) and (sessionScope.current_user.login != requestScope.question.authorLogin) }">
 						<c:set value="true" var="display_mark" />
 					</c:if>
-					<c:out value="${ test }" />
+					<c:out value="${test}" />
 					<form action="${pageContext.request.contextPath}/Controller"
 						method="get" class="clearfix">
 						<input type="hidden" name="command" value="EVALUATE_QUESTION" />
 						<input type="hidden" name="question"
 							value="${requestScope.question.id}" /> <select name="mark"
-							class="${!display_mark ? 'styled-select pink rounded clearfix' : 'nonvisible'}">
+							class="${display_mark ? 'styled-select pink rounded clearfix' : 'nonvisible'}">
 							<option>5</option>
 							<option>4</option>
 							<option>3</option>
@@ -53,7 +53,7 @@
 							<option>0</option>
 						</select>
 						<button type="submit"
-							class="${!display_mark ? 'clearfix' : 'nonvisible'}">OK</button>
+							class="${display_mark ? 'clearfix' : 'nonvisible'}">OK</button>
 					</form>
 				</div>
 				<div class="question clearfix">
@@ -80,21 +80,21 @@
 			</div>
 
 			<c:forEach var="answer" items="${requestScope.question.answers}">
-				<div class="question-container">
+				<div class="question-container clearfix">
 					<div class="mark clearfix">
+						<ct:mark averageMark="${answer.averageMark}" />
+						<c:set value="false" var="display_answer" />
 						<c:if
 							test="${(not empty sessionScope.current_user) 
-							and (sessionScope.current_user.login != answer.authorLogin)} ">
+							and (sessionScope.current_user.login != answer.authorLogin)}">
 							<c:set value="true" var="display_answer" />
 						</c:if>
-
-						<ct:mark averageMark="${answer.averageMark}" />
 						<form action="${pageContext.request.contextPath}/Controller"
 							method="get" class="clearfix">
 							<input type="hidden" name="command" value="EVALUATE_ANSWER" /> <input
 								type="hidden" name="answer" value="${answer.id}" /> <select
 								name="mark"
-								class="${!display_answer ? 'styled-select pink rounded clearfix' : 'nonvisible'}">
+								class="${display_answer ? 'styled-select pink rounded clearfix' : 'nonvisible'}">
 								<option>5</option>
 								<option>4</option>
 								<option>3</option>
@@ -103,10 +103,10 @@
 								<option>0</option>
 							</select>
 							<button type="submit"
-								class="${!display_answer ? 'clearfix' : 'nonvisible'}">OK</button>
+								class="${display_answer ? 'clearfix' : 'nonvisible'}">OK</button>
 						</form>
 					</div>
-					<div class="question">
+					<div class="question clearfix">
 						<p>${answer.text}</p>
 						<p class="date">
 							<ct:date date="${answer.creationDate}" format="dd-MM-yyyy" />
@@ -116,14 +116,17 @@
 				</div>
 			</c:forEach>
 
-			<c:if test="${not empty current_user.login}">
+			<c:if
+				test="${(not empty sessionScope.current_user) and (sessionScope.current_user.login != requestScope.question.authorLogin)}">
 				<div class="answer">
 					<p>
 						<c:out value="${get_answer}" />
 					</p>
 					<form action="${pageContext.request.contextPath}/Controller"
 						method="post">
-						<input type="hidden" name="command" value="GET_ANSWER" />
+						<input type="hidden" name="command" value="GET_ANSWER" /> <input
+							type="hidden" name="question_id"
+							value="${requestScope.question.id}" />
 						<div>
 							<div class="content">
 								<div id="pell" class="pell"></div>

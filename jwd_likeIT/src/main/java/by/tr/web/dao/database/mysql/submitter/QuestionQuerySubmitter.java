@@ -292,8 +292,10 @@ public class QuestionQuerySubmitter {
 
 		List<Integer> langIdList = new ArrayList<Integer>();
 		for (String lang : languages) {
-			int langId = standardLanguages.getLanguageId(lang);
-			langIdList.add(langId);
+			if (lang != null && !lang.isEmpty()){
+				int langId = standardLanguages.getLanguageId(lang);
+				langIdList.add(langId);
+			}
 		}
 		completeTagOrLanguageArray(langIdList);
 		return langIdList;
@@ -305,8 +307,10 @@ public class QuestionQuerySubmitter {
 
 		List<Integer> tagIdList = new ArrayList<Integer>();
 		for (String tag : tags) {
-			int tagId = standardTags.getTagId(tag);
-			tagIdList.add(tagId);
+			if (tag != null && !tag.isEmpty()){
+				int tagId = standardTags.getTagId(tag);
+				tagIdList.add(tagId);
+			}
 		}
 		completeTagOrLanguageArray(tagIdList);
 		return tagIdList;

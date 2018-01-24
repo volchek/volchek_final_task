@@ -676,6 +676,10 @@ div.feed div.text {
 
 /* FIND QUESTION */
 
+.finder {
+	border-bottom: 1px solid lightgray;
+}
+
 .finder button {
   margin-top: 10px;
 }
