@@ -80,7 +80,6 @@ public class QuestionQuerySubmitter {
 			while (rs.next()) {
 				question = new Question();
 				setMainQuestionFields(rs, question);
-				question.setAuthorLogin(rs.getString(7));
 			}
 			return question;
 		} catch (SQLException ex) {
@@ -88,6 +87,27 @@ public class QuestionQuerySubmitter {
 			throw new MySqlException("Failed to execute command and select a question", ex);
 		}
 	}
+	
+	public List<Question> selectQuestionFeed(Connection conn, int userId) throws MySqlException {
+
+		Question question = null;
+		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_LAST_QUESTIONS_FOR_USER)) {
+			ps.setInt(1, userId);
+			ResultSet rs = ps.executeQuery();
+			
+			List<Question> questions = new ArrayList<Question>();
+			while (rs.next()) {
+				question = new Question();
+				setMainQuestionFields(rs, question);
+				questions.add(question);
+			}
+			return questions;
+		} catch (SQLException ex) {
+			logger.error("Can't select questions for the user with id=" + userId);
+			throw new MySqlException("Failed to execute command and select a question list", ex);
+		}
+	}
+
 
 	public List<Question> selectQuestionByLanguageOrTag(Connection conn, List<String> keywords, KeywordType keywordType)
 			throws MySqlException {
@@ -112,8 +132,6 @@ public class QuestionQuerySubmitter {
 			while (rs.next()) {
 				Question question = new Question();
 				setMainQuestionFields(rs, question);
-				question.setAuthorLogin(rs.getString(7));
-				question.setAverageMark(extractAverageMark(rs, 8));
 				questionList.add(question);
 			}
 			return questionList;
@@ -135,9 +153,6 @@ public class QuestionQuerySubmitter {
 			while (rs.next()) {
 				Question question = new Question();
 				setMainQuestionFields(rs, question);
-				question.setAuthorLogin(rs.getString(7));
-				BigDecimal mark = rs.getBigDecimal(8);
-				question.setAverageMark(mark == null ? null : mark.doubleValue());
 				questions.add(question);
 			}
 			return questions;
@@ -160,13 +175,9 @@ public class QuestionQuerySubmitter {
 			while (rs.next()) {
 				Question question = new Question();
 				setMainQuestionFields(rs, question);
-				question.setAuthorLogin(rs.getString(7));
-				BigDecimal mark = rs.getBigDecimal(8);
-				question.setAverageMark(mark == null ? null : mark.doubleValue());
 				Answer answer = new Answer();
-				answer.setId(rs.getInt(8));
+				answer.setId(rs.getInt(9));
 				question.addAnswer(answer);
-
 				questions.add(question);
 			}
 			return questions;
@@ -272,18 +283,16 @@ public class QuestionQuerySubmitter {
 
 		List<String> tags = getDataList(rs, 6);
 		question.setTags(tags);
+		
+		question.setAuthorLogin(rs.getString(7));
+		BigDecimal mark = rs.getBigDecimal(8);
+		question.setAverageMark(mark == null ? null : mark.doubleValue());
 	}
 
 	private List<String> getDataList(ResultSet rs, int column) throws SQLException {
 		String strLangs = rs.getString(column);
 		List<String> langs = Arrays.asList(strLangs.split(PATTERN_TO_SPLIT_TAGS));
 		return langs;
-	}
-
-	private Double extractAverageMark(ResultSet rs, int columnNumber) throws SQLException {
-		BigDecimal mark = rs.getBigDecimal(columnNumber);
-		Double averageMark = (mark == null ? null : mark.doubleValue());
-		return averageMark;
 	}
 
 	private List<Integer> getLanguageIdList(List<String> languages) {

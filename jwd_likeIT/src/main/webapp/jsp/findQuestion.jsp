@@ -15,6 +15,7 @@
 <title>LikeIT</title>
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 <link rel="stylesheet" type="text/css" href="../css/awesomplete.css">
+</head>
 <body>
 	<c:import url="fragment/header.jsp"></c:import>
 	<c:import url="menu.jsp"></c:import>

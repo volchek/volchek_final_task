@@ -31,10 +31,12 @@ public class SignIn implements ControllerCommand {
 
 		try {
 			User user = userService.signIn(login, password);
+
 			HttpSession session = request.getSession(true);
 			session.setAttribute(UserAttribute.CURRENT_USER, user);
 			session.setAttribute(UserAttribute.STRING_LANGUAGES, user.getLanguages());
-			response.sendRedirect(PagePath.AFTER_SING_IN_PAGE);
+			
+			response.sendRedirect(PagePath.AFTER_SING_IN_PAGE + "?command=SHOW_LAST_QUESTIONS");
 		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
 			d.forward(request, response);

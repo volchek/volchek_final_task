@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.mysql.query.util.KeywordType;
 import by.tr.web.dao.database.mysql.submitter.AnswerQuerySubmitter;
-import by.tr.web.dao.database.mysql.submitter.MarkQuerySubmitter;
 import by.tr.web.dao.database.mysql.submitter.QuestionQuerySubmitter;
 import by.tr.web.dao.database.util.exception.MySqlException;
 import by.tr.web.dao.database.util.pool.ConnectionPool;
@@ -17,7 +16,6 @@ import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.question.QuestionDao;
 import by.tr.web.entity.text.Answer;
 import by.tr.web.entity.text.Question;
-import by.tr.web.entity.text.TextType;
 
 public class MySQLQuestionDaoImpl implements QuestionDao {
 
@@ -69,21 +67,24 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 		}
 	}
 
-	public Question selectQuestionById(Connection conn, int questionId) throws MySqlException {
+	public Question selectQuestionById(Connection conn, int questionId) throws DaoException {
 
-		QuestionQuerySubmitter questionSubmitter = new QuestionQuerySubmitter();
-		Question question = questionSubmitter.selectQuestionById(conn, questionId);
+		try {
+			QuestionQuerySubmitter questionSubmitter = new QuestionQuerySubmitter();
+			Question question = questionSubmitter.selectQuestionById(conn, questionId);
 
-		MarkQuerySubmitter markSubmitter = new MarkQuerySubmitter();
-
-		Double averageMark = markSubmitter.getAverageMark(conn, questionId, TextType.QUESTION);
-		question.setAverageMark(averageMark);
-
-		AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
-		List<Answer> answers = answerSubmitter.selectAnswersToTheQuestion(conn, questionId);
-		question.setAnswers(answers);
-
-		return question;
+			if (question == null) {
+				throw new DaoException("Question with id=" + questionId + "doesn't exist");
+			} else {
+				AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
+				List<Answer> answers = answerSubmitter.selectAnswersToTheQuestion(conn, questionId);
+				question.setAnswers(answers);
+				return question;
+			}
+		} catch (MySqlException ex) {
+			logger.error("Can't execure query and select questions with id=" + questionId);
+			throw new DaoException("Question with id=" + questionId + "doesn't exist");
+		}
 
 	}
 
@@ -133,8 +134,7 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 			conn = connPool.getConnection();
 
 			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
-			List<Question> questionList = null;
-			// submitter.selectQuestionByLanguageOrTag(conn);
+			List<Question> questionList = submitter.selectQuestionFeed(conn, 1);
 			return questionList;
 		} catch (MySqlException ex) {
 			logger.error("Can't execure query and select last questions");
@@ -146,8 +146,19 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public List<Question> showLastQuestionsForRegisteredUser(int userId) throws DaoException {
-		// TODO
-		return null;
+
+		Connection conn = null;
+		try {
+			conn = connPool.getConnection();
+			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
+			List<Question> questionList = submitter.selectQuestionFeed(conn, userId);
+			return questionList;
+		} catch (MySqlException ex) {
+			logger.error("Can't execure query and select last questions for the registered user with id = " + userId);
+			throw new DaoException("Failed to select a question list", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
 	}
 
 }

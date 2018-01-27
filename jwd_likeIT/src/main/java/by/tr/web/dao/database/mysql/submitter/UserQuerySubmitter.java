@@ -1,5 +1,6 @@
 package by.tr.web.dao.database.mysql.submitter;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -74,6 +75,21 @@ public class UserQuerySubmitter {
 			return executeQuery(conn, ps);
 		} catch (SQLException ex) {
 			logger.error("Can't find user with login = " + login);
+			throw new MySqlException("Failed to execute searching command", ex);
+		}
+	}
+
+	public void getUserRating(Connection conn, int userId, User user) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(UserQuery.SELECT_USER_RATING)) {
+			ps.setInt(1, userId);
+			ps.setInt(2, userId);
+			ResultSet rs = ps.executeQuery();
+
+			Double rating = extractRating(rs);			
+			user.setRating(rating);
+		} catch (SQLException ex) {
+			logger.error("Can't calculate rating for the user with id=" + userId);
 			throw new MySqlException("Failed to execute searching command", ex);
 		}
 	}
@@ -185,6 +201,7 @@ public class UserQuerySubmitter {
 			user.setStatus(rs.getString(DatabaseField.STATUS));
 			user.setBanned(rs.getBoolean(DatabaseField.IS_BANNED));
 			user.setId(rs.getInt(DatabaseField.USER_ID));
+			user.setRegistrationDate(rs.getDate(DatabaseField.REGISTRATION_DATE));
 
 			String accessLevel = rs.getString(DatabaseField.ACCESS);
 			boolean isAdmin = (accessLevel.equals("admin") ? true : false);
@@ -194,6 +211,14 @@ public class UserQuerySubmitter {
 		}
 
 		return result;
+	}
+
+	private Double extractRating(ResultSet rs) throws SQLException {
+		if (rs.next()){
+			BigDecimal rating = rs.getBigDecimal(1);
+			return rating == null ? null : rating.doubleValue();
+		}
+		return null;
 	}
 
 	private User getFirstUser(ResultSet rs) throws SQLException {

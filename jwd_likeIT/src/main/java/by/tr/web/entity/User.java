@@ -22,6 +22,8 @@ public class User implements Serializable {
 	private String name;
 
 	private Date birthday;
+	private Date registrationDate;
+	
 	private List<String> email;
 	private String avatar;
 
@@ -34,6 +36,7 @@ public class User implements Serializable {
 	private boolean isAdmin;
 	private boolean isBanned;
 	
+	private Double rating;
 	private int id;
 
 	public User() {
@@ -84,6 +87,14 @@ public class User implements Serializable {
 		Format formatter = new SimpleDateFormat(dateFormat);
 		String date = formatter.format(birthday);
 		return date;
+	}
+
+	public void setRegistrationDate(Date date){
+		registrationDate = date;
+	}
+
+	public Date getRegistrationDate(){
+		return registrationDate;
 	}
 
 	public void setEmail(List<String> email) {
@@ -160,6 +171,14 @@ public class User implements Serializable {
 		return isBanned;
 	}
 	
+	public void setRating(Double rating){
+		this.rating = rating;
+	}
+	
+	public Double getRating(){
+		return rating;
+	}
+	
 	public int getId(){
 		return id;
 	}
@@ -177,6 +196,7 @@ public class User implements Serializable {
 		result = prime * result + (isBanned ? 1231 : 1237);
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
 		result = prime * result + ((birthday == null) ? 0 : birthday.hashCode());
+		result = prime * result + ((registrationDate == null) ? 0 : registrationDate.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((languages == null) ? 0 : languages.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
@@ -184,6 +204,10 @@ public class User implements Serializable {
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(rating);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+
 		return result;
 	}
 
@@ -235,6 +259,27 @@ public class User implements Serializable {
 			if (!s1.equals(s2)){
 				return false;
 			}
+		}
+		
+		if (registrationDate == null) {
+			if (other.registrationDate != null) {
+				return false;
+			}
+		} else {
+			Format formatter = new SimpleDateFormat(stringFormat);
+			String s1 = formatter.format(registrationDate);
+			String s2 = formatter.format(other.registrationDate);
+			if (!s1.equals(s2)){
+				return false;
+			}
+		}
+		
+		if (rating == null){
+			if (other.rating != null){
+				return false;
+			}
+		} else if (Double.doubleToLongBits(rating) != Double.doubleToLongBits(other.rating)) {
+			return false;
 		}
 
 		if (email == null) {
@@ -301,6 +346,8 @@ public class User implements Serializable {
 				+ "; languages=" + languages + 
 				"; isAdmin=" + isAdmin + 
 				"; isBanned=" + isBanned +
+				", registrationDate=" + registrationDate +
+				", rating=" + rating +
 				"; id=" + id;
 	}
 

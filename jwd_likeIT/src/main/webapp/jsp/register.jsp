@@ -60,6 +60,7 @@
 <link href="https://fonts.googleapis.com/css?family=Raleway"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
+</head>
 <body>
 	<c:import url="fragment/header.jsp"></c:import>
 	<c:import url="registrationMenu.jsp"></c:import>

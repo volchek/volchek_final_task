@@ -85,6 +85,7 @@ public class MySQLUserDaoImpl implements UserDao {
 			if (user == null) {
 				throw new DaoException("User wasn't found");
 			}
+			query.getUserRating(conn, user.getId(), user);
 			return user;
 		} catch (MySqlException ex) {
 			throw new DaoException("Can't execute query", ex);

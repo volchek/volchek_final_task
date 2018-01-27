@@ -14,6 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
+</head>
 <body>
 	<c:import url="fragment/header.jsp"></c:import>
 	<c:import url="menu.jsp"></c:import>

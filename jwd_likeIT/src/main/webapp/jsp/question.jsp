@@ -23,6 +23,7 @@
 	href="${pageContext.request.contextPath}/css/pell.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/default.css">
+</head>
 <body>
 	<c:import url="fragment/header.jsp" />
 	<c:import url="menu.jsp" />
