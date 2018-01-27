@@ -11,7 +11,14 @@
 <head>
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="lc" />
-<fmt:message key="main_menu.login" bundle="${lc}" var="login" />
+<fmt:message key="user.rating" bundle="${lc}" var="rating" />
+<fmt:message key="user.date" bundle="${lc}" var="date" />
+<fmt:message key="user.question" bundle="${lc}" var="question" />
+<fmt:message key="user.answer" bundle="${lc}" var="answer" />
+<fmt:message key="user.best_question" bundle="${lc}" var="best_question" />
+<fmt:message key="user.best_answer" bundle="${lc}" var="best_answer" />
+<fmt:message key="user.no_questions" bundle="${lc}" var="no_questions" />
+<fmt:message key="user.no_answers" bundle="${lc}" var="no_answers" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>LikeIt</title>
@@ -41,15 +48,15 @@
 				<c:out value="${user.status}" />
 			</p>
 			<p class="date">
-				<ct:date date="${user.registrationDate}" text="date"
+				<ct:date date="${user.registrationDate}" text="${date}"
 					format="dd-MM-yyyy" />
 			</p>
-			<p>Рейтинг: "${user.rating}"</p>
+			<p><c:out value="${rating}" />${user.rating}</p>
 
 			<table>
 				<tr>
-					<td>Вопросов</td>
-					<td>Ответов</td>
+					<td><c:out value="${question}" /></td>
+					<td><c:out value="${answer}" /></td>
 				</tr>
 				<tr>
 					<td>${fn:length(requestScope.question_list)}</td>
@@ -58,80 +65,91 @@
 			</table>
 
 			<c:choose>
-			<c:when test="${(requestScope.question_list != null) and (fn:length(requestScope.question_list)!=0)}">
-				<div>Лучшие вопросы</div>
-				<div class="question-container myquestions clearfix">
+				<c:when
+					test="${(requestScope.question_list != null) and (fn:length(requestScope.question_list)!=0)}">
+					<div><c:out value="${best_question}" /></div>
+					<div class="question-container myquestions clearfix">
 
-					<c:forEach var="item" items="${ requestScope.question_list}">
-					
-						<form action="Controller" method="get" class="clearfix"
-							id='user_question${item.id}'>
-							<input type="hidden" name="command" value="FIND_QUESTION_BY_ID" />
-							<input type="hidden" name="question_id" value="${item.id}" />
-							<div class="mark clearfix">
-								<span><ct:mark
-										averageMark="${item.averageMark}" /></span>
-							</div>
-							<div class="question clearfix">
-								<h2>
-									<c:set value='user_question${item.id}' var="elem_id" />
-									<a
-										href='javascript:document.getElementById("${elem_id}").submit()'>${item.title}</a>
-								</h2>
-								<div>
-									<ct:keyword cssClass="tag" keywordList="${item.languages}" />
-								</div>
-								<div>
-									<ct:keyword cssClass="tag" keywordList="${item.tags}" />
-								</div>
-								<p class="date">
-									<ct:date date="${item.creationDate}" text="${question_info}"
-										format="dd-MM-yyyy" />
-								</p>
-							</div>
-						</form>
-					</c:forEach>
-				</div>
-			</c:when>
-			<c:otherwise>
-				<p>Пользователь пока не задавал вопросов</p>
-			</c:otherwise>
+						<table>
+
+							<c:forEach var="item" items="${ requestScope.question_list}">
+
+								<tr>
+									<td>
+										<div class="mark clearfix">
+											<span><ct:mark averageMark="${item.averageMark}" /></span>
+										</div>
+									</td>
+
+									<td>
+										<form action="Controller" method="get" class="clearfix"
+											id='user_question${item.id}'>
+											<input type="hidden" name="command"
+												value="FIND_QUESTION_BY_ID" /> <input type="hidden"
+												name="question_id" value="${item.id}" />
+										</form>
+										<h2>
+											<c:set value='user_question${item.id}' var="elem_id" />
+											<a
+												href='javascript:document.getElementById("${elem_id}").submit()'>${item.title}</a>
+										</h2>
+									</td>
+
+									<td><ct:keyword cssClass="tag"
+											keywordList="${item.languages}" /> <ct:keyword
+											cssClass="tag" keywordList="${item.tags}" /></td>
+									<td>
+										<p class="date">
+											<ct:date date="${item.creationDate}" text="${question_info}"
+												format="dd-MM-yyyy" />
+										</p>
+									</td>
+								</tr>
+
+							</c:forEach>
+						</table>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<p><c:out value="${user.login}"/> <c:out value="${no_questions}" /></p>
+				</c:otherwise>
 			</c:choose>
 
 			<c:choose>
-			<c:when test="${(requestScope.answer_list != null) and (fn:length(requestScope.answer_list)!=0)}">
-				<div>Лучшие ответы</div>
-				<div class="question-container myanswers clearfix">
-
-					<c:forEach var="item" items="${ requestScope.answer_list}">
-
-						<form action="Controller" method="get" class="clearfix"
-							id='user_question${item.id}'>
-							<input type="hidden" name="command" value="FIND_QUESTION_BY_ID" />
-							<input type="hidden" name="question_id" value="${item.id}" />
-
-							<div class="question clearfix">
-								<div>
-									<ct:keyword cssClass="tag" keywordList="${item.languages}" />
-									<ct:keyword cssClass="tag" keywordList="${item.tags}" />
-								</div>
-								<h2>
-									<c:set value='user_question${item.id}' var="elem_id" />
-									<a
-										href='javascript:document.getElementById("${elem_id}").submit()'>${item.title}</a>
-								</h2>
-								<div>
-									<span class="date"> <ct:date date="${item.creationDate}"
-											text="${signed}" format="dd-MM-yyyy" /></span> <span class="author">${item.authorLogin}</span>
-								</div>
-							</div>
-						</form>
-					</c:forEach>
-				</div>
-			</c:when>
-			<c:otherwise>
-				<p>Пользователь пока не отвечал на вопросы</p>
-			</c:otherwise>
+				<c:when
+					test="${(requestScope.answer_list != null) and (fn:length(requestScope.answer_list)!=0)}">
+					<div><c:out value="${best_answer}" /></div>
+					<div class="question-container myanswers clearfix">
+						<table>
+							<c:forEach var="item" items="${requestScope.answer_list}">
+								<tr>
+									<td>
+										<form action="Controller" method="get" class="clearfix"
+											id='user_question${item.id}'>
+											<input type="hidden" name="command"
+												value="FIND_QUESTION_BY_ID" /> <input type="hidden"
+												name="question_id" value="${item.id}" />
+										</form>
+										<h2>
+											<c:set value='user_question${item.id}' var="elem_id" />
+											<a
+												href='javascript:document.getElementById("${elem_id}").submit()'>${item.title}</a>
+										</h2>
+									</td>
+									<td><ct:keyword cssClass="lang"
+											keywordList="${item.languages}" /> <ct:keyword
+											cssClass="lang" keywordList="${item.tags}" /></td>
+									<td><span class="date"> <ct:date
+												date="${item.creationDate}" text="${signed}"
+												format="dd-MM-yyyy" /></span></td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<p><c:out value="${user.login}"/> <c:out value="${no_answers}" /></p>
+				</c:otherwise>
 			</c:choose>
 
 		</div>
