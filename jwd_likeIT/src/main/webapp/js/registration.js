@@ -65,3 +65,11 @@ function resetFields() {
 		opt[i].selected = false;
 	}
 }
+
+function deleteLanguage(language) {
+	for (var i = 1; i < 5; ++i){
+		var element = document.getElementById(language + i);
+		element.checked = false;
+	}
+}
+

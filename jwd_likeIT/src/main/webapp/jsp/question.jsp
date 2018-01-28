@@ -75,7 +75,9 @@
 							text="${question_info}" format="dd-MM-yyyy" />
 					</p>
 					<p class="author">
+						<a href="${pageContext.request.contextPath}/Controller?command=FIND_USER_BY_LOGIN&login=${requestScope.question.authorLogin }">
 						<c:out value="${ requestScope.question.authorLogin }" />
+						</a>
 					</p>
 				</div>
 			</div>
@@ -112,7 +114,11 @@
 						<p class="date">
 							<ct:date date="${answer.creationDate}" format="dd-MM-yyyy" />
 						</p>
-						<p class="author">${answer.authorLogin}</p>
+						<p class="author">
+						<a href="${pageContext.request.contextPath}/Controller?command=FIND_USER_BY_LOGIN&login=${answer.authorLogin}">
+						${answer.authorLogin}
+						</a>
+						</p>
 					</div>
 				</div>
 			</c:forEach>

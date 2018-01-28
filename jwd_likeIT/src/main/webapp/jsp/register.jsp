@@ -66,17 +66,13 @@
 	<c:import url="registrationMenu.jsp"></c:import>
 
 	<form action="../Controller" method="post"
-	
-	
 		onsubmit="return checkPasswords()">
 		<input type="hidden" name="command" value="REGISTER" />
 		<div class="personal-info clearfix">
 			<h2>
 				<c:out value="${personal_info}" />
 			</h2>
-			<h4 id="registration-error">
-				
-			</h4>
+			<h4 id="registration-error"></h4>
 			<label><c:out value="${surname}" /> <br> <input
 				type="text" name="surname" pattern="^[\D]+$" required> </label> <br>
 			<label><c:out value="${name}" /> <br> <input
@@ -97,29 +93,25 @@
 					<button id="add-email" onclick="return addEmail()">+</button>
 				</span>
 			</div>
-			<label><c:out value="${image}" /><br> <input type="url"
-				name="avatar"> </label> <br> <label><c:out
-					value="${login}" /> <br> <input type="text" name="login"
-				pattern="^[a-zA-Z][0-9a-zA-Z]{4,}$"
-				title="" required> </label> <br>
-			<label><c:out value="${password}" /> <br>
-			<input type="password" name="password"
-				pattern="^(?=.{6,})(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).*$"
-				title="" id="psw1" required>
-			</label>
-			<br> <label><c:out value="${rpt_password}" /> <br>
-				<input type="password" name="psw-repeat"
-				pattern="^(?=.{6,})(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).*$"
-				title="" id="psw2" required 
-				onblur="return checkPasswords()"> </label><span class="err"
-				id="psw-error"></span>
+			<br> <label><c:out value="${login}" /> <br> <input
+				type="text" name="login" pattern="^[a-zA-Z][0-9a-zA-Z]{4,}$"
+				title="" required> </label> <br> <label><c:out
+					value="${password}" /> <br> <input type="password"
+				name="password"
+				pattern="^(?=.{6,})(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).*$" title=""
+				id="psw1" required> </label> <br> <label><c:out
+					value="${rpt_password}" /> <br> <input type="password"
+				name="psw-repeat"
+				pattern="^(?=.{6,})(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).*$" title=""
+				id="psw2" required onblur="return checkPasswords()"> </label><span
+				class="err" id="psw-error"></span>
 		</div>
 		<div class="right-side clearfix">
 			<h2>
 				<c:out value="${language}" />
 			</h2>
 			<div class="lang clearfix">
-				(1 &ndash;
+				1 &ndash;
 				<c:out value="${beginner}" />
 				; 2 &ndash;
 				<c:out value="${user}" />
@@ -127,7 +119,6 @@
 				<c:out value="${specialist}" />
 				; 4 &ndash;
 				<c:out value="${expert}" />
-				)
 			</div>
 			<table>
 				<tr>
@@ -149,6 +140,9 @@
 							<label for="c4">4</label><input type="radio" name="c" value="4"
 								id="c4">
 						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("c")'>x</button>
+						</div>
 					</td>
 					<td><span class="label-lang"><c:out value="${perl}" /></span></td>
 					<td>
@@ -167,6 +161,9 @@
 						<div class="vertical-label">
 							<label for="perl4">4</label><input type="radio" name="perl"
 								value="4" id="perl4">
+						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("perl")'>x</button>
 						</div>
 					</td>
 				</tr>
@@ -189,6 +186,9 @@
 							<label for="cpp4">4</label><input type="radio" name="c++"
 								value="4" id="cpp4">
 						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("cpp")'>x</button>
+						</div>
 					</td>
 					<td><span class="label-lang"><c:out value="${php}" /></span></td>
 					<td>
@@ -208,6 +208,10 @@
 							<label for="php4">4</label><input type="radio" name="php"
 								value="4" id="php4">
 						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("php")'>x</button>
+						</div>
+
 					</td>
 				</tr>
 				<tr>
@@ -229,6 +233,9 @@
 							<label for="csharp4">4</label><input type="radio" name="c#"
 								value="4" id="csharp4">
 						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("csharp")'>x</button>
+						</div>
 					</td>
 					<td><span class="label-lang"><c:out value="${html}" /></span></td>
 					<td>
@@ -247,6 +254,9 @@
 						<div class="vertical-label">
 							<label for="html4">4</label><input type="radio" name="html"
 								value="4" id="html4">
+						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("html")'>x</button>
 						</div>
 					</td>
 				</tr>
@@ -269,6 +279,9 @@
 							<label for="java4">4</label><input type="radio" name="java"
 								value="4" id="java4">
 						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("java")'>x</button>
+						</div>
 					</td>
 					<td><span class="label-lang"><c:out value="${css}" /></span></td>
 					<td>
@@ -287,6 +300,9 @@
 						<div class="vertical-label">
 							<label for="css4">4</label><input type="radio" name="css"
 								value="4" id="css4">
+						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("css")'>x</button>
 						</div>
 					</td>
 				</tr>
@@ -309,6 +325,9 @@
 							<label for="python4">4</label><input type="radio" name="python"
 								value="4" id="python4">
 						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("python")'>x</button>
+						</div>
 					</td>
 					<td><span class="label-lang"><c:out value="${sql}" /></span></td>
 					<td>
@@ -327,6 +346,9 @@
 						<div class="vertical-label">
 							<label for="sql4">4</label><input type="radio" name="sql"
 								value="4" id="sql4">
+						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("sql")'>x</button>
 						</div>
 					</td>
 				</tr>
@@ -349,32 +371,37 @@
 							<label for="swift4">4</label><input type="radio" name="swift"
 								value="4" id="swift4">
 						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("swift")'>x</button>
+						</div>
 					</td>
 					<td><span class="label-lang"><c:out value="${js}" /></span></td>
 					<td>
 						<div class="vertical-label">
-							<label for="js1">1</label><input type="radio" name="javascript" value="1"
-								id="js1">
+							<label for="js1">1</label><input type="radio" name="javascript"
+								value="1" id="js1">
 						</div>
 						<div class="vertical-label">
-							<label for="js2">2</label><input type="radio" name="javascript" value="2"
-								id="js2">
+							<label for="js2">2</label><input type="radio" name="javascript"
+								value="2" id="js2">
 						</div>
 						<div class="vertical-label">
-							<label for="js3">3</label><input type="radio" name="javascript" value="3"
-								id="js3">
+							<label for="js3">3</label><input type="radio" name="javascript"
+								value="3" id="js3">
 						</div>
 						<div class="vertical-label">
-							<label for="js4">4</label><input type="radio" name="javascript" value="4"
-								id="js4">
+							<label for="js4">4</label><input type="radio" name="javascript"
+								value="4" id="js4">
+						</div>
+						<div class="vertical-label">
+							<button type="button" onclick='deleteLanguage("js")'>x</button>
 						</div>
 					</td>
 				</tr>
 			</table>
 		</div>
 		<div class="buttons">
-			<button type="submit" class="cancelbtn"
-				onclick="resetFields()">
+			<button type="submit" class="cancelbtn" onclick="resetFields()">
 				<c:out value="${cancel}" />
 			</button>
 			<button type="submit" class="signupbtn">

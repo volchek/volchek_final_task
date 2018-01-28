@@ -10,6 +10,8 @@
 <fmt:setBundle basename="localization.local" var="lc" />
 <fmt:message key="find.btn.find" bundle="${lc}" var="find" />
 <fmt:message key="find.id_question" bundle="${lc}" var="id" />
+<fmt:message key="find.languages" bundle="${lc}" var="languages" />
+<fmt:message key="find.tags" bundle="${lc}" var="tags" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
@@ -42,7 +44,7 @@
 			method="get">
 			<input type="hidden" name="command" value="FIND_QUESTION_BY_LANGUAGE" />
 			<div class="container">
-				<label>Langs<br>
+				<label><c:out value="${languages}" /><br>
 				<input type="text"
 					name="language" class="tag" required id="lang1"
 					style="display: inline" />
@@ -71,7 +73,7 @@
 			method="get">
 			<input type="hidden" name="command" value="FIND_QUESTION_BY_TAG" />
 			<div class="container">
-				<label>Tags <br> <input type="text" name="tag"
+				<label><c:out value="${tags}" /> <br> <input type="text" name="tag"
 					id="tag1" class="tag awesomplete" style="display: inline" required />
 					<input type="text" name="tag awesomplete" id="tag2" class="tag"
 					style="display: none" /> <input type="text" name="tag" id="tag3"

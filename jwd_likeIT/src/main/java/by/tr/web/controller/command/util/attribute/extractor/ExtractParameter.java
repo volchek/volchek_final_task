@@ -50,12 +50,12 @@ public class ExtractParameter {
 			String reserveEmail = request.getParameter(UserAttribute.RESERVE_EMAIL).toString();
 			user.addEmail(reserveEmail);
 		}
-
+/*
 		if (request.getParameter(UserAttribute.AVATAR) != null) {
 			String avatar = request.getParameter(UserAttribute.AVATAR).toString();
 			user.setAvatar(avatar);
 		}
-
+*/
 	}
 
 	public static List<String> extractParameterList(HttpServletRequest request, String parameterName) {

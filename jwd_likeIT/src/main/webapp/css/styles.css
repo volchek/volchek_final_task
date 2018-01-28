@@ -182,6 +182,7 @@ footer, .footer {
 div.lang {
   font-family: 'Open Sans Condensed', LightRoboto, sans-serif;
   font-size: 12pt;
+  margin-bottom: 20px;
 }
 
 .right-side td {
@@ -219,6 +220,23 @@ div.lang {
 
 .right-side h2 {
   margin-left: 0;
+}
+
+.vertical-label button {
+	display:inline-block;
+	width: 15px;
+	height: 15px;
+	float: right;
+	padding: 0;
+	border: 1px solid lightgray;
+	border-bottom: 2px solid gray;
+	border-right: 2px solid lightgray;
+	background: white;
+	font-size: 9px;
+	margin-left: 4px;
+	margin-top: 0;
+	margin-bottom: 0;
+	color:red;
 }
 
 /* MAIN BUTTONS */
@@ -422,7 +440,7 @@ select:-moz-focusring {
   margin: 2px;
   font-size: 12px;
   -moz-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px;
+  border-radius: 5px 5px;
 }
 
 .question-container .tag {
@@ -436,8 +454,9 @@ select:-moz-focusring {
 }
 
 
-.author {
-  color: #992D2D; 
+.author a {
+  color: #992D2D;
+  text-decoration: none;
 }
 
 .answer .signupbtn {
@@ -497,8 +516,8 @@ div.links {
     background-color: #FDB4C2;
     color: white;
     text-align: center;
-  font-size: 18px;
-  margin-right: 4%;
+  	font-size: 18px;
+  	margin-right: 4%;
 }
 
 
@@ -525,7 +544,6 @@ div.links {
 .myquestions a:link, .myanswers a:link {
   padding-right: 20px;
   text-decoration: none;
-  
 }
 
 .myquestions .date {
@@ -593,6 +611,11 @@ div.links {
 .myanswers h2 + div > span.author {
   padding-right: 0;
 }
+
+.myanswers span.author a  {
+	color: #B32525;
+}
+
 
 .myanswers h2 + div > span.date {
   padding-right: 5px;
@@ -679,8 +702,9 @@ div.feed div.text {
 .user h1 {
 	display: inline-block;
 	float: left;
-	width: 150px;
-	margin-right: 40px;
+	width: 170px;
+	padding-right: 50px;
+	text-align: center;
 	color: black;
 }
 
@@ -746,16 +770,13 @@ table.user-questions td.tags {
 }
 
 table.user-questions td.tags span.lang {
-	border: 1px #FFB3B3 solid;
 	line-height: 30px;
 }
-	
-
 
 table.user-questions .date {
 	text-align: left;
 	margin-left: 0;
-	padding-left: 0;
+	padding-left: 2px;
 	padding-right: 2px;
 }
 
@@ -788,13 +809,14 @@ span>button {
 
 
 
+
 @media only screen and (min-width: 330px) {
   div.lang {
     width: 96%;
     margin-left: 2%;
   }
   .right-side table {
-    width: 330px;
+    width: 440px;
     margin-right: 20px;
   }
   .buttons {
@@ -808,7 +830,29 @@ span>button {
   }
 }
 
+@media only screen and (max-width: 500px) {
+	
+	.right-side table {
+		width: 100%;
+		text-align: center;
+	}	
+	
 
+	.right-side table, .right-side table tbody, .right-side table tr, .right-side table td {
+		display: block;
+		width: 100%;
+	}
+	
+	.right-side table td:nth-child(2n+1) {
+ 		width: 90%;
+ 		height: 20px;
+	}
+	
+	.right-side table td:nth-child(2n) {
+ 		width: 90%;
+ 		margin-bottom: 10px;
+	}
+}
 
 @media only screen and (min-width: 500px) {
   .nav a {
@@ -838,6 +882,7 @@ span>button {
     margin-top: 15px;
     border-bottom: 1px solid red;
   }
+  
   nav, .nav a:link:not (:first-child){
     padding-right: 10px;
     padding-left: 10px;
@@ -859,7 +904,7 @@ span>button {
   }
   
   .right-side td:nth-child(2) {
-    padding-right: 40px;
+    padding-right: 20px;
   }
   
   .right-side td:nth-child(2n) {
@@ -906,8 +951,7 @@ span>button {
 	
 	table.user-questions tr {
 		border-top: 1px solid lightgray;
-	}
-	
+	}	
 	
 	table.user-questions .mark {
 		margin-top: 20px;
@@ -929,10 +973,12 @@ span>button {
     margin-top: auto;
     border-bottom: 0;
   }
+  
   .buttons {
     float: left;
     width: 100%;
   }
+  
   .menu_but {
     display: inline-block;
     float: left;
@@ -954,15 +1000,16 @@ span>button {
   .personal-info {
     margin-left: 0px;
     float: left;
-    width: 50%;
+    width: 43%;
   }
   .right-side {
     margin-left: 0px;
     float: left;
-    width: 47%;
+    width: 54%;
   }
   .right-side table {
-    width: 350px;
+    width: 440px;
+    margin-left: 5px;
   }
   .right-side h2, div.lang {
     margin-left: 10%;
@@ -986,6 +1033,7 @@ span>button {
     margin-right: 30px;
     float: right;
   }
+  
   input.tag {
     width: 115px;
     background-color: #FFF;
@@ -993,7 +1041,6 @@ span>button {
     display: inline;
   }
 
-  
   .question-container {
     width: 96%;
     margin-left: 2%;
@@ -1021,7 +1068,6 @@ span>button {
     float: right;
     display: inline-block;
     border: 0;
-    border: 0;
     margin-right: 2%;
   }
   
@@ -1030,13 +1076,13 @@ span>button {
     margin-left: 12%;
   }
   
-  
   .number {
     margin-right: 0;
     padding-left: 0;
     display: block;
     float: none;
   }
+
   .mark button {
     display: block;
     padding: 0;
