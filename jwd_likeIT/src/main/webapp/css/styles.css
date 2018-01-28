@@ -674,6 +674,97 @@ div.feed div.text {
   float: left;
 }
 
+/* USER INFO */
+
+.user h1 {
+	display: inline-block;
+	float: left;
+	width: 150px;
+	margin-right: 40px;
+	color: black;
+}
+
+.user p {
+	font-size: 14px;
+}
+
+.user p span {
+	color: red;
+}
+
+.user table {
+	margin-top: 30px;
+	text-align: center;
+	min-width: 200px;
+	font-size: 14px;
+}
+
+.user table th {
+	font-weight: bold;
+	color: #B23535;
+}
+
+
+table.user-questions {
+	width: 95%;
+	margin-left: 3%;
+	border-collapse: collapse; 
+}
+
+table.user-questions caption {
+	text-align: left;
+	font-size: 16px;
+	font-weight: bold;
+	padding-bottom: 16px;
+	color: #B23535;
+}
+
+table.user-questions .mark {
+	font-size: 14px;
+	color: red;
+	border: 1px solid red;
+}
+
+table.user-questions tr td {
+	min-width: 50px;
+}
+
+table.user-questions h4 {
+	margin-top: 8px;
+}
+
+table.user-questions td.text {
+	min-width: 400px;
+	max-width: 400px;
+	text-align: left;
+}
+
+table.user-questions td.tags {
+	min-width: 200px;
+	max-width: 200px;
+	text-align: left;
+}
+
+table.user-questions td.tags span.lang {
+	border: 1px #FFB3B3 solid;
+	line-height: 30px;
+}
+	
+
+
+table.user-questions .date {
+	text-align: left;
+	margin-left: 0;
+	padding-left: 0;
+	padding-right: 2px;
+}
+
+div.question-container + div.user {
+	margin-bottom: 80px;
+}
+
+
+
 /* FIND QUESTION */
 
 .finder {
@@ -808,6 +899,25 @@ span>button {
   
 }
 
+@media only screen and (max-width: 820px) {
+	table.user-questions th, table.user-questions td {
+		display: block;
+	}
+	
+	table.user-questions tr {
+		border-top: 1px solid lightgray;
+	}
+	
+	
+	table.user-questions .mark {
+		margin-top: 20px;
+	}
+	
+	table.user-questions td.text {
+		min-width: 80px;
+	}
+	
+}
 
 
 /* For laptops: */
