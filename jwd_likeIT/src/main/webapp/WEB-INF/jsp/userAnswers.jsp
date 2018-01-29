@@ -48,7 +48,7 @@
 						</div>
 						<h2>
 							<a
-								href="${pageContext.request.contextPath}/Controller?command=FIND_QUESTION_BY_ID&question_id=${item.id}">
+								href="${pageContext.request.contextPath}/questions/${item.id}">
 								<c:out value="${item.title}" />
 							</a>
 						</h2>
@@ -56,7 +56,7 @@
 							<span class="date"> <ct:date date="${item.creationDate}"
 									text="${signed}" format="dd-MM-yyyy" />
 							</span> <span class="author"> <a
-								href="${pageContext.request.contextPath}/Controller?command=FIND_USER_BY_LOGIN&login=${item.authorLogin}">
+								href="${pageContext.request.contextPath}/users/${item.authorLogin}">
 									<c:out value="${item.authorLogin}" />
 							</a>
 							</span>

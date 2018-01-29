@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="likeitTagLib" prefix="ct"%>
 
 <!DOCTYPE html>
@@ -77,8 +77,9 @@
 							text="${question_info}" format="dd-MM-yyyy" />
 					</p>
 					<p class="author">
-						<a href="${pageContext.request.contextPath}/Controller?command=FIND_USER_BY_LOGIN&login=${requestScope.question.authorLogin }">
-						<c:out value="${ requestScope.question.authorLogin }" />
+						<a
+							href="${pageContext.request.contextPath}/users/${requestScope.question.authorLogin }">
+							<c:out value="${ requestScope.question.authorLogin }" />
 						</a>
 					</p>
 				</div>
@@ -117,9 +118,9 @@
 							<ct:date date="${answer.creationDate}" format="dd-MM-yyyy" />
 						</p>
 						<p class="author">
-						<a href="${pageContext.request.contextPath}/Controller?command=FIND_USER_BY_LOGIN&login=${answer.authorLogin}">
-						${answer.authorLogin}
-						</a>
+							<a
+								href="${pageContext.request.contextPath}/users/${answer.authorLogin}">
+								${answer.authorLogin} </a>
 						</p>
 					</div>
 				</div>
@@ -156,22 +157,44 @@
 	</div>
 	<div class="links question-container clearfix">
 		<c:if test="${not empty requestScope.languages}">
-			<p><c:out value="${label}"/></p>
+			<p>
+				<c:out value="${label}" />
+			</p>
 			<c:forEach var="index" begin="1" end="5">
-			<div class="lang">
-				<c:set var="language" value="${requestScope.languages[index - 1]}" />
-				<c:set var="correct_lang" value="${fn:replace(language, '++', '%2B%2B')}" />
-				<c:set var="correct_lang" value="${fn:replace(correct_lang, '#', '%23')}" />
-				<a href="${pageContext.request.contextPath}/Controller?command=FIND_QUESTION_BY_LANGUAGE&language=${correct_lang}">
-				<c:out value="${language}" />
-				</a>
-			</div>	
+				<div class="lang">
+					<c:set var="language" value="${requestScope.languages[index - 1]}" />
+
+					<c:choose>
+						<c:when test="${fn:contains(language, '++')}">
+							<c:set var="correct_lang"
+								value="${fn:replace(language, '+', '%2B')}" />
+							<a
+								href="${pageContext.request.contextPath}/Controller?command=FIND_QUESTION_BY_LANGUAGE&language=${correct_lang}">
+								<c:out value="${language}" />
+							</a>
+						</c:when>
+						<c:when test="${fn:contains(language, '#')}">
+							<c:set var="correct_lang"
+								value="${fn:replace(language, '#', '%23')}" />
+							<a
+								href="${pageContext.request.contextPath}/languages/${correct_lang}">
+								<c:out value="${language}" />
+							</a>
+						</c:when>
+						<c:otherwise>
+							<a
+								href="${pageContext.request.contextPath}/languages/${language}">
+								<c:out value="${language}" />
+							</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</c:forEach>
 		</c:if>
 	</div>
-	
+
 	<c:import url="fragment/footer.jsp"></c:import>
-	
+
 	<script src="${pageContext.request.contextPath}/js/pell.js"></script>
 	<script src="${pageContext.request.contextPath}/js/add_question.js"></script>
 	<script src="${pageContext.request.contextPath}/js/highlight.pack.js"></script>

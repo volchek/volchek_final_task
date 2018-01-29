@@ -29,5 +29,10 @@ public class CharsetFilter implements Filter {
 		encoding = config.getInitParameter(CHARSET_PARAM_NAME);
 
 	}
+	
+	@Override
+	public void destroy(){
+		
+	}
 
 }

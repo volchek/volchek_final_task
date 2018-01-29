@@ -49,7 +49,7 @@
 	var="tooltip_password" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
-<link rel="stylesheet" href=“css/normalize.css“>
+<link rel="stylesheet" href=“${pageContext.request.contextPath}/css/normalize.css“>
 <link href="https://fonts.googleapis.com/css?family=Work+Sans"
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto"
@@ -59,7 +59,7 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Raleway"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../css/styles.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 	<c:import url="fragment/header.jsp"></c:import>

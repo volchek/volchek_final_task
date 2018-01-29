@@ -23,44 +23,27 @@
 	<div class="nav">
 		<c:choose>
 			<c:when test="${not empty sessionScope.current_user}">
-				<form action="${pageContext.request.contextPath}/PersonalData"
-					method="post" id="form_edit">
-				</form>
-				
-				<form action="${pageContext.request.contextPath}/Controller"
-					method="get" id="my_questions">
-					<input type="hidden" name="command" value="SHOW_USER_QUESTIONS" />
-				</form>
-				<form action="${pageContext.request.contextPath}/Controller"
-					method="get" id="my_answers">
-					<input type="hidden" name="command" value="SHOW_USER_ANSWERS" />
-				</form>
-				
-				<form action="${pageContext.request.contextPath}/Controller"
-					method="post" id="form_logout">
-					<input type="hidden" name="command" value="LOGOUT" />
-				</form>
 
 				<span class="user"><c:out value="${current_user.login}"></c:out></span>
-				<a href='javascript:document.getElementById("form_edit").submit()'><c:out
+				<a href="${pageContext.request.contextPath}/personal-data"><c:out
 						value="${edit}" /></a>
 				<a href="${pageContext.request.contextPath}/add-question"><c:out value="${ask}" /></a>
-				<a href='javascript:document.getElementById("my_questions").submit()'><c:out
+				<a href="${pageContext.request.contextPath}/user_questions"><c:out
 						value="${questions}" /></a>
-				<a href='javascript:document.getElementById("my_answers").submit()'><c:out
+				<a href="${pageContext.request.contextPath}/user_answers"><c:out
 						value="${answers}" /></a>
-				<a href="${pageContext.request.contextPath}/jsp/findQuestion.jsp"> <c:out
+				<a href="${pageContext.request.contextPath}/find-question"> <c:out
 						value="${search}" /></a>
-				<a href='javascript:document.getElementById("form_logout").submit()'><c:out
+				<a href="${pageContext.request.contextPath}/logout"><c:out
 						value="${logout}" /></a>
-
 			</c:when>
+			
 			<c:otherwise>
 				<a href="${pageContext.request.contextPath}/jsp/login.jsp"> <c:out
 						value="${login}" /></a>
 				<a href="${pageContext.request.contextPath}/jsp/register.jsp"> <c:out
 						value="${registration}" /></a>
-				<a href="${pageContext.request.contextPath}/jsp/findQuestion.jsp"> <c:out
+				<a href="${pageContext.request.contextPath}/find-question"> <c:out
 						value="${search}" /></a>
 			</c:otherwise>
 		</c:choose>

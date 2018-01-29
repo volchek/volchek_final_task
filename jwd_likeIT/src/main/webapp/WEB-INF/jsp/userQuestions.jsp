@@ -39,33 +39,26 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach var="item" items="${ requestScope.question_list}">
-					<form action="Controller" method="get" class="clearfix"
-						id='user_question${item.id}'>
-						<input type="hidden" name="command" value="FIND_QUESTION_BY_ID" />
-						<input type="hidden" name="question_id" value="${item.id}" />
-						<div class="mark clearfix">
-							<span class="tag"><ct:mark
-									averageMark="${item.averageMark}" /></span>
+					<div class="mark clearfix">
+						<span class="tag"><ct:mark
+								averageMark="${item.averageMark}" /></span>
+					</div>
+					<div class="question clearfix">
+						<h2>
+							<a href="${pageContext.request.contextPath}/questions/${item.id}">${item.title}</a>
+						</h2>
+						<div>
+							<ct:keyword cssClass="tag" keywordList="${item.languages}" />
 						</div>
-						<div class="question clearfix">
-							<h2>
-								<c:set value='user_question${item.id}' var="elem_id" />
-								<a
-									href='javascript:document.getElementById("${elem_id}").submit()'>${item.title}</a>
-							</h2>
-							<div>
-								<ct:keyword cssClass="tag" keywordList="${item.languages}" />
-							</div>
-							<div>
-								<ct:keyword cssClass="tag" keywordList="${item.tags}" />
-							</div>
-							<p>${item.text}</p>
-							<p class="date">
-								<ct:date date="${item.creationDate}" text="${question_info}"
-									format="dd-MM-yyyy" />
-							</p>
+						<div>
+							<ct:keyword cssClass="tag" keywordList="${item.tags}" />
 						</div>
-					</form>
+						<p>${item.text}</p>
+						<p class="date">
+							<ct:date date="${item.creationDate}" text="${question_info}"
+								format="dd-MM-yyyy" />
+						</p>
+					</div>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>

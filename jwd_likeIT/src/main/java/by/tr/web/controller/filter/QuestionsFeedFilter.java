@@ -67,5 +67,11 @@ public class QuestionsFeedFilter implements Filter {
 		serviceFactory = ServiceFactory.getInstance();
 		questionService = serviceFactory.getQuestionService();
 	}
+	
+	@Override
+	public void destroy(){
+		
+	}
+
 
 }

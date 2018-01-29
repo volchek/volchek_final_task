@@ -15,8 +15,8 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
-<link rel="stylesheet" type="text/css" href="../css/styles.css">
-<link rel="stylesheet" type="text/css" href="../css/awesomplete.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/awesomplete.css">
 </head>
 <body>
 	<c:import url="fragment/header.jsp"></c:import>

@@ -13,7 +13,7 @@
 
 <div class="feed">
 	<table>
-		<c:forEach var="item" items="${ requestScope.question_list}">
+		<c:forEach var="item" items="${requestScope.question_list}">
 			<tr>
 				<td><div class="mark">
 						<ct:mark averageMark="${item.averageMark}" />
@@ -21,7 +21,7 @@
 				<td>
 					<div class="question-container">
 						<a
-							href="${pageContext.request.contextPath}/Controller?command=FIND_QUESTION_BY_ID&question_id=${item.id}">${item.title}
+							href="${pageContext.request.contextPath}/questions/${item.id}">${item.title}
 						</a>
 					</div>
 					<div class="question-container clearfix">
@@ -32,7 +32,7 @@
 				<td>
 					<div class="author">
 						<a
-							href="${pageContext.request.contextPath}/Controller?command=FIND_USER_BY_LOGIN&login=${item.authorLogin}">
+							href="${pageContext.request.contextPath}/users/${item.authorLogin}">
 							<c:out value="${item.authorLogin}" />
 						</a>
 

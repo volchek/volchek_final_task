@@ -22,7 +22,8 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>LikeIt</title>
-<link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 	<c:import url="fragment/header.jsp"></c:import>
@@ -77,16 +78,9 @@
 									</div>
 								</td>
 								<td class="text">
-									<form action="Controller" method="get" class="clearfix"
-										id='user_question${item.id}'>
-										<input type="hidden" name="command"
-											value="FIND_QUESTION_BY_ID" /> <input type="hidden"
-											name="question_id" value="${item.id}" />
-									</form>
 									<h4>
-										<c:set value='user_question${item.id}' var="elem_id" />
 										<a
-											href='javascript:document.getElementById("${elem_id}").submit()'>${item.title}</a>
+											href="${pageContext.request.contextPath}/questions/${item.id}">${item.title}</a>
 									</h4>
 								</td>
 								<td class="tags"><ct:keyword cssClass="lang"
@@ -129,16 +123,9 @@
 									</div>
 								</td>
 								<td class="text">
-									<form action="Controller" method="get" class="clearfix"
-										id='user_question${item.id}'>
-										<input type="hidden" name="command"
-											value="FIND_QUESTION_BY_ID" /> <input type="hidden"
-											name="question_id" value="${item.id}" />
-									</form>
 									<h4>
-										<c:set value='user_question${item.id}' var="elem_id" />
 										<a
-											href='javascript:document.getElementById("${elem_id}").submit()'>${item.title}</a>
+											href="${pageContext.request.contextPath}/questions/${item.id}">${item.title}</a>
 									</h4>
 								</td>
 								<td class="tags"><ct:keyword cssClass="lang"

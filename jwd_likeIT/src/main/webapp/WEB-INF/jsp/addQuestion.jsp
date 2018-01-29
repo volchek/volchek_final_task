@@ -24,7 +24,6 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
-<link rel="stylesheet" href=“css/normalize.css“>
 <link href="https://fonts.googleapis.com/css?family=Work+Sans"
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto"
@@ -34,6 +33,8 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Raleway"
 	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/normalize.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/styles.css">
 <link rel="stylesheet" type="text/css"
@@ -63,46 +64,36 @@
 
 	<form action="${pageContext.request.contextPath}/Controller"
 		method="post" class="question">
-		<input type="hidden" name="command" value="ADD_QUESTION" /> 
+		<input type="hidden" name="command" value="ADD_QUESTION" />
 
 		<div>
 			<label><c:out value="${title}" /> <br> <input
-				type="text" name="title" id="title" required /> </label>
-			<br>
-			<label ><c:out value="${languages}" />
-			<br>
-			<input type="text" name="language" class="tag" required id="lang1" style="display: inline" />
-			<input type="text" name="language" class="tag" id="lang2" style="display: none" />
-			<input type="text" name="language" class="tag" id="lang3" style="display: none" />
-			<a href="#" id="add-language" class="add-tag" onclick="addFields('add-language', 'remove-language', 'lang2', 'lang3')">
-				+
-			</a>				
-			<a href="#" id="remove-language" class="add-tag" style="display:none" onclick="removeFields('add-language', 'remove-language', 'lang2', 'lang3')">
-				-
-			</a>				
-			</label>
-			<br>
-			<label><c:out value="${tags}" />
-				<br>
-			<input type="text" name="tag" id="tag1" class="tag" style="display: inline" required />
-			<input type="text" name="tag" id="tag2" class="tag" style="display: none" />
-			<input type="text" name="tag" id="tag3" class="tag" style="display: none" />						
-			<a href="#" id="add-tag" class="add-tag"
-					onclick="addFields('add-tag', 'remove-tag', 'tag2', 'tag3')">
-					+
-			</a>
-			<a href="#" id="remove-tag" class="add-tag" style="display:none" 
-					onclick="removeFields('add-tag', 'remove-tag', 'tag2', 'tag3')">
-					-
-			</a>
-			
-			</label>
-			<br>
-			<label><c:out value="${text}" /></label> <br>
+				type="text" name="title" id="title" required /> </label> <br> <label><c:out
+					value="${languages}" /> <br> <input type="text"
+				name="language" class="tag" required id="lang1"
+				style="display: inline" /> <input type="text" name="language"
+				class="tag" id="lang2" style="display: none" /> <input type="text"
+				name="language" class="tag" id="lang3" style="display: none" /> <a
+				href="#" id="add-language" class="add-tag"
+				onclick="addFields('add-language', 'remove-language', 'lang2', 'lang3')">
+					+ </a> <a href="#" id="remove-language" class="add-tag"
+				style="display: none"
+				onclick="removeFields('add-language', 'remove-language', 'lang2', 'lang3')">
+					- </a> </label> <br> <label><c:out value="${tags}" /> <br> <input
+				type="text" name="tag" id="tag1" class="tag" style="display: inline"
+				required /> <input type="text" name="tag" id="tag2" class="tag"
+				style="display: none" /> <input type="text" name="tag" id="tag3"
+				class="tag" style="display: none" /> <a href="#" id="add-tag"
+				class="add-tag"
+				onclick="addFields('add-tag', 'remove-tag', 'tag2', 'tag3')"> +
+			</a> <a href="#" id="remove-tag" class="add-tag" style="display: none"
+				onclick="removeFields('add-tag', 'remove-tag', 'tag2', 'tag3')">
+					- </a> </label> <br> <label><c:out value="${text}" /></label> <br>
 		</div>
-		<div class="content" >
+		<div class="content">
 			<div id="pell" class="pell"></div>
-			<div id="text-output" style="display: none" onKeyUp="addCodeTag(replacePreTags())"></div>
+			<div id="text-output" style="display: none"
+				onKeyUp="addCodeTag(replacePreTags())"></div>
 			<textarea name="question_text" id="question" style="display: none"></textarea>
 		</div>
 
@@ -183,7 +174,7 @@
         }
       })
     </script>
-    <script>
+	<script>
 		var langList = ${lang_list};
     	for (var i = 1; i < 4; i++){
     		var id = "lang" + i;
