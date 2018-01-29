@@ -10,9 +10,6 @@
 <fmt:message key="answer.score" bundle="${lc}" var="score" />
 <fmt:message key="answer.count" bundle="${lc}" var="count" />
 
-TODO!!!
-${ requestScope.question_list}
-
 <c:forEach var="item" items="${ requestScope.question_list}">
 	<div class="feed clearfix">
 		<form action="Controller" method="get" class="clearfix"

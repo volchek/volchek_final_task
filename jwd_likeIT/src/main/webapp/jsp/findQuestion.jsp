@@ -67,7 +67,6 @@
 		</form>
 	</div>
 
-
 	<div class="finder">
 		<form action="${pageContext.request.contextPath}/Controller"
 			method="get">

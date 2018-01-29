@@ -7,6 +7,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.PagePath;
@@ -27,16 +28,10 @@ public class ShowLastQuestions implements ControllerCommand {
 		QuestionService questionService = serviceFactory.getQuestionService();
 		
 		RequestDispatcher d = null;
-		System.out.println("!!!");
-		System.out.println(request.getQueryString());
-		
-		User currentUser = (User) request.getSession().getAttribute(UserAttribute.CURRENT_USER);
-		int userId = currentUser.getId();
-		
+
 		try {
-			List<Question> questions = questionService.showLastQuestionsForRegisteredUser(userId);
+			List<Question> questions = questionService.showLastQuestions();
 			request.setAttribute(TextAttribute.QUESTION_LIST, questions);
-			System.out.println(questions);
 			d = request.getRequestDispatcher(PagePath.AFTER_SING_IN_PAGE);
 		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);

@@ -9,7 +9,7 @@ public final class PagePath {
 	
 	public static final String ENTRY_PAGE = "jsp/login.jsp";
 	public static final String REGISTER_PAGE = "jsp/register.jsp";
-	public static final String AFTER_SING_IN_PAGE = "jsp/afterLogIn.jsp";
+	public static final String AFTER_SING_IN_PAGE = "UserMainPage";
 	public static final String QUESTION_PAGE = "jsp/question.jsp";
 	public static final String QUESTION_FEED = "jsp/lastQuestions.jsp";
 	

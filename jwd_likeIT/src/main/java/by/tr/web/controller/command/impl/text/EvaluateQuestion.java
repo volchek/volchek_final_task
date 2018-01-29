@@ -16,7 +16,6 @@ import by.tr.web.entity.text.Question;
 import by.tr.web.entity.text.TextType;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.question.QuestionService;
 import by.tr.web.service.text.CommonTextService;
 
 public class EvaluateQuestion implements ControllerCommand {
@@ -30,10 +29,8 @@ public class EvaluateQuestion implements ControllerCommand {
 		RequestDispatcher d = null;
 
 		try {
-			// User user = (User)
-			// request.getSession().getAttribute(UserAttribute.CURRENT_USER);
-			// int userId = user.getId();
-			int userId = 13;
+			User user = (User) request.getSession().getAttribute(UserAttribute.CURRENT_USER);
+			int userId = user.getId();
 			int textId = Integer.parseInt(request.getParameter(TextAttribute.QUESTION));
 			int mark = Integer.parseInt(request.getParameter(TextAttribute.MARK));
 

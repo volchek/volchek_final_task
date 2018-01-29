@@ -29,6 +29,7 @@ public class QuestionQuerySubmitter {
 
 	private final static String PATTERN_TO_SPLIT_TAGS = "\\s*,\\s*";
 	private final static int SEARCH_CRITERIA_COUNT = 3;
+	private final static int FEED_LIMIT = 100;
 
 	private final static Logger logger = LogManager.getLogger(QuestionQuerySubmitter.class.getName());
 
@@ -87,27 +88,31 @@ public class QuestionQuerySubmitter {
 			throw new MySqlException("Failed to execute command and select a question", ex);
 		}
 	}
-	
+
+	public List<Question> selectQuestionFeed(Connection conn) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_LAST_QUESTIONS)) {
+			ps.setInt(1, FEED_LIMIT);
+			ResultSet rs = ps.executeQuery();
+			return createQuestionList(rs);
+		} catch (SQLException ex) {
+			logger.error("Can't select questions for the news feed");
+			throw new MySqlException("Failed to execute command and select a question list", ex);
+		}
+	}
+
 	public List<Question> selectQuestionFeed(Connection conn, int userId) throws MySqlException {
 
-		Question question = null;
 		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_LAST_QUESTIONS_FOR_USER)) {
 			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
-			
-			List<Question> questions = new ArrayList<Question>();
-			while (rs.next()) {
-				question = new Question();
-				setMainQuestionFields(rs, question);
-				questions.add(question);
-			}
-			return questions;
+
+			return createQuestionList(rs);
 		} catch (SQLException ex) {
 			logger.error("Can't select questions for the user with id=" + userId);
 			throw new MySqlException("Failed to execute command and select a question list", ex);
 		}
 	}
-
 
 	public List<Question> selectQuestionByLanguageOrTag(Connection conn, List<String> keywords, KeywordType keywordType)
 			throws MySqlException {
@@ -128,13 +133,7 @@ public class QuestionQuerySubmitter {
 			ps.setInt(3, keywordIdList.get(2));
 
 			ResultSet rs = ps.executeQuery();
-			List<Question> questionList = new ArrayList<Question>();
-			while (rs.next()) {
-				Question question = new Question();
-				setMainQuestionFields(rs, question);
-				questionList.add(question);
-			}
-			return questionList;
+			return createQuestionList(rs);
 		} catch (SQLException ex) {
 			logger.error("Can't execute a query and extract information about questions asked in some keywords");
 			throw new MySqlException("Failed to execute command and select question list", ex);
@@ -148,14 +147,7 @@ public class QuestionQuerySubmitter {
 			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
 
-			List<Question> questions = new ArrayList<Question>();
-
-			while (rs.next()) {
-				Question question = new Question();
-				setMainQuestionFields(rs, question);
-				questions.add(question);
-			}
-			return questions;
+			return createQuestionList(rs);
 
 		} catch (SQLException ex) {
 			logger.error("Can't execute query and select questions of the user with id = " + userId);
@@ -267,23 +259,42 @@ public class QuestionQuerySubmitter {
 		}
 	}
 
+	private List<Question> createQuestionList(ResultSet rs) throws MySqlException, SQLException {
+		
+		List<Question> questionList = new ArrayList<Question>();
+		
+		while (rs.next()) {
+			Question question = new Question();
+			setMainQuestionFields(rs, question);
+			questionList.add(question);
+		}
+		try {
+			if (rs != null) {
+				rs.close();
+			}
+		} catch (SQLException ex) {
+			logger.warn("Can not close ResultSet");
+		}
+		return questionList;
+	}
+
 	private void setMainQuestionFields(ResultSet rs, Question question) throws SQLException, MySqlException {
 
-		if (rs.getObject(1) == null){
+		if (rs.getObject(1) == null) {
 			throw new MySqlException("The query result is empty");
 		}
-		
+
 		question.setId(rs.getInt(1));
 		question.setTitle(rs.getString(2));
 		question.setText(rs.getString(3));
 		question.setCreationDate(rs.getDate(4));
-				
+
 		List<String> languages = getDataList(rs, 5);
 		question.setLanguages(languages);
 
 		List<String> tags = getDataList(rs, 6);
 		question.setTags(tags);
-		
+
 		question.setAuthorLogin(rs.getString(7));
 		BigDecimal mark = rs.getBigDecimal(8);
 		question.setAverageMark(mark == null ? null : mark.doubleValue());
@@ -301,7 +312,7 @@ public class QuestionQuerySubmitter {
 
 		List<Integer> langIdList = new ArrayList<Integer>();
 		for (String lang : languages) {
-			if (lang != null && !lang.isEmpty()){
+			if (lang != null && !lang.isEmpty()) {
 				int langId = standardLanguages.getLanguageId(lang);
 				langIdList.add(langId);
 			}
@@ -316,7 +327,7 @@ public class QuestionQuerySubmitter {
 
 		List<Integer> tagIdList = new ArrayList<Integer>();
 		for (String tag : tags) {
-			if (tag != null && !tag.isEmpty()){
+			if (tag != null && !tag.isEmpty()) {
 				int tagId = standardTags.getTagId(tag);
 				tagIdList.add(tagId);
 			}

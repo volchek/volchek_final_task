@@ -23,6 +23,15 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>UserMainPage</servlet-name>
+		<jsp-file>/WEB-INF/jsp/afterLogIn.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserMainPage</servlet-name>
+		<url-pattern>/UserMainPage</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>PersonalData</servlet-name>
 		<jsp-file>/WEB-INF/jsp/personalData.jsp</jsp-file>
 	</servlet>
@@ -70,7 +79,7 @@
 	<listener>
 		<listener-class>by.tr.web.controller.listener.ControllerCreationListener</listener-class>
 	</listener>
-
+ 
 	<filter>
 		<display-name>CharsetFilter</display-name>
 		<filter-name>CharsetFilter</filter-name>
@@ -83,6 +92,16 @@
 	<filter-mapping>
 		<filter-name>CharsetFilter</filter-name>
 		<url-pattern>/Controller</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>QuestionsFeedFilter</filter-name>
+		<filter-class>by.tr.web.controller.filter.QuestionsFeedFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>QuestionsFeedFilter</filter-name>
+		<url-pattern>/UserMainPage</url-pattern>
+		<url-pattern>/index.jsp</url-pattern>
 	</filter-mapping>
 
 	<jsp-config>

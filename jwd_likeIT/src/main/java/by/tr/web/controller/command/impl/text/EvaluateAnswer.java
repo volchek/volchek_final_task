@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.TextAttribute;
+import by.tr.web.controller.command.util.attribute.UserAttribute;
+import by.tr.web.entity.User;
 import by.tr.web.entity.text.Question;
 import by.tr.web.entity.text.TextType;
 import by.tr.web.service.exception.common.ServiceException;
@@ -27,10 +29,8 @@ public class EvaluateAnswer implements ControllerCommand {
 		RequestDispatcher d = null;
 
 		try {
-			// User user = (User)
-			// request.getSession().getAttribute(UserAttribute.CURRENT_USER);
-			// int userId = user.getId();
-			int userId = 13;
+			User user = (User) request.getSession().getAttribute(UserAttribute.CURRENT_USER);
+			int userId = user.getId();
 			int textId = Integer.parseInt(request.getParameter(TextAttribute.ANSWER));
 			int mark = Integer.parseInt(request.getParameter(TextAttribute.MARK));
 
