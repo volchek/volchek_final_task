@@ -34,16 +34,14 @@ public class Register implements ControllerCommand {
 		RequestDispatcher d = null;
 
 		try {
-			boolean result = userService.register(user);
-			if (result == true) {
-				response.sendRedirect(PagePath.ENTRY_PAGE);
-			}
-
+			userService.register(user);
+			response.sendRedirect(PagePath.ENTRY_PAGE);
 		} catch (LoginException | DateException | PasswordException | NameException | EmailException ex) {
 			d = request.getRequestDispatcher(PagePath.REGISTER_PAGE);
+			d.forward(request, response);
 		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
+			d.forward(request, response);
 		}
-		d.forward(request, response);
 	}
 }

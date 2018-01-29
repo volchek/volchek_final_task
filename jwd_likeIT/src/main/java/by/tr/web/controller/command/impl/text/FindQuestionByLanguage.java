@@ -1,7 +1,6 @@
 package by.tr.web.controller.command.impl.text;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;

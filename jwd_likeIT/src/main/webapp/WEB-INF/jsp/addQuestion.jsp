@@ -101,9 +101,9 @@
 			<label><c:out value="${text}" /></label> <br>
 		</div>
 		<div class="content" >
-			<div id="pell" class="pell" ></div>
+			<div id="pell" class="pell"></div>
 			<div id="text-output" style="display: none" onKeyUp="addCodeTag(replacePreTags())"></div>
-			<textarea name="question_text" id="question" style="display: none" ></textarea>
+			<textarea name="question_text" id="question" style="display: none"></textarea>
 		</div>
 
 

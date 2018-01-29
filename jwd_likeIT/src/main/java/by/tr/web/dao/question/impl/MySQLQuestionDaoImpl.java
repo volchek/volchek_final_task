@@ -147,6 +147,11 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 			conn = connPool.getConnection();
 			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
 			List<Question> questionList = submitter.selectQuestionFeed(conn, userId);
+			
+			if (questionList == null || questionList.isEmpty()){
+				questionList = submitter.selectQuestionFeed(conn);
+			}
+			
 			AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
 			for (Question question : questionList) {
 				int questionId = question.getId();

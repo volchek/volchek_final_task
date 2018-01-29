@@ -17,6 +17,7 @@ import by.tr.web.entity.text.Question;
 import by.tr.web.entity.User;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
+import by.tr.web.service.language.LanguageService;
 import by.tr.web.service.question.QuestionService;
 
 public class AddQuestion implements ControllerCommand {
@@ -37,8 +38,13 @@ public class AddQuestion implements ControllerCommand {
 
 		try {
 			Question question = questionService.addQuestion(user.getId(), title, languages, tags, text);
+
+			LanguageService languageService = serviceFactory.getLanguageService();
+			List<String> frequentLanguages = languageService.findFrequentLanguages();
+
 			request.setAttribute(TextAttribute.QUESTION, question);
-			System.out.println(question);
+			request.setAttribute(TextAttribute.LANGUAGE_LIST, frequentLanguages);
+			
 			d = request.getRequestDispatcher(PagePath.QUESTION_PAGE);
 
 		} catch (ServiceException e) {

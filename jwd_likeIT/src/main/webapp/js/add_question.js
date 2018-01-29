@@ -17,8 +17,7 @@ function replacePreTags() {
 }	
 
 function addCodeTag(str) {
-	var result = str.replace(/<pre>/g, "<pre><code>");
-	result = result.replace(/<\/pre>/g, "<\/code><pre>");
+	var result = str.replace(/<pre>/g, "<pre><code>").replace(/<\/pre>/g, "<\/code><\/pre>");
 	document.getElementById("question").value = result;
 	return result;
 }
