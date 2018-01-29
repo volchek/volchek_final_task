@@ -1,6 +1,7 @@
 package by.tr.web.controller.command.impl.text;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -26,20 +27,15 @@ public class FindQuestionByLanguage implements ControllerCommand {
 		QuestionService questionService = serviceFactory.getQuestionService();
 
 		List<String> languages = ExtractParameter.extractParameterList(request, TextAttribute.LANGUAGE);
-		System.out.println(languages);
-		
-		RequestDispatcher d = null;
-
 		try {
 			List<Question> questions = questionService.findQuestionByLanguage(languages);
 			request.setAttribute(TextAttribute.QUESTION_LIST, questions);
-			System.out.println(questions);
-			d = request.getRequestDispatcher(PagePath.USER_QUESTIONS_PAGE);
-
+			RequestDispatcher d = null;
+			d = request.getRequestDispatcher(PagePath.QUESTION_LIST);
+			d.forward(request, response);
 		} catch (ServiceException e) {
-			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.CONTENT_ERROR_PAGE);
 		}
-		d.forward(request, response);
 	}
-
+	
 }

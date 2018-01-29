@@ -16,12 +16,12 @@
 </head>
 
 <body>
-	<c:import url="jsp/fragment/header.jsp" />
+	<c:import url="fragment/header.jsp" />
 
-	<c:import url="jsp/menu.jsp" />
+	<c:import url="menu.jsp" />
 
-	<c:import url="jsp/lastQuestions.jsp" />
+	<c:import url="lastQuestions.jsp" />
 
-	<c:import url="jsp/fragment/footer.jsp" />
+	<c:import url="fragment/footer.jsp" />
 </body>
 </html>

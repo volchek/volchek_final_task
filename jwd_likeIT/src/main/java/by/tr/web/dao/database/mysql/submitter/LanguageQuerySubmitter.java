@@ -28,7 +28,8 @@ public class LanguageQuerySubmitter {
 
 	public Map<String, Integer> getAllLanguageInfo(Connection conn) throws MySqlException {
 
-		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(LanguageQuery.SELECT_ALL_LANGUAGES)) {
+		try (Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(LanguageQuery.SELECT_ALL_LANGUAGES)) {
 			Map<String, Integer> languages = new HashMap<String, Integer>();
 			while (rs.next()) {
 				String langName = rs.getString(DatabaseField.LANGUAGE_NAME);
@@ -46,15 +47,20 @@ public class LanguageQuerySubmitter {
 
 		try (Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(LanguageQuery.SELECT_LANGUAGE_NAMES)) {
-			List<String> languages = new ArrayList<String>();
-			while (rs.next()) {
-				String langName = rs.getString(DatabaseField.LANGUAGE_NAME);
-				languages.add(langName);
-			}
-			return languages;
+			return extractLanguageList(rs);
 		} catch (SQLException ex) {
 			logger.error("Can't get a list of language names");
 			throw new MySqlException("Can't get a list of language names");
+		}
+	}
+
+	public List<String> findLanguageFrequency(Connection conn) throws MySqlException {
+		try (Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery((LanguageQuery.SELECT_LANGUAGE_FREQUENCY))) {
+			return extractLanguageList(rs);
+		} catch (SQLException ex) {
+			logger.error("Can't retrieve language frequency");
+			throw new MySqlException("Can't retrieve language frequency");
 		}
 	}
 
@@ -216,6 +222,15 @@ public class LanguageQuerySubmitter {
 			}
 		}
 		return languagesForRemoving;
+	}
+
+	private List<String> extractLanguageList(ResultSet rs) throws SQLException {
+		List<String> languages = new ArrayList<String>();
+		while (rs.next()) {
+			String langName = rs.getString(DatabaseField.LANGUAGE_NAME);
+			languages.add(langName);
+		}
+		return languages;
 	}
 
 }

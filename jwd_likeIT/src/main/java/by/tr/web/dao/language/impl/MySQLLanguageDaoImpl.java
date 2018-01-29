@@ -1,6 +1,7 @@
 package by.tr.web.dao.language.impl;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -42,6 +43,24 @@ public class MySQLLanguageDaoImpl implements LanguageDao {
 		}
 	}
 
+	@Override
+	public List<String> findFrequentLanguages() throws DaoException {
+
+		Connection conn = null;
+
+		try {
+			conn = connPool.getConnection();
+			LanguageQuerySubmitter query = new LanguageQuerySubmitter();
+			List<String> languages = query.findLanguageFrequency(conn);
+			return languages;
+		} catch (MySqlException e) {
+			logger.error("Can't execute query and extract information about language frequency");
+			throw new DaoException("Failed to execute command and find language frequency");
+		} finally {
+			connPool.closeConnection(conn);
+		}
+	}
+
 	private void fillLanguageMaps(Map<String, Integer> languageInfo) throws DaoException {
 
 		if (languageInfo == null) {
@@ -54,7 +73,6 @@ public class MySQLLanguageDaoImpl implements LanguageDao {
 		for (Map.Entry<String, Integer> oneLanguageInfo : languageInfo.entrySet()) {
 			langSet.addLanguage(oneLanguageInfo.getKey(), oneLanguageInfo.getValue());
 		}
-
 	}
 
 }

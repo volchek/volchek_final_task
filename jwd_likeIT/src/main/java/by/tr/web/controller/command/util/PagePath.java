@@ -12,6 +12,7 @@ public final class PagePath {
 	public static final String AFTER_SING_IN_PAGE = "UserMainPage";
 	public static final String QUESTION_PAGE = "jsp/question.jsp";
 	public static final String QUESTION_FEED = "jsp/lastQuestions.jsp";
+	public static final String QUESTION_LIST = "jsp/questionList.jsp";
 	
 	public static final String CONTENT_ERROR_PAGE = "jsp/error/204.jsp";
 	public static final String DATABASE_ERROR_PAGE = "jsp/error/500.jsp";

@@ -113,6 +113,18 @@ public class QuestionQuerySubmitter {
 			throw new MySqlException("Failed to execute command and select a question list", ex);
 		}
 	}
+	
+	public List<Question> selectQuestionByLanguage(Connection conn, List<String> languages) throws MySqlException{
+		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_LANGUAGE)){
+			int langId = getLanguageIdList(languages).get(0);
+			ps.setInt(1, langId);			
+			ResultSet rs = ps.executeQuery();
+			return createQuestionList(rs);
+		} catch (SQLException ex) {
+			logger.error("Can't execute a query and extract information language " + languages.get(0));
+			throw new MySqlException("Failed to execute command and select question list", ex);
+		}
+	}
 
 	public List<Question> selectQuestionByLanguageOrTag(Connection conn, List<String> keywords, KeywordType keywordType)
 			throws MySqlException {
@@ -121,10 +133,10 @@ public class QuestionQuerySubmitter {
 		List<Integer> keywordIdList = null;
 		try {
 			if (keywordType.equals(KeywordType.LANGUAGE)) {
-				ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_LANGUAGE);
+				ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_LANGUAGES);
 				keywordIdList = getLanguageIdList(keywords);
 			} else if (keywordType.equals(KeywordType.TAG)) {
-				ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_TAG);
+				ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_TAGS);
 				keywordIdList = getTagIdList(keywords);
 			}
 

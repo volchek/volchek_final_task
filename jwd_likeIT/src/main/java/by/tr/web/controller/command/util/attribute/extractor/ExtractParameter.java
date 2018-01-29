@@ -50,21 +50,16 @@ public class ExtractParameter {
 			String reserveEmail = request.getParameter(UserAttribute.RESERVE_EMAIL).toString();
 			user.addEmail(reserveEmail);
 		}
-/*
-		if (request.getParameter(UserAttribute.AVATAR) != null) {
-			String avatar = request.getParameter(UserAttribute.AVATAR).toString();
-			user.setAvatar(avatar);
-		}
-*/
 	}
 
 	public static List<String> extractParameterList(HttpServletRequest request, String parameterName) {
-		String languageArray[] = request.getParameterValues(parameterName);
-		List<String> languageList = null;
-		if (languageArray.length != 0) {
-			languageList = Arrays.asList(languageArray);
+		String keywordArray[] = request.getParameterValues(parameterName);
+
+		List<String> keywordList = null;
+		if (keywordArray.length != 0) {
+			keywordList = Arrays.asList(keywordArray);
 		}
-		return languageList;
+		return keywordList;
 	}
 
 	public static void extractLanguages(HttpServletRequest request, User user) {

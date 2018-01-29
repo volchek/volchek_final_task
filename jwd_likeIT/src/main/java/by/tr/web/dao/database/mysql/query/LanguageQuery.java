@@ -15,6 +15,16 @@ public final class LanguageQuery {
 			+ "ON lang.languageId = us.languageId " 
 			+ "WHERE us.userId = ?;";
 	
+	public final static String SELECT_LANGUAGE_FREQUENCY =
+			"SELECT l.language, COUNT(ql.languageId) AS count "
+			+ "FROM questions AS q "
+			+ "INNER JOIN questions2languages AS ql "
+			+ "ON q.questionId = ql.questionId "
+			+ "INNER JOIN languages AS l "
+			+ "ON ql.languageId = l.languageId "
+			+ "GROUP BY ql.languageId "
+			+ "ORDER BY count DESC;";
+	
 	public static final String INSERT_LANGUAGE = 
 			"INSERT INTO users2languages " 
 			+ "(userId, languageId, level) "

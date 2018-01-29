@@ -478,7 +478,6 @@ select:-moz-focusring {
 
 div.links {
   border: 1px solid #EF6F6F;
-  color: red;
   width: 94%;
   display: block;
   margin-bottom: 60px;
@@ -486,6 +485,23 @@ div.links {
   margin-right: 2%;
   padding: 5px;
 }
+
+div.links p {
+	font-size: 14px;
+	color: #B30000;
+	text-align: center;
+}
+
+div.links div.lang {
+	text-align: center;
+}
+
+div.links div.lang a {
+	font-size: 16px;
+  	color: #4D0000;
+  	text-decoration: none;	
+}
+
 
 
 /* MY_QUESTIONS */

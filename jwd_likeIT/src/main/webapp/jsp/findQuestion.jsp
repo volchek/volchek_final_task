@@ -74,7 +74,7 @@
 			<div class="container">
 				<label><c:out value="${tags}" /> <br> <input type="text" name="tag"
 					id="tag1" class="tag awesomplete" style="display: inline" required />
-					<input type="text" name="tag awesomplete" id="tag2" class="tag"
+					<input type="text" name="tag" id="tag2" class="tag awesomplete"
 					style="display: none" /> <input type="text" name="tag" id="tag3"
 					class="tag awesomplete" style="display: none" /> <a href="#"
 					id="add-tag" class="add-tag"

@@ -84,7 +84,7 @@ public final class QuestionQuery {
 			+ "GROUP BY q.questionId "
 			+ "ORDER BY q.creationDatetime DESC;";
 	
-	public final static String SELECT_QUESTIONS_BY_LANGUAGE = 
+	public final static String SELECT_QUESTIONS_BY_LANGUAGES = 
 			"SELECT q.questionId, q.title, q.text, q.creationDatetime, "
 			+ "GROUP_CONCAT(DISTINCT l.language ORDER BY l.language ASC SEPARATOR','), "
 			+ "GROUP_CONCAT(DISTINCT k.keyword ORDER BY k.keyword ASC SEPARATOR ','), "
@@ -108,7 +108,31 @@ public final class QuestionQuery {
 			+ "GROUP BY q.questionId "
 			+ "ORDER BY q.creationDatetime DESC;";
 	
-	public final static String SELECT_QUESTIONS_BY_TAG = 
+	public final static String SELECT_QUESTIONS_BY_LANGUAGE = 
+			"SELECT q.questionId, q.title, q.text, q.creationDatetime, "
+			+ "GROUP_CONCAT(DISTINCT l.language ORDER BY l.language ASC SEPARATOR','), "
+			+ "GROUP_CONCAT(DISTINCT k.keyword ORDER BY k.keyword ASC SEPARATOR ','), "
+			+ "u.login, AVG(m.mark) "
+			+ "FROM questions AS q " 
+			+ "LEFT JOIN questions2keywords AS qk "
+			+ "ON q.questionId = qk.questionId "
+			+ "LEFT JOIN keywords AS k " 
+			+ "ON k.keywordId = qk.keywordId "
+			+ "LEFT JOIN questions2languages AS ql "
+			+ "ON q.questionId = ql.questionId "
+			+ "LEFT JOIN languages AS l "
+			+ "ON ql.languageId = l.languageId "
+			+ "INNER JOIN users AS u "
+			+ "ON q.userId = u.userId "
+			+ "LEFT JOIN questionmarks AS m "
+			+ "ON q.questionId = m.questionId "
+			+ "WHERE q.questionId IN "
+			+ "(SELECT ql.questionId FROM questions2languages AS ql "
+			+ "WHERE ql.languageId = ?) "
+			+ "GROUP BY q.questionId "
+			+ "ORDER BY q.creationDatetime DESC;";
+	
+	public final static String SELECT_QUESTIONS_BY_TAGS = 
 			"SELECT q.questionId, q.title, q.text, q.creationDatetime, "
 			+ "GROUP_CONCAT(DISTINCT l.language ORDER BY l.language ASC SEPARATOR','), "
 			+ "GROUP_CONCAT(DISTINCT k.keyword ORDER BY k.keyword ASC SEPARATOR ','), "
@@ -180,7 +204,7 @@ public final class QuestionQuery {
 			+ "WHERE ul.userId = ?)) "
 			+ "GROUP BY q.questionId "
 			+ "ORDER BY q.creationDatetime DESC ;";
-
+	
 	private QuestionQuery() {
 		
 	}

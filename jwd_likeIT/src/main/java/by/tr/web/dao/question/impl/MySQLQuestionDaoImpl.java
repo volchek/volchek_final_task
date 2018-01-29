@@ -62,12 +62,12 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 			if (question == null) {
 				throw new DaoException("Question with id=" + questionId + "doesn't exist");
 			}
-			
+
 			AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
 			List<Answer> answers = answerSubmitter.selectAnswersToTheQuestion(conn, questionId);
 			question.setAnswers(answers);
 			return question;
-			
+
 		} catch (MySqlException ex) {
 			logger.error("Can't execure query and select a question with id = " + questionId);
 			throw new DaoException("Failed to select a question", ex);
@@ -84,8 +84,13 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 			conn = connPool.getConnection();
 			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
 
-			List<Question> questionList = submitter.selectQuestionByLanguageOrTag(conn, languages,
-					KeywordType.LANGUAGE);
+			List<Question> questionList = null;
+			if (languages.size() > 1) {
+				questionList = submitter.selectQuestionByLanguageOrTag(conn, languages, KeywordType.LANGUAGE);
+			} else {
+				questionList = submitter.selectQuestionByLanguage(conn, languages);
+			}
+			getAnswerCount(conn, questionList);
 			return questionList;
 
 		} catch (MySqlException ex) {
@@ -105,6 +110,7 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 
 			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
 			List<Question> questionList = submitter.selectQuestionByLanguageOrTag(conn, tags, KeywordType.TAG);
+			getAnswerCount(conn, questionList);
 			return questionList;
 		} catch (MySqlException ex) {
 			logger.error("Can't execure query and select questions asked in tag list: " + tags.toString());
@@ -120,15 +126,10 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 		Connection conn = null;
 		try {
 			conn = connPool.getConnection();
-			
+
 			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
 			List<Question> questionList = submitter.selectQuestionFeed(conn);
-			AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
-			for(Question question : questionList){
-				int questionId = question.getId();
-				int countAnswers = answerSubmitter.findCountAnswers(conn, questionId);
-				question.setCountAnswers(countAnswers);
-			}
+			getAnswerCount(conn, questionList);
 			return questionList;
 		} catch (MySqlException ex) {
 			logger.error("Can't execure query and select last questions");
@@ -147,7 +148,7 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
 			List<Question> questionList = submitter.selectQuestionFeed(conn, userId);
 			AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
-			for(Question question : questionList){
+			for (Question question : questionList) {
 				int questionId = question.getId();
 				int countAnswers = answerSubmitter.findCountAnswers(conn, questionId);
 				question.setCountAnswers(countAnswers);
@@ -158,6 +159,15 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 			throw new DaoException("Failed to select a question list", ex);
 		} finally {
 			connPool.closeConnection(conn);
+		}
+	}
+	
+	private void getAnswerCount(Connection conn, List<Question> questionList) throws MySqlException{
+		AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
+		for (Question question : questionList) {
+			int questionId = question.getId();
+			int countAnswers = answerSubmitter.findCountAnswers(conn, questionId);
+			question.setCountAnswers(countAnswers);
 		}
 	}
 

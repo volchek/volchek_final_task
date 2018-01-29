@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ taglib uri="likeitTagLib" prefix="ct"%>
 
 <!DOCTYPE html>
@@ -14,6 +15,7 @@
 	var="question_info" />
 <fmt:message key="answer.get_answer" bundle="${lc}" var="send" />
 <fmt:message key="question.answer" bundle="${lc}" var="get_answer" />
+<fmt:message key="language.label" bundle="${lc}" var="label" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
@@ -152,13 +154,24 @@
 			</c:if>
 		</div>
 	</div>
-	<div class="links clearfix">
-		<p>C++</p>
-		<p>Java</p>
-		<p>Python</p>
-		<p>JavaScript</p>
+	<div class="links question-container clearfix">
+		<c:if test="${not empty requestScope.languages}">
+			<p><c:out value="${label}"/></p>
+			<c:forEach var="index" begin="1" end="5">
+			<div class="lang">
+				<c:set var="language" value="${requestScope.languages[index - 1]}" />
+				<c:set var="correct_lang" value="${fn:replace(language, '++', '%2B%2B')}" />
+				<c:set var="correct_lang" value="${fn:replace(correct_lang, '#', '%23')}" />
+				<a href="${pageContext.request.contextPath}/Controller?command=FIND_QUESTION_BY_LANGUAGE&language=${correct_lang}">
+				<c:out value="${language}" />
+				</a>
+			</div>	
+			</c:forEach>
+		</c:if>
 	</div>
+	
 	<c:import url="fragment/footer.jsp"></c:import>
+	
 	<script src="${pageContext.request.contextPath}/js/pell.js"></script>
 	<script src="${pageContext.request.contextPath}/js/add_question.js"></script>
 	<script src="${pageContext.request.contextPath}/js/highlight.pack.js"></script>
