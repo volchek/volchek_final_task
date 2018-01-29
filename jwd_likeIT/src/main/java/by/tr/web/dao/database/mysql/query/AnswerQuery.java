@@ -16,6 +16,11 @@ public final class AnswerQuery {
 			+ "GROUP BY a.answerId "
 			+ "HAVING a.questionId = ?;";
 	
+	public static final String SELECT_COUNT_ANSWERS_TO_THE_QUESTION = 
+			"SELECT COUNT(answerId) "
+			+ "FROM answers "
+			+ "WHERE questionId = ?;";
+	
 	public static final String SELECT_ANSWER_BY_ID = 
 			"SELECT a.answerId, a.questionId, a.answerText, a.creationDatetime, u.login, AVG(m.mark) "
 			+ "FROM Answers AS a "

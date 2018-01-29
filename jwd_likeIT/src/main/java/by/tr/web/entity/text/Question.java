@@ -11,6 +11,7 @@ public class Question extends Text {
 	private List<String> languages;
 	private List<String> tags;
 	private List<Answer> answers;
+	private int countAnswers;
 
 	public Question() {
 
@@ -74,6 +75,14 @@ public class Question extends Text {
 			answers.add(newAnswer);
 		}
 	}
+	
+	public void setCountAnswers(int countAnswers){
+		this.countAnswers = countAnswers;
+	}
+	
+	public int getCountAnswers(){
+		return countAnswers;
+	}
 
 	@Override
 	public int hashCode() {
@@ -83,6 +92,7 @@ public class Question extends Text {
 		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
+		result = prime * result + countAnswers;
 		return result;
 	}
 
@@ -129,6 +139,10 @@ public class Question extends Text {
 		} else if (!title.equals(other.title)) {
 			return false;
 		}
+		
+		if (countAnswers != other.countAnswers){
+			return false;
+		}
 
 		return true;
 	}
@@ -139,6 +153,7 @@ public class Question extends Text {
 				+ ", languages=" + languages 
 				+ ", tags=" + tags 
 				+ ", answers=" + answers
+				+ ", countAnswers=" + countAnswers
 				+ "; " + super.toString();
 	}
 

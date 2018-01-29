@@ -627,75 +627,57 @@ div.feed {
   margin-top: 10px;
   margin-bottom: 20px;
   margin-left: 20px;
+  font-size: 12px;
+}
+
+div.feed div.mark {
+	margin: 0 10px 0 2px;
+	padding: 0;
+	display: inline-block;
+	width: 30px;
+	font-size: 16px;
 }
 
 div.feed div.question-container {
   font-size: 16px;
-  width: 90%;
-  display: inline-block;
+  width: 80%;
+  margin: 5px;
 }
 
-div.feed div.question-container + div.question-container {
-  margin-top: 10px;
+div.feed div.question-container a {
+	color: black;
 }
 
 div.feed div.question-container span.lang {
   display: inline-block;
-  margin-bottom: 20x;
+  margin-bottom: 10x;
   margin-top: 0;
 }
 
-div.feed div.question-info div {
-  width: 90%;
-  font-size: 12px;
-  display: inline-block;
-  margin-left: 10px;
-}
-
-div.feed div.tmp-info div {
-  margin-left: 10px;
-}
-
-div.feed div.question-info div.date {
-  margin-top: 10px;
-  display: inline-block;
-  color: #999999;
-  text-align: right;
-  width: 30px;
-}
-
-div.feed div.question-info div.author {
-  margin-top: 10px;
-  display: inline-block;
-  text-align: right;
-  float: right;
-  width: 30px;
-  padding-right: 10%;
-}
-
-  
-div.feed div.mark {
-  display: inline-block;
-  font-size: 12px;
-  margin-top: 10px;
-  width: 60px;
-  margin-right: 10px;
-}
-
-div.feed div.mark span.mark-text {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
 div.feed div.text {
-  font-size: 12px;
   display: inline-block;
   color: #999999;
   margin-top: 10px;
-  width: 60px;
+  width: 75px;
   margin-left: 0;
-  float: left;
+  text-align: center;
+  border: 1px solid lightgray;
 }
+
+div.feed div.date {
+	width: 90px;
+}
+
+div.feed table {
+	border-collapse: collapse;
+	margin-bottom: 40px;
+}
+
+div.feed table tr {
+	border-bottom: 1px solid lightgray;
+}
+
+
 
 /* USER INFO */
 
@@ -808,8 +790,6 @@ span>button {
 }
 
 
-
-
 @media only screen and (min-width: 330px) {
   div.lang {
     width: 96%;
@@ -830,14 +810,13 @@ span>button {
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 520px) {
 	
 	.right-side table {
 		width: 100%;
 		text-align: center;
 	}	
 	
-
 	.right-side table, .right-side table tbody, .right-side table tr, .right-side table td {
 		display: block;
 		width: 100%;
@@ -852,6 +831,25 @@ span>button {
  		width: 90%;
  		margin-bottom: 10px;
 	}
+	
+	.feed table, .feed table tbody, .feed table tr, .feed table td {
+		display: block;
+		width: 90%;
+		margin-left: 5%;
+		text-align: left;
+	}
+	
+	.feed div.date, div.feed div.text {
+		display: block;
+		width: 100%;
+		text-align: left;
+	}
+	
+	div.feed div.text {
+		width: 150px;
+		border: 0;
+	}
+	
 }
 
 @media only screen and (min-width: 500px) {
@@ -1143,14 +1141,7 @@ span>button {
   div.feed {
     width: 90%;
     display: inline-block;
-    margin-left: 10%;
-  }
-  
-  div.feed div.info {
-    display: inline-block;
-    width: 25%;
-    text-align: center;
-    margin-top: 30px;
+    margin-left: 7%;
   }
   
   div.feed div.question-container {
@@ -1159,53 +1150,6 @@ span>button {
     width: 73%;
     margin-left: 0;
     margin-right: 0;
-  }
-  
-  div.feed div.question-info {
-    display: inline-block;
-    text-align: center;
-    float: left;
-    margin-left: 0;
-    margin-right: 0;
-    font-size: 12px;
-    padding-right: 2px;
-  }
-  
-  div.feed div.tmp-info {
-    display: inline-block;
-    text-align: center;
-    float: left;
-    margin-left: 0;
-    margin-right: 0;
-    font-size: 14px;
-    padding-right: 2px;
-  }
-  
-  div.feed div.question-info div.author, div.feed div.question-info div.date, div.feed div.tmp-info div.text, div.feed div.tmp-info div.mark {
-    display: block;
-    text-align: center;
-  }
-
-  div.feed div.tmp-info div.mark span.mark-text {
-    display: none;
-  }
-  
-  div.feed div.question-info div.date {
-    padding-right: 2%;
-    width: 70px;
-  }
-  
-  div.feed div.tmp-info div.mark {
-    background-color: #F9CCCC;
-    font-size: 12px;
-    -moz-border-radius: 2px 2px 2px 2px;
-      border-radius: 2px 2px;
-  }
-
-  div.feed div.tmp-info div.text {
-      border: 1px solid lightgray;
-    -moz-border-radius: 2px 2px 2px 2px;
-      border-radius: 2px 2px;
   }
   
 }
@@ -1232,7 +1176,6 @@ span>button {
   .question-container .question {
     width: 85%;
   }
-
 
   div.links {
     display: inline-block;

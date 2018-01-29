@@ -98,8 +98,23 @@ public class AnswerQuerySubmitter {
 			logger.error("Can't select questionId for the answer with id = " + answerId);
 			throw new MySqlException("Failed to execute a select query", ex);
 		}
-
 	}
+	
+	public int findCountAnswers(Connection conn, int questionId) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.SELECT_COUNT_ANSWERS_TO_THE_QUESTION)) {
+			ps.setInt(1, questionId);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()){
+				return rs.getInt(1);				
+			}
+			return 0;
+		} catch (SQLException ex) {
+			logger.error("Can't select answer count for the question with id = " + questionId);
+			throw new MySqlException("Failed to execute a select query", ex);
+		}
+	}
+
 
 	private List<Answer> selectAnswersByTextId(Connection conn, int textId, String queryTemplate)
 			throws MySqlException {

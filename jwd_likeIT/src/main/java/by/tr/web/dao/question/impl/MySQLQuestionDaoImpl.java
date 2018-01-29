@@ -76,27 +76,6 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 		}
 	}
 
-/*	
-	public Question selectQuestionById(Connection conn, int questionId) throws DaoException {
-
-		try {
-			QuestionQuerySubmitter questionSubmitter = new QuestionQuerySubmitter();
-			Question question = questionSubmitter.selectQuestionById(conn, questionId);
-
-			if (question == null) {
-				throw new DaoException("Question with id=" + questionId + "doesn't exist");
-			} else {
-				AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
-				List<Answer> answers = answerSubmitter.selectAnswersToTheQuestion(conn, questionId);
-				question.setAnswers(answers);
-				return question;
-			}
-		} catch (MySqlException ex) {
-			logger.error("Can't execure query and select questions with id=" + questionId);
-			throw new DaoException("Question with id=" + questionId + "doesn't exist");
-		}
-	}
-*/
 	@Override
 	public List<Question> findQuestionByLanguage(List<String> languages) throws DaoException {
 
@@ -141,9 +120,15 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 		Connection conn = null;
 		try {
 			conn = connPool.getConnection();
-
+			
 			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
 			List<Question> questionList = submitter.selectQuestionFeed(conn);
+			AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
+			for(Question question : questionList){
+				int questionId = question.getId();
+				int countAnswers = answerSubmitter.findCountAnswers(conn, questionId);
+				question.setCountAnswers(countAnswers);
+			}
 			return questionList;
 		} catch (MySqlException ex) {
 			logger.error("Can't execure query and select last questions");
@@ -161,6 +146,12 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 			conn = connPool.getConnection();
 			QuestionQuerySubmitter submitter = new QuestionQuerySubmitter();
 			List<Question> questionList = submitter.selectQuestionFeed(conn, userId);
+			AnswerQuerySubmitter answerSubmitter = new AnswerQuerySubmitter();
+			for(Question question : questionList){
+				int questionId = question.getId();
+				int countAnswers = answerSubmitter.findCountAnswers(conn, questionId);
+				question.setCountAnswers(countAnswers);
+			}
 			return questionList;
 		} catch (MySqlException ex) {
 			logger.error("Can't execure query and select last questions for the registered user with id = " + userId);

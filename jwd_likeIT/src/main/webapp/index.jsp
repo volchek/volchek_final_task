@@ -20,7 +20,7 @@
 
 	<c:import url="jsp/menu.jsp" />
 
-	<c:import url="jsp/lastQuestions.jsp" />
+	<c:import url="jsp/lastQuestions2.jsp" />
 
 	<c:import url="jsp/fragment/footer.jsp" />
 </body>
