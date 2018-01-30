@@ -26,7 +26,6 @@ public class FindQuestionByLanguage implements ControllerCommand {
 		QuestionService questionService = serviceFactory.getQuestionService();
 
 		List<String> languages = ExtractParameter.extractParameterList(request, TextAttribute.LANGUAGE);
-		System.out.println(languages);
 		
 		try {
 			List<Question> questions = questionService.findQuestionByLanguage(languages);

@@ -34,7 +34,6 @@ public class ShowUserAnswer implements ControllerCommand {
 
 		try {
 			List<Question> questions = textService.showUserTexts(userId, TextType.ANSWER);
-			System.out.println(questions);
 			request.setAttribute(TextAttribute.QUESTION_LIST, questions);
 			d = request.getRequestDispatcher(PagePath.USER_ANSWERS_PAGE);
 		} catch (ServiceException ex) {

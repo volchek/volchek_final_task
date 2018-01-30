@@ -1,6 +1,6 @@
 <!-- Configuration file for UrlRewriteFilter http://www.tuckey.org/urlrewrite/ -->
 
-<urlrewrite>
+<urlrewrite decode-using="null">
 	<rule>
 		<note>
 			The rule means that requests to /test/status/ will be redirected to

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="likeitTagLib" prefix="ct"%>
 
@@ -68,7 +68,7 @@
 				<c:choose>
 					<c:when
 						test="${not empty sessionScope.current_user and sessionScope.current_user.login == answer.authorLogin and answer.id == requestScope.answer_id }">
-						<c:set var="user_text" value="${answer.text}" />
+						<c:set var="user_text" value="${answer.text}" />						
 						<div class="answer">
 							<form action="${pageContext.request.contextPath}/Controller"
 								method="post">
@@ -190,7 +190,7 @@
     function fillPell(text){
     	document.getElementsByClassName("pell-content")[0].innerHTML = text;
     };
-    window.onload = fillPell("${user_text}");
+    window.onload = fillPell("${fn:replace(user_text, '"', '&quot;')}");
     </script>
 </body>
 </html>

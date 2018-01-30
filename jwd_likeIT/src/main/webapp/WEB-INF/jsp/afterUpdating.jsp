@@ -33,7 +33,7 @@
 	
 	<h2><c:out value="${message}" /></h2>
 	
-	<a href="${pageContext.request.contextPath}/index.jsp">TODO</a>
+	<a href="${pageContext.request.contextPath}/index.jsp">return</a>
 	
 	<c:import url="jsp/fragment/footer.jsp"></c:import>
 </body>
