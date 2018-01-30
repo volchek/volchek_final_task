@@ -453,8 +453,7 @@ select:-moz-focusring {
   padding-right: 15px;
 }
 
-
-.author a {
+.author a, .control-content a  {
   color: #992D2D;
   text-decoration: none;
 }
@@ -473,6 +472,10 @@ select:-moz-focusring {
   padding-right: 2%;
 }
 
+.control-content a {
+  font-size: 12px;
+  text-align: right;
+}
 
 /* Additional links */
 

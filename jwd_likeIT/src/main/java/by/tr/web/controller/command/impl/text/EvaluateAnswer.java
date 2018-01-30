@@ -36,13 +36,12 @@ public class EvaluateAnswer implements ControllerCommand {
 			int textId = Integer.parseInt(request.getParameter(TextAttribute.ANSWER));
 			int mark = Integer.parseInt(request.getParameter(TextAttribute.MARK));
 
-			Question question = textService.evaluateText(userId, textId, mark, TextType.ANSWER);
-			
-			LanguageService languageService = serviceFactory.getLanguageService();
-			List<String> languages = languageService.findFrequentLanguages();
-			
+			Question question = textService.evaluateText(userId, textId, mark, TextType.ANSWER);			
 			request.setAttribute(TextAttribute.QUESTION, question);
-			request.setAttribute(TextAttribute.LANGUAGE_LIST, languages);
+
+			LanguageService languageService = serviceFactory.getLanguageService();
+			List<String> frequentLanguages = languageService.findFrequentLanguages();
+			request.setAttribute(TextAttribute.LANGUAGE_LIST, frequentLanguages);
 
 			d = request.getRequestDispatcher(PagePath.QUESTION_PAGE);
 		} catch (ServiceException ex) {

@@ -16,6 +16,8 @@
 <fmt:message key="answer.get_answer" bundle="${lc}" var="send" />
 <fmt:message key="question.answer" bundle="${lc}" var="get_answer" />
 <fmt:message key="language.label" bundle="${lc}" var="label" />
+<fmt:message key="text.edit" bundle="${lc}" var="edit" />
+<fmt:message key="text.delete" bundle="${lc}" var="delete" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
@@ -122,6 +124,19 @@
 								href="${pageContext.request.contextPath}/users/${answer.authorLogin}">
 								${answer.authorLogin} </a>
 						</p>
+						<c:if
+							test="${(not empty sessionScope.current_user) 
+							and (sessionScope.current_user.login == answer.authorLogin)}">
+							<div class="control-content">
+								<a
+									href="${pageContext.request.contextPath}/delete-answer/${answer.id}">
+									<c:out value="${delete}" />
+								</a> <a
+									href="${pageContext.request.contextPath}/edit-answer/${requestScope.question.id}/${answer.id}">
+									<c:out value="${edit}" />
+								</a>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</c:forEach>

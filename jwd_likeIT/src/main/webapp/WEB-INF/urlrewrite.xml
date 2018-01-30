@@ -1,60 +1,75 @@
-<!--
+<!-- Configuration file for UrlRewriteFilter http://www.tuckey.org/urlrewrite/ -->
 
-
-    Configuration file for UrlRewriteFilter
-    http://www.tuckey.org/urlrewrite/
-
--->
 <urlrewrite>
-<rule>
-<note>
-The rule means that requests to /test/status/ will be redirected to /rewrite-status the url will be rewritten.
-</note>
-<from>/test/status/</from>
-<to type="redirect">%{context-path}/rewrite-status</to>
-</rule>
-<outbound-rule>
-<note>
-The outbound-rule specifies that when response.encodeURL is called (if you are using JSTL c:url) the url /rewrite-status will be rewritten to /test/status/. The above rule and this outbound-rule means that end users should never see the url /rewrite-status only /test/status/ both in their location bar and in hyperlinks in your pages.
-</note>
-<from>/rewrite-status</from>
-<to>/test/status/</to>
-</outbound-rule>
+	<rule>
+		<note>
+			The rule means that requests to /test/status/ will be redirected to
+			/rewrite-status the url will be rewritten.
+		</note>
+		<from>/test/status/</from>
+		<to type="redirect">%{context-path}/rewrite-status</to>
+	</rule>
+	<outbound-rule>
+		<note>
+			The outbound-rule specifies that when response.encodeURL is called (if
+			you are using JSTL c:url) the url /rewrite-status will be rewritten
+			to /test/status/. The above rule and this outbound-rule means that
+			end users should never see the url /rewrite-status only /test/status/
+			both in their location bar and in hyperlinks in your pages.
+		</note>
+		<from>/rewrite-status</from>
+		<to>/test/status/</to>
+	</outbound-rule>
 
-<rule>
-<from>/questions/([1-9][0-9]*)</from>
-<to>/Controller?command=FIND_QUESTION_BY_ID&amp;question_id=$1</to>
-</rule>
+	<rule>
+		<from>/questions/([1-9][0-9]*)</from>
+		<to>/Controller?command=FIND_QUESTION_BY_ID&amp;question_id=$1</to>
+	</rule>
 
-<rule>
-<from>/users/([a-zA-Z-_0-9]+)</from>
-<to>/Controller?command=FIND_USER_BY_LOGIN&amp;login=$1</to>
-</rule>
+	<rule>
+		<from>/users/([a-zA-Z-_0-9]+)</from>
+		<to>/Controller?command=FIND_USER_BY_LOGIN&amp;login=$1</to>
+	</rule>
 
-<rule>
-<from>/languages/([a-zA-Z%-+#\.0-9]+)</from>
-<to>/Controller?command=FIND_QUESTION_BY_LANGUAGE&amp;language=$1</to>
-</rule>
+	<rule>
+		<from>/languages/([a-zA-Z%-+#\.0-9]+)</from>
+		<to>/Controller?command=FIND_QUESTION_BY_LANGUAGE&amp;language=$1</to>
+	</rule>
 
-<rule>
-<from>/logout</from>
-<to>/Controller?command=LOGOUT</to>
-</rule>
+	<rule>
+		<from>/logout</from>
+		<to>/Controller?command=LOGOUT</to>
+	</rule>
 
-<rule>
-<from>/user_questions</from>
-<to>/Controller?command=SHOW_USER_QUESTIONS</to>
-</rule>
+	<rule>
+		<from>/user_questions</from>
+		<to>/Controller?command=SHOW_USER_QUESTIONS</to>
+	</rule>
 
-<rule>
-<from>/user_answers</from>
-<to>/Controller?command=SHOW_USER_ANSWERS</to>
-</rule>
+	<rule>
+		<from>/user_answers</from>
+		<to>/Controller?command=SHOW_USER_ANSWERS</to>
+	</rule>
 
-<rule>
-<from>/find-question</from>
-<to>/jsp/findQuestion.jsp</to>
-</rule>
+	<rule>
+		<from>/find-question</from>
+		<to>/jsp/findQuestion.jsp</to>
+	</rule>
 
+	<rule>
+		<from>/delete-answer/([1-9][0-9]*)</from>
+		<to>/Controller?command=DELETE_ANSWER&amp;answer_id=$1</to>
+	</rule>
+
+	<rule>
+		<from>/edit-answer/([1-9][0-9]*)/([1-9][0-9]*)</from>
+		<to>/Controller?command=EDIT_ANSWER&amp;question_id=$1&amp;answer_id=$2</to>
+	</rule>
+	
+	<rule>
+		<from>/send-updated-answer/([1-9][0-9]*)</from>
+		<to>/Controller?command=FINISH_TO_EDIT_ANSWER&amp;answer_id=$1</to>
+	</rule>
+	
 
 </urlrewrite>

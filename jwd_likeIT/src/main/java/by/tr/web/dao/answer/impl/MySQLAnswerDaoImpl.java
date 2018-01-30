@@ -28,17 +28,13 @@ public class MySQLAnswerDaoImpl implements AnswerDao {
 	public Text addAnswer(int questionId, String text, int userId) throws DaoException {
 
 		Connection conn = null;
-		
+
 		try {
 			conn = connPool.getConnection();
 			AnswerQuerySubmitter answerQuery = new AnswerQuerySubmitter();
 			answerQuery.insertAnswer(conn, questionId, userId, text);
-			
-			QuestionQuerySubmitter questionQuery = new QuestionQuerySubmitter();
-			Question question = questionQuery.selectQuestionById(conn, questionId);
-			List<Answer> answerList = answerQuery.selectAnswersToTheQuestion(conn, questionId);
-			question.setAnswers(answerList);
-			
+
+			Question question = findQuestion(conn, questionId, answerQuery);
 			return question;
 		} catch (MySqlException ex) {
 			logger.error("Can't add a new answer to the question with id = " + questionId);
@@ -52,12 +48,12 @@ public class MySQLAnswerDaoImpl implements AnswerDao {
 	public Answer findAnswerById(int answerId) throws DaoException {
 
 		Connection conn = null;
-		
+
 		try {
 			conn = connPool.getConnection();
 			AnswerQuerySubmitter answerQuery = new AnswerQuerySubmitter();
 			List<Answer> answers = answerQuery.selectAnswerById(conn, answerId);
-			if (answers != null){
+			if (answers != null) {
 				return answers.get(0);
 			}
 			return null;
@@ -71,9 +67,9 @@ public class MySQLAnswerDaoImpl implements AnswerDao {
 
 	@Override
 	public int findQuestionIdForTheAnswer(int answerId) throws DaoException {
-		
+
 		Connection conn = null;
-		
+
 		try {
 			conn = connPool.getConnection();
 			AnswerQuerySubmitter answerQuery = new AnswerQuerySubmitter();
@@ -86,4 +82,52 @@ public class MySQLAnswerDaoImpl implements AnswerDao {
 		}
 	}
 
+	@Override
+	public Question editAnswer(int answerId, int userId, String text) throws DaoException {
+
+		Connection conn = null;
+
+		try {
+			conn = connPool.getConnection();
+			AnswerQuerySubmitter answerQuery = new AnswerQuerySubmitter();
+			answerQuery.updateAnswer(conn, answerId, userId, text);
+			int questionId = answerQuery.findQuestionIdForTheAnswer(conn, answerId);
+			Question question = findQuestion(conn, questionId, answerQuery);
+			return question;
+		} catch (MySqlException ex) {
+			logger.error("Can't edit the answer with id = " + answerId);
+			throw new DaoException("Failed to update the answer", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
+	}
+
+	@Override
+	public boolean deleteAnswer(int answerId, int userId) throws DaoException {
+
+		Connection conn = null;
+
+		try {
+			conn = connPool.getConnection();
+			AnswerQuerySubmitter answerQuery = new AnswerQuerySubmitter();
+			return answerQuery.deleteAnswer(conn, answerId, userId);
+		} catch (MySqlException ex) {
+			logger.error("Can't delete the answer with id = " + answerId);
+			throw new DaoException("Failed to delete the answer", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
+	}
+
+	private Question findQuestion(Connection conn, int questionId, AnswerQuerySubmitter answerQuery)
+			throws MySqlException {
+
+		QuestionQuerySubmitter questionQuery = new QuestionQuerySubmitter();
+		Question question = questionQuery.selectQuestionById(conn, questionId);
+
+		List<Answer> answerList = answerQuery.selectAnswersToTheQuestion(conn, questionId);
+		question.setAnswers(answerList);
+
+		return question;
+	}
 }

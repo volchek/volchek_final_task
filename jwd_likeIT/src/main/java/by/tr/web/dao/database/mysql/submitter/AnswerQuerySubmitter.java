@@ -39,6 +39,30 @@ public class AnswerQuerySubmitter {
 		}
 	}
 
+	public void updateAnswer(Connection conn, int answerId, int userId, String text) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.UPDATE_ANSWER)) {
+			ps.setString(1, text);
+			ps.setInt(2, answerId);
+			ps.setInt(3, userId);
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			logger.error("Can't create a prepared statement or execute answer query");
+			throw new MySqlException("Can't execute update query", ex);
+		}
+	}
+	
+	public boolean deleteAnswer(Connection conn, int answerId, int userId) throws MySqlException {
+		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.DELETE_ANSWER)){
+			ps.setInt(1, answerId);
+			ps.setInt(2, userId);
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException ex) {
+			logger.error("Can't create a prepared statement or execute answer query");
+			throw new MySqlException("Can't execute delete query", ex);
+		}	}
+
 	public Map<Integer, List<Answer>> selectUserAnswers(Connection conn, int userId) throws MySqlException {
 
 		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.SELECT_USER_ANSWERS)) {
@@ -99,14 +123,14 @@ public class AnswerQuerySubmitter {
 			throw new MySqlException("Failed to execute a select query", ex);
 		}
 	}
-	
+
 	public int findCountAnswers(Connection conn, int questionId) throws MySqlException {
 
 		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.SELECT_COUNT_ANSWERS_TO_THE_QUESTION)) {
 			ps.setInt(1, questionId);
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()){
-				return rs.getInt(1);				
+			if (rs.next()) {
+				return rs.getInt(1);
 			}
 			return 0;
 		} catch (SQLException ex) {
@@ -114,7 +138,6 @@ public class AnswerQuerySubmitter {
 			throw new MySqlException("Failed to execute a select query", ex);
 		}
 	}
-
 
 	private List<Answer> selectAnswersByTextId(Connection conn, int textId, String queryTemplate)
 			throws MySqlException {

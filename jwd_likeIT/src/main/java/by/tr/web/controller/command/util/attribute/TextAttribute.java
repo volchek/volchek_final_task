@@ -14,6 +14,7 @@ public final class TextAttribute {
 	public static final String ANSWER_TEXT = "answer_text";
 	public static final String ANSWER = "answer";
 	public static final String ANSWER_LIST = "answer_list";
+	public static final String ANSWER_ID = "answer_id";
 	public static final String MARK = "mark";
 	
 	private TextAttribute(){ }

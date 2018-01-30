@@ -39,7 +39,7 @@ public class QuestionsFeedFilter implements Filter {
 			} catch (ServiceException ex) {
 //				logger
 			} finally {
-				chain.doFilter(request, response);				
+				chain.doFilter(request, response);	
 			}
 			return;
 		}

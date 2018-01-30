@@ -29,14 +29,13 @@ public class FindQuestionById implements ControllerCommand {
 
 		try {
 			String questionId = request.getParameter(TextAttribute.QUESTION_ID);
-			Question question = questionService.findQuestionById(questionId);
-			
+			Question question = questionService.findQuestionById(questionId);			
+			request.setAttribute(TextAttribute.QUESTION, question);
+
 			LanguageService languageService = serviceFactory.getLanguageService();
 			List<String> languages = languageService.findFrequentLanguages();
-			
-			request.setAttribute(TextAttribute.QUESTION, question);
 			request.setAttribute(TextAttribute.LANGUAGE_LIST, languages);
-			
+
 			d = request.getRequestDispatcher(PagePath.QUESTION_PAGE);
 		} catch (ServiceException ex) {
 			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);

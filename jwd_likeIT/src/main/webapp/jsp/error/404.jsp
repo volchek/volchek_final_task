@@ -11,7 +11,7 @@
 <fmt:message key="error.link" bundle="${lc}" var="main_page" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>LikeIT</title>
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 	<jsp:include page="../fragment/header.jsp" flush="true" />

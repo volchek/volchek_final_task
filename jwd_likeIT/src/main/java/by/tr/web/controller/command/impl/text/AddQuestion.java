@@ -38,13 +38,12 @@ public class AddQuestion implements ControllerCommand {
 
 		try {
 			Question question = questionService.addQuestion(user.getId(), title, languages, tags, text);
+			request.setAttribute(TextAttribute.QUESTION, question);
 
 			LanguageService languageService = serviceFactory.getLanguageService();
 			List<String> frequentLanguages = languageService.findFrequentLanguages();
-
-			request.setAttribute(TextAttribute.QUESTION, question);
 			request.setAttribute(TextAttribute.LANGUAGE_LIST, frequentLanguages);
-			
+
 			d = request.getRequestDispatcher(PagePath.QUESTION_PAGE);
 
 		} catch (ServiceException e) {

@@ -37,7 +37,7 @@ public class EditUser implements ControllerCommand {
 		} catch (ServiceException e) {
 			request.setAttribute(CommandAttribute.COMMAND_RESULT, false);
 		}
-		response.sendRedirect(PagePath.AFTER_USER_UPDATING);
+		response.sendRedirect(PagePath.AFTER_UPDATING);
 	}
 
 	private User getModifiedUser(HttpServletRequest request) {

@@ -145,7 +145,7 @@ public final class Validator {
 			int correctId = Integer.parseInt(id);
 			return correctId;
 		} catch (NumberFormatException ex){
-			logger.error("Id " + id + "has an incorrect format");
+			logger.error("Id " + id + " has an incorrect format");
 			throw new IdException("Id is incorrect", ex);
 		}
 	}

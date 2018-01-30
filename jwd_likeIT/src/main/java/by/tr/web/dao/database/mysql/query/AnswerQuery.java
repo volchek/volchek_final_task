@@ -2,12 +2,25 @@ package by.tr.web.dao.database.mysql.query;
 
 public final class AnswerQuery {
 
-	public static final String INSERT_ANSWER = "INSERT INTO Answers "
+	public static final String INSERT_ANSWER = 
+			"INSERT INTO Answers "
 			+ " (questionId, answerText, userId, creationDatetime) " 
 			+ "VALUES (?, ?, ?, ?);";
+	
+	public static final String UPDATE_ANSWER =
+			"UPDATE answers "
+			+ "SET answerText = ? "
+			+ "WHERE answerId = ? "
+			+ "AND userId = ?;";
+	
+	public static final String DELETE_ANSWER = 
+			"DELETE FROM answers "
+			+ "WHERE answerId = ? "
+			+ "AND userId = ?;";
 
 	public static final String SELECT_ANSWERS_TO_THE_QUESTION = 
-			"SELECT a.answerId, a.questionId, a.answerText, a.creationDatetime, u.login, AVG(m.mark) "
+			"SELECT a.answerId, a.questionId, a.answerText, "
+			+ "a.creationDatetime, u.login, AVG(m.mark) "
 			+ "FROM Answers AS a "
 			+ "INNER JOIN Users AS u "
 			+ "ON a.userId = u.userId "
@@ -22,7 +35,8 @@ public final class AnswerQuery {
 			+ "WHERE questionId = ?;";
 	
 	public static final String SELECT_ANSWER_BY_ID = 
-			"SELECT a.answerId, a.questionId, a.answerText, a.creationDatetime, u.login, AVG(m.mark) "
+			"SELECT a.answerId, a.questionId, a.answerText, "
+			+ "a.creationDatetime, u.login, AVG(m.mark) "
 			+ "FROM Answers AS a "
 			+ "INNER JOIN Users AS u "
 			+ "ON a.userId = u.userId "

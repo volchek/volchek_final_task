@@ -53,11 +53,11 @@
 
 	<servlet>
 		<servlet-name>SuccessfulUpdating</servlet-name>
-		<jsp-file>/WEB-INF/jsp/afterUserUpdating.jsp</jsp-file>
+		<jsp-file>/WEB-INF/jsp/afterUpdating.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SuccessfulUpdating</servlet-name>
-		<url-pattern>/update-personal-info</url-pattern>
+		<url-pattern>/update-info</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -67,6 +67,15 @@
 	<servlet-mapping>
 		<servlet-name>AddQuestion</servlet-name>
 		<url-pattern>/add-question</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditText</servlet-name>
+		<jsp-file>/WEB-INF/jsp/editText.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditText</servlet-name>
+		<url-pattern>/edit</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
