@@ -18,6 +18,7 @@ import by.tr.web.controller.command.impl.text.EvaluateQuestion;
 import by.tr.web.controller.command.impl.text.FindQuestionByLanguage;
 import by.tr.web.controller.command.impl.text.FindQuestionByTag;
 import by.tr.web.controller.command.impl.text.FinishEditAnswer;
+import by.tr.web.controller.command.impl.text.FinishEditQuestion;
 import by.tr.web.controller.command.impl.text.ShowLastQuestions;
 import by.tr.web.controller.command.impl.text.FindQuestionById;
 import by.tr.web.controller.command.impl.text.ShowUserAnswer;
@@ -39,6 +40,7 @@ public class ControllerCommandFactory {
 		put(CommandType.ADD_QUESTION.name(), new AddQuestion());
 		put(CommandType.GET_ANSWER.name(), new AddAnswer());
 		put(CommandType.EDIT_QUESTION.name(), new EditQuestion());
+		put(CommandType.FINISH_TO_EDIT_QUESTION.name(), new FinishEditQuestion());
 		put(CommandType.EDIT_ANSWER.name(), new EditAnswer());
 		put(CommandType.FINISH_TO_EDIT_ANSWER.name(), new FinishEditAnswer());
 		put(CommandType.DELETE_ANSWER.name(), new DeleteAnswer());

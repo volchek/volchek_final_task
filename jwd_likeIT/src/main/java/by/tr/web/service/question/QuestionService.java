@@ -9,6 +9,8 @@ public interface QuestionService {
 
 	Question addQuestion(int authorId, String title, List<String> languages, List<String> tags, String text)
 			throws ServiceException;
+	
+	Question editQuestion(int questionId, int authorId, String oldText, String newText) throws ServiceException;
 
 	Question findQuestionById(String questionId) throws ServiceException;
 

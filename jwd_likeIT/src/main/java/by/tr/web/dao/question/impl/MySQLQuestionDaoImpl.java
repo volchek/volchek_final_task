@@ -14,6 +14,7 @@ import by.tr.web.dao.database.util.pool.ConnectionPool;
 import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.question.QuestionDao;
+import by.tr.web.dao.util.TextCreator;
 import by.tr.web.entity.text.Answer;
 import by.tr.web.entity.text.Question;
 
@@ -21,7 +22,7 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 
 	private final static ConnectionPoolFactory poolFactory = ConnectionPoolFactory.getInstance();
 	private final static ConnectionPool connPool = poolFactory.getConnectionPool();
-
+	
 	private final static Logger logger = LogManager.getLogger(MySQLQuestionDaoImpl.class.getName());
 
 	@Override
@@ -48,6 +49,29 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 			connPool.closeConnection(conn);
 		}
 	}
+	
+
+	@Override
+	public Question editQuestion(int questionId, int userId, String oldText, String newText) throws DaoException {
+		
+		Connection conn = null;
+		
+		try {
+			conn = connPool.getConnection();
+			QuestionQuerySubmitter questionSubmitter = new QuestionQuerySubmitter();
+			
+			questionSubmitter.updateQuestion(conn, questionId, userId, TextCreator.createUpdatedText(oldText, newText));
+			Question question = questionSubmitter.selectQuestionById(conn, questionId);
+			return question;
+			
+		} catch (MySqlException ex) {
+			logger.error("Can't execure query and update the question with id = " + questionId);
+			throw new DaoException("Failed to update the question", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
+	}
+
 
 	@Override
 	public Question findQuestionById(int questionId) throws DaoException {

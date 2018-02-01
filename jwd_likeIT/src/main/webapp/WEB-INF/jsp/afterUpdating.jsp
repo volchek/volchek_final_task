@@ -28,7 +28,7 @@
 </head>
 
 <body>
-	<c:import url="jsp/fragment/header.jsp"></c:import>
+	<c:import url="+jsp/fragment/header.jsp"></c:import>
 	<c:import url="jsp/menu.jsp"></c:import>
 	
 	<h2><c:out value="${message}" /></h2>

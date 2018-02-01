@@ -71,5 +71,10 @@
 		<to>/Controller?command=FINISH_TO_EDIT_ANSWER&amp;answer_id=$1</to>
 	</rule>
 	
+	<rule>
+		<from>/edit-question/([1-9][0-9]*)</from>
+		<to>/Controller?command=EDIT_QUESTION&amp;question_id=$1</to>
+	</rule>
+	
 
 </urlrewrite>

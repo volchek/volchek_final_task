@@ -84,6 +84,14 @@ public final class Validator {
 		return true;
 	}
 
+	public static boolean validateText(String text) throws TextException {
+		if (isEmpty(text)) {
+			logger.error("The question text is empty");
+			throw new TextException("The question text is empty");
+		}
+		return true;
+	}
+
 	public static boolean validateNameAndSurname(String name) throws NameException {
 		if (!validate(name, namePattern)) {
 			logger.error("Surname / name (value: " + name + ") is empty or incorrect");
@@ -139,12 +147,12 @@ public final class Validator {
 		}
 		return true;
 	}
-	
+
 	public static int validateId(String id) throws IdException {
 		try {
 			int correctId = Integer.parseInt(id);
 			return correctId;
-		} catch (NumberFormatException ex){
+		} catch (NumberFormatException ex) {
 			logger.error("Id " + id + " has an incorrect format");
 			throw new IdException("Id is incorrect", ex);
 		}

@@ -72,6 +72,19 @@ public class QuestionQuerySubmitter {
 		}
 	}
 
+	public void updateQuestion(Connection conn, int questionId, int userId, String text) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.UPDATE_QUESTION_TEXT)) {
+			ps.setString(1, text);
+			ps.setInt(2, questionId);
+			ps.setInt(3, userId);
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			logger.error("Can't update the question with id=" + questionId);
+			throw new MySqlException("Failed to execute command and update a question", ex);
+		}
+	}
+
 	public Question selectQuestionById(Connection conn, int questionId) throws MySqlException {
 
 		Question question = null;
@@ -113,11 +126,11 @@ public class QuestionQuerySubmitter {
 			throw new MySqlException("Failed to execute command and select a question list", ex);
 		}
 	}
-	
-	public List<Question> selectQuestionByLanguage(Connection conn, List<String> languages) throws MySqlException{
-		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_LANGUAGE)){
+
+	public List<Question> selectQuestionByLanguage(Connection conn, List<String> languages) throws MySqlException {
+		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.SELECT_QUESTIONS_BY_LANGUAGE)) {
 			int langId = getLanguageIdList(languages).get(0);
-			ps.setInt(1, langId);			
+			ps.setInt(1, langId);
 			ResultSet rs = ps.executeQuery();
 			return createQuestionList(rs);
 		} catch (SQLException ex) {
@@ -272,9 +285,9 @@ public class QuestionQuerySubmitter {
 	}
 
 	private List<Question> createQuestionList(ResultSet rs) throws MySqlException, SQLException {
-		
+
 		List<Question> questionList = new ArrayList<Question>();
-		
+
 		while (rs.next()) {
 			Question question = new Question();
 			setMainQuestionFields(rs, question);

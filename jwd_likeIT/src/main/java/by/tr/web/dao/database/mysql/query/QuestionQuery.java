@@ -13,6 +13,12 @@ public final class QuestionQuery {
 	public final static String INSERT_QUESTION_TAGS = 
 			"INSERT INTO Questions2Keywords (questionId, keywordId) "
 			+ "VALUES (?, ?)";
+	
+	public final static String UPDATE_QUESTION_TEXT = 
+			"UPDATE questions "
+			+ "SET text = ? "
+			+ "WHERE questionId = ? "
+			+ "AND userId = ?;";
 
 	public final static String SELECT_QUESTION_BY_ID = 
 			"SELECT q.questionId, q.title, q.text, q.creationDatetime,"

@@ -50,17 +50,50 @@
 						<ct:keyword cssClass="lang"
 							keywordList="${requestScope.question.languages}" />
 					</div>
+
+
 					<p id="text">${requestScope.question.text}</p>
-					<p class="date">
-						<ct:date date="${requestScope.question.creationDate}"
-							text="${question_info}" format="dd-MM-yyyy" />
-					</p>
-					<p class="author">
-						<a
-							href="${pageContext.request.contextPath}/users/${requestScope.question.authorLogin }">
-							<c:out value="${ requestScope.question.authorLogin }" />
-						</a>
-					</p>
+					<c:choose>
+						<c:when
+							test="${not empty sessionScope.current_user and sessionScope.current_user.login == requestScope.question.authorLogin}">
+							<c:set var="user_text" value="${null}" />
+								<form action="${pageContext.request.contextPath}/Controller"
+									method="post">
+									<input type="hidden" name="command" value="FINISH_TO_EDIT_QUESTION" />
+									<input type="hidden" name="question_id" value="${requestScope.question.id}" />
+									<input type="hidden" name="old_text" value="${requestScope.question.text}" />
+									<br>
+									<div>
+										<div class="content">
+											<div id="pell" class="pell"></div>
+											<div id="text-output" style="display: none"
+												onKeyUp="addCodeTag(replacePreTags())"></div>
+											<textarea name="question_text" id="question"
+												style="display: none"></textarea>
+										</div>
+
+										<button type="submit" class="signupbtn"
+											onclick="location.href='afterLogIn.jsp'">
+											<c:out value="${send}" />
+										</button>
+									</div>
+								</form>
+						</c:when>
+						<c:otherwise>
+
+							<p class="date">
+								<ct:date date="${requestScope.question.creationDate}"
+									text="${question_info}" format="dd-MM-yyyy" />
+							</p>
+							<p class="author">
+								<a
+									href="${pageContext.request.contextPath}/users/${requestScope.question.authorLogin }">
+									<c:out value="${ requestScope.question.authorLogin }" />
+								</a>
+							</p>
+
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -68,19 +101,20 @@
 				<c:choose>
 					<c:when
 						test="${not empty sessionScope.current_user and sessionScope.current_user.login == answer.authorLogin and answer.id == requestScope.answer_id }">
-						<c:set var="user_text" value="${answer.text}" />						
+						<c:set var="user_text" value="${answer.text}" />
 						<div class="answer">
 							<form action="${pageContext.request.contextPath}/Controller"
 								method="post">
-								<input type="hidden" name="command" value="FINISH_TO_EDIT_ANSWER" />
-								<input type="hidden" name="answer_id" value="${answer.id}" />
+								<input type="hidden" name="command"
+									value="FINISH_TO_EDIT_ANSWER" /> <input type="hidden"
+									name="answer_id" value="${answer.id}" />
 
 								<div>
 									<div class="content">
 										<div id="pell" class="pell"></div>
 										<div id="text-output" style="display: none"
 											onKeyUp="addCodeTag(replacePreTags())"></div>
-										<textarea name="answer_text" id="question"
+										<textarea name="text" id="question"
 											style="display: none"></textarea>
 									</div>
 
@@ -91,7 +125,7 @@
 								</div>
 							</form>
 						</div>
-				</c:when>
+					</c:when>
 					<c:otherwise>
 						<div class="question-container clearfix">
 							<div class="mark clearfix">
@@ -186,7 +220,7 @@
         }
       })
     </script>
-    <script>
+	<script>
     function fillPell(text){
     	document.getElementsByClassName("pell-content")[0].innerHTML = text;
     };

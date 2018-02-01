@@ -84,6 +84,18 @@
 							<c:out value="${ requestScope.question.authorLogin }" />
 						</a>
 					</p>
+
+					<c:if
+						test="${(not empty sessionScope.current_user) 
+							and (sessionScope.current_user.login == requestScope.question.authorLogin)}">
+						<div class="control-content">
+							<a
+								href="${pageContext.request.contextPath}/edit-question/${requestScope.question.id}">
+								<c:out value="${edit}" />
+							</a>
+						</div>
+					</c:if>
+
 				</div>
 			</div>
 
@@ -178,9 +190,12 @@
 			<c:forEach var="index" begin="1" end="5">
 				<div class="lang">
 					<c:set var="language" value="${requestScope.languages[index - 1]}" />
-					<c:set var="correct_lang" value="${fn:replace(language, '+', '%2B')}" />
-					<c:set var="correct_lang" value="${fn:replace(correct_lang, '#', '%23')}" />			
-					<a href="${pageContext.request.contextPath}/languages/${correct_lang}">
+					<c:set var="correct_lang"
+						value="${fn:replace(language, '+', '%2B')}" />
+					<c:set var="correct_lang"
+						value="${fn:replace(correct_lang, '#', '%23')}" />
+					<a
+						href="${pageContext.request.contextPath}/languages/${correct_lang}">
 						<c:out value="${language}" />
 					</a>
 				</div>

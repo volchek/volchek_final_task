@@ -30,12 +30,28 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
+	public Question editQuestion(int questionId, int authorId, String oldText, String newText) throws ServiceException {
+
+		Validator.validateText(newText);
+
+		DaoFactory daoFactory = DaoFactory.getInstance();
+		QuestionDao questionDao = daoFactory.getQuestionDao();
+
+		try {
+			Question question = questionDao.editQuestion(questionId, authorId, oldText, newText);
+			return question;
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		}
+	}
+
+	@Override
 	public Question findQuestionById(String questionId) throws ServiceException {
+
+		int id = Validator.validateId(questionId);
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
 		QuestionDao questionDao = daoInstance.getQuestionDao();
-		
-		int id = Validator.validateId(questionId);
 
 		try {
 			Question result = questionDao.findQuestionById(id);

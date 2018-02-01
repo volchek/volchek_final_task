@@ -31,7 +31,7 @@ public class FindQuestionById implements ControllerCommand {
 			String questionId = request.getParameter(TextAttribute.QUESTION_ID);
 			Question question = questionService.findQuestionById(questionId);			
 			request.setAttribute(TextAttribute.QUESTION, question);
-
+			
 			LanguageService languageService = serviceFactory.getLanguageService();
 			List<String> languages = languageService.findFrequentLanguages();
 			request.setAttribute(TextAttribute.LANGUAGE_LIST, languages);
