@@ -3,6 +3,7 @@ package by.tr.web.controller.command;
 import java.util.Map;
 import java.util.HashMap;
 
+import by.tr.web.controller.command.impl.user.BanUser;
 import by.tr.web.controller.command.impl.user.EditUser;
 import by.tr.web.controller.command.impl.user.FindUserByLogin;
 import by.tr.web.controller.command.impl.user.Logout;
@@ -37,6 +38,7 @@ public class ControllerCommandFactory {
 		put(CommandType.SIGN_IN.name(), new SignIn());
 		put(CommandType.LOGOUT.name(), new Logout());
 		put(CommandType.EDIT_USER.name(), new EditUser());
+		put(CommandType.BAN_USER.name(), new BanUser());
 		put(CommandType.ADD_QUESTION.name(), new AddQuestion());
 		put(CommandType.GET_ANSWER.name(), new AddAnswer());
 		put(CommandType.EDIT_QUESTION.name(), new EditQuestion());

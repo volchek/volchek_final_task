@@ -1,7 +1,6 @@
 package by.tr.web.controller.command.impl.text;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,11 +11,10 @@ import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.TextAttribute;
 import by.tr.web.controller.command.util.attribute.UserAttribute;
-import by.tr.web.entity.User;
 import by.tr.web.entity.text.Question;
+import by.tr.web.entity.user.User;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.language.LanguageService;
 import by.tr.web.service.question.QuestionService;
 
 public class FinishEditQuestion implements ControllerCommand {
@@ -39,10 +37,6 @@ public class FinishEditQuestion implements ControllerCommand {
 		try {
 			Question question = questionService.editQuestion(questionId, userId, old_text, new_text);
 			request.setAttribute(TextAttribute.QUESTION, question);
-
-			LanguageService languageService = serviceFactory.getLanguageService();
-			List<String> languages = languageService.findFrequentLanguages();
-			request.setAttribute(TextAttribute.LANGUAGE_LIST, languages);
 
 			d = request.getRequestDispatcher(PagePath.QUESTION_PAGE);
 		} catch (ServiceException ex) {

@@ -477,6 +477,15 @@ select:-moz-focusring {
   text-align: right;
 }
 
+.question-container div.buttons {
+	text-align: left;
+	margin-left: 3%;
+}
+
+.question-container div.buttons button {
+	width: 120px;
+}
+
 /* Additional links */
 
 div.links {

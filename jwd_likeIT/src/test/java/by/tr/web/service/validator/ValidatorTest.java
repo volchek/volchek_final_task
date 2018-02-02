@@ -13,7 +13,7 @@ import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.dao.language.LanguageDao;
 import by.tr.web.dao.tag.TagDao;
-import by.tr.web.entity.User;
+import by.tr.web.entity.user.User;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.exception.text_exception.LanguageException;
 import by.tr.web.service.exception.text_exception.TagException;

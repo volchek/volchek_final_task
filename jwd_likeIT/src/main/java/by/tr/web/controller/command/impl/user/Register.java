@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.extractor.ExtractParameter;
-import by.tr.web.entity.User;
+import by.tr.web.entity.user.User;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.exception.user_exception.DateException;
 import by.tr.web.service.exception.user_exception.EmailException;

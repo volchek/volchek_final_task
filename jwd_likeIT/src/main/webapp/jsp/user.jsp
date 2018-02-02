@@ -19,6 +19,8 @@
 <fmt:message key="user.best_answer" bundle="${lc}" var="best_answer" />
 <fmt:message key="user.no_questions" bundle="${lc}" var="no_questions" />
 <fmt:message key="user.no_answers" bundle="${lc}" var="no_answers" />
+<fmt:message key="user.ban" bundle="${lc}" var="ban" />
+<fmt:message key="user.unban" bundle="${lc}" var="unban" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>LikeIt</title>
@@ -49,6 +51,35 @@
 					<c:out value="${rating}" />
 					<span>${user.rating}</span>
 				</p>
+
+				<c:if test="${sessionScope.current_user.admin}">
+					<c:choose>
+						<c:when test="${requestScope.user.banned == true}">
+							<form action="../Controller" method="post">
+								<input type="hidden" name="command" value="BAN_USER">
+								<input type="hidden" name="ban" value="false">
+								<input type="hidden" name="user_id" value="${requestScope.user.id}">
+								<div class="buttons">
+									<button type="submit" class="signupbtn">
+										<c:out value="${unban}" />
+									</button>
+								</div>
+							</form>
+						</c:when>
+						<c:otherwise>
+							<form action="../Controller" method="post">
+								<input type="hidden" name="command" value="BAN_USER">
+								<input type="hidden" name="ban" value="true">
+								<input type="hidden" name="user_id" value="${requestScope.user.id}">
+								<div class="buttons">
+									<button type="submit" class="cancelbtn">
+										<c:out value="${ban}" />
+									</button>
+								</div>
+							</form>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
 				<table>
 					<tr>
 						<th><c:out value="${question}" /></th>
@@ -70,7 +101,7 @@
 						<caption>
 							<c:out value="${best_question}" />
 						</caption>
-						<c:forEach var="item" items="${ requestScope.question_list}">
+						<c:forEach var="item" items="${requestScope.question_list}">
 							<tr>
 								<td>
 									<div class="mark">

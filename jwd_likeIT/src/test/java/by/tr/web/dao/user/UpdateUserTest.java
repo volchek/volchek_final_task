@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import by.tr.web.dao.exception.DaoException;
-import by.tr.web.entity.User;
+import by.tr.web.entity.user.User;
 import by.tr.web.service.application.InitializeService;
 import by.tr.web.service.exception.common.FatalServiceException;
 import by.tr.web.service.exception.common.ServiceException;

@@ -1,4 +1,4 @@
-package by.tr.web.entity;
+package by.tr.web.entity.user;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -33,8 +33,8 @@ public class User implements Serializable {
 	private String status;
 	private Map<String, Integer> languages;
 
-	private boolean isAdmin;
-	private boolean isBanned;
+	private boolean admin;
+	private boolean banned;
 	
 	private Double rating;
 	private int id;
@@ -156,19 +156,19 @@ public class User implements Serializable {
 	}	
 
 	public void setAdmin(boolean admin) {
-		this.isAdmin = admin;
+		this.admin = admin;
 	}
 
 	public boolean isAdmin() {
-		return isAdmin;
+		return admin;
 	}
 
 	public void setBanned(boolean banned) {
-		this.isBanned = banned;
+		this.banned = banned;
 	}
 
 	public boolean isBanned() {
-		return isBanned;
+		return banned;
 	}
 	
 	public void setRating(Double rating){
@@ -192,8 +192,8 @@ public class User implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + (isAdmin ? 1231 : 1237);
-		result = prime * result + (isBanned ? 1231 : 1237);
+		result = prime * result + (admin ? 1231 : 1237);
+		result = prime * result + (banned ? 1231 : 1237);
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
 		result = prime * result + ((birthday == null) ? 0 : birthday.hashCode());
 		result = prime * result + ((registrationDate == null) ? 0 : registrationDate.hashCode());
@@ -224,11 +224,11 @@ public class User implements Serializable {
 		}
 
 		User other = (User) obj;
-		if (isAdmin != other.isAdmin) {
+		if (admin != other.admin) {
 			return false;
 		}
 
-		if (isBanned != other.isBanned) {
+		if (banned != other.banned) {
 			return false;
 		}
 
@@ -344,8 +344,8 @@ public class User implements Serializable {
 				"; password=" + password + 
 				"; status=" + status
 				+ "; languages=" + languages + 
-				"; isAdmin=" + isAdmin + 
-				"; isBanned=" + isBanned +
+				"; admin=" + admin + 
+				"; banned=" + banned +
 				", registrationDate=" + registrationDate +
 				", rating=" + rating +
 				"; id=" + id;

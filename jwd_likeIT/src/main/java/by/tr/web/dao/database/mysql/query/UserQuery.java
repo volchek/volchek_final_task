@@ -38,6 +38,14 @@ public final class UserQuery {
 			+ "ON t2.answerId = a.answerId "
 			+ "WHERE a.userId = ? " + ") AS m ;";
 
+	public final static String UPDATE_TO_BAN = 
+			"UPDATE users SET isBanned = ? "
+			+ "WHERE userId = ?;";
+	
+	public final static String UPDATE_TO_UNBAN = 
+			"UPDATE users SET isBanned = 0 "
+			+ "WHERE userId = ?;";
+
 	private UserQuery() {
 
 	}

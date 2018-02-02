@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.tr.web.entity.User;
 import by.tr.web.dao.database.mysql.submitter.LanguageQuerySubmitter;
 import by.tr.web.dao.database.mysql.submitter.UserQuerySubmitter;
 import by.tr.web.dao.database.util.exception.MySqlException;
@@ -16,6 +15,7 @@ import by.tr.web.dao.database.util.pool.ConnectionPoolFactory;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.DaoLoginException;
 import by.tr.web.dao.user.UserDao;
+import by.tr.web.entity.user.User;
 
 public class MySQLUserDaoImpl implements UserDao {
 
@@ -172,7 +172,7 @@ public class MySQLUserDaoImpl implements UserDao {
 			}
 		} catch (MySqlException | SQLException ex) {
 			try {
-				if (!conn.getAutoCommit()){
+				if (!conn.getAutoCommit()) {
 					conn.rollback();
 				}
 			} catch (SQLException e) {
@@ -185,6 +185,23 @@ public class MySQLUserDaoImpl implements UserDao {
 			} catch (SQLException e) {
 				logger.error("Failed to set autocommit mode");
 			}
+			connPool.closeConnection(conn);
+		}
+	}
+
+	@Override
+	public void banUser(int userId, boolean ban) throws DaoException {
+
+		Connection conn = null;
+
+		try {
+			conn = connPool.getConnection();
+			UserQuerySubmitter userSubmitter = new UserQuerySubmitter();
+				userSubmitter.banUser(conn, userId, ban);
+		} catch (MySqlException ex) {
+			logger.error("Can't ban / unban user with id=" + userId);
+			throw new DaoException("Failed to ban / unban user", ex);
+		} finally {
 			connPool.closeConnection(conn);
 		}
 	}
@@ -204,4 +221,5 @@ public class MySQLUserDaoImpl implements UserDao {
 			currentUser.addLanguage(lang.getKey(), lang.getValue());
 		}
 	}
+
 }

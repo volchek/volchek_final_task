@@ -8,6 +8,7 @@ public enum CommandType {
 	SIGN_IN, 
 	LOGOUT, 
 	EDIT_USER, 
+	BAN_USER,
 	ADD_QUESTION,
 	GET_ANSWER,
 	EDIT_QUESTION,

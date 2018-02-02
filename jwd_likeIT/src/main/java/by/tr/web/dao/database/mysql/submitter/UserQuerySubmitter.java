@@ -15,7 +15,7 @@ import java.util.List;
 import by.tr.web.dao.database.mysql.query.UserQuery;
 import by.tr.web.dao.database.mysql.query.util.DatabaseField;
 import by.tr.web.dao.database.util.exception.MySqlException;
-import by.tr.web.entity.User;
+import by.tr.web.entity.user.User;
 
 public class UserQuerySubmitter {
 
@@ -86,7 +86,7 @@ public class UserQuerySubmitter {
 			ps.setInt(2, userId);
 			ResultSet rs = ps.executeQuery();
 
-			Double rating = extractRating(rs);			
+			Double rating = extractRating(rs);
 			user.setRating(rating);
 		} catch (SQLException ex) {
 			logger.error("Can't calculate rating for the user with id=" + userId);
@@ -117,6 +117,18 @@ public class UserQuerySubmitter {
 		langQuery.updateUserLanguages(conn, currentUser, modifiedUser);
 
 		return true;
+	}
+
+	public void banUser(Connection conn, int userId, boolean ban) throws MySqlException {
+		try (PreparedStatement ps = conn.prepareStatement(UserQuery.UPDATE_TO_BAN)) {
+			int isBan = (ban ? 1 : 0);
+			ps.setInt(1, isBan);
+			ps.setInt(2, userId);
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			logger.error("Failed to ban / unban user with id=" + userId);
+			throw new MySqlException("Failed to ban / unban user", ex);
+		}
 	}
 
 	private boolean isExistedLogin(Connection conn, User user) throws MySqlException {
@@ -214,7 +226,7 @@ public class UserQuerySubmitter {
 	}
 
 	private Double extractRating(ResultSet rs) throws SQLException {
-		if (rs.next()){
+		if (rs.next()) {
 			BigDecimal rating = rs.getBigDecimal(1);
 			return rating == null ? null : rating.doubleValue();
 		}

@@ -114,7 +114,7 @@
 										<div id="pell" class="pell"></div>
 										<div id="text-output" style="display: none"
 											onKeyUp="addCodeTag(replacePreTags())"></div>
-										<textarea name="text" id="question"
+										<textarea name="answer_text" id="question"
 											style="display: none"></textarea>
 									</div>
 

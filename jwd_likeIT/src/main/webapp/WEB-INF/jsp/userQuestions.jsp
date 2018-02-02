@@ -38,7 +38,7 @@
 				<c:out value="${warning}" />
 			</c:when>
 			<c:otherwise>
-				<c:forEach var="item" items="${ requestScope.question_list}">
+				<c:forEach var="item" items="${requestScope.question_list}">
 					<div class="mark clearfix">
 						<span class="tag"><ct:mark
 								averageMark="${item.averageMark}" /></span>

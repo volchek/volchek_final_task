@@ -11,11 +11,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.tr.web.dao.database.util.pool.ConnectionPool;
-import by.tr.web.entity.User;
 import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
 import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;
+import by.tr.web.entity.user.User;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.exception.text_exception.IdException;
 import by.tr.web.service.exception.text_exception.LanguageException;

@@ -40,7 +40,9 @@
 						<ct:mark averageMark="${requestScope.question.averageMark}" />
 					</div>
 					<c:if
-						test="${(not empty sessionScope.current_user) and (sessionScope.current_user.login != requestScope.question.authorLogin) }">
+						test="${(not empty sessionScope.current_user) 
+						and (sessionScope.current_user.login != requestScope.question.authorLogin)
+						and (!sessionScope.current_user.banned)}">
 						<c:set value="true" var="display_mark" />
 					</c:if>
 					<c:out value="${test}" />
@@ -87,7 +89,8 @@
 
 					<c:if
 						test="${(not empty sessionScope.current_user) 
-							and (sessionScope.current_user.login == requestScope.question.authorLogin)}">
+							and (sessionScope.current_user.login == requestScope.question.authorLogin)
+							and (!sessionScope.current_user.banned)}">
 						<div class="control-content">
 							<a
 								href="${pageContext.request.contextPath}/edit-question/${requestScope.question.id}">
@@ -106,7 +109,8 @@
 						<c:set value="false" var="display_answer" />
 						<c:if
 							test="${(not empty sessionScope.current_user) 
-							and (sessionScope.current_user.login != answer.authorLogin)}">
+							and (sessionScope.current_user.login != answer.authorLogin)
+							and (!sessionScope.current_user.banned)}">
 							<c:set value="true" var="display_answer" />
 						</c:if>
 						<form action="${pageContext.request.contextPath}/Controller"
@@ -138,7 +142,8 @@
 						</p>
 						<c:if
 							test="${(not empty sessionScope.current_user) 
-							and (sessionScope.current_user.login == answer.authorLogin)}">
+							and (sessionScope.current_user.login == answer.authorLogin)
+							and (!sessionScope.current_user.banned)}">
 							<div class="control-content">
 								<a
 									href="${pageContext.request.contextPath}/delete-answer/${answer.id}">
@@ -154,7 +159,9 @@
 			</c:forEach>
 
 			<c:if
-				test="${(not empty sessionScope.current_user) and (sessionScope.current_user.login != requestScope.question.authorLogin)}">
+				test="${(not empty sessionScope.current_user)
+				and (sessionScope.current_user.login != requestScope.question.authorLogin)
+				and (!sessionScope.current_user.banned)}">
 				<div class="answer">
 					<p>
 						<c:out value="${get_answer}" />

@@ -23,7 +23,6 @@
 	<div class="nav">
 		<c:choose>
 			<c:when test="${not empty sessionScope.current_user}">
-
 				<span class="user"><c:out value="${current_user.login}"></c:out></span>
 				<a href="${pageContext.request.contextPath}/personal-data"><c:out
 						value="${edit}" /></a>
@@ -34,6 +33,11 @@
 						value="${answers}" /></a>
 				<a href="${pageContext.request.contextPath}/find-question"> <c:out
 						value="${search}" /></a>
+				<c:if test="${sessionScope.current_user.admin}">
+					<a href="#">TAGS</a>
+					<a href="#">LANGUAGES</a>
+				</c:if>
+						
 				<a href="${pageContext.request.contextPath}/logout"><c:out
 						value="${logout}" /></a>
 			</c:when>

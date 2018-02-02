@@ -16,9 +16,9 @@ import org.apache.logging.log4j.Logger;
 import by.tr.web.dao.database.mysql.query.LanguageQuery;
 import by.tr.web.dao.database.mysql.query.util.DatabaseField;
 import by.tr.web.dao.database.util.exception.MySqlException;
-import by.tr.web.entity.User;
 import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
+import by.tr.web.entity.user.User;
 
 public class LanguageQuerySubmitter {
 

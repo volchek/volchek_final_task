@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import by.tr.web.controller.command.util.attribute.LanguageAttribute;
 import by.tr.web.controller.command.util.attribute.UserAttribute;
-import by.tr.web.entity.User;
 import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
+import by.tr.web.entity.user.User;
 
 public class ExtractParameter {
 

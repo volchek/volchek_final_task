@@ -11,6 +11,7 @@
 <fmt:message key="login.password" bundle="${lc}" var="password" />
 <fmt:message key="login.btn.cancel" bundle="${lc}" var="cancel" />
 <fmt:message key="login.btn.signIn" bundle="${lc}" var="signIn" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
@@ -18,6 +19,7 @@
 <body>
 	<c:import url="fragment/header.jsp"></c:import>
 	<c:import url="menu.jsp"></c:import>
+	
 	<form action="../Controller" method="post">
 		<input type="hidden" name="command" value="SIGN_IN" />
 		<div class="container">
