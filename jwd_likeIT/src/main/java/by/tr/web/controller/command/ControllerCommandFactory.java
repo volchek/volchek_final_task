@@ -9,9 +9,14 @@ import by.tr.web.controller.command.impl.user.FindUserByLogin;
 import by.tr.web.controller.command.impl.user.Logout;
 import by.tr.web.controller.command.impl.user.Register;
 import by.tr.web.controller.command.impl.user.SignIn;
+import by.tr.web.controller.command.impl.keyword.AddLanguage;
+import by.tr.web.controller.command.impl.keyword.AddTag;
+import by.tr.web.controller.command.impl.keyword.UpdateLanguageList;
+import by.tr.web.controller.command.impl.keyword.UpdateTagList;
 import by.tr.web.controller.command.impl.language.ChangeLanguage;
 import by.tr.web.controller.command.impl.text.AddQuestion;
 import by.tr.web.controller.command.impl.text.DeleteAnswer;
+import by.tr.web.controller.command.impl.text.DeleteQuestion;
 import by.tr.web.controller.command.impl.text.EditAnswer;
 import by.tr.web.controller.command.impl.text.EditQuestion;
 import by.tr.web.controller.command.impl.text.EvaluateAnswer;
@@ -33,6 +38,10 @@ public class ControllerCommandFactory {
 
 	private final Map<String, ControllerCommand> commands = new HashMap<String, ControllerCommand>(){{
 		put(CommandType.CHANGE_LANG.name(), new ChangeLanguage());
+		put(CommandType.ADD_LANGUAGE.name(), new AddLanguage());
+		put(CommandType.ADD_TAG.name(), new AddTag());
+		put(CommandType.UPDATE_LANGUAGE_LIST.name(), new UpdateLanguageList());
+		put(CommandType.UPDATE_TAG_LIST.name(), new UpdateTagList());		
 		put(CommandType.FIND_USER_BY_LOGIN.name(), new FindUserByLogin());
 		put(CommandType.REGISTER.name(), new Register());
 		put(CommandType.SIGN_IN.name(), new SignIn());
@@ -43,6 +52,7 @@ public class ControllerCommandFactory {
 		put(CommandType.GET_ANSWER.name(), new AddAnswer());
 		put(CommandType.EDIT_QUESTION.name(), new EditQuestion());
 		put(CommandType.FINISH_TO_EDIT_QUESTION.name(), new FinishEditQuestion());
+		put(CommandType.DELETE_QUESTION.name(), new DeleteQuestion());
 		put(CommandType.EDIT_ANSWER.name(), new EditAnswer());
 		put(CommandType.FINISH_TO_EDIT_ANSWER.name(), new FinishEditAnswer());
 		put(CommandType.DELETE_ANSWER.name(), new DeleteAnswer());

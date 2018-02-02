@@ -57,6 +57,11 @@
 	</rule>
 
 	<rule>
+		<from>/delete-question/([1-9][0-9]*)</from>
+		<to>/Controller?command=DELETE_QUESTION&amp;question_id=$1</to>
+	</rule>
+
+	<rule>
 		<from>/delete-answer/([1-9][0-9]*)</from>
 		<to>/Controller?command=DELETE_ANSWER&amp;answer_id=$1</to>
 	</rule>

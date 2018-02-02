@@ -34,8 +34,7 @@
 				<a href="${pageContext.request.contextPath}/find-question"> <c:out
 						value="${search}" /></a>
 				<c:if test="${sessionScope.current_user.admin}">
-					<a href="#">TAGS</a>
-					<a href="#">LANGUAGES</a>
+					<a href="${pageContext.request.contextPath}/add-keyword">TAGS</a>
 				</c:if>
 						
 				<a href="${pageContext.request.contextPath}/logout"><c:out

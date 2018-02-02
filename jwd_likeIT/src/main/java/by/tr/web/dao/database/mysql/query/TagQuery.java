@@ -8,6 +8,10 @@ public final class TagQuery {
 	public static final String SELECT_TAG_NAMES = 
 			"SELECT keyword FROM keywords;";
 
+	public static final String INSERT_TAG =
+			"INSERT INTO keywords "
+			+ "(keyword) VALUES (?);";
+	
 	private TagQuery() {
 
 	}

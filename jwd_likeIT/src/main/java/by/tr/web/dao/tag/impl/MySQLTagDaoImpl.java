@@ -35,8 +35,25 @@ public class MySQLTagDaoImpl implements TagDao {
 			fillTagMaps(tags);
 
 		} catch (MySqlException ex) {
-			logger.error("Can't execute query and get information about all tags", ex);
+			logger.error("Can't execute query and get information about all tags");
 			throw new DaoException("Failed to execute command and extract information about all tags", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
+	}
+
+	@Override
+	public void addTag(String tag) throws DaoException {
+
+		Connection conn = null;
+
+		try {
+			conn = connPool.getConnection();
+			TagQuerySubmitter query = new TagQuerySubmitter();
+			query.insertTag(conn, tag);
+		} catch (MySqlException ex) {
+			logger.error("Can't execute query and insert a tag '" + tag + "'");
+			throw new DaoException("Failed to execute command and insert a new tag", ex);
 		} finally {
 			connPool.closeConnection(conn);
 		}
@@ -50,6 +67,8 @@ public class MySQLTagDaoImpl implements TagDao {
 
 		TagSetSingleton tagSetSingleton = TagSetSingleton.getInstance();
 		TagSet tagSet = tagSetSingleton.getTagSet();
+
+		tagSet.clearTagSet();
 
 		for (Map.Entry<String, Integer> oneTagInfo : tagInfo.entrySet()) {
 			tagSet.addTag(oneTagInfo.getKey(), oneTagInfo.getValue());

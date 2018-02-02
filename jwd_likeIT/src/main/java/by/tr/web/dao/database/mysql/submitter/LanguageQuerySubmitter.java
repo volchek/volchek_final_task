@@ -101,7 +101,7 @@ public class LanguageQuerySubmitter {
 	public void insertOneUserLanguage(Connection conn, int userId, String language, Integer score)
 			throws MySqlException {
 
-		try (PreparedStatement ps = conn.prepareStatement(LanguageQuery.INSERT_LANGUAGE)) {
+		try (PreparedStatement ps = conn.prepareStatement(LanguageQuery.INSERT_USER_LANGUAGE)) {
 			Integer langId = languageSet.getLanguageId(language.toLowerCase());
 
 			ps.setInt(1, userId);
@@ -172,6 +172,16 @@ public class LanguageQuerySubmitter {
 		updateUserLanguages(conn, updatedLanguages, userId);
 		deleteUserLanguages(conn, deletedLanguages, userId);
 		return true;
+	}
+
+	public void insertLanguage(Connection conn, String language) throws MySqlException {
+		try (PreparedStatement ps = conn.prepareStatement(LanguageQuery.INSERT_LANGUAGE)) {
+			ps.setString(1, language);
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			logger.error("Can't insert the language '" + language + "'");
+			throw new MySqlException("Can't insert a new language", ex);
+		}
 	}
 
 	private Map<String, Integer> selectLanguagesForInserting(User currentUser, User modifiedUser) {

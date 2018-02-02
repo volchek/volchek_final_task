@@ -6,4 +6,6 @@ public interface TagDao {
 
 	void extractAllTagInfo() throws DaoException;
 
+	void addTag(String tag) throws DaoException;
+
 }

@@ -11,24 +11,24 @@ import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.TextAttribute;
 import by.tr.web.controller.command.util.attribute.UserAttribute;
 import by.tr.web.entity.user.User;
-import by.tr.web.service.answer.AnswerService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
+import by.tr.web.service.question.QuestionService;
 
-public class DeleteAnswer implements ControllerCommand {
+public class DeleteQuestion implements ControllerCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
-		AnswerService answerService = serviceFactory.getAnswerService();
+		QuestionService questionService = serviceFactory.getQuestionService();
 
 		User user = (User) request.getSession().getAttribute(UserAttribute.CURRENT_USER);
 		int userId = user.getId();
 
 		try {
-			int answerId = Integer.parseInt(request.getParameter(TextAttribute.ANSWER_ID));
-			answerService.deleteAnswer(answerId, userId);
+			int questionId = Integer.parseInt(request.getParameter(TextAttribute.QUESTION_ID));
+			questionService.deleteQuestion(questionId, userId);
 			response.sendRedirect(request.getContextPath().concat("/").concat(PagePath.AFTER_UPDATING));
 		} catch (ServiceException ex) {
 			response.sendRedirect(PagePath.CONTENT_ERROR_PAGE);

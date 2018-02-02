@@ -3,6 +3,10 @@ package by.tr.web.controller.command.util;
 public enum CommandType {
 
 	CHANGE_LANG, 
+	ADD_LANGUAGE,
+	ADD_TAG,
+	UPDATE_LANGUAGE_LIST,
+	UPDATE_TAG_LIST,
 	FIND_USER_BY_LOGIN, 
 	REGISTER, 
 	SIGN_IN, 
@@ -13,6 +17,7 @@ public enum CommandType {
 	GET_ANSWER,
 	EDIT_QUESTION,
 	FINISH_TO_EDIT_QUESTION,
+	DELETE_QUESTION,
 	EDIT_ANSWER,
 	FINISH_TO_EDIT_ANSWER,
 	DELETE_ANSWER,

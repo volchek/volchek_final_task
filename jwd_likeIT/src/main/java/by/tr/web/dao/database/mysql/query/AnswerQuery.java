@@ -15,8 +15,7 @@ public final class AnswerQuery {
 	
 	public static final String DELETE_ANSWER = 
 			"DELETE FROM answers "
-			+ "WHERE answerId = ? "
-			+ "AND userId = ?;";
+			+ "WHERE answerId = ?;";
 
 	public static final String SELECT_ANSWERS_TO_THE_QUESTION = 
 			"SELECT a.answerId, a.questionId, a.answerText, "

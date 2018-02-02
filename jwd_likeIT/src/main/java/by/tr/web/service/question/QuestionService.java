@@ -11,6 +11,8 @@ public interface QuestionService {
 			throws ServiceException;
 	
 	Question editQuestion(int questionId, int authorId, String oldText, String newText) throws ServiceException;
+	
+	boolean deleteQuestion(int questionId, int authorId) throws ServiceException;
 
 	Question findQuestionById(String questionId) throws ServiceException;
 

@@ -36,7 +36,7 @@ public class MySQLLanguageDaoImpl implements LanguageDao {
 			fillLanguageMaps(languages);
 
 		} catch (MySqlException ex) {
-			logger.error("Can't execute query and get information about all languages", ex);
+			logger.error("Can't execute query and get information about all languages");
 			throw new DaoException("Failed to execute command and extract information about all languages", ex);
 		} finally {
 			connPool.closeConnection(conn);
@@ -53,9 +53,26 @@ public class MySQLLanguageDaoImpl implements LanguageDao {
 			LanguageQuerySubmitter query = new LanguageQuerySubmitter();
 			List<String> languages = query.findLanguageFrequency(conn);
 			return languages;
-		} catch (MySqlException e) {
+		} catch (MySqlException ex) {
 			logger.error("Can't execute query and extract information about language frequency");
-			throw new DaoException("Failed to execute command and find language frequency");
+			throw new DaoException("Failed to execute command and find language frequency", ex);
+		} finally {
+			connPool.closeConnection(conn);
+		}
+	}
+
+	@Override
+	public void addLanguage(String language) throws DaoException {
+
+		Connection conn = null;
+
+		try {
+			conn = connPool.getConnection();
+			LanguageQuerySubmitter query = new LanguageQuerySubmitter();
+			query.insertLanguage(conn, language);
+		} catch (MySqlException ex) {
+			logger.error("Can't execute query and insert a language with name '" + language + "'");
+			throw new DaoException("Failed to execute command and insert a new language", ex);
 		} finally {
 			connPool.closeConnection(conn);
 		}
@@ -70,6 +87,8 @@ public class MySQLLanguageDaoImpl implements LanguageDao {
 		LanguageSetSingleton langSetSingleton = LanguageSetSingleton.getInstance();
 		LanguageSet langSet = langSetSingleton.getLanguageSet();
 
+		langSet.clearLanguageSet();
+		
 		for (Map.Entry<String, Integer> oneLanguageInfo : languageInfo.entrySet()) {
 			langSet.addLanguage(oneLanguageInfo.getKey(), oneLanguageInfo.getValue());
 		}

@@ -705,8 +705,6 @@ div.feed table tr {
 	border-bottom: 1px solid lightgray;
 }
 
-
-
 /* USER INFO */
 
 .user h1 {
@@ -798,13 +796,40 @@ div.question-container + div.user {
 
 /* FIND QUESTION */
 
-.finder {
+.finder, .adder {
 	border-bottom: 1px solid lightgray;
 }
 
 .finder button {
   margin-top: 10px;
 }
+
+/* ADD TAGS */
+
+
+.adder div.container {
+	display: inline-block;
+	margin-bottom: 50px;
+}
+
+.adder .left {
+	display: inline-block;
+	width: 20%;
+}
+
+.adder .right {
+	display: inline-block;
+	float: right;
+	width: 40%;
+	text-align: left;
+	margin-left: 2%;
+	margin-top: 60px;
+}
+
+.adder .right button {
+	width: 150px;
+}
+
 
 /* OTHER */
 

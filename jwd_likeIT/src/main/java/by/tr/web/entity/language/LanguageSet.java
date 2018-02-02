@@ -74,6 +74,11 @@ public class LanguageSet {
 			throw new NoSuchElementException("No language with name = " + language);
 		}
 	}
+	
+	public void clearLanguageSet(){
+		languageToIdSet.clear();
+		caseNormalizationMapping.clear();
+	}
 
 	@Override
 	public int hashCode() {

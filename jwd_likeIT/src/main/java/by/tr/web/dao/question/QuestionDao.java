@@ -9,8 +9,10 @@ public interface QuestionDao {
 
 	Question addQuestion(int authorID, String title, List<String> languages, List<String> tags, String text)
 			throws DaoException;
-	
+
 	Question editQuestion(int questionId, int userId, String oldText, String newText) throws DaoException;
+
+	boolean deleteQuestion(int questionId, int userId) throws DaoException;
 
 	Question findQuestionById(int questionId) throws DaoException;
 

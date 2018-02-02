@@ -51,17 +51,17 @@ public class AnswerQuerySubmitter {
 			throw new MySqlException("Can't execute update query", ex);
 		}
 	}
-	
+
 	public boolean deleteAnswer(Connection conn, int answerId, int userId) throws MySqlException {
-		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.DELETE_ANSWER)){
+		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.DELETE_ANSWER)) {
 			ps.setInt(1, answerId);
-			ps.setInt(2, userId);
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException ex) {
-			logger.error("Can't create a prepared statement or execute answer query");
+			logger.error("Can't create a prepared statement or execute answer query of the user with id=" + userId);
 			throw new MySqlException("Can't execute delete query", ex);
-		}	}
+		}
+	}
 
 	public Map<Integer, List<Answer>> selectUserAnswers(Connection conn, int userId) throws MySqlException {
 

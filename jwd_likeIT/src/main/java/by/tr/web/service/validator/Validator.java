@@ -251,17 +251,37 @@ public final class Validator {
 		return true;
 	}
 
-	private static boolean validateOneLanguage(String possibleLanguage) throws LanguageException {
-
-		if (isEmpty(possibleLanguage)) {
-			return false;
-		}
+	public static boolean isLanguageExist(String possibleLanguage) {
 
 		LanguageSetSingleton languageSetSingleton = LanguageSetSingleton.getInstance();
 		LanguageSet languageSet = languageSetSingleton.getLanguageSet();
 		Map<String, String> standartLanguages = languageSet.getCaseNormalizationMapping();
 
 		if (standartLanguages.containsKey(possibleLanguage.toLowerCase())) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isTagExist(String possibleTag) {
+
+		TagSetSingleton tagSetSingleton = TagSetSingleton.getInstance();
+		TagSet tagSet = tagSetSingleton.getTagSet();
+		Map<String, Integer> standartTags = tagSet.getTagToIdSet();
+
+		if (standartTags.containsKey(possibleTag.toLowerCase())) {
+			return true;
+		}
+		return false;
+	}
+
+	private static boolean validateOneLanguage(String possibleLanguage) throws LanguageException {
+
+		if (isEmpty(possibleLanguage)) {
+			return false;
+		}
+
+		if (isLanguageExist(possibleLanguage)) {
 			return true;
 		} else {
 			throw new LanguageException("Language '" + possibleLanguage + "' has an incorrect name");
@@ -274,11 +294,7 @@ public final class Validator {
 			return false;
 		}
 
-		TagSetSingleton tagSetSingleton = TagSetSingleton.getInstance();
-		TagSet tagSet = tagSetSingleton.getTagSet();
-		Map<String, Integer> standartTags = tagSet.getTagToIdSet();
-
-		if (standartTags.containsKey(tag.toLowerCase())) {
+		if (isTagExist(tag)) {
 			return true;
 		} else {
 			throw new TagException("Tag '" + tag + "' has an incorrect name");

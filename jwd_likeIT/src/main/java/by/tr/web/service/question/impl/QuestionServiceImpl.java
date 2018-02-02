@@ -46,6 +46,19 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
+	public boolean deleteQuestion(int questionId, int authorId) throws ServiceException {
+
+		DaoFactory daoFactory = DaoFactory.getInstance();
+		QuestionDao questionDao = daoFactory.getQuestionDao();
+
+		try {
+			return questionDao.deleteQuestion(questionId, authorId);
+		} catch (DaoException ex) {
+			throw new ServiceException(ex);
+		}
+	}
+
+	@Override
 	public Question findQuestionById(String questionId) throws ServiceException {
 
 		int id = Validator.validateId(questionId);

@@ -85,6 +85,17 @@ public class QuestionQuerySubmitter {
 		}
 	}
 
+	public void deleteQuestion(Connection conn, int questionId, int userId) throws MySqlException {
+
+		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.DELETE_QUESTION)) {
+			ps.setInt(1, questionId);
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			logger.error("Can't delete the question with id=" + questionId + "written by user with id=" + userId);
+			throw new MySqlException("Failed to execute command and delete a question", ex);
+		}
+	}
+
 	public Question selectQuestionById(Connection conn, int questionId) throws MySqlException {
 
 		Question question = null;

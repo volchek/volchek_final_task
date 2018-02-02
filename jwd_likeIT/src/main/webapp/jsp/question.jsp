@@ -87,15 +87,21 @@
 						</a>
 					</p>
 
-					<c:if
-						test="${(not empty sessionScope.current_user) 
-							and (sessionScope.current_user.login == requestScope.question.authorLogin)
+					<c:if test="${(not empty sessionScope.current_user) 
+							and (sessionScope.current_user.login == requestScope.question.authorLogin ||
+							sessionScope.current_user.admin)
 							and (!sessionScope.current_user.banned)}">
 						<div class="control-content">
 							<a
 								href="${pageContext.request.contextPath}/edit-question/${requestScope.question.id}">
 								<c:out value="${edit}" />
 							</a>
+							<c:if test="${sessionScope.current_user.admin}">
+							<a
+								href="${pageContext.request.contextPath}/delete-question/${requestScope.question.id}">
+								<c:out value="${delete}" />
+							</a>
+							</c:if>
 						</div>
 					</c:if>
 
@@ -142,7 +148,7 @@
 						</p>
 						<c:if
 							test="${(not empty sessionScope.current_user) 
-							and (sessionScope.current_user.login == answer.authorLogin)
+							and (sessionScope.current_user.login == answer.authorLogin || sessionScope.current_user.admin)
 							and (!sessionScope.current_user.banned)}">
 							<div class="control-content">
 								<a

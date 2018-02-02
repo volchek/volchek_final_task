@@ -9,5 +9,7 @@ public interface LanguageDao {
 	void extractAllLanguageInfo() throws DaoException;
 
 	List<String> findFrequentLanguages() throws DaoException;
-	
+
+	void addLanguage(String language) throws DaoException;
+
 }

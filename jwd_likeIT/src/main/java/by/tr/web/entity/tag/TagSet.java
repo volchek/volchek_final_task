@@ -74,6 +74,11 @@ public class TagSet {
 			throw new NoSuchElementException("No tag with name = " + tag);
 		}
 	}
+	
+	public void clearTagSet(){
+		tagToIdSet.clear();
+		caseNormalizationMapping.clear();
+	}
 
 	@Override
 	public int hashCode() {

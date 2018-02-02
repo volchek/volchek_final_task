@@ -2,6 +2,7 @@ package by.tr.web.dao.database.mysql.submitter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -51,6 +52,16 @@ public class TagQuerySubmitter {
 		} catch (SQLException ex) {
 			logger.error("Can't get information about all tags");
 			throw new MySqlException("Can't get information about all tags", ex);
+		}
+	}
+	
+	public void insertTag(Connection conn, String tag) throws MySqlException{
+		try (PreparedStatement ps = conn.prepareStatement(TagQuery.INSERT_TAG)){
+			ps.setString(1, tag);
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			logger.error("Can't insert the tag with name='" + tag + "'");
+			throw new MySqlException("Can't insert a new tag", ex);
 		}
 	}
 }

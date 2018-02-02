@@ -96,6 +96,15 @@
 		<url-pattern>/user-answers</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>AddKeyword</servlet-name>
+		<jsp-file>/WEB-INF/jsp/addKeyword.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddKeyword</servlet-name>
+		<url-pattern>/add-keyword</url-pattern>
+	</servlet-mapping>
+
 	<listener>
 		<listener-class>by.tr.web.controller.listener.ControllerCreationListener</listener-class>
 	</listener>
@@ -150,6 +159,8 @@
 		<url-pattern>/user-main-page</url-pattern>
 		<url-pattern>/personal-data</url-pattern>
 		<url-pattern>/update-info</url-pattern>
+		<url-pattern>/delete-answer</url-pattern>
+		<url-pattern>/delete-question</url-pattern>
 	</filter-mapping>
 
 	<filter>
@@ -161,6 +172,16 @@
 		<filter-name>IsBannedFilter</filter-name>
 		<url-pattern>/add-question</url-pattern>
 		<url-pattern>/edit</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<display-name>IsAdminFilter</display-name>
+		<filter-name>IsAdminFilter</filter-name>
+		<filter-class>by.tr.web.controller.filter.IsAdminFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>IsAdminFilter</filter-name>
+		<url-pattern>/add-keyword</url-pattern>
 	</filter-mapping>
 
 	<jsp-config>

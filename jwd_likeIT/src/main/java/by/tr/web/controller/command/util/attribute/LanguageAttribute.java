@@ -1,6 +1,6 @@
 package by.tr.web.controller.command.util.attribute;
 
-public class LanguageAttribute {
+public final class LanguageAttribute {
 
 	public static final String LANG_C = "c";
 	public static final String LANG_CPP = "c++";
@@ -18,4 +18,7 @@ public class LanguageAttribute {
 	public static final String LANG_GO = "go";
 	public static final String LANG_SCRATCH = "scratch";
 
+	private LanguageAttribute() {
+		
+	}
 }

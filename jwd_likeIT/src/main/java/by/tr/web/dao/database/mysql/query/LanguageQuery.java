@@ -25,7 +25,11 @@ public final class LanguageQuery {
 			+ "GROUP BY ql.languageId "
 			+ "ORDER BY count DESC;";
 	
-	public static final String INSERT_LANGUAGE = 
+	public static final String INSERT_LANGUAGE =
+			"INSERT INTO languages "
+			+ "(language) VALUES (?);";
+	
+	public static final String INSERT_USER_LANGUAGE = 
 			"INSERT INTO users2languages " 
 			+ "(userId, languageId, level) "
 			+ "VALUES (?, ?, ?);";

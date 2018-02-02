@@ -20,6 +20,10 @@ public final class QuestionQuery {
 			+ "WHERE questionId = ? "
 			+ "AND userId = ?;";
 
+	public final static String DELETE_QUESTION =
+			"DELETE FROM questions "
+			+ "WHERE questionId = ?;";
+	
 	public final static String SELECT_QUESTION_BY_ID = 
 			"SELECT q.questionId, q.title, q.text, q.creationDatetime,"
 			+ "GROUP_CONCAT(DISTINCT l.language ORDER BY l.language ASC SEPARATOR','), "
