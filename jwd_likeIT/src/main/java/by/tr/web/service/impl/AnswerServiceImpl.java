@@ -8,7 +8,7 @@ import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.exception.text.TextException;
 import by.tr.web.service.validator.Validator;
 import by.tr.web.dao.factory.DaoFactory;
-import by.tr.web.dao.answer.AnswerDao;
+import by.tr.web.dao.AnswerDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.entity.text.Text;
 import by.tr.web.entity.text.Answer;

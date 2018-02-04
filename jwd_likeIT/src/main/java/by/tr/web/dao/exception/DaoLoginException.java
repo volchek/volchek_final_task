@@ -5,6 +5,7 @@ public class DaoLoginException extends DaoException {
 	private static final long serialVersionUID = 1L;
 
 	public DaoLoginException() {
+
 	}
 
 	public DaoLoginException(String message) {

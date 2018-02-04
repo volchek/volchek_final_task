@@ -260,7 +260,7 @@ public class User implements Serializable {
 				return false;
 			}
 		}
-		
+	
 		if (registrationDate == null) {
 			if (other.registrationDate != null) {
 				return false;
@@ -338,12 +338,12 @@ public class User implements Serializable {
 		return "User: " + "surname=" + surname + 
 				"; name=" + name + 
 				"; birthday=" + birthday + 
-				"; email=" + email
-				+ "; avatarPath=" + avatar + 
+				"; email=" + email +
+				"; avatarPath=" + avatar + 
 				"; login=" + login + 
 				"; password=" + password + 
-				"; status=" + status
-				+ "; languages=" + languages + 
+				"; status=" + status +
+				"; languages=" + languages + 
 				"; admin=" + admin + 
 				"; banned=" + banned +
 				", registrationDate=" + registrationDate +

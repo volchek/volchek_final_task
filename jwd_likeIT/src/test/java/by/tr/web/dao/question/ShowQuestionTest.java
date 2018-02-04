@@ -91,7 +91,6 @@ public class ShowQuestionTest {
 
 		tags.add("write");
 		questions = questionService.findQuestionByTag(tags);
-		System.out.println(questions);
 		assertNotNull(questions);
 	}
 

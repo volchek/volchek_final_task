@@ -10,11 +10,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 
+import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.DaoLoginException;
 import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.factory.DaoFactory;
-import by.tr.web.dao.user.UserDao;
 import by.tr.web.entity.user.User;
 import by.tr.web.service.InitializeService;
 import by.tr.web.service.exception.common.FatalServiceException;
@@ -79,8 +79,10 @@ public class RegistrationTest {
 		userDao.registerUser(user);
 
 		User newUser = userDao.findUserByLogin(login);
-
-		assertTrue(user.equals(newUser));
+		
+		assertTrue(user.getLogin().equals(newUser.getLogin()));
+		assertTrue(user.getEmail().equals(newUser.getEmail()));
+		assertTrue(user.getLanguages().equals(newUser.getLanguages()));
 	}
 	
 }

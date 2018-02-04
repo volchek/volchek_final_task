@@ -8,9 +8,23 @@ import java.util.Set;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+/**
+ * The Class TagSet. This class holds information about all tags that contain in
+ * the database. The object of this class is unique. It creates when application
+ * starts. The object can be updated by the administrator.
+ */
 public class TagSet {
 
+	/**
+	 * The map contains information about every tag and it's unique id in the
+	 * database.
+	 */
 	private Map<String, Integer> tagToIdSet = new HashMap<String, Integer>();
+
+	/**
+	 * The map contains information about every tag in the lowercase and normal
+	 * forms.
+	 */
 	private BiMap<String, String> caseNormalizationMapping = HashBiMap.create();
 
 	TagSet() {
@@ -38,27 +52,36 @@ public class TagSet {
 	}
 
 	public boolean addTag(String tag, int id) {
+
 		String lowerCaseTag = tag.toLowerCase();
+
 		if (tagToIdSet.containsKey(lowerCaseTag)) {
 			return false;
 		}
+
 		tagToIdSet.put(lowerCaseTag, id);
 		caseNormalizationMapping.put(lowerCaseTag, tag);
+
 		return true;
 	}
 
 	public boolean removeTag(String tag) {
 		String lowerCaseTag = tag.toLowerCase();
+
 		if (!tagToIdSet.containsKey(lowerCaseTag)) {
 			return false;
 		}
+
 		tagToIdSet.remove(lowerCaseTag);
 		caseNormalizationMapping.remove(lowerCaseTag);
+
 		return true;
 	}
 
 	public int getTagId(String tag) throws NoSuchElementException {
+
 		String lowerCaseTag = tag.toLowerCase();
+
 		if (tagToIdSet.containsKey(lowerCaseTag)) {
 			return tagToIdSet.get(lowerCaseTag);
 		} else {
@@ -67,15 +90,17 @@ public class TagSet {
 	}
 
 	public String getTagStandartName(String tag) throws NoSuchElementException {
+
 		String lowerCaseTag = tag.toLowerCase();
+
 		if (caseNormalizationMapping.containsKey(lowerCaseTag)) {
 			return caseNormalizationMapping.get(lowerCaseTag);
 		} else {
 			throw new NoSuchElementException("No tag with name = " + tag);
 		}
 	}
-	
-	public void clearTagSet(){
+
+	public void clearTagSet() {
 		tagToIdSet.clear();
 		caseNormalizationMapping.clear();
 	}
@@ -122,7 +147,9 @@ public class TagSet {
 
 	@Override
 	public String toString() {
-		return "TagSet: tagToIdSet=" + tagToIdSet + ", caseNormalizationMapping=" + caseNormalizationMapping;
+		return "TagSet: tagToIdSet=" + tagToIdSet 
+				+ ", caseNormalizationMapping=" 
+				+ caseNormalizationMapping;
 	}
 
 }

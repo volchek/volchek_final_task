@@ -1,21 +1,21 @@
 package by.tr.web.dao.factory;
 
-import by.tr.web.dao.answer.AnswerDao;
-import by.tr.web.dao.answer.impl.MySQLAnswerDaoImpl;
-import by.tr.web.dao.database.DatabaseDao;
-import by.tr.web.dao.database.impl.MySQLDatabaseDaoImpl;
-import by.tr.web.dao.language.LanguageDao;
-import by.tr.web.dao.language.impl.MySQLLanguageDaoImpl;
-import by.tr.web.dao.user.UserDao;
-import by.tr.web.dao.user.impl.MySQLUserDaoImpl;
-import by.tr.web.dao.question.QuestionDao;
-import by.tr.web.dao.question.impl.MySQLQuestionDaoImpl;
-import by.tr.web.dao.tag.TagDao;
-import by.tr.web.dao.tag.impl.MySQLTagDaoImpl;
-import by.tr.web.dao.text.CommonTextDao;
-import by.tr.web.dao.text.impl.MySQLCommonTextDaoImpl;
+import by.tr.web.dao.AnswerDao;
+import by.tr.web.dao.CommonTextDao;
+import by.tr.web.dao.DatabaseDao;
+import by.tr.web.dao.LanguageDao;
+import by.tr.web.dao.QuestionDao;
+import by.tr.web.dao.TagDao;
+import by.tr.web.dao.UserDao;
+import by.tr.web.dao.impl.MySQLAnswerDaoImpl;
+import by.tr.web.dao.impl.MySQLCommonTextDaoImpl;
+import by.tr.web.dao.impl.MySQLDatabaseDaoImpl;
+import by.tr.web.dao.impl.MySQLLanguageDaoImpl;
+import by.tr.web.dao.impl.MySQLQuestionDaoImpl;
+import by.tr.web.dao.impl.MySQLTagDaoImpl;
+import by.tr.web.dao.impl.MySQLUserDaoImpl;
 
-public class DaoFactory {
+public final class DaoFactory {
 
 	private static final DaoFactory instance = new DaoFactory();
 

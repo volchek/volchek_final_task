@@ -1,8 +1,8 @@
 package by.tr.web.service.impl;
 
+import by.tr.web.dao.UserDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.factory.DaoFactory;
-import by.tr.web.dao.user.UserDao;
 import by.tr.web.entity.user.User;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.common.ServiceException;

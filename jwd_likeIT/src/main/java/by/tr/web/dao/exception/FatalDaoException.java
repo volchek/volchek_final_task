@@ -5,6 +5,7 @@ public class FatalDaoException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public FatalDaoException() {
+
 	}
 
 	public FatalDaoException(String message) {

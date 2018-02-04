@@ -41,12 +41,10 @@ public class ShowUserAnswersTest {
 
 		int userId = 2;
 		List<Question> questions = textService.showUserTexts(userId, TextType.ANSWER);
-		System.out.println(questions);
 		assertNotNull(questions);
 
 		userId = 0;
 		questions = textService.showUserTexts(userId, TextType.ANSWER);
-		System.out.println(questions);
 		assertEquals(questions, new ArrayList<Question>());
 	}
 

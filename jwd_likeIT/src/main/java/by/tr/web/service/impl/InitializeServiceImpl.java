@@ -1,11 +1,11 @@
 package by.tr.web.service.impl;
 
-import by.tr.web.dao.database.DatabaseDao;
+import by.tr.web.dao.DatabaseDao;
+import by.tr.web.dao.LanguageDao;
+import by.tr.web.dao.TagDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.factory.DaoFactory;
-import by.tr.web.dao.language.LanguageDao;
-import by.tr.web.dao.tag.TagDao;
 import by.tr.web.service.InitializeService;
 import by.tr.web.service.exception.common.FatalServiceException;
 

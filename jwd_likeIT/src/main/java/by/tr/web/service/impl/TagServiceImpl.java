@@ -2,9 +2,9 @@ package by.tr.web.service.impl;
 
 import java.util.Set;
 
+import by.tr.web.dao.TagDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.factory.DaoFactory;
-import by.tr.web.dao.tag.TagDao;
 import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;
 import by.tr.web.service.TagService;

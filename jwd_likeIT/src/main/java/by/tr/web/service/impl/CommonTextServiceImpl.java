@@ -4,9 +4,9 @@ import java.util.List;
 
 import by.tr.web.service.CommonTextService;
 import by.tr.web.service.exception.common.ServiceException;
+import by.tr.web.dao.CommonTextDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.factory.DaoFactory;
-import by.tr.web.dao.text.CommonTextDao;
 import by.tr.web.entity.text.Question;
 import by.tr.web.entity.text.TextType;
 

@@ -2,9 +2,9 @@ package by.tr.web.service.impl;
 
 import java.util.List;
 
+import by.tr.web.dao.QuestionDao;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.dao.factory.DaoFactory;
-import by.tr.web.dao.question.QuestionDao;
 import by.tr.web.entity.text.Question;
 import by.tr.web.service.QuestionService;
 import by.tr.web.service.exception.common.ServiceException;
