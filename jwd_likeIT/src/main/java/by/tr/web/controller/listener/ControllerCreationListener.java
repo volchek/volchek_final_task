@@ -12,7 +12,7 @@ import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
 import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;
-import by.tr.web.service.application.InitializeService;
+import by.tr.web.service.InitializeService;
 import by.tr.web.service.exception.common.FatalServiceException;
 import by.tr.web.service.factory.ServiceFactory;
 

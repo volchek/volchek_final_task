@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.UserAttribute;
+import by.tr.web.service.UserService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.user.UserService;
 
 public class BanUser implements ControllerCommand {
 

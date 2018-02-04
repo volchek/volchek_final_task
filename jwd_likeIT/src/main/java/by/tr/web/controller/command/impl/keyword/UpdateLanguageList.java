@@ -12,9 +12,9 @@ import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.TextAttribute;
 import by.tr.web.controller.command.util.json.JsonConverter;
+import by.tr.web.service.LanguageService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.language.LanguageService;
 
 public class UpdateLanguageList implements ControllerCommand {
 

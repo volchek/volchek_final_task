@@ -13,9 +13,9 @@ import by.tr.web.controller.command.util.attribute.CommandAttribute;
 import by.tr.web.controller.command.util.attribute.UserAttribute;
 import by.tr.web.controller.command.util.attribute.extractor.ExtractParameter;
 import by.tr.web.entity.user.User;
+import by.tr.web.service.UserService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.user.UserService;
 
 public class EditUser implements ControllerCommand {
 

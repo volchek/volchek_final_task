@@ -15,9 +15,9 @@ import by.tr.web.controller.command.util.attribute.UserAttribute;
 import by.tr.web.entity.text.Question;
 import by.tr.web.entity.text.TextType;
 import by.tr.web.entity.user.User;
+import by.tr.web.service.CommonTextService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.text.CommonTextService;
 
 public class ShowUserAnswer implements ControllerCommand {
 

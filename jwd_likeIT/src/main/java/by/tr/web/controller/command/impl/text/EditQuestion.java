@@ -11,9 +11,9 @@ import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.TextAttribute;
 import by.tr.web.entity.text.Question;
+import by.tr.web.service.QuestionService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.question.QuestionService;
 
 public class EditQuestion implements ControllerCommand {
 

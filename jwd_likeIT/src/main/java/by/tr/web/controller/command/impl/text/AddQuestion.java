@@ -15,9 +15,9 @@ import by.tr.web.controller.command.util.attribute.UserAttribute;
 import by.tr.web.controller.command.util.attribute.extractor.ExtractParameter;
 import by.tr.web.entity.text.Question;
 import by.tr.web.entity.user.User;
+import by.tr.web.service.QuestionService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.question.QuestionService;
 
 public class AddQuestion implements ControllerCommand {
 

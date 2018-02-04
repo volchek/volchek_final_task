@@ -16,7 +16,7 @@ import by.tr.web.dao.exception.FatalDaoException;
 import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.dao.user.UserDao;
 import by.tr.web.entity.user.User;
-import by.tr.web.service.application.InitializeService;
+import by.tr.web.service.InitializeService;
 import by.tr.web.service.exception.common.FatalServiceException;
 import by.tr.web.service.factory.ServiceFactory;
 

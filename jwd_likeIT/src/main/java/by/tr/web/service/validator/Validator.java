@@ -17,16 +17,16 @@ import by.tr.web.entity.tag.TagSet;
 import by.tr.web.entity.tag.TagSetSingleton;
 import by.tr.web.entity.user.User;
 import by.tr.web.service.exception.common.ServiceException;
-import by.tr.web.service.exception.text_exception.IdException;
-import by.tr.web.service.exception.text_exception.LanguageException;
-import by.tr.web.service.exception.text_exception.TagException;
-import by.tr.web.service.exception.text_exception.TextException;
-import by.tr.web.service.exception.text_exception.TitleException;
-import by.tr.web.service.exception.user_exception.DateException;
-import by.tr.web.service.exception.user_exception.EmailException;
-import by.tr.web.service.exception.user_exception.LoginException;
-import by.tr.web.service.exception.user_exception.NameException;
-import by.tr.web.service.exception.user_exception.PasswordException;
+import by.tr.web.service.exception.text.IdException;
+import by.tr.web.service.exception.text.LanguageException;
+import by.tr.web.service.exception.text.TagException;
+import by.tr.web.service.exception.text.TextException;
+import by.tr.web.service.exception.text.TitleException;
+import by.tr.web.service.exception.user.DateException;
+import by.tr.web.service.exception.user.EmailException;
+import by.tr.web.service.exception.user.LoginException;
+import by.tr.web.service.exception.user.NameException;
+import by.tr.web.service.exception.user.PasswordException;
 
 public final class Validator {
 

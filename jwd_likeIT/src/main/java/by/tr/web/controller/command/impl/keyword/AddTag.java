@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import by.tr.web.controller.command.ControllerCommand;
 import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.TextAttribute;
+import by.tr.web.service.TagService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.tag.TagService;
 
 public class AddTag implements ControllerCommand {
 

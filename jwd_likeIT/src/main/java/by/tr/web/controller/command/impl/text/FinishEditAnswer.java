@@ -13,7 +13,7 @@ import by.tr.web.controller.command.util.attribute.TextAttribute;
 import by.tr.web.controller.command.util.attribute.UserAttribute;
 import by.tr.web.entity.text.Question;
 import by.tr.web.entity.user.User;
-import by.tr.web.service.answer.AnswerService;
+import by.tr.web.service.AnswerService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
 

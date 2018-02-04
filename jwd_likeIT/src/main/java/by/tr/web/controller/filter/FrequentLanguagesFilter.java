@@ -12,9 +12,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import by.tr.web.controller.command.util.attribute.TextAttribute;
+import by.tr.web.service.LanguageService;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.language.LanguageService;
 
 public class FrequentLanguagesFilter implements Filter {
 

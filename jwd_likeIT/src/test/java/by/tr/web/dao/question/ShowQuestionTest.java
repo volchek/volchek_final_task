@@ -12,14 +12,14 @@ import static org.junit.Assert.assertEquals;
 import by.tr.web.dao.exception.DaoException;
 import by.tr.web.entity.text.Question;
 import by.tr.web.entity.text.TextType;
-import by.tr.web.service.application.InitializeService;
+import by.tr.web.service.CommonTextService;
+import by.tr.web.service.InitializeService;
+import by.tr.web.service.QuestionService;
 import by.tr.web.service.exception.common.FatalServiceException;
 import by.tr.web.service.exception.common.ServiceException;
 import by.tr.web.service.factory.ServiceFactory;
-import by.tr.web.service.question.QuestionService;
-import by.tr.web.service.question.impl.QuestionServiceImpl;
-import by.tr.web.service.text.CommonTextService;
-import by.tr.web.service.text.impl.CommonTextServiceImpl;
+import by.tr.web.service.impl.CommonTextServiceImpl;
+import by.tr.web.service.impl.QuestionServiceImpl;
 
 public class ShowQuestionTest {
 

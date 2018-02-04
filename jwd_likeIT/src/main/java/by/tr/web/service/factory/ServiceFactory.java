@@ -1,19 +1,19 @@
 package by.tr.web.service.factory;
 
-import by.tr.web.service.answer.AnswerService;
-import by.tr.web.service.answer.impl.AnswerServiceImpl;
-import by.tr.web.service.application.InitializeService;
-import by.tr.web.service.application.impl.InitializeServiceImpl;
-import by.tr.web.service.language.LanguageService;
-import by.tr.web.service.language.impl.LanguageServiceImpl;
-import by.tr.web.service.question.QuestionService;
-import by.tr.web.service.question.impl.QuestionServiceImpl;
-import by.tr.web.service.tag.TagService;
-import by.tr.web.service.tag.impl.TagServiceImpl;
-import by.tr.web.service.text.CommonTextService;
-import by.tr.web.service.text.impl.CommonTextServiceImpl;
-import by.tr.web.service.user.UserService;
-import by.tr.web.service.user.impl.UserServiceImpl;
+import by.tr.web.service.AnswerService;
+import by.tr.web.service.CommonTextService;
+import by.tr.web.service.InitializeService;
+import by.tr.web.service.LanguageService;
+import by.tr.web.service.QuestionService;
+import by.tr.web.service.TagService;
+import by.tr.web.service.UserService;
+import by.tr.web.service.impl.AnswerServiceImpl;
+import by.tr.web.service.impl.CommonTextServiceImpl;
+import by.tr.web.service.impl.InitializeServiceImpl;
+import by.tr.web.service.impl.LanguageServiceImpl;
+import by.tr.web.service.impl.QuestionServiceImpl;
+import by.tr.web.service.impl.TagServiceImpl;
+import by.tr.web.service.impl.UserServiceImpl;
 
 public final class ServiceFactory {
 
@@ -23,9 +23,9 @@ public final class ServiceFactory {
 	private final UserService userService = new UserServiceImpl();
 	private final LanguageService langService = new LanguageServiceImpl();
 	private final TagService tagService = new TagServiceImpl();
+	private final CommonTextService textService = new CommonTextServiceImpl();
 	private final QuestionService questionService = new QuestionServiceImpl();
 	private final AnswerService answerService = new AnswerServiceImpl();
-	private final CommonTextService textService = new CommonTextServiceImpl();
 
 	private ServiceFactory() {
 
@@ -33,6 +33,10 @@ public final class ServiceFactory {
 
 	public static ServiceFactory getInstance() {
 		return instance;
+	}
+
+	public InitializeService getInitializeService() {
+		return initService;
 	}
 
 	public UserService getUserService() {
@@ -46,9 +50,9 @@ public final class ServiceFactory {
 	public TagService getTagService() {
 		return tagService;
 	}
-
-	public InitializeService getInitializeService() {
-		return initService;
+	
+	public CommonTextService getCommonTextService() {
+		return textService;
 	}
 
 	public QuestionService getQuestionService() {
@@ -59,7 +63,4 @@ public final class ServiceFactory {
 		return answerService;
 	}
 
-	public CommonTextService getCommonTextService() {
-		return textService;
-	}
 }
