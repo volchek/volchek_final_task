@@ -36,36 +36,39 @@ public class ControllerCommandFactory {
 
 	private static final ControllerCommandFactory instance = new ControllerCommandFactory();
 
-	private final Map<String, ControllerCommand> commands = new HashMap<String, ControllerCommand>(){{
-		put(CommandType.CHANGE_LANG.name(), new ChangeLanguage());
-		put(CommandType.ADD_LANGUAGE.name(), new AddLanguage());
-		put(CommandType.ADD_TAG.name(), new AddTag());
-		put(CommandType.UPDATE_LANGUAGE_LIST.name(), new UpdateLanguageList());
-		put(CommandType.UPDATE_TAG_LIST.name(), new UpdateTagList());		
-		put(CommandType.FIND_USER_BY_LOGIN.name(), new FindUserByLogin());
-		put(CommandType.REGISTER.name(), new Register());
-		put(CommandType.SIGN_IN.name(), new SignIn());
-		put(CommandType.LOGOUT.name(), new Logout());
-		put(CommandType.EDIT_USER.name(), new EditUser());
-		put(CommandType.BAN_USER.name(), new BanUser());
-		put(CommandType.ADD_QUESTION.name(), new AddQuestion());
-		put(CommandType.GET_ANSWER.name(), new AddAnswer());
-		put(CommandType.EDIT_QUESTION.name(), new EditQuestion());
-		put(CommandType.FINISH_TO_EDIT_QUESTION.name(), new FinishEditQuestion());
-		put(CommandType.DELETE_QUESTION.name(), new DeleteQuestion());
-		put(CommandType.EDIT_ANSWER.name(), new EditAnswer());
-		put(CommandType.FINISH_TO_EDIT_ANSWER.name(), new FinishEditAnswer());
-		put(CommandType.DELETE_ANSWER.name(), new DeleteAnswer());
-		put(CommandType.EVALUATE_QUESTION.name(), new EvaluateQuestion());
-		put(CommandType.EVALUATE_ANSWER.name(), new EvaluateAnswer());
-		put(CommandType.SHOW_USER_QUESTIONS.name(), new ShowUserQuestion());
-		put(CommandType.SHOW_USER_ANSWERS.name(), new ShowUserAnswer());
-		put(CommandType.SHOW_LAST_QUESTIONS.name(), new ShowLastQuestions());
-		put(CommandType.FIND_QUESTION_BY_LANGUAGE.name(), new FindQuestionByLanguage());
-		put(CommandType.FIND_QUESTION_BY_TAG.name(), new FindQuestionByTag());
-		put(CommandType.FIND_QUESTION_BY_ID.name(), new FindQuestionById());
-	}};
-	
+	private final Map<String, ControllerCommand> commands = new HashMap<String, ControllerCommand>() {
+		private static final long serialVersionUID = -1L;
+		{
+			put(CommandType.CHANGE_LANG.name(), new ChangeLanguage());
+			put(CommandType.ADD_LANGUAGE.name(), new AddLanguage());
+			put(CommandType.ADD_TAG.name(), new AddTag());
+			put(CommandType.UPDATE_LANGUAGE_LIST.name(), new UpdateLanguageList());
+			put(CommandType.UPDATE_TAG_LIST.name(), new UpdateTagList());
+			put(CommandType.FIND_USER_BY_LOGIN.name(), new FindUserByLogin());
+			put(CommandType.REGISTER.name(), new Register());
+			put(CommandType.SIGN_IN.name(), new SignIn());
+			put(CommandType.LOGOUT.name(), new Logout());
+			put(CommandType.EDIT_USER.name(), new EditUser());
+			put(CommandType.BAN_USER.name(), new BanUser());
+			put(CommandType.ADD_QUESTION.name(), new AddQuestion());
+			put(CommandType.GET_ANSWER.name(), new AddAnswer());
+			put(CommandType.EDIT_QUESTION.name(), new EditQuestion());
+			put(CommandType.FINISH_TO_EDIT_QUESTION.name(), new FinishEditQuestion());
+			put(CommandType.DELETE_QUESTION.name(), new DeleteQuestion());
+			put(CommandType.EDIT_ANSWER.name(), new EditAnswer());
+			put(CommandType.FINISH_TO_EDIT_ANSWER.name(), new FinishEditAnswer());
+			put(CommandType.DELETE_ANSWER.name(), new DeleteAnswer());
+			put(CommandType.EVALUATE_QUESTION.name(), new EvaluateQuestion());
+			put(CommandType.EVALUATE_ANSWER.name(), new EvaluateAnswer());
+			put(CommandType.SHOW_USER_QUESTIONS.name(), new ShowUserQuestion());
+			put(CommandType.SHOW_USER_ANSWERS.name(), new ShowUserAnswer());
+			put(CommandType.SHOW_LAST_QUESTIONS.name(), new ShowLastQuestions());
+			put(CommandType.FIND_QUESTION_BY_LANGUAGE.name(), new FindQuestionByLanguage());
+			put(CommandType.FIND_QUESTION_BY_TAG.name(), new FindQuestionByTag());
+			put(CommandType.FIND_QUESTION_BY_ID.name(), new FindQuestionById());
+		}
+	};
+
 	public static ControllerCommandFactory getInstance() {
 		return instance;
 	}
@@ -79,5 +82,6 @@ public class ControllerCommandFactory {
 	}
 
 	private ControllerCommandFactory() {
+
 	}
 }

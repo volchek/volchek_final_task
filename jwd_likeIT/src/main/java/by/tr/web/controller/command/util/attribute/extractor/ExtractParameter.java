@@ -11,7 +11,7 @@ import by.tr.web.entity.language.LanguageSet;
 import by.tr.web.entity.language.LanguageSetSingleton;
 import by.tr.web.entity.user.User;
 
-public class ExtractParameter {
+public final class ExtractParameter {
 
 	private static final String datePattern = "yyyy-MM-dd";
 
@@ -93,6 +93,10 @@ public class ExtractParameter {
 			user.addLanguage(normalizeLanguage, intLevel);
 		}
 		return true;
+	}
+
+	private ExtractParameter() {
+
 	}
 
 }

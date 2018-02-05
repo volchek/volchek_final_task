@@ -16,8 +16,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
-	<c:import url="fragment/header.jsp"></c:import>
-	<c:import url="menu.jsp"></c:import>
+	<c:import url="fragment/header.jsp" />
+	<c:import url="menu.jsp" />
 
 	<form action="../Controller" method="get">
 		<input type="hidden" name="command" value="FIND_USER_BY_LOGIN" />
@@ -45,6 +45,6 @@
 			</button>
 		</div>
 	</form>
-	<c:import url="fragment/footer.jsp"></c:import>
+	<c:import url="fragment/footer.jsp" />
 </body>
 </html>

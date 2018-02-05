@@ -15,6 +15,7 @@ import by.tr.web.entity.text.Question;
 import by.tr.web.entity.user.User;
 import by.tr.web.service.AnswerService;
 import by.tr.web.service.exception.common.ServiceException;
+import by.tr.web.service.exception.text.TextException;
 import by.tr.web.service.factory.ServiceFactory;
 
 public class AddAnswer implements ControllerCommand {
@@ -30,18 +31,18 @@ public class AddAnswer implements ControllerCommand {
 		String text = request.getParameter(TextAttribute.ANSWER_TEXT);
 		int questionId = Integer.parseInt(request.getParameter(TextAttribute.QUESTION_ID));
 
-		RequestDispatcher d = null;
-
 		try {
 			Question question = (Question) answerService.addAnswer(questionId, text, userId);
 			request.setAttribute(TextAttribute.QUESTION, question);
 
+			RequestDispatcher d = null;
 			d = request.getRequestDispatcher(PagePath.QUESTION_PAGE);
+			d.forward(request, response);
+		} catch (TextException ex) {
+			response.sendRedirect(PagePath.INSERTING_ERROR_PAGE);
 		} catch (ServiceException ex) {
-			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.UNKNOWN_ERROR_PAGE);
 		}
-		d.forward(request, response);
-		
 	}
 
 }

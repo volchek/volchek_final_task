@@ -14,6 +14,7 @@ import by.tr.web.entity.text.Question;
 import by.tr.web.service.AnswerService;
 import by.tr.web.service.QuestionService;
 import by.tr.web.service.exception.common.ServiceException;
+import by.tr.web.service.exception.text.TextException;
 import by.tr.web.service.factory.ServiceFactory;
 
 public class EditAnswer implements ControllerCommand {
@@ -35,12 +36,14 @@ public class EditAnswer implements ControllerCommand {
 			QuestionService questionService = serviceFactory.getQuestionService();
 			Question question = questionService.findQuestionById(questionId);
 			request.setAttribute(TextAttribute.QUESTION, question);
-			
+
 			d = request.getRequestDispatcher(PagePath.EDIT_TEXT);
+			d.forward(request, response);
+		} catch (TextException ex) {
+			response.sendRedirect(PagePath.UPDATING_ERROR_PAGE);
 		} catch (ServiceException ex) {
-			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.UNKNOWN_ERROR_PAGE);
 		}
-		d.forward(request, response);
 	}
 
 }

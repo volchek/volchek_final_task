@@ -34,10 +34,10 @@ public class EditUser implements ControllerCommand {
 			HttpSession session = request.getSession(true);
 			session.removeAttribute(UserAttribute.STRING_LANGUAGES);
 			session.setAttribute(UserAttribute.STRING_LANGUAGES, currentUser.getLanguages());
+			response.sendRedirect(PagePath.AFTER_UPDATING);
 		} catch (ServiceException e) {
-			request.setAttribute(CommandAttribute.COMMAND_RESULT, false);
+			response.sendRedirect(PagePath.UPDATING_ERROR_PAGE);
 		}
-		response.sendRedirect(PagePath.AFTER_UPDATING);
 	}
 
 	private User getModifiedUser(HttpServletRequest request) {

@@ -8,7 +8,7 @@
 <head>
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="lc" />
-<fmt:message key="update.success" bundle="${lc}"
+<fmt:message key="insert.success" bundle="${lc}"
 	var="message" />
 <fmt:message key="error.link" bundle="${lc}" var="link" />
 	

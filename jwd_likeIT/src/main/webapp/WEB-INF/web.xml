@@ -61,6 +61,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>SuccessfulInserting</servlet-name>
+		<jsp-file>/WEB-INF/jsp/afterInserting.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SuccessfulInserting</servlet-name>
+		<url-pattern>/insert-info</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>AddQuestion</servlet-name>
 		<jsp-file>/WEB-INF/jsp/addQuestion.jsp</jsp-file>
 	</servlet>

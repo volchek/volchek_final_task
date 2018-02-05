@@ -34,10 +34,8 @@ public class MySQLQuestionDaoImpl implements QuestionDao {
 		try {
 			conn = connPool.getConnection();
 			Question question = QuestionQuerySubmitter.addQuestion(conn, authorId, title, text, languages, tags);
-
 			List<Answer> answers = AnswerQuerySubmitter.selectAnswersToTheQuestion(conn, question.getId());
 			question.setAnswers(answers);
-
 			return question;
 
 		} catch (MySqlException ex) {

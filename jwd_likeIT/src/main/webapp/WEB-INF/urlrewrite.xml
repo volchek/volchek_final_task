@@ -81,5 +81,34 @@
 		<to>/Controller?command=EDIT_QUESTION&amp;question_id=$1</to>
 	</rule>
 	
+	<rule>
+		<from>/update-error</from>
+		<to>/jsp/error/updatingError.jsp</to>
+	</rule>
+	
+	<rule>
+		<from>/insert-error</from>
+		<to>/jsp/error/insertingError.jsp</to>
+	</rule>
+
+	<rule>
+		<from>/unknown-error</from>
+		<to>/jsp/error/unknownError.jsp</to>
+	</rule>
+
+	<rule>
+		<from>/authentication-error</from>
+		<to>/jsp/error/authenticationError.jsp</to>
+	</rule>
+
+	<rule>
+		<from>/access-error</from>
+		<to>/jsp/error/accessError.jsp</to>
+	</rule>
+
+	<rule>
+		<from>/success-registration</from>
+		<to>/jsp/afterRegistration.jsp</to>
+	</rule>
 
 </urlrewrite>

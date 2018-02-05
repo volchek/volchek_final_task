@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,9 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
-	<jsp:include page="../fragment/header.jsp" flush="true" />
+	<c:import url="../fragment/header.jsp" />
+	<c:import url="../menu.jsp" />
+	
 	<h2>
 		<c:out value="${msg}" />
 	</h2>

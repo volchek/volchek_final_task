@@ -30,7 +30,6 @@ public class FindUserByLogin implements ControllerCommand {
 		String login = request.getParameter(UserAttribute.LOGIN).toString();
 
 		User user = null;
-		RequestDispatcher d = null;
 
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		UserService userService = serviceFactory.getUserService();
@@ -40,18 +39,19 @@ public class FindUserByLogin implements ControllerCommand {
 			CommonTextService textService = serviceFactory.getCommonTextService();
 			List<Question> questions = textService.showUserTexts(userId, TextType.QUESTION);
 			List<Question> answers = textService.showUserTexts(userId, TextType.ANSWER);
-			
+
 			request.setAttribute(UserAttribute.USER_ENTITY, user);
 			List<String> userLanguages = Lists.newArrayList(user.getLanguages().keySet());
 			request.setAttribute(UserAttribute.STRING_LANGUAGES, userLanguages);
 			request.setAttribute(TextAttribute.QUESTION_LIST, questions);
 			request.setAttribute(TextAttribute.ANSWER_LIST, answers);
-			
+
+			RequestDispatcher d = null;
 			d = request.getRequestDispatcher(PagePath.USER_INFO_PAGE);
+			d.forward(request, response);
 		} catch (ServiceException ex) {
-			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.CONTENT_ERROR_PAGE);
 		}
-		d.forward(request, response);
 	}
 
 }

@@ -2,7 +2,6 @@ package by.tr.web.controller.command.impl.user;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,17 +30,13 @@ public class Register implements ControllerCommand {
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		UserService userService = serviceFactory.getUserService();
 
-		RequestDispatcher d = null;
-
 		try {
 			userService.register(user);
-			response.sendRedirect(PagePath.ENTRY_PAGE);
+			response.sendRedirect(PagePath.AFTER_REGISTER_PAGE);
 		} catch (LoginException | DateException | PasswordException | NameException | EmailException ex) {
-			d = request.getRequestDispatcher(PagePath.REGISTER_PAGE);
-			d.forward(request, response);
+			response.sendRedirect(PagePath.INSERTING_ERROR_PAGE);
 		} catch (ServiceException ex) {
-			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
-			d.forward(request, response);
+			response.sendRedirect(PagePath.UNKNOWN_ERROR_PAGE);
 		}
 	}
 }

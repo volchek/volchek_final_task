@@ -31,7 +31,7 @@ public class IsAdminFilter implements Filter {
 			chain.doFilter(request, response);
 		} else {
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.sendRedirect(PagePath.CONTENT_ERROR_PAGE);
+			httpResponse.sendRedirect(PagePath.ACCESS_ERROR_PAGE);
 		}
 	}
 

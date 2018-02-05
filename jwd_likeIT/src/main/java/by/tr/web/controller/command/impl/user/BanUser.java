@@ -27,8 +27,7 @@ public class BanUser implements ControllerCommand {
 			userService.banUser(userId, ban);
 			response.sendRedirect(PagePath.AFTER_UPDATING);
 		} catch (ServiceException ex) {
-			response.sendRedirect(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.UPDATING_ERROR_PAGE);
 		}
 	}
-
 }

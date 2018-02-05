@@ -12,11 +12,14 @@ import by.tr.web.controller.command.util.attribute.CommandAttribute;
 
 public class ChangeLanguage implements ControllerCommand {
 
+	private final static String CONTROLLER_NAME = "Controller";
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.getSession(true).setAttribute(CommandAttribute.LOCAL_PARAMETER,
-		request.getParameter(CommandAttribute.LOCAL_PARAMETER));
+				request.getParameter(CommandAttribute.LOCAL_PARAMETER));
+		
 		String address = request.getParameter(CommandAttribute.ADDRESS_PARAMETER);
 		String query = request.getParameter(CommandAttribute.QUERY_PARAMETER);
 		String previousQuery = createQuery(address, query);
@@ -28,17 +31,16 @@ public class ChangeLanguage implements ControllerCommand {
 		}
 
 	}
-	
+
 	private String createQuery(String address, String query) {
 		StringBuilder resultQuery = new StringBuilder();
 		if (query != null && !query.isEmpty()) {
-			resultQuery.append("Controller");
+			resultQuery.append(CONTROLLER_NAME);
 			resultQuery.append("?").append(query);
-		}
-		else {
+		} else {
 			if (address != null && !address.isEmpty()) {
 				resultQuery.append(address);
-			}	
+			}
 		}
 		return resultQuery.toString();
 	}

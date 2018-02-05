@@ -55,29 +55,31 @@
 					<p id="text">${requestScope.question.text}</p>
 					<c:choose>
 						<c:when
-							test="${not empty sessionScope.current_user and sessionScope.current_user.login == requestScope.question.authorLogin}">
+							test="${not empty sessionScope.current_user 
+							and (sessionScope.current_user.login == requestScope.question.authorLogin || sessionScope.current_user.admin) }">
 							<c:set var="user_text" value="${null}" />
-								<form action="${pageContext.request.contextPath}/Controller"
-									method="post">
-									<input type="hidden" name="command" value="FINISH_TO_EDIT_QUESTION" />
-									<input type="hidden" name="question_id" value="${requestScope.question.id}" />
-									<input type="hidden" name="old_text" value="${requestScope.question.text}" />
-									<br>
-									<div>
-										<div class="content">
-											<div id="pell" class="pell"></div>
-											<div id="text-output" style="display: none"
-												onKeyUp="addCodeTag(replacePreTags())"></div>
-											<textarea name="question_text" id="question"
-												style="display: none"></textarea>
-										</div>
-
-										<button type="submit" class="signupbtn"
-											onclick="location.href='afterLogIn.jsp'">
-											<c:out value="${send}" />
-										</button>
+							<form action="${pageContext.request.contextPath}/Controller"
+								method="post">
+								<input type="hidden" name="command"
+									value="FINISH_TO_EDIT_QUESTION" /> <input type="hidden"
+									name="question_id" value="${requestScope.question.id}" /> <input
+									type="hidden" name="old_text"
+									value="${requestScope.question.text}" /> <br>
+								<div>
+									<div class="content">
+										<div id="pell" class="pell"></div>
+										<div id="text-output" style="display: none"
+											onKeyUp="addCodeTag(replacePreTags())"></div>
+										<textarea name="question_text" id="question"
+											style="display: none"></textarea>
 									</div>
-								</form>
+
+									<button type="submit" class="signupbtn"
+										onclick="location.href='afterLogIn.jsp'">
+										<c:out value="${send}" />
+									</button>
+								</div>
+							</form>
 						</c:when>
 						<c:otherwise>
 
@@ -100,7 +102,7 @@
 			<c:forEach var="answer" items="${requestScope.question.answers}">
 				<c:choose>
 					<c:when
-						test="${not empty sessionScope.current_user and sessionScope.current_user.login == answer.authorLogin and answer.id == requestScope.answer_id }">
+						test="${not empty sessionScope.current_user and (sessionScope.current_user.login == answer.authorLogin  || sessionScope.current_user.admin)and answer.id == requestScope.answer_id }">
 						<c:set var="user_text" value="${answer.text}" />
 						<div class="answer">
 							<form action="${pageContext.request.contextPath}/Controller"

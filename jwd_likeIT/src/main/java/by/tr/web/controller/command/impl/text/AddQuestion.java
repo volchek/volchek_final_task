@@ -17,6 +17,10 @@ import by.tr.web.entity.text.Question;
 import by.tr.web.entity.user.User;
 import by.tr.web.service.QuestionService;
 import by.tr.web.service.exception.common.ServiceException;
+import by.tr.web.service.exception.text.LanguageException;
+import by.tr.web.service.exception.text.TagException;
+import by.tr.web.service.exception.text.TextException;
+import by.tr.web.service.exception.text.TitleException;
 import by.tr.web.service.factory.ServiceFactory;
 
 public class AddQuestion implements ControllerCommand {
@@ -33,17 +37,17 @@ public class AddQuestion implements ControllerCommand {
 		List<String> tags = ExtractParameter.extractParameterList(request, TextAttribute.TAG);
 		String text = request.getParameter(TextAttribute.QUESTION_TEXT);
 
-		RequestDispatcher d = null;
-
 		try {
 			Question question = questionService.addQuestion(user.getId(), title, languages, tags, text);
 			request.setAttribute(TextAttribute.QUESTION, question);
 
+			RequestDispatcher d = null;
 			d = request.getRequestDispatcher(PagePath.QUESTION_PAGE);
-
-		} catch (ServiceException e) {
-			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
+			d.forward(request, response);
+		} catch (TextException | TitleException | LanguageException | TagException ex) {
+			response.sendRedirect(PagePath.INSERTING_ERROR_PAGE);
+		} catch (ServiceException ex) {
+			response.sendRedirect(PagePath.UNKNOWN_ERROR_PAGE);
 		}
-		d.forward(request, response);
 	}
 }

@@ -45,7 +45,6 @@ public final class AnswerQuerySubmitter {
 		try (PreparedStatement ps = conn.prepareStatement(AnswerQuery.UPDATE_ANSWER)) {
 			ps.setString(1, text);
 			ps.setInt(2, answerId);
-			ps.setInt(3, userId);
 			ps.executeUpdate();
 		} catch (SQLException ex) {
 			logger.error("Can't create a prepared statement or execute answer query");

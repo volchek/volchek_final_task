@@ -23,16 +23,16 @@ public class ShowLastQuestions implements ControllerCommand {
 
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		QuestionService questionService = serviceFactory.getQuestionService();
-		
-		RequestDispatcher d = null;
 
 		try {
 			List<Question> questions = questionService.showLastQuestions();
 			request.setAttribute(TextAttribute.QUESTION_LIST, questions);
+
+			RequestDispatcher d = null;
 			d = request.getRequestDispatcher(PagePath.AFTER_SING_IN_PAGE);
+			d.forward(request, response);
 		} catch (ServiceException ex) {
-			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.CONTENT_ERROR_PAGE);
 		}
-		d.forward(request, response);
 	}
 }

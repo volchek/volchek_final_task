@@ -10,8 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.TextAttribute;
 import by.tr.web.controller.command.util.attribute.UserAttribute;
 import by.tr.web.entity.text.Question;
@@ -37,7 +39,8 @@ public class QuestionsFeedFilter implements Filter {
 				List<Question> questions = questionService.showLastQuestions();
 				request.setAttribute(TextAttribute.QUESTION_LIST, questions);
 			} catch (ServiceException ex) {
-//				logger
+				HttpServletResponse httpResponse = (HttpServletResponse) response;
+				httpResponse.sendRedirect(PagePath.DATABASE_ERROR_PAGE);
 			} finally {
 				chain.doFilter(request, response);	
 			}

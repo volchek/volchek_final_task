@@ -11,6 +11,7 @@ import by.tr.web.controller.command.util.PagePath;
 import by.tr.web.controller.command.util.attribute.TextAttribute;
 import by.tr.web.service.TagService;
 import by.tr.web.service.exception.common.ServiceException;
+import by.tr.web.service.exception.text.TagException;
 import by.tr.web.service.factory.ServiceFactory;
 
 public class AddTag implements ControllerCommand {
@@ -25,9 +26,11 @@ public class AddTag implements ControllerCommand {
 
 		try {
 			tagService.addTag(tag);
-			response.sendRedirect(PagePath.AFTER_UPDATING);
+			response.sendRedirect(PagePath.AFTER_INSERTING);
+		} catch (TagException ex) {
+			response.sendRedirect(PagePath.INSERTING_ERROR_PAGE);
 		} catch (ServiceException ex) {
-			response.sendRedirect(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.UNKNOWN_ERROR_PAGE);
 		}
 	}
 }

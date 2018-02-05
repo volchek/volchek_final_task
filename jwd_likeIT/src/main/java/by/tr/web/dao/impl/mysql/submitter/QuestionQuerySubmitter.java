@@ -80,7 +80,6 @@ public final class QuestionQuerySubmitter {
 
 			ps.setString(1, text);
 			ps.setInt(2, questionId);
-			ps.setInt(3, userId);
 
 			ps.executeUpdate();
 		} catch (SQLException ex) {
@@ -91,12 +90,27 @@ public final class QuestionQuerySubmitter {
 
 	public static void deleteQuestion(Connection conn, int questionId, int userId) throws MySqlException {
 
+		PreparedStatement ps_lang = null;
+		PreparedStatement ps_tags = null;
+		
 		try (PreparedStatement ps = conn.prepareStatement(QuestionQuery.DELETE_QUESTION)) {
 			ps.setInt(1, questionId);
 			ps.executeUpdate();
+			
+			ps_lang = conn.prepareStatement(QuestionQuery.DELETE_QUESTION_LANGUAGES);
+			ps_lang.setInt(1, questionId);
+			ps_lang.executeUpdate();
+			
+			ps_tags = conn.prepareStatement(QuestionQuery.DELETE_QUESTION_TAGS);
+			ps_tags.setInt(1, questionId);
+			ps_tags.executeUpdate();
+			
 		} catch (SQLException ex) {
 			logger.error("Can't delete the question with id=" + questionId + "written by user with id=" + userId);
 			throw new MySqlException("Failed to execute command and delete a question", ex);
+		} finally {
+			closeStatement(ps_lang);
+			closeStatement(ps_tags);
 		}
 	}
 

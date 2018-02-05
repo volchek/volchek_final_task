@@ -8,9 +8,9 @@
 <head>
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="lc" />
-<fmt:message key="update.success" bundle="${lc}"
+<fmt:message key="insert.success" bundle="${lc}"
 	var="message" />
-<fmt:message key="error.link" bundle="${lc}" var="link" />
+<fmt:message key="error.singin_link" bundle="${lc}" var="link" />
 	
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
@@ -29,15 +29,15 @@
 </head>
 
 <body>
-	<c:import url="jsp/fragment/header.jsp" />
-	<c:import url="jsp/menu.jsp" />
+	<c:import url="fragment/header.jsp" />
+	<c:import url="menu.jsp" />
 	
 	<h2><c:out value="${message}" /></h2>
 	
-	<a href="${pageContext.request.contextPath}/index.jsp"> 
+	<a href="${pageContext.request.contextPath}/jsp/login.jsp"> 
 		<c:out value="${link}" />
 	</a>
 	
-	<c:import url="jsp/fragment/footer.jsp" />
+	<c:import url="fragment/footer.jsp" />
 </body>
 </html>

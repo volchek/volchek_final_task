@@ -8,7 +8,7 @@
 <head>
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="lc" />
-<fmt:message key="error.204" bundle="${lc}" var="msg" />
+<fmt:message key="error.updating" bundle="${lc}" var="msg" />
 <fmt:message key="error.link" bundle="${lc}" var="link" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>

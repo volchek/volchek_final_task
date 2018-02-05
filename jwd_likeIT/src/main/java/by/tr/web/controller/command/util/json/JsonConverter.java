@@ -5,9 +5,10 @@ import java.util.Set;
 
 import com.google.gson.Gson;
 
-public class JsonConverter {
+public final class JsonConverter {
 
 	private JsonConverter() {
+
 	}
 
 	public static String getJson(List<String> list) {

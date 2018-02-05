@@ -14,7 +14,7 @@ public class DateTag extends TagSupport {
 
 	private String format = "dd.MM.yyyy";
 	private Date date;
-	private String text="";
+	private String text = "";
 
 	public void setFormat(String format) {
 		this.format = format;

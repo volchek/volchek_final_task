@@ -24,6 +24,10 @@ public class DeleteQuestion implements ControllerCommand {
 		QuestionService questionService = serviceFactory.getQuestionService();
 
 		User user = (User) request.getSession().getAttribute(UserAttribute.CURRENT_USER);
+		if (user == null) {
+			response.sendRedirect(request.getContextPath().concat("/").concat(PagePath.ACCESS_ERROR_PAGE));
+			return;
+		}		
 		int userId = user.getId();
 
 		try {
@@ -31,7 +35,7 @@ public class DeleteQuestion implements ControllerCommand {
 			questionService.deleteQuestion(questionId, userId);
 			response.sendRedirect(request.getContextPath().concat("/").concat(PagePath.AFTER_UPDATING));
 		} catch (ServiceException ex) {
-			response.sendRedirect(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.UNKNOWN_ERROR_PAGE);
 		}
 	}
 

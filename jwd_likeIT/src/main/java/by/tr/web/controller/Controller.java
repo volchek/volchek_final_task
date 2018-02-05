@@ -22,14 +22,23 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		ControllerCommandFactory contrCommandObject = ControllerCommandFactory.getInstance();
-		String commandName = request.getParameter(CommandAttribute.COMMAND_NAME);
-		ControllerCommand command = contrCommandObject.getCommand(commandName);
-		command.execute(request, response);
+		executeCommand(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+
+		executeCommand(request, response);
+
+	}
+
+	private void executeCommand(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		ControllerCommandFactory contrCommandObject = ControllerCommandFactory.getInstance();
+		String commandName = request.getParameter(CommandAttribute.COMMAND_NAME);
+		ControllerCommand command = contrCommandObject.getCommand(commandName);
+		command.execute(request, response);
 	}
 }

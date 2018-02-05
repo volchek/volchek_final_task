@@ -6,6 +6,7 @@ import by.tr.web.dao.factory.DaoFactory;
 import by.tr.web.entity.user.User;
 import by.tr.web.service.UserService;
 import by.tr.web.service.exception.common.ServiceException;
+import by.tr.web.service.exception.user.LoginException;
 import by.tr.web.service.validator.Validator;
 
 public class UserServiceImpl implements UserService {
@@ -28,8 +29,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User signIn(String login, String password) throws ServiceException {
 
-		Validator.isEmpty(login);
-		Validator.isEmpty(password);
+		if (Validator.isEmpty(login) || Validator.isEmpty(password)){
+			throw new LoginException("Input data is incorrect");
+		}
 
 		DaoFactory daoInstance = DaoFactory.getInstance();
 		UserDao userDao = daoInstance.getUserDao();

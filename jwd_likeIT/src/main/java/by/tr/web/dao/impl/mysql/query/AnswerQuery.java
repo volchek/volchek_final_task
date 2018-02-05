@@ -10,8 +10,7 @@ public final class AnswerQuery {
 	public static final String UPDATE_ANSWER =
 			"UPDATE answers "
 			+ "SET answerText = ? "
-			+ "WHERE answerId = ? "
-			+ "AND userId = ?;";
+			+ "WHERE answerId = ?; ";
 	
 	public static final String DELETE_ANSWER = 
 			"DELETE FROM answers "

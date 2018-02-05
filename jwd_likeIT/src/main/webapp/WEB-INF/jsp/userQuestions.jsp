@@ -39,7 +39,8 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach var="item" items="${requestScope.question_list}">
-					<div class="mark clearfix">
+					<div class="clearfix">
+					<div class="mark">
 						<span class="tag"><ct:mark
 								averageMark="${item.averageMark}" /></span>
 					</div>
@@ -58,6 +59,7 @@
 							<ct:date date="${item.creationDate}" text="${question_info}"
 								format="dd-MM-yyyy" />
 						</p>
+					</div>
 					</div>
 				</c:forEach>
 			</c:otherwise>

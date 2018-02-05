@@ -10,6 +10,8 @@
 <fmt:setBundle basename="localization.local" var="lc" />
 <fmt:message key="find.languages" bundle="${lc}" var="languages" />
 <fmt:message key="find.tags" bundle="${lc}" var="tags" />
+<fmt:message key="find.btn.add" bundle="${lc}" var="add" />
+<fmt:message key="find.btn.update" bundle="${lc}" var="update" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LikeIT</title>
@@ -34,7 +36,7 @@
 					name="language" class="lang" required id="lang"
 					style="display: inline" /> </label><br>
 				<button type="submit" class="signupbtn">
-					<c:out value="${find}" />
+					<c:out value="${add}" />
 				</button>
 			</form>
 		</div>
@@ -42,7 +44,7 @@
 			<form action="${pageContext.request.contextPath}/Controller"
 				method="post">
 				<input type="hidden" name="command" value="UPDATE_LANGUAGE_LIST" />
-				<button type="submit" class="cancelbtn">UPDATE ALL</button>
+				<button type="submit" class="cancelbtn"><c:out value="${update}" /></button>
 			</form>
 		</div>
 	</div>
@@ -56,7 +58,7 @@
 					id="tag" class="lang awesomplete" style="display: inline" required />
 				</label> <br>
 				<button type="submit" class="signupbtn">
-					<c:out value="${find}" />
+					<c:out value="${add}" />
 				</button>
 			</form>
 		</div>
@@ -64,7 +66,7 @@
 			<form action="${pageContext.request.contextPath}/Controller"
 				method="post">
 				<input type="hidden" name="command" value="UPDATE_TAG_LIST" />
-				<button type="submit" class="cancelbtn">UPDATE ALL</button>
+				<button type="submit" class="cancelbtn"><c:out value="${update}" /></button>
 			</form>
 		</div>
 	</div>

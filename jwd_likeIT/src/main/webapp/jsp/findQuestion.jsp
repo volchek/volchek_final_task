@@ -19,8 +19,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/awesomplete.css">
 </head>
 <body>
-	<c:import url="fragment/header.jsp"></c:import>
-	<c:import url="menu.jsp"></c:import>
+	<c:import url="fragment/header.jsp" />
+	<c:import url="menu.jsp" />
 	
 	<c:set var="lang_list" value="${applicationScope.languages}" />
 	<c:set var="tag_list" value="${applicationScope.tags}" />

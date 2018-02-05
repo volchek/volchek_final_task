@@ -17,11 +17,18 @@ public final class QuestionQuery {
 	public final static String UPDATE_QUESTION_TEXT = 
 			"UPDATE questions "
 			+ "SET text = ? "
-			+ "WHERE questionId = ? "
-			+ "AND userId = ?;";
+			+ "WHERE questionId = ?; ";
 
 	public final static String DELETE_QUESTION =
 			"DELETE FROM questions "
+			+ "WHERE questionId = ?;";
+	
+	public final static String DELETE_QUESTION_LANGUAGES =
+			"DELETE FROM questions2languages "
+			+ "WHERE questionId = ?;";
+	
+	public final static String DELETE_QUESTION_TAGS =
+			"DELETE FROM questions2keywords "
 			+ "WHERE questionId = ?;";
 	
 	public final static String SELECT_QUESTIONS = 

@@ -26,8 +26,6 @@ public class EvaluateQuestion implements ControllerCommand {
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		CommonTextService textService = serviceFactory.getCommonTextService();
 
-		RequestDispatcher d = null;
-
 		try {
 			User user = (User) request.getSession().getAttribute(UserAttribute.CURRENT_USER);
 			int userId = user.getId();
@@ -36,11 +34,12 @@ public class EvaluateQuestion implements ControllerCommand {
 
 			Question question = textService.evaluateText(userId, textId, mark, TextType.QUESTION);
 			request.setAttribute(TextAttribute.QUESTION, question);
-			
+
+			RequestDispatcher d = null;
 			d = request.getRequestDispatcher(PagePath.QUESTION_PAGE);
+			d.forward(request, response);
 		} catch (ServiceException ex) {
-			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.UNKNOWN_ERROR_PAGE);
 		}
-		d.forward(request, response);
 	}
 }

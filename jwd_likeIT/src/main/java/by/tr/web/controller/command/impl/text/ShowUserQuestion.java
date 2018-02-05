@@ -25,25 +25,25 @@ public class ShowUserQuestion implements ControllerCommand {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		User currentUser = (User) request.getSession().getAttribute(UserAttribute.CURRENT_USER);
-		if (currentUser == null){
+		if (currentUser == null) {
 			response.sendRedirect(PagePath.ENTRY_PAGE);
 			return;
 		}
-		
+
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		CommonTextService textService = serviceFactory.getCommonTextService();
 
-		RequestDispatcher d = null;
 		try {
 			int userId = currentUser.getId();
 			List<Question> questions = textService.showUserTexts(userId, TextType.QUESTION);
 			request.setAttribute(TextAttribute.QUESTION_LIST, questions);
+
+			RequestDispatcher d = null;
 			d = request.getRequestDispatcher(PagePath.USER_QUESTIONS_PAGE);
+			d.forward(request, response);
 		} catch (ServiceException ex) {
-			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.CONTENT_ERROR_PAGE);
 		}
-		d.forward(request, response);
-		
 	}
 
 }

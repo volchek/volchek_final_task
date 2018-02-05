@@ -28,8 +28,6 @@ public class FinishEditQuestion implements ControllerCommand {
 		User user = (User) request.getSession().getAttribute(UserAttribute.CURRENT_USER);
 		int userId = user.getId();
 
-		RequestDispatcher d = null;
-
 		int questionId = Integer.parseInt(request.getParameter(TextAttribute.QUESTION_ID));
 		String old_text = request.getParameter(TextAttribute.QUESTION_OLD_TEXT);
 		String new_text = request.getParameter(TextAttribute.QUESTION_TEXT);
@@ -38,12 +36,12 @@ public class FinishEditQuestion implements ControllerCommand {
 			Question question = questionService.editQuestion(questionId, userId, old_text, new_text);
 			request.setAttribute(TextAttribute.QUESTION, question);
 
+			RequestDispatcher d = null;
 			d = request.getRequestDispatcher(PagePath.QUESTION_PAGE);
+			d.forward(request, response);
 		} catch (ServiceException ex) {
-			d = request.getRequestDispatcher(PagePath.CONTENT_ERROR_PAGE);
+			response.sendRedirect(PagePath.UPDATING_ERROR_PAGE);
 		}
-		d.forward(request, response);
-
 	}
 
 }

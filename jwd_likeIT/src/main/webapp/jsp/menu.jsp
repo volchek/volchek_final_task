@@ -17,6 +17,10 @@
 	var="registration" />
 <fmt:message key="main_menu.search" bundle="${lc}"
 	var="search" />	
+<fmt:message key="main_menu.keyword" bundle="${lc}"
+	var="keywords" />	
+<fmt:message key="menu.questions" bundle="${lc}"
+	var="questions" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <div class="menu clearfix">
@@ -33,8 +37,11 @@
 						value="${answers}" /></a>
 				<a href="${pageContext.request.contextPath}/find-question"> <c:out
 						value="${search}" /></a>
+				<a href="${pageContext.request.contextPath}/user-main-page"> <c:out
+						value="${questions}" /></a>
 				<c:if test="${sessionScope.current_user.admin}">
-					<a href="${pageContext.request.contextPath}/add-keyword">TAGS</a>
+					<a href="${pageContext.request.contextPath}/add-keyword"><c:out
+						value="${keywords}" /></a>
 				</c:if>
 						
 				<a href="${pageContext.request.contextPath}/logout"><c:out
